@@ -22,4 +22,4 @@ Running locally
 	vagrant ssh
 	```
 
-4. Access the the server locally at [http://localhost:8080/](http://localhost:8080/) 
+4. Access the the server locally at [http://localhost:8080/](http://localhost:8080/)  

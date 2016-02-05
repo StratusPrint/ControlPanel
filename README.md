@@ -1,7 +1,7 @@
 # WebControlPanel
-Commits pushed to the <b>master</b> branch are automatically deployed to [https://ubvoting.com](https://ubvoting.com).
+Commits pushed to the <b>master</b> branch are automatically deployed to [https://stratusprint.com](https://stratusprint.com).
 
-Commits pushed to the <b>dev</b> branch are automatically deployed to [https://dev.ubvoting.com](https://dev.ubvoting.com).
+Commits pushed to the <b>dev</b> branch are automatically deployed to [https://dev.stratusprint.com](https://dev.stratusprint.com).
 
 Running locally
 ---------------

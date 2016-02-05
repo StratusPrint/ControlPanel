@@ -36,3 +36,6 @@ bower.json
 
 # DS Store
 .DS_Store
+
+# Vagrant
+.vagrant

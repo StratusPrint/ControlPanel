@@ -9,7 +9,7 @@ Running locally
 
 1. Clone this repo:
 	```sh
-	git clone git@github.com:bobmshannon/UBVoting.git
+	git clone git@github.com:StratusPrint/WebControlPanel.git
 	```
 
 2. Start the virtual machine:

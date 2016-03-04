@@ -27,18 +27,18 @@ node default {
   }
   # Nginx
   class { 'nginx': 
-    http_cfg_append => {
-      passenger_root          => '/usr/lib/ruby/1.8/phusion_passenger/locations.ini',
-      passenger_ruby          =>  '/usr/local/rvm/gems/ruby-2.3.0/wrappers/ruby',
-      passenger_instance_registry_dir => '/var/run/passenger-instreg'
-    }
+    #http_cfg_append => {
+    #  passenger_root          => '/usr/lib/ruby/1.8/phusion_passenger/locations.ini',
+    #  passenger_ruby          =>  '/usr/local/rvm/gems/ruby-2.3.0/wrappers/ruby',
+    #  passenger_instance_registry_dir => '/var/run/passenger-instreg'
+    #}
   }
   nginx::resource::vhost { 'default_server':
-    www_root => '/vagrant/public',
-    vhost_cfg_append => {
-      'passenger_enabled' => 'on',
-      'passenger_app_env'    => 'development',
-    }
+    www_root => '/vagrant/app',
+    #vhost_cfg_append => {
+      #'passenger_enabled' => 'on',
+      #'passenger_app_env'    => 'development',
+    #}
   }
   # SQLite
   class { 'sqlite': }

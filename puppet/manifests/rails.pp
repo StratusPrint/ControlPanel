@@ -1,25 +1,25 @@
 node default {
   # Ruby (managed via RVM)
- # class { '::rvm': }
- # rvm::system_user { vagrant: ; }
- # rvm_system_ruby {
- #   'ruby-2.3.0':
- #     ensure      => 'present',
- #     default_use => true;
- #   'ruby-1.9.3':
- #     ensure      => 'present',
- #     default_use => false;
- # }
- # rvm_gem {
- #   'bundler':
- #     name         => 'bundler',
- #     ruby_version => 'ruby-2.3.0',
- #     ensure       => latest;
- #   'rails':
- #     name         => 'rails',
- #     ruby_version => 'ruby-2.3.0',
- #     ensure       => latest;
- # }
+  class { '::rvm': }
+  rvm::system_user { vagrant: ; }
+  rvm_system_ruby {
+    'ruby-2.3.0':
+      ensure      => 'present',
+      default_use => true;
+    'ruby-1.9.3':
+      ensure      => 'present',
+      default_use => false;
+  }
+  rvm_gem {
+    'bundler':
+      name         => 'bundler',
+      ruby_version => 'ruby-2.3.0',
+      ensure       => latest;
+    'rails':
+      name         => 'rails',
+      ruby_version => 'ruby-2.3.0',
+      ensure       => latest;
+  }
   # NodeJS (managed via NVM)
   class { 'nvm':
     user => 'vagrant',
@@ -41,13 +41,13 @@ node default {
     #}
   }
   # SQLite
-  #class { 'sqlite': }
+  class { 'sqlite': }
   # PostgreSQL
-  #class { 'postgresql::server':
-   # postgres_password          => 'changeme'
-  #}
+  class { 'postgresql::server':
+    postgres_password          => 'changeme'
+  }
   # Phusion Passenger
-  #class { 'passenger': }
+  class { 'passenger': }
   # Developer Utilities
   class { 'utils': }
   # Firewall Rules

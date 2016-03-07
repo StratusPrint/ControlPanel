@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
+  "name": "Stratus Print web control panel",
+  "description": "A hub for managing 3D Printers",
   "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "homepage": "https://dev.stratusprint.com",
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -10,6 +10,9 @@
     "angular-route": "~1.4.0",
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
+    "bootstrap": "~3.3.6",
+    "components-font-awesome": "~4.5.0",
+    "jquery": "~2.2.1",
     "html5-boilerplate": "~5.2.0"
   },
   "main": "",
@@ -18,7 +21,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "app/bower_components",
+    "app/assets/bower_components",
     "test",
     "tests"
   ]

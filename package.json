@@ -1,9 +1,9 @@
 {
-  "name": "angular-seed",
+  "name": "Stratus Print web control panel",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "description": "A hub for controlling and monitoring 3D printers",
+  "repository": "https://github.com/StratusPrint/WebControlPanel",
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.3.1",

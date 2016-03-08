@@ -1,56 +1,60 @@
 <!-- index.html -->
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8"
-      <title>Playing with HTML injection</title>
-      <link rel="stylesheet" href="assets/css/styles.css">
-      <link rel="stylesheet" href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="assets/bower_components/components-font-awesome/css/font-awesome.min.css" />
+<!DOCTYPE html>
+<html ng-app="scotchApp">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/bower_components/components-font-awesome/css/font-awesome.min.css" />
 
-         <script src="assets/bower_components/angular/angular.js"></script>
-          <script src="assets/bower_components/angular-route/angular-route.min.js"></script>
-        <script src="assets/bower_components/jquery/src/jquery.js"></script>
-      <script src="script.js"></script>
-    </head>
-    <body>
+    <script src="assets/bower_components/angular/angular.js"></script>
+    <script src="assets/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
 
-        <!-- HEADER AND NAVBAR -->
-        <header>
-    <nav class="navbar navbar-default navbar-static-top">
+    <!-- HEADER AND NAVBAR -->
+    <header>
+      <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
-            <div class="navbar-header">
-                <button aria-controls"navbar" aria-expanded="false"
-                        data-target="#navbar" data-toggle="collapse" class="navbar-toggle
-                                        collapsed" type="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Home</a>
-            </div>
+          <div class="navbar-header">
+            <button aria-controls"navbar" aria-expanded="false"
+                                          data-target="#navbar" data-toggle="collapse" class="navbar-toggle
+                                          collapsed" type="button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Home</a>
+          </div>
 
-            <div class="navbar-collapse collapse" id="navbar">
-                <ul class="nav navbar-nav">
-                    <li> <a href="#">Print Techniques</a></li>
-                </ul>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+              <li> <a href="#about">About</a></li>
+              <li> <a href="#contact">Contact</a></li>
+            </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Logout</a></li>
-                </ul>
-            </div>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </div>
         </div>
-    </nav>
-        </header>
+      </nav>
+    </header>
 
-        <!-- MAIN CONTENT AND INJECTED VIEWS -->
-        <div id="main">
+    <body ng-controller ="mainController">
+      <!-- MAIN CONTENT AND INJECTED VIEWS -->
+      <div id="main">
+        {{ message }}
 
-            <!-- angular templating -->
-            <!-- this is where content will be injected -->
+        <div ng-view> </div>
 
-        </div>
+
+        <!-- angular templating -->
+        <!-- this is where content will be injected -->
+
+      </div>
 
     </body>
-    </html>
+</html>

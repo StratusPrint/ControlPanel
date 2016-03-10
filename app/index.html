@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/bower_components/components-font-awesome/css/font-awesome.min.css" />
 
+    <script src="assets/bower_components/jquery/dist/jquery.min.js"></script> 
+    <script src="assets/bower_components/bootstrap/js/collapse.js"></script> 
     <script src="assets/bower_components/angular/angular.js"></script>
     <script src="assets/bower_components/angular-route/angular-route.min.js"></script>
     <script src="script.js"></script>
@@ -30,30 +32,23 @@
 
           <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-              <li> <a href="#about">About</a></li>
-              <li> <a href="#contact">Contact</a></li>
+              <li> <a href="#dashboard">Dashboard</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Logout</a></li>
+              <li><a href="#login">Login</a></li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
 
-    <body ng-controller ="mainController">
-      <!-- MAIN CONTENT AND INJECTED VIEWS -->
+    <body ng-controller ="mainCtrl">
       <div id="main">
-        {{ message }}
+        <p>{{ message }}</p>
 
         <div ng-view> </div>
 
-
-        <!-- angular templating -->
-        <!-- this is where content will be injected -->
-
       </div>
-
     </body>
 </html>

@@ -1,5 +1,5 @@
 {
-  "name": "Stratus Print web control panel",
+  "name": "WebControlPanel",
   "private": true,
   "version": "0.0.0",
   "description": "A hub for controlling and monitoring 3D printers",
@@ -8,6 +8,9 @@
   "devDependencies": {
     "bower": "^1.3.1",
     "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",
     "http-server": "^0.6.1",
     "jasmine-core": "^2.3.4",
     "karma": "~0.12",

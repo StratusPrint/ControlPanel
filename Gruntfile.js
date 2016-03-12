@@ -94,20 +94,34 @@ module.exports = function( grunt ) {
         ]
       }
     }
-  }
+  },
   watch: {
     styles: {
-      files: [ 'app/assets/**/*.css','app/assets/**/*.js' ],
-                                           grunt.registerTask( 'default', [
-                                           'compass',
-                                           'newer:uglify',
-                                           'newer:cssmin'
-                                           ] );
+      files: [ 'app/assets/css/*.css' ],
+                                tasks: [ 'compass' ],
+                                options: {
+                                spawn: false
+                                }
+                                }
+                                });
 
-                                           grunt.registerTask( 'lint', [
-                                           'jshint',
-                                           'jscs',
-                                           'scsslint'
-                                           ] );
+                                grunt.registerTask( 'default', [
+                                'compass',
+                                'newer:uglify',
+                                'newer:cssmin'
+                                ] );
 
-                                           };
+                                grunt.registerTask( 'lint', [
+                                'jshint',
+                                'jscs',
+                                'scsslint'
+                                ] );
+
+                                grunt.registerTask( 'compile', [
+                                'compass'
+                                ] );
+
+                                grunt.registerTask( 'test', [
+                                'compass', 'jshint', 'jscs', 'scsslint'
+                                ] );
+                                };

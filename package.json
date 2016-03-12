@@ -21,6 +21,7 @@
     "grunt-run": "^0.3",
     "grunt-scss-lint": "^0.3.8",
     "jshint": "^2.6",
+    "jshint-stylish": "^2.1.0",
     "load-grunt-tasks": "^3",
     "protractor": "^2.1.0",
     "shelljs": "^0.2.6",

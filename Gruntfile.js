@@ -51,6 +51,14 @@ module.exports = function(grunt) {
         validateIndentation: '\t' // Enforce use of tab for indentation
       }
     },
+    jscs: {
+      src: ["app/assets/components/**/*.js","app/script.js"],
+      options: {
+        "config": ".jscsrc",
+        "preset": "google",
+        "fix": false 
+      }
+    },
     uglify: {
       options: {
         banner: '/* <%= grunt.template.today("yyyy-mm-dd") %> */\n',

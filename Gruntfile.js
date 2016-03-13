@@ -112,6 +112,29 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    watch: {
+      scripts: {
+        files: [
+          'app/*.js',
+          'app/assets/js/*.js',
+          'app/components/**/*.js'
+        ],
+        tasks: ['jshint','jscs'],
+        options: {
+          spawn: false,
+        },
+      },
+      styles: {
+        files: [
+          'app/assets/css/*.css',
+          'app/components/**/*.css'
+        ],
+        tasks: ['cssmin'],
+        options: {
+          spawn: false,
+        },
+      },
     }
   });
 

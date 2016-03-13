@@ -54,34 +54,61 @@ module.exports = function(grunt) {
       },
       base: {
         files: {
-          'app/public/javascripts/base.js': [
+          'app/assets/public/js/base.js': [
             'app/assets/bower_components/jquery/dist/jquery.js',
             'app/assets/bower_components/bootstrap/dist/js/bootstrap.min.js',
+            'app/assets/bower_components/angular/angular.min.js',
+            'app/assets/bower_components/angular-route/angular-route.min.js'
           ]
         }
       },
       dashboard: {
         files: {
-          'app/assets/dashboard/dashboardCtrl.js': []
+          'app/assets/public/dashboard/dashboard.js': [
+            'app/components/dashboard/*.js'
+          ]
         }
       },
       login: {
         files: {
-          'app/assets/login/loginCtrl.js': []
+          'app/assets/public/login/login.js': [
+            'app/components/login/*.js'
+          ]
         }
       }
     },
     cssmin: {
       options: {
         banner: '/* <%= grunt.template.today("yyyy-mm-dd") %> */',
-        root: './'
+        root: './app/'
       },
       base: {
         files: {
-          'app/assets/css/styles.css': [
-            'app/assets/components-font-awesome/css/font-awesome.css',
-            'app/assets/bootstrap/dist/css/bootstrap.min.css',
-            'app/assets/bootstrap/dist/css/bootstrap-theme.min.css'
+          'app/assets/public/css/base.css': [
+            'app/assets/bower_components/components-font-awesome/css/font-awesome.css',
+            'app/assets/bower_components/bootstrap/dist/css/bootstrap.min.css',
+            'app/assets/bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
+          ]
+        }
+      },
+      main: {
+        files: {
+          'app/assets/public/css/styles.css': [
+            './app/assets/css/*.css'
+          ]
+        }
+      },
+      dashboard: {
+        files: {
+          'app/assets/public/css/dashboard/dashboard.css': [
+            'app/components/dashboard/*.css'
+          ]
+        }
+      },
+      login: {
+        files: {
+          'app/assets/public/css/dashboard/login.css': [
+            'app/components/login/*.css'
           ]
         }
       }

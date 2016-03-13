@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       },
       base: {
         files: {
-          'public/javascripts/base.js': [
+          'app/public/javascripts/base.js': [
             'app/assets/bower_components/jquery/dist/jquery.js',
             'app/assets/bower_components/bootstrap/dist/js/bootstrap.min.js',
           ]

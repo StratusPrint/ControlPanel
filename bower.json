@@ -5,15 +5,17 @@
   "homepage": "https://dev.stratusprint.com",
   "license": "MIT",
   "private": true,
-  "dependencies": {
-    "angular": "~1.4.0",
-    "angular-route": "~1.4.0",
-    "angular-loader": "~1.4.0",
-    "angular-mocks": "~1.4.0",
-    "bootstrap": "~3.3.6",
-    "components-font-awesome": "~4.5.0",
-    "jquery": "~2.2.1",
-    "html5-boilerplate": "~5.2.0"
+  "devDependencies": {
+    "angular": "^1.5.0",
+    "angular-route": "^1.5.0",
+    "angular-loader": "^1.5.0",
+    "angular-mocks": "^1.5.0",
+    "angular-cookies": "^1.5.0",
+    "bootstrap": "^3.3.6",
+    "components-font-awesome": "^4.5.0",
+    "jquery": "^2.2.1",
+    "html5-boilerplate": "^5.2.0",
+    "ng-token-auth": "^0.0.28"
   },
   "main": "",
   "moduleType": [],
@@ -24,5 +26,8 @@
     "app/assets/bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "resolutions": {
+    "angular": "^1.5.0"
+  }
 }

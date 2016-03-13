@@ -27,6 +27,7 @@ module.exports = function(grunt) {
       ]
     },
     jshint: {
+      src: ["app/assets/components/**/*.js","app/script.js"],
       options: {
         reporter: require('jshint-stylish'),
         globals: {
@@ -34,29 +35,14 @@ module.exports = function(grunt) {
           console: true
         }
       },
-      src: [
-        '*.js',
-        'app/assets/bower_components/jquery/**/*.js'
-      ]
-    },
-    jscs: {
-      src: [
-        '*.js',
-        'app/assets/js/**/*.js'
-      ],
-      options: {
-        preset: 'jquery', // Enforce jQuery code style guidelines (see: https://contribute.jquery.org/style-guide/js/)
-        fix: true, // Auto fix code style errors
-        validateQuoteMarks: '\'', // Enforce single quotes instead of double
-        validateIndentation: '\t' // Enforce use of tab for indentation
-      }
+
     },
     jscs: {
       src: ["app/assets/components/**/*.js","app/script.js"],
       options: {
         "config": ".jscsrc",
         "preset": "google",
-        "fix": false 
+        "fix": true 
       }
     },
     uglify: {
@@ -104,16 +90,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'newer:uglify',
-    'newer:cssmin'
+    'newer:cssmin',
+    'newer:jshint',
+    'newer:jscs'
   ]);
 
   grunt.registerTask('lint', [
     'jshint',
     'jscs',
-    'scsslint'
-  ]);
-
-  grunt.registerTask('test', [
-    'jshint', 'jscs', 'scsslint'
   ]);
 };

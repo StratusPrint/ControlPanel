@@ -7,7 +7,7 @@ theApp.config(['$routeProvider',
       when('/', {
         controller: 'mainCtrl'
       }).
-    
+
       when('/login', {
         templateUrl: 'components/login/loginView.html',
         controller: 'loginCtrl'
@@ -25,7 +25,8 @@ theApp.config(['$routeProvider',
   }]);
 
 theApp.controller('mainCtrl', function($scope) {
-  $scope.message = "This is the main controller and can be on every page, if we want!"
+  $scope.message =
+    'This is the main controller and can be on every page, if we want!';
 });
 
 theApp.controller('loginCtrl', function($scope) {

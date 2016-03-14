@@ -2,19 +2,19 @@
 
   <p>Copy/Pasted, for now :D</p>
 
-  <form class="form-signin" name="loginForm">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" type="email">
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input id="inputPassword" class="form-control" placeholder="Password" required="" type="password">
-    <div class="checkbox">
-      <label>
-        <input value="remember-me" type="checkbox"> Remember me
-      </label>
+  <form ng-submit="submitLogin(loginForm)" role="form" ng-init="loginForm = {}">
+    <div class="form-group">
+      <label>email</label>
+      <input type="email" name="email" ng-model="loginForm.email" required="required" class="form-control"/>
     </div>
-    <button ng-click='handleLoginBtnClick()' class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  </form>
+
+    <div class="form-group">
+      <label>password</label>
+      <input type="password" name="password" ng-model="loginForm.password" required="required" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+  </form> 
   <h3>{{ loginErrorMessage }}</h3>
 
 </div> <!-- /container -->

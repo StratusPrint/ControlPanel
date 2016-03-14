@@ -1,3 +1,5 @@
+//var theApp = angular.module('theApp', ['ngRoute', 'ng-token-auth']);
+
 var theApp = angular.module('theApp', ['ngRoute']);
 
 theApp.config(['$routeProvider',
@@ -30,7 +32,19 @@ theApp.controller('mainCtrl', function($scope) {
 });
 
 theApp.controller('loginCtrl', function($scope) {
-  $scope.message = 'Welcome to Login!';
+
+  /*
+    $scope.handleBtnClick = function() {
+      $auth.authenticate('github')
+      .then(function(resp) {
+
+      })
+      .catch(function(resp){
+        $scope.message = 'Welcome to Login!';
+      });
+    };
+   */
+
 });
 
 theApp.controller('dashboardCtrl', function($scope) {

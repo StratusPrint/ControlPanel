@@ -21,9 +21,8 @@ module.exports = function(grunt) {
     },
     clean: {
       src: [
-        'app/assets/**/*.css',
-        'app/assets/**/*.js',
-        'public/javascripts/**/*.js',
+        'app/assets/public/**/*.css',
+        'app/assets/public/**/*.js'
       ]
     },
     jshint: {

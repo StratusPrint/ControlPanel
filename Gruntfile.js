@@ -59,7 +59,7 @@ module.exports = function(grunt) {
             'app/assets/bower_components/angular/angular.min.js',
             'app/assets/bower_components/angular-route/angular-route.min.js',
             'app/assets/bower_components/angular-cookie/angular-cookie.min.js',
-            'app/assets/bower_components/ng-token-auth/ng-token-auth.min.js'
+            'app/assets/bower_components/ng-token-auth/dist/ng-token-auth.min.js'
           ]
         }
       },

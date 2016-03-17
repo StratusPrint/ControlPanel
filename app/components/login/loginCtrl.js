@@ -2,7 +2,6 @@ theApp.controller('loginCtrl', function($scope,$auth) {
 	$scope.login = function() {
 	    $auth.submitLogin($scope.loginForm)
 	    .then(function(resp) {
-        alert('Welcome!');
 	      // handle success response
 	      console.log("Logged in!?");
 	    })

@@ -17,6 +17,9 @@
       <script src='assets/bower_components/ng-token-auth/dist/ng-token-auth.js'></script>
 
       <script src='script.js'></script>
+      <script src='components/login/loginCtrl.js'></script>
+      <script src='components/dashboard/dashboardCtrl.js'></script>
+      <script src='components/register/registerCtrl.js'></script>
   </head>
 
   <body>
@@ -41,7 +44,13 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+              <li><a href="#register">Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
               <li><a href="#login">Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a ng-click="signout()">Sign Out</a></li>
             </ul>
           </div>
         </div>

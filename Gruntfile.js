@@ -59,6 +59,16 @@ module.exports = function(grunt) {
             'app/assets/bower_components/angular/angular.min.js',
             'app/assets/bower_components/angular-route/angular-route.min.js',
             'app/assets/bower_components/angular-cookie/angular-cookie.min.js',
+            'assets/bower_components/metisMenu/dist/metisMenu.min.js',
+            'assets/dist/js/sb-admin-2.js',
+            'assets/bower_components/flot/excanvas.min.js',
+            'assets/bower_components/flot/jquery.flot.js',
+            'assets/bower_components/flot/jquery.flot.pie.js',
+            'assets/bower_components/flot/jquery.flot.resize.js',
+            'assets/bower_components/flot/jquery.flot.time.js',
+            'assets/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js',
+            'assets/bower_components/raphael/raphael-min.js',
+            'assets/bower_components/morrisjs/morris.min.js',
             'app/assets/bower_components/ng-token-auth/dist/ng-token-auth.min.js'
           ]
         }

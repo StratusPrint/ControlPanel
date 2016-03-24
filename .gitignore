@@ -6,5 +6,6 @@ bower_components/
 tmp
 .DS_Store
 .idea
-app/assets/public
+app/public/css/
+app/public/js/
 *.swp

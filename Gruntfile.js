@@ -21,12 +21,15 @@ module.exports = function(grunt) {
     },
     clean: {
       src: [
-        'app/assets/public/**/*.css',
-        'app/assets/public/**/*.js'
+        'app/public/**/*.css',
+        'app/public/**/*.js'
       ]
     },
     jshint: {
-      src: ["app/assets/components/**/*.js","app/script.js"],
+      src: [
+        "app/components/**/*.js",
+        "app/app.js"
+      ],
       options: {
         reporter: require('jshint-stylish'),
         globals: {
@@ -37,12 +40,30 @@ module.exports = function(grunt) {
 
     },
     jscs: {
-      src: ["app/assets/components/**/*.js","app/script.js"],
+      src: [
+        "app/assets/components/**/*.js",
+        "app/script.js"
+      ],
       options: {
         "config": ".jscsrc",
         "preset": "google",
         "fix": true 
       }
+    },
+    ngAnnotate: {
+        angular_app: {
+            files: {
+              'app/public/js/app.js': [
+                'bower_components/angular/angular.js',
+                'bower_components/angular-route/angular-route.js',
+                'bower_components/angular-cookie/angular-cookie.js',
+                'bower_components/ng-token-auth/dist/ng-token-auth.js',
+                'app/app.js',
+                'app/components/**/*.js',
+                'app/shared/**/*.js'
+              ]
+            }
+        },
     },
     uglify: {
       options: {
@@ -53,27 +74,22 @@ module.exports = function(grunt) {
       },
       base: {
         files: {
-          'app/assets/public/js/base.js': [
-            'app/assets/bower_components/jquery/dist/jquery.js',
-            'app/assets/bower_components/bootstrap/dist/js/bootstrap.min.js',
-            'app/assets/bower_components/angular/angular.min.js',
-            'app/assets/bower_components/angular-route/angular-route.min.js',
-            'app/assets/bower_components/angular-cookie/angular-cookie.min.js',
-            'app/assets/bower_components/ng-token-auth/dist/ng-token-auth.min.js'
+          'app/public/js/base.js': [
+            'bower_components/jquery/dist/jquery.js',
+            'bower_components/bootstrap/dist/js/bootstrap.js',
+            'bower_components/metisMenu/dist/metisMenu.js',
+            'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js'
+          ],
+          'app/public/js/graphs.js': [
+            'bower_components/raphael/raphael.js',
+            'bower_components/morrisjs/morris.js'
           ]
         }
       },
-      dashboard: {
+      app: {
         files: {
-          'app/assets/public/dashboard/dashboard.js': [
-            'app/components/dashboard/*.js'
-          ]
-        }
-      },
-      login: {
-        files: {
-          'app/assets/public/login/login.js': [
-            'app/components/login/*.js'
+          'app/public/js/app.js': [
+            'app/public/js/app.js'
           ]
         }
       }
@@ -85,31 +101,13 @@ module.exports = function(grunt) {
       },
       base: {
         files: {
-          'app/assets/public/css/base.css': [
-            'app/assets/bower_components/components-font-awesome/css/font-awesome.css',
-            'app/assets/bower_components/bootstrap/dist/css/bootstrap.min.css',
-            'app/assets/bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
-          ]
-        }
-      },
-      main: {
-        files: {
-          'app/assets/public/css/styles.css': [
-            './app/assets/css/*.css'
-          ]
-        }
-      },
-      dashboard: {
-        files: {
-          'app/assets/public/css/dashboard/dashboard.css': [
-            'app/components/dashboard/*.css'
-          ]
-        }
-      },
-      login: {
-        files: {
-          'app/assets/public/css/dashboard/login.css': [
-            'app/components/login/*.css'
+          'app/public/css/base.css': [
+            'bower_components/bootstrap/dist/css/bootstrap.css',
+            'bower_components/metisMenu/dist/metisMenu.css',
+            'bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css',
+            'bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css',
+            'bower_components/font-awesome/css/font-awesome.css',
+            'bower_components/morrisjs/morris.css'
           ]
         }
       }
@@ -117,19 +115,18 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: [
-          'app/*.js',
-          'app/assets/js/*.js',
-          'app/components/**/*.js'
+          'app/app.js',
+          'app/components/**/*.js',
+          'app/shared/**/*.js'
         ],
-        tasks: ['jshint','jscs'],
+        tasks: ['default'],
         options: {
           spawn: false,
         },
       },
       styles: {
         files: [
-          'app/assets/css/*.css',
-          'app/components/**/*.css'
+          'app/assets/css/**/*.css'
         ],
         tasks: ['cssmin'],
         options: {
@@ -140,6 +137,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', [
+    'ngAnnotate:angular_app',
     'newer:uglify',
     'newer:cssmin',
     'newer:jshint',

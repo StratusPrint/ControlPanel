@@ -8,8 +8,8 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder 'puppet', '/puppet'
   # Puppet Provisioner
   config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = "puppet/manifests"
-    puppet.module_path    = "puppet/modules"
+    puppet.manifests_path = ".puppet/manifests"
+    puppet.module_path    = ".puppet/modules"
     puppet.manifest_file  = "rails.pp"
   end
 end

@@ -1,4 +1,4 @@
-theApp.controller('registerCtrl', function($scope,$auth) {
+app.controller('registerCtrl', function($scope,$auth) {
   $scope.register = function() {
       $auth.submitRegistration($scope.registerForm)
       .then(function(resp) {

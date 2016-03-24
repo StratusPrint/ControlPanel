@@ -1,68 +1,16 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html ng-app='theApp'>
+<html ng-app='ControlPanel'>
   <head>
     <meta charset='utf-8'>
-    <link rel="stylesheet" href='assets/public/css/styles.css' />
-    <link rel="stylesheet" href='assets/public/css/base.css' />
-    <!--
-      <script src='assets/public/js/base.js'></script>
-      <script src="assets/publis/js/script.js"></script>
-      -->
-      <script src='assets/bower_components/jquery/dist/jquery.js'></script>
-      <script src='assets/bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
-      <script src='assets/bower_components/angular/angular.min.js'></script>
-      <script src='assets/bower_components/angular-route/angular-route.min.js'></script>
-      <script src='assets/bower_components/angular-cookie/angular-cookie.min.js'></script>
-      <script src='assets/bower_components/ng-token-auth/dist/ng-token-auth.js'></script>
-
-      <script src='script.js'></script>
-      <script src='components/login/loginCtrl.js'></script>
-      <script src='components/dashboard/dashboardCtrl.js'></script>
-      <script src='components/register/registerCtrl.js'></script>
+    <script src='public/js/base.js'></script>
+    <script src='public/js/app.js'></script>
+    <link rel="stylesheet" href='public/css/base.css' />
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-          <div class="navbar-header">
-            <button aria-controls"navbar" aria-expanded="false"
-                                          data-target="#navbar" data-toggle="collapse" class="navbar-toggle
-                                          collapsed" type="button">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Home</a>
-          </div>
-
-          <div class="navbar-collapse collapse" id="navbar">
-            <ul class="nav navbar-nav">
-              <li> <a href="#dashboard">Dashboard</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#register">Register</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#login">Login</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a ng-click="signout()">Sign Out</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <body ng-controller ="mainCtrl">
+    <body ng-controller="mainCtrl">
       <div id="main">
-        <p>{{ message }}</p>
-
-        <div ng-view> </div>
-
+        <div ng-view></div>
       </div>
     </body>
 </html>

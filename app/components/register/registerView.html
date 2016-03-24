@@ -1,25 +1,24 @@
-<div class="container">
+<div id="wrapper">
+  <div id="page-wrapper">
 
-  <p>Copy/Pasted, for now :D</p>
+    <form ng-submit="register()" role="form" ng-init="registerForm = {}">
+      <div class="form-group">
+        <label>email</label>
+        <input type="email" name="email" ng-model="registerForm.email" required="required" class="form-control"/>
+      </div>
 
-  <form ng-submit="register()" role="form" ng-init="registerForm = {}">
-    <div class="form-group">
-      <label>email</label>
-      <input type="email" name="email" ng-model="registerForm.email" required="required" class="form-control"/>
-    </div>
+      <div class="form-group">
+        <label>password</label>
+        <input type="password" name="password" ng-model="registerForm.password" required="required" class="form-control"/>
+      </div>
 
-    <div class="form-group">
-      <label>password</label>
-      <input type="password" name="password" ng-model="registerForm.password" required="required" class="form-control"/>
-    </div>
+      <div class="form-group">
+        <label>password</label>
+        <input type="password" name="password" ng-model="registerForm.password_confirmation" required="required" class="form-control"/>
+      </div>
 
-    <div class="form-group">
-      <label>password</label>
-      <input type="password" name="password" ng-model="registerForm.password_confirmation" required="required" class="form-control"/>
-    </div>
-
-    <button type="submit" class="btn btn-primary btn-lg">Register</button>
-  </form> 
-  <h3>{{ registerErrorMessage }}</h3>
-
+      <button type="submit" class="btn btn-primary btn-lg">Register</button>
+    </form> 
+    <h3>{{ registerErrorMessage }}</h3>
+  </div>
 </div> <!-- /container -->

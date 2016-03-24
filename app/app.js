@@ -1,6 +1,6 @@
-var theApp = angular.module('theApp', ['ngRoute', 'ng-token-auth']);
+var app = angular.module('ControlPanel', ['ngRoute', 'ng-token-auth']);
 
-theApp.config(['$routeProvider',
+app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       //Can add in if user is autheticated here!
@@ -38,7 +38,7 @@ theApp.config(['$routeProvider',
 
   }]);
 
-theApp.config(function($authProvider) {
+app.config(function($authProvider) {
     $authProvider.configure({
       apiUrl: 'https://dev.api.stratusprint.com/v1',
       tokenValidationPath:     '/auth/validate_token',
@@ -52,13 +52,13 @@ theApp.config(function($authProvider) {
     });
   });
 
-theApp.controller('mainCtrl', function($scope) {
+app.controller('mainCtrl', function($scope) {
     $scope.message =
       'This is the main controller and can be on every page, if we want!';
   });
 
-/*Setting up authentication, redirections, and signout*/
-theApp.run(function($rootScope, $location, $auth) {
+/* Setting up authentication, redirections, and signout */
+app.run(function($rootScope, $location, $auth) {
 
   $rootScope.$on('auth:invalid',function(e) {
     $location.path('/login');

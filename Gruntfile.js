@@ -59,7 +59,8 @@ module.exports = function(grunt) {
                 'bower_components/angular-cookie/angular-cookie.js',
                 'bower_components/ng-token-auth/dist/ng-token-auth.js',
                 'app/app.js',
-                'app/components/**/*.js'
+                'app/components/**/*.js',
+                'app/shared/**/*.js'
               ]
             }
         },
@@ -76,8 +77,8 @@ module.exports = function(grunt) {
           'app/public/js/base.js': [
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
-            'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
             'bower_components/metisMenu/dist/metisMenu.js',
+            'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js'
           ],
           'app/public/js/graphs.js': [
             'bower_components/raphael/raphael.js',

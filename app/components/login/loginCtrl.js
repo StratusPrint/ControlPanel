@@ -1,4 +1,4 @@
-theApp.controller('loginCtrl', function($scope,$auth) {
+app.controller('loginCtrl', function($scope,$auth) {
 	$scope.login = function() {
 	    $auth.submitLogin($scope.loginForm)
 	    .then(function(resp) {

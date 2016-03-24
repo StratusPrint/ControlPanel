@@ -5,7 +5,8 @@ theApp.config(['$routeProvider',
     $routeProvider.
       //Can add in if user is autheticated here!
       when('/', {
-        controller: 'mainCtrl'
+        controller: 'mainCtrl',
+        redirectTo: '/login'
       }).
 
       when('/login', {

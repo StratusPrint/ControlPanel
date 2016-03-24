@@ -56,20 +56,27 @@ module.exports = function(grunt) {
           'app/assets/public/js/base.js': [
             'app/assets/bower_components/jquery/dist/jquery.js',
             'app/assets/bower_components/bootstrap/dist/js/bootstrap.min.js',
+            'assets/bower_components/metisMenu/dist/metisMenu.min.js',
+            'assets/bower_components/raphael/raphael-min.js',
+            'assets/bower_components/morrisjs/morris.min.js',
+            'assets/dist/js/sb-admin-2.js',
             'app/assets/bower_components/angular/angular.min.js',
             'app/assets/bower_components/angular-route/angular-route.min.js',
             'app/assets/bower_components/angular-cookie/angular-cookie.min.js',
-            'assets/bower_components/metisMenu/dist/metisMenu.min.js',
-            'assets/dist/js/sb-admin-2.js',
+            'app/assets/bower_components/ng-token-auth/dist/ng-token-auth.min.js',
             'assets/bower_components/flot/excanvas.min.js',
             'assets/bower_components/flot/jquery.flot.js',
             'assets/bower_components/flot/jquery.flot.pie.js',
             'assets/bower_components/flot/jquery.flot.resize.js',
             'assets/bower_components/flot/jquery.flot.time.js',
-            'assets/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js',
-            'assets/bower_components/raphael/raphael-min.js',
-            'assets/bower_components/morrisjs/morris.min.js',
-            'app/assets/bower_components/ng-token-auth/dist/ng-token-auth.min.js'
+            'assets/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js'
+          ]
+        }
+      },
+      misc: {
+        files: {
+          'app/assets/public/js/miscScripts.js': [
+            'app/assets/js/*.js'
           ]
         }
       },
@@ -96,33 +103,17 @@ module.exports = function(grunt) {
       base: {
         files: {
           'app/assets/public/css/base.css': [
-            'app/assets/bower_components/components-font-awesome/css/font-awesome.css',
             'app/assets/bower_components/bootstrap/dist/css/bootstrap.min.css',
-            'assets/bower_components/metisMenu/dist/metisMenu.min.css',
-            'assets/dist/css/sb-admin-2.css',
-            'assets/bower_components/font-awesome/css/font-awesome.min.css',
-            'app/assets/bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
+            'app/assets/bower_components/metisMenu/dist/metisMenu.min.css',
+            'app/assets/bower_components/font-awesome/css/font-awesome.min.css',
+            'app/assets/dist/css/sb-admin-2.css'
           ]
         }
       },
       main: {
         files: {
           'app/assets/public/css/styles.css': [
-            './app/assets/css/*.css'
-          ]
-        }
-      },
-      dashboard: {
-        files: {
-          'app/assets/public/css/dashboard/dashboard.css': [
-            'app/components/dashboard/*.css'
-          ]
-        }
-      },
-      login: {
-        files: {
-          'app/assets/public/css/dashboard/login.css': [
-            'app/components/login/*.css'
+            'app/assets/css/*.css'
           ]
         }
       }

@@ -36,6 +36,7 @@
     "angular": "^1.5.0"
   },
   "dependencies": {
-    "startbootstrap-sb-admin-2": "^1.0.8"
+    "startbootstrap-sb-admin-2": "^1.0.8",
+    "raphael": "^2.1.4",
   }
 }

@@ -78,6 +78,9 @@ module.exports = function(grunt) {
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
             'bower_components/metisMenu/dist/metisMenu.js',
+          ],
+          'app/public/js/graphs.js': [
+            'bower_components/raphael/raphael.js',
             'bower_components/morrisjs/morris.js'
           ]
         }
@@ -103,6 +106,7 @@ module.exports = function(grunt) {
             'bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css',
             'bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css',
             'bower_components/font-awesome/css/font-awesome.css',
+            'bower_components/morrisjs/morris.css'
           ]
         }
       }

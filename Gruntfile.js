@@ -54,6 +54,10 @@ module.exports = function(grunt) {
         angular_app: {
             files: {
               'app/public/js/app.js': [
+                'bower_components/angular/angular.js',
+                'bower_components/angular-route/angular-route.js',
+                'bower_components/angular-cookie/angular-cookie.js',
+                'bower_components/ng-token-auth/dist/ng-token-auth.js',
                 'app/app.js',
                 'app/components/**/*.js'
               ]
@@ -74,11 +78,7 @@ module.exports = function(grunt) {
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
             'bower_components/metisMenu/dist/metisMenu.js',
-            'bower_components/morrisjs/morris.js',
-            'bower_components/angular/angular.js',
-            'bower_components/angular-route/angular-route.js',
-            'bower_components/angular-cookie/angular-cookie.js',
-            'bower_components/ng-token-auth/dist/ng-token-auth.js'
+            'bower_components/morrisjs/morris.js'
           ]
         }
       },

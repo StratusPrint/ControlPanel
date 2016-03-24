@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "startbootstrap-sb-admin-2": "^1.0.8",
-    "raphael": "^2.1.4",
+    "raphael": "^2.1.4"
   }
 }

@@ -98,6 +98,9 @@ module.exports = function(grunt) {
           'app/assets/public/css/base.css': [
             'app/assets/bower_components/components-font-awesome/css/font-awesome.css',
             'app/assets/bower_components/bootstrap/dist/css/bootstrap.min.css',
+            'assets/bower_components/metisMenu/dist/metisMenu.min.css',
+            'assets/dist/css/sb-admin-2.css',
+            'assets/bower_components/font-awesome/css/font-awesome.min.css',
             'app/assets/bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
           ]
         }

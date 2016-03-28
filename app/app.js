@@ -16,7 +16,7 @@ app.config(['$routeProvider',
 
       when('/dashboard', {
         templateUrl: 'components/dashboard/dashboardView.html',
-        controller: 'dashboardCtrl',
+        controller: 'mainCtrl',
         resolve: {
           auth: ['$auth', function($auth) {
 

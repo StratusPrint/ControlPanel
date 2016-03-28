@@ -8,9 +8,9 @@
     <link rel="stylesheet" href='public/css/base.css' />
   </head>
 
-  <body>
     <body ng-controller="mainCtrl">
       <div id="main">
+        <p> {{message}} </p>
         <nav ng-controller="mainCtrl" class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -219,7 +219,7 @@
                 <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
               </a>
               <ul class="dropdown-menu dropdown-user">
-                <li><a href=""><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="#/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
                 <li><a href=""><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
@@ -234,7 +234,7 @@
           <!-- /.navbar-top-links -->
 
 
-          <div ng-view></div>
       </div>
+      <div ng-view></div>
     </body>
 </html>

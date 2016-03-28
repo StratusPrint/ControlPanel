@@ -32,6 +32,11 @@ app.config(['$routeProvider',
         controller: 'registerCtrl'
       }).
 
+      when('/profile',{
+        templateUrl: 'components/profile/profileView.html',
+        controller: 'profileCtrl'
+      }).
+
       otherwise({
         redirectTo: '/'
       });

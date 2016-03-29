@@ -2,6 +2,8 @@ app.controller('loginCtrl', function($scope,$auth) {
 	$scope.login = function() {
 	    $auth.submitLogin($scope.loginForm)
 	    .then(function(resp) {
+        alert(resp);
+        alert(JSON.stringify(resp));
 	      // handle success response
 	      console.log("Logged in!?");
 	    })

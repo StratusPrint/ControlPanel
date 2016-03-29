@@ -1,4 +1,5 @@
 var app = angular.module('ControlPanel', ['ngRoute', 'ng-token-auth']);
+var user;
 
 app.config(['$routeProvider',
   function($routeProvider) {
@@ -58,27 +59,45 @@ app.config(function($authProvider) {
       storage:                 'cookies',
       forceValidateToken:      false,
       //apiUrl: 'http://localhost:8081/v1'
+      handleLoginResponse: function(response) {
+        SetUser(response);
+        return response;
+      }
     });
-  });
+});
 
 app.controller('mainCtrl', function($scope) {
-    $scope.message =
-      'This is the main controller and can be on every page, if we want!';
-  });
+  $scope.message =
+    'This is the main controller and can be on every page, if we want!';
+});
 
 /* Setting up authentication, redirections, and signout */
 app.run(function($rootScope, $location, $auth) {
-
   $rootScope.$on('auth:invalid',function(e) {
     $location.path('/login');
   });
 
   $rootScope.$on('auth:login-success',function(e) {
+    $rootScope.user = GetUser();
     $location.path('/dashboard');
   });
 
   $rootScope.$on('auth:logout-error', function(ev, reason) {
-    alert('logout failed because ' + reason.errors[0]);
   });
 
 });
+
+function SetUser(userInfo) {
+  user = {
+    id:userInfo.data.id,
+    email:userInfo.data.email,
+    name:userInfo.data.name,
+    nickname:userInfo.data.nickname,
+    image:userInfo.data.image,
+    admin:userInfo.data.admin
+  }; 
+}
+
+function GetUser() {
+  return user;
+}

@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8080
   # Shared Folders
   config.vm.synced_folder '.', '/vagrant'
-  config.vm.synced_folder 'puppet', '/puppet'
+  config.vm.synced_folder '.puppet', '/.puppet'
   # Puppet Provisioner
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = ".puppet/manifests"

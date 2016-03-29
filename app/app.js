@@ -19,9 +19,7 @@ app.config(['$routeProvider',
         controller: 'mainCtrl',
         resolve: {
           auth: ['$auth', function($auth) {
-
             var aut = $auth.validateUser();
-
             return aut;
           }]
         }
@@ -35,6 +33,12 @@ app.config(['$routeProvider',
       when('/profile',{
         templateUrl: 'components/profile/profileView.html',
         controller: 'profileCtrl'
+        resolve: {
+          auth: ['$auth', function($auth) {
+            var aut = $auth.validateUser();
+            return aut;
+          }]
+        }
       }).
 
       otherwise({

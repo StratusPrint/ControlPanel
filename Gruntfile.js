@@ -137,11 +137,11 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', [
+    'newer:jshint',
+    'newer:jscs',
     'ngAnnotate:angular_app',
     'newer:uglify',
-    'newer:cssmin',
-    'newer:jshint',
-    'newer:jscs'
+    'newer:cssmin'
   ]);
 
   grunt.registerTask('lint', [

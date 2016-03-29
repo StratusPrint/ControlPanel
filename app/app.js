@@ -32,7 +32,7 @@ app.config(['$routeProvider',
 
       when('/profile',{
         templateUrl: 'components/profile/profileView.html',
-        controller: 'profileCtrl'
+        controller: 'profileCtrl',
         resolve: {
           auth: ['$auth', function($auth) {
             var aut = $auth.validateUser();

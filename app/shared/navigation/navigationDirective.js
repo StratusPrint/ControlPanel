@@ -5,6 +5,7 @@ app.directive('navigation', function() {
     templateUrl : 'shared/navigation/navigationView.html',
     link: function(scope, elem, attrs) {
     	angular.element('#side-menu').metisMenu(); 
-    }
+    },
+    controller: 'navCtrl'
   };
 });

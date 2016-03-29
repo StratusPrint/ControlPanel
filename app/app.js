@@ -73,19 +73,6 @@ app.run(function($rootScope, $location, $auth) {
     $location.path('/dashboard');
   });
 
-  $rootScope.signout = function() {
-    $auth.signOut()
-        .then(function(resp) {
-          alert('You were successfully logged out');
-          $location.path('/');
-        })
-        .catch(function(resp) {
-          // handle error response
-          alert('You were successfully logged out');
-          console.log(resp);
-        });
-  };
-
   $rootScope.$on('auth:logout-error', function(ev, reason) {
     alert('logout failed because ' + reason.errors[0]);
   });

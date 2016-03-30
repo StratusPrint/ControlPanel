@@ -46,24 +46,26 @@ app.config(['$routeProvider',
         redirectTo: '/'
       });
 
-  }]);
+  }
+]);
 
 app.config(function($authProvider) {
-    $authProvider.configure({
-      apiUrl: 'https://dev.api.stratusprint.com/v1',
-      tokenValidationPath:     '/auth/validate_token',
-      signOutUrl:              '/auth/sign_out',
-      emailRegistrationPath:   '/auth',
-      confirmationSuccessUrl:  '/dashboard',
-      emailSignInPath:         '/auth/sign_in',
-      storage:                 'cookies',
-      forceValidateToken:      false,
-      //apiUrl: 'http://localhost:8081/v1'
-      handleLoginResponse: function(response) {
-        SetUser(response);
-        return response;
-      }
-    });
+  $authProvider.configure({
+    apiUrl: 'https://dev.api.stratusprint.com/v1',
+    tokenValidationPath:     '/auth/validate_token',
+    signOutUrl:              '/auth/sign_out',
+    emailRegistrationPath:   '/auth',
+    accountUpdatePath:       '/auth',
+    confirmationSuccessUrl:  '/dashboard',
+    emailSignInPath:         '/auth/sign_in',
+    storage:                 'cookies',
+    forceValidateToken:      false,
+    //apiUrl: 'http://localhost:8081/v1'
+    handleLoginResponse: function(response) {
+      SetUser(response);
+      return response;
+    }
+  });
 });
 
 app.controller('mainCtrl', function($scope) {
@@ -96,6 +98,17 @@ function SetUser(userInfo) {
     image:userInfo.data.image,
     admin:userInfo.data.admin
   }; 
+  if (user.image === null) {
+    console.log("going here?");
+    user.image = "assets/img/avatar.png";
+  }
+  if (user.admin === null) {
+    user.admin = false;
+  }
+
+  /*  if (user.admin === false) {
+      alert("Chagne your password dick");
+      } */
 }
 
 function GetUser() {

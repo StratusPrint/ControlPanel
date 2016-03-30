@@ -4,10 +4,46 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Welcome {{user.email}}</h1>
 
+        <h1 class="page-header"><img src={{user.image}} class="profilePic" alt="User Avatar" />
+          <p>Welcome {{user.email}}</p>
+        </h1>
+
+        <form ng-submit="updateAccount(updateAccountForm)" role="form" ng-init="updateAccountForm = {}">
+          <div>
+            <div class="form-group">
+              <label>Current password</label>
+              <input type="text" name="text" ng-model="updateAccountForm.current_password">
+            </div>
+
+            <div class="form-group">
+              <label>New password</label>
+              <input type="text" name="text" ng-model="updateAccountForm.password">
+            </div>
+
+            <div class="form-group">
+              <label>Confirm new password</label>
+              <input type="text" name="text" ng-model="updateAccountForm.password_confirmation">
+            </div>
+
+          </div>
+          <button type="submit">Update account</button>
+        </form>
+        
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="true" class="">Collapsible Group Item #1</a>
+          </h4>
+        </div>
+        <div class="panel-collapse collapse in" id="collapseOne" aria-expanded="true" style="">
+          <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
+</div>
 </div>
 </body>

@@ -107,7 +107,8 @@ module.exports = function(grunt) {
             'bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css',
             'bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css',
             'bower_components/font-awesome/css/font-awesome.css',
-            'bower_components/morrisjs/morris.css'
+            'bower_components/morrisjs/morris.css',
+            'app/assets/css/styles.css'
           ]
         }
       }
@@ -126,6 +127,7 @@ module.exports = function(grunt) {
       },
       styles: {
         files: [
+          'app/assets/css/*.css',
           'app/assets/css/**/*.css'
         ],
         tasks: ['cssmin'],

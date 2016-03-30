@@ -87,6 +87,10 @@ app.run(function($rootScope, $location, $auth) {
   $rootScope.$on('auth:logout-error', function(ev, reason) {
   });
 
+  $rootScope.$on('auth:account-update-success', function(ev) {
+      alert("Your account has been successfully updated!");
+  });
+
 });
 
 function SetUser(userInfo) {

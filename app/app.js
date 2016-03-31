@@ -1,8 +1,7 @@
-var app = angular.module('ControlPanel', ['ngRoute', 'ng-token-auth']);
+var app = angular.module('ControlPanel', ['ui.router', 'ng-token-auth']);
 var user;
 
-app.config(['$routeProvider',
-  function($routeProvider) {
+/*  function($routeProvider) {
     $routeProvider.
       //Can add in if user is autheticated here!
       when('/', {
@@ -48,6 +47,23 @@ app.config(['$routeProvider',
 
   }
 ]);
+*/
+
+app.config(function($stateProvider, $urlRouterProvider) {
+  //
+  // For any unmatched url, redirect to /state1
+  $urlRouterProvider.otherwise("login");
+  //
+  // Now set up the states
+  $stateProvider
+      // this state will be visible to everyone
+      .state('login', {
+        url: '/login',
+        templateUrl: 'components/login/loginView.html',
+        controller: 'loginCtrl'
+      });
+  
+});
 
 app.config(function($authProvider) {
   $authProvider.configure({

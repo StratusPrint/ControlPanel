@@ -12,6 +12,7 @@
     "angular-mocks": "^1.5.0",
     "angular-cookies": "^1.5.0",
     "ng-token-auth": "^0.0.28",
+    "angular-ui-router":"^0.2.13",
     "bootstrap": "^3.3.6",
     "bootstrap-social": "~4.8.0",
     "datatables-responsive": "1.0.6",

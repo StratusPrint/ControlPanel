@@ -55,10 +55,9 @@ module.exports = function(grunt) {
             files: {
               'app/public/js/app.js': [
                 'bower_components/angular/angular.js',
-                'bower_components/angular-route/angular-route.js',
+                'bower_components/angular-ui-router/release/angular-ui-router.js',
                 'bower_components/angular-cookie/angular-cookie.js',
                 'bower_components/ng-token-auth/dist/ng-token-auth.js',
-                'bower_components/angular-ui-router/release/angular-ui-router.js',
                 'app/app.js',
                 'app/components/**/*.js',
                 'app/shared/**/*.js'

@@ -1,4 +1,8 @@
-app.controller('profileCtrl', function($scope, $auth) {
+app.controller('ProfileCtrl', ProfileCtrl);
+
+ProfileCtrl.$inject = ['$scope', '$auth'];
+
+function ProfileCtrl($scope, $auth) {
   $scope.handleUpdateAccountBtnClick = function() {
     $auth.updateAccount($scope.updateAccountForm)
     .then(function(resp) {
@@ -6,8 +10,8 @@ app.controller('profileCtrl', function($scope, $auth) {
     })
 
     .catch(function(resp) {
-      alert("Error " +resp.data);
+      alert('Error ' + resp.data);
       //error resp
     });
   };
-});
+}

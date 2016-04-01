@@ -41,7 +41,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             }]
           }
         });
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/dashboard');
   //To remove the hash from the URL
   $locationProvider.html5Mode({
     enabled: true,

@@ -1,8 +1,7 @@
-var app = angular.module('ControlPanel', ['ngRoute', 'ng-token-auth']);
+var app = angular.module('ControlPanel', ['ui.router', 'ng-token-auth']);
 var user;
 
-app.config(['$routeProvider',
-  function($routeProvider) {
+/*  function($routeProvider) {
     $routeProvider.
       //Can add in if user is autheticated here!
       when('/', {
@@ -48,6 +47,52 @@ app.config(['$routeProvider',
 
   }
 ]);
+*/
+
+app.config(function($stateProvider, $urlRouterProvider) {
+  //
+  // For any unmatched url, redirect to /dashboard
+  $urlRouterProvider.otherwise("/dashboard");
+  //
+  // Now set up the states
+  //When registering a new state you have to add a url too, otherwise it wont register
+  //with the urlRouterProvider
+  $stateProvider
+      // this state will be visible to everyone
+      .state('/login', {
+        url: '/login',
+        templateUrl: 'components/login/loginView.html',
+        controller: 'loginCtrl'
+      })
+      .state('/dashboard',{
+        url:'/dashboard',
+        templateUrl: 'components/dashboard/dashboardView.html',
+        controller: 'mainCtrl',
+        resolve: {
+          auth: ['$auth', function($auth) {
+            var aut = $auth.validateUser();
+            return aut;
+          }]
+        }
+      })
+      .state('/register',{
+        url: '/register',
+        templateUrl: 'components/register/registerView.html',
+        controller: 'registerCtrl'
+      })
+      .state('/profile',{
+        url: '/profile',
+        templateUrl: 'components/profile/profileView.html',
+        controller: 'profileCtrl',
+        resolve: {
+          auth: ['$auth', function($auth) {
+            var aut = $auth.validateUser();
+            return aut;
+          }]
+        }
+      });
+  
+});
 
 app.config(function($authProvider) {
   $authProvider.configure({
@@ -74,14 +119,16 @@ app.controller('mainCtrl', function($scope) {
 });
 
 /* Setting up authentication, redirections, and signout */
-app.run(function($rootScope, $location, $auth) {
+app.run(function($rootScope, $state, $auth) {
   $rootScope.$on('auth:invalid',function(e) {
-    $location.path('/login');
+    //$location.path('/login');
+    $state.go('/login');
   });
 
   $rootScope.$on('auth:login-success',function(e) {
     $rootScope.user = GetUser();
-    $location.path('/dashboard');
+    //$location.path('/dashboard');
+    $state.go('/dashboard');
   });
 
   $rootScope.$on('auth:logout-error', function(ev, reason) {

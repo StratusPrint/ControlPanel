@@ -7,7 +7,7 @@ var app = angular.module('ControlPanel');
 
 var user;
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
         .state('/login', {
           url: '/login',
@@ -42,6 +42,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
           }
         });
   $urlRouterProvider.otherwise('/login');
+  //To remove the hash from the URL
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
 });
 
 app.config(function($authProvider) {

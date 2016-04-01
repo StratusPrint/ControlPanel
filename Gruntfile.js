@@ -27,11 +27,8 @@ module.exports = function(grunt) {
     },
     jshint: {
       src: [
-          'app/controllers/**/*.js',
-          'app/services/**/*.js',
-          'app/directives/**/*.js',
-          'app/filters/**/*.js',
-          'app/app.js'
+          'app/app.js',
+          'app/control-panel/**/*.js'
       ],
       options: {
         reporter: require('jshint-stylish'),
@@ -44,11 +41,8 @@ module.exports = function(grunt) {
     },
     jscs: {
       src: [
-          'app/controllers/**/*.js',
-          'app/services/**/*.js',
-          'app/directives/**/*.js',
-          'app/filters/**/*.js',
-          'app/app.js'
+          'app/app.js',
+          'app/control-panel/**/*.js'
       ],
       options: {
         "config": ".jscsrc",
@@ -66,10 +60,7 @@ module.exports = function(grunt) {
                 'bower_components/angular-cookie/angular-cookie.js',
                 'bower_components/ng-token-auth/dist/ng-token-auth.js',
                 'app/app.js',
-                'app/controllers/**/*.js',
-                'app/services/**/*.js',
-                'app/directives/**/*.js',
-                'app/filters/**/*.js'
+                'app/control-panel/**/*.js'
               ]
             }
         },
@@ -126,10 +117,7 @@ module.exports = function(grunt) {
       scripts: {
         files: [
           'app/app.js',
-          'app/controllers/**/*.js',
-          'app/services/**/*.js',
-          'app/directives/**/*.js',
-          'app/filters/**/*.js'
+          'app/control-panel/**/*.js'
         ],
         tasks: ['default'],
         options: {

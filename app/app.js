@@ -5,8 +5,6 @@ angular.module('ControlPanel', [
 
 var app = angular.module('ControlPanel');
 
-var user;
-
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
         .state('/login', {
@@ -18,12 +16,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
           url: '/dashboard',
           templateUrl: 'control-panel/views/dashboard/dashboardView.html',
           controller: 'DashboardCtrl',
-          resolve: {
-            auth: ['$auth', function($auth) {
-              var aut = $auth.validateUser();
-              return aut;
-            }]
-          }
+
         })
         .state('/register', {
           url: '/register',
@@ -34,12 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
           url: '/profile',
           templateUrl: 'control-panel/views/profile/profileView.html',
           controller: 'ProfileCtrl',
-          resolve: {
-            auth: ['$auth', function($auth) {
-              var aut = $auth.validateUser();
-              return aut;
-            }]
-          }
+
         });
   $urlRouterProvider.otherwise('/login');
 });
@@ -47,33 +35,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.config(function($authProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
-    handleLoginResponse: function(response) {
-      SetUser(response);
-      return response;
-    }
+
   });
 });
 
 /* Setting up authentication, redirections, and signout */
 app.run(function($rootScope, $state, $auth) {
-  $rootScope.$on('auth:invalid', function(e) {
-    $state.go('/login');
-  });
-
-  $rootScope.$on('auth:login-success', function(e) {
-    $rootScope.user = GetUser();
-    $state.go('/dashboard');
-  });
-
-  $rootScope.$on('auth:logout-error', function(ev, reason) {});
-
-  $rootScope.$on('auth:account-update-success', function(ev) {
-    alert('Your account has been successfully updated!');
-  });
-
-  $rootScope.$on('auth:validation-success', function(ev) {
-    $state.go('/dashboard');
-  });
 
 });
 

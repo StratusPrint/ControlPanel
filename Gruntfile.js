@@ -89,7 +89,7 @@ module.exports = function(grunt) {
       app: {
         files: {
           'app/public/js/app.js': [
-            'app/public/js/app.js'
+            'app/public/app.js'
           ]
         }
       }

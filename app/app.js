@@ -7,7 +7,7 @@ var app = angular.module('ControlPanel');
 
 var user;
 
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
         .state('/login', {
           url: '/login',
@@ -41,12 +41,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             }]
           }
         });
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/dashboard');
   //To remove the hash from the URL
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
-  });
+  /* $locationProvider.html5Mode({
+     enabled: true,
+     requireBase: false
+   });*/
 });
 
 app.config(function($authProvider) {
@@ -66,11 +66,13 @@ app.run(function($rootScope, $state, $auth) {
   });
 
   $rootScope.$on('auth:login-success', function(e) {
-    $rootScope.user = GetUser();
+    //$rootScope.user = GetUser();
     $state.go('/dashboard');
   });
 
-  $rootScope.$on('auth:logout-error', function(ev, reason) {});
+  $rootScope.$on('auth:logout-error', function(ev, reason) {
+    alert('had a problem logging out ');
+  });
 
   $rootScope.$on('auth:account-update-success', function(ev) {
     alert('Your account has been successfully updated!');

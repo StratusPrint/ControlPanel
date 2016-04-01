@@ -1,6 +1,6 @@
 app.controller('LoginCtrl', LoginCtrl);
 
-LoginCtrl.$inject = ['$scope', '$auth'];
+LoginCtrl.$inject = ['$scope', '$auth', 'AuthService'];
 
 function LoginCtrl($scope, $auth) {
   $scope.login = function() {

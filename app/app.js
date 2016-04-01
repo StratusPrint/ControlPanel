@@ -1,6 +1,9 @@
 angular.module('ControlPanel', [
     'ui.router',
-    'ng-token-auth'
+    'ng-token-auth',
+    '$rootScope',
+    'AuthService',
+    'session'
 ]);
 
 var app = angular.module('ControlPanel');
@@ -40,9 +43,17 @@ app.config(function($authProvider) {
 });
 
 /* Setting up authentication, redirections, and signout */
-app.run(function($rootScope, $state, $auth) {
 
-});
+// Inject dependencies
+
+app.run(['$rootScope', 'AuthService', 'session', function($rootScope, $state, AuthService) {
+  $rootScope.AuthService = AuthService;
+}]);
+
+function assignServicesToRootScope($rootScope, AuthService, session) {
+
+  $rootScope.session = session;
+}
 
 function SetUser(userInfo) {
   user = {

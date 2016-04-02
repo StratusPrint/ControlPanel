@@ -34,7 +34,7 @@
     "tests"
   ],
   "resolutions": {
-    "angular": "^1.5.0"
+    "angular": "1.5.2"
   },
   "dependencies": {
     "startbootstrap-sb-admin-2": "^1.0.8",

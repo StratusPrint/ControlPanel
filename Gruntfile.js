@@ -58,6 +58,7 @@ module.exports = function(grunt) {
                 'bower_components/angular/angular.js',
                 'bower_components/angular-ui-router/release/angular-ui-router.js',
                 'bower_components/angular-cookie/angular-cookie.js',
+                'bower_components/angular-local-storage/dist/angular-local-storage.js',
                 'bower_components/ng-token-auth/dist/ng-token-auth.js',
                 'app/app.js',
                 'app/control-panel/**/*.js'
@@ -139,10 +140,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'newer:jscs',
     'ngAnnotate:angular_app',
     'newer:uglify',
-    'newer:cssmin'
+    'newer:cssmin',
+    'newer:jscs'
   ]);
 
   grunt.registerTask('lint', [

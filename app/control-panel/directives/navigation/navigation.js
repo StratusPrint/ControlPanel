@@ -6,6 +6,6 @@ app.directive('navigation', function() {
     link: function(scope, elem, attrs) {
       angular.element('#side-menu').metisMenu();
     },
-    controller: 'NavigationCtrl'
+    controller: 'AuthCtrl'
   };
 });

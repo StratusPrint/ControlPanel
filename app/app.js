@@ -1,78 +1,55 @@
 angular.module('ControlPanel', [
     'ui.router',
     'ng-token-auth',
-    '$rootScope',
-    'AuthService',
-    'session'
+    'LocalStorageModule'
 ]);
 
 var app = angular.module('ControlPanel');
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-        .state('/login', {
+        .state('login', {
           url: '/login',
           templateUrl: 'control-panel/views/login/loginView.html',
-          controller: 'LoginCtrl'
+          controller: 'AuthCtrl',
+          data: {
+            requireLogin: false
+          }
         })
-        .state('/dashboard', {
+        .state('dashboard', {
           url: '/dashboard',
           templateUrl: 'control-panel/views/dashboard/dashboardView.html',
           controller: 'DashboardCtrl',
-
+          data: {
+            requireLogin: true
+          }
         })
-        .state('/register', {
+        .state('register', {
           url: '/register',
           templateUrl: 'control-panel/views/register/registerView.html',
-          controller: 'RegisterCtrl'
+          controller: 'RegisterCtrl',
+          data: {
+            requireLogin: true
+          }
         })
-        .state('/profile', {
+        .state('profile', {
           url: '/profile',
           templateUrl: 'control-panel/views/profile/profileView.html',
           controller: 'ProfileCtrl',
-
+          data: {
+            requireLogin: true
+          }
         });
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('dashboard');
 });
 
 app.config(function($authProvider) {
   $authProvider.configure({
-    apiUrl: 'https://dev.api.stratusprint.com/v1',
-
+    apiUrl: 'https://dev.api.stratusprint.com/v1'
   });
 });
 
-/* Setting up authentication, redirections, and signout */
-
-// Inject dependencies
-
-app.run(['$rootScope', 'AuthService', 'session', function($rootScope, $state, AuthService) {
-  $rootScope.AuthService = AuthService;
-}]);
-
-function assignServicesToRootScope($rootScope, AuthService, session) {
-
-  $rootScope.session = session;
-}
-
-function SetUser(userInfo) {
-  user = {
-    id: userInfo.data.id,
-    email: userInfo.data.email,
-    name: userInfo.data.name,
-    nickname: userInfo.data.nickname,
-    image: userInfo.data.image,
-    admin: userInfo.data.admin
-  };
-  if (user.image === null) {
-    console.log('going here?');
-    user.image = 'assets/img/avatar.png';
-  }
-  if (user.admin === null) {
-    user.admin = false;
-  }
-}
-
-function GetUser() {
-  return user;
-}
+app.run(function($rootScope, $state, user, auth) {
+  $rootScope.user = user;
+  $rootScope.auth = auth;
+});

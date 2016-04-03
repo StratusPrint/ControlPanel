@@ -99,6 +99,7 @@ module.exports = function(grunt) {
       base: {
         files: {
           "app/public/css/sb-admin-2.css": "app/assets/less/sb-admin-2.less",
+          "app/public/css/dark.css": "app/assets/less/dark.less",
           "app/public/css/styles.css": "app/assets/less/styles.less"
         }
       }
@@ -117,6 +118,7 @@ module.exports = function(grunt) {
             'bower_components/font-awesome/css/font-awesome.css',
             'bower_components/morrisjs/morris.css',
             'app/public/css/sb-admin-2.css',
+            'app/public/css/dark.css',
             'app/public/css/styles.css'
           ]
         }

@@ -31,12 +31,23 @@ body {
 // Navigation
 
 // --Topbar
-
 .navbar {
     background-color: @charcoal;
     border-color: black;
 }
 
+.navbar-default .navbar-toggle {
+    background-color: @charcoal;
+    border-color: @gray-dark;
+    color: white;
+    &:hover,
+    &:focus {
+      background-color: @gray-dark;  
+    }
+    .icon-bar {
+        background: white;
+    }
+}
 .navbar-top-links {
     margin-right: 0;
 }

@@ -95,6 +95,14 @@ module.exports = function(grunt) {
         }
       }
     },
+    less: {
+      base: {
+        files: {
+          "app/public/css/sb-admin-2.css": "app/assets/less/sb-admin-2.less",
+          "app/public/css/styles.css": "app/assets/less/styles.less"
+        }
+      }
+    },
     cssmin: {
       options: {
         banner: '/* <%= grunt.template.today("yyyy-mm-dd") %> */',
@@ -106,10 +114,10 @@ module.exports = function(grunt) {
             'bower_components/bootstrap/dist/css/bootstrap.css',
             'bower_components/metisMenu/dist/metisMenu.css',
             'bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css',
-            'bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css',
             'bower_components/font-awesome/css/font-awesome.css',
             'bower_components/morrisjs/morris.css',
-            'app/assets/css/styles.css'
+            'app/public/css/sb-admin-2.css',
+            'app/public/css/styles.css'
           ]
         }
       }
@@ -127,10 +135,10 @@ module.exports = function(grunt) {
       },
       styles: {
         files: [
-          'app/assets/css/*.css',
-          'app/assets/css/**/*.css'
+          'app/assets/less/*.less',
+          'app/assets/less/**/*.less'
         ],
-        tasks: ['cssmin'],
+        tasks: ['less', 'cssmin'],
         options: {
           spawn: false,
         },
@@ -142,6 +150,7 @@ module.exports = function(grunt) {
     'newer:jshint',
     'ngAnnotate:angular_app',
     'newer:uglify',
+    'newer:less',
     'newer:cssmin',
     'newer:jscs'
   ]);

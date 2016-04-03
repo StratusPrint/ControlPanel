@@ -1,7 +1,8 @@
 @import "variables.less";
+@import "mixins.less";
 
 body {
-	background-color: @charcoal;
+	background-color: @teal-darker;
 }
 
 // Wrappers
@@ -16,16 +17,40 @@ body {
 
 .navbar {
     background-color: @charcoal;
-    border-color: black;
+    .gradient(@teal, @teal-dark);
+    border-color: @swamp;
+    border-bottom-width: 2px;
+}
+
+.navbar-default .navbar-brand {
+    background-image: url('../images/sp-logo.svg');
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    padding-left: 55px;
+    background-position: 10px 5px;
+    color: @mint;
+    text-shadow: 0 1px 0 @teal-darker;
+    span {
+        color: white;
+        font-size: 12pt;
+        display: inline-block;
+    }
+    &:hover {
+        color: @mint;
+    }
 }
 
 .navbar-default .navbar-toggle {
-    background-color: @charcoal;
-    border-color: @gray-dark;
+    background-color: @teal-darker;
+    border-color: @swamp;
     color: white;
     &:hover,
     &:focus {
-      background-color: @gray-dark;  
+      background-color: @teal-darkest;
+      .icon-bar {
+        background: @mint;
+      }
     }
     .icon-bar {
         background: white;
@@ -44,23 +69,15 @@ body {
 }
 
 .navbar-top-links li a {
-    color: @gray-light;
+    color: white;
 
     &.dropdown-toggle:hover,
     &.dropdown-toggle:active,
     &.dropdown-toggle:focus {
-        background: black;
-        color: white;
+        background: @teal-darker;
+        color: @mint;
     }
 }
-
-.navbar-default .navbar-brand {
-    color: @gray-light;
-    &:hover {
-        color: @gray-lighter;
-    }
-}
-
 
 .navbar-top-links .dropdown-menu li a {
     color: black;
@@ -82,19 +99,19 @@ body {
 // --Sidebar
 
 .sidebar {
-	background-color: @charcoal;
+	background-color: @teal-darker;
 }
 
 .sidebar ul li {
-    border-bottom: 1px solid darken(@charcoal, 6.5%);
+    border-bottom: 2px solid @swamp;
     a {
-        color: @gray-light;
+        color: white;
         &.active,
         &:hover,
         &:active,
         &:focus {
-            color: white;
-            background-color: black;
+            color: @mint;
+            background-color: @teal;
         }
     }
 }

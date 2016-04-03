@@ -46,8 +46,9 @@ module.exports = function(grunt) {
       ],
       options: {
         "config": ".jscsrc",
-        "preset": "google",
+        "preset": "node-style-guide",
         "maximumLineLength": 160,
+        "validateIndentation": 2,
         "fix": true 
       }
     },

@@ -13,6 +13,7 @@ function AuthService($auth, $rootScope, $state, user) {
 
     if (requireLogin && !user.isAuthenticated()) {
       event.preventDefault();
+      $state.go('login');
     }
   });
 

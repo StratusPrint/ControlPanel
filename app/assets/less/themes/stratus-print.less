@@ -7,7 +7,17 @@ body {
 	background-color: @teal-darker;
 }
 
+button {
+    &:active,
+    &:focus {
+        outline: none !important;
+        outline: 0 !important;
+    }
+}
 // Wrappers
+#page-wrapper {
+    background-color: @ceramic;
+}
 
 @media(min-width:768px) {
     #page-wrapper {
@@ -32,7 +42,6 @@ body {
     padding-left: 58px;
     background-position: 10px 3px;
     font-family: GearusBold, Arial, Helvetica, sans-serif;
-    font-weight: bold;
     color: @mint;
     text-shadow: 0 1px 0 @teal-darker;
     span {
@@ -50,6 +59,19 @@ body {
     &:active {
         color: @mint;
     }
+}
+
+.sp-logo {
+    background-image: url('../images/sp-logo.svg');
+    background-size: 45px 45px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    padding-left: 55px;
+    min-height: 45px;
+    line-height: 45px;
+    font-family: GearusBold, Arial, Helvetica, sans-serif;
+    color: @mint;
+    text-shadow: 0 1px 0 @teal-darker;
 }
 
 .navbar-default .navbar-toggle {
@@ -124,6 +146,103 @@ body {
             color: @mint;
             background-color: @teal;
         }
+    }
+}
+
+.sidebar-search {
+    input,
+    button {
+        border-color: @teal-darker;  
+        &:focus {
+            outline: 0 !important;
+            outline: none !important;
+        }
+    }
+
+    button {
+        background: @teal;
+        color: white;
+        &:hover {
+            background: @teal-dark;
+            border-color: @teal-darker;
+            color: @mint;
+        }
+        &:focus,
+        &:active {
+            background: @teal-dark !important;
+            border-color: @teal-dark !important;
+            color: @mint !important;
+        }
+    }
+}
+
+// --Custom Panels
+.panel-kashmir {
+    border-color: fade(@kashmir, 30%);
+    .panel-heading {
+        border-color: @kashmir;
+        color: @mint;
+        background-color: @kashmir;
+
+        button {
+            background: @teal;
+            color: white;
+            border-color: fade(@teal-darker, 50%);
+            &:hover {
+                background: @teal-dark;
+                border-color: @teal-darker;
+                color: @mint;
+            }
+            &:focus,
+            &:active {
+                background: @teal-dark !important;
+                border-color: @teal-dark !important;
+                color: @mint !important;
+            }
+        }
+    }
+}
+
+.login-panel {
+    border-color: @teal-dark;
+    box-shadow: 0 5px 30px @teal-darker;
+    text-align: center;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .panel {
+        text-align: left;
+        margin-top: 20px;
+        border-color: @teal-darkest;
+    }
+
+    .sp-logo {
+        background-size: 80px 80px;
+        min-height: 80px;
+        line-height: 80px;
+        padding-left: 85px;
+        font-size: 18pt;
+    }
+
+    button {
+        background: @carnation;
+        border-color: darken(@carnation, 20%);
+        &:hover {
+            background: darken(@carnation, 2%);
+            border-color: darken(@carnation, 20%);
+        }
+        &:focus,
+        &:active {
+            background: darken(@carnation, 4%) !important;
+            border-color: darken(@carnation, 25%) !important;
+        }
+    }
+}
+
+@media(max-width:767px) {
+    .login-panel {
+       max-width: 300px; 
     }
 }
 

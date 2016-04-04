@@ -71,7 +71,8 @@ module.exports = function(grunt) {
       options: {
         banner: '/* <%= grunt.template.today("yyyy-mm-dd") %> */\n',
         sourceMap: false,
-        beautify: false,
+        beautify: true,
+        //beautify: false,
         mangle: false
       },
       base: {

@@ -72,6 +72,12 @@ button {
     font-family: GearusBold, Arial, Helvetica, sans-serif;
     color: @mint;
     text-shadow: 0 1px 0 @teal-darker;
+    &.no-image {
+        background: none;
+        padding: 0;
+        min-height: auto;
+        line-height: auto;
+    }
 }
 
 .navbar-default .navbar-toggle {
@@ -218,11 +224,18 @@ button {
     }
 
     .sp-logo {
-        background-size: 80px 80px;
-        min-height: 80px;
-        line-height: 80px;
-        padding-left: 85px;
+        background-size: 120px 120px;
+        height: 120px;
+        width: 120px;
         font-size: 18pt;
+        &.no-image {
+            display: block;
+            min-height: auto;
+            line-height: 18pt;
+            padding: 0;
+            width: auto;
+            height: auto;
+        }
     }
 
     button {

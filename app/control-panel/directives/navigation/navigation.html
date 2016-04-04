@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="dashboard.overview">StratusPrint <span>Web Control Panel</span></a>
+            <a class="navbar-brand" ui-sref="dashboard.overview">StratusPrint <span class="hide-on-mobile">Web Control Panel</span></a>
         </div>
         <!-- /.navbar-header -->
         <ul class="nav navbar-top-links navbar-right">
@@ -204,7 +204,7 @@
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                    <i class="fa fa-user fa-fw"></i> {{user.name()}} <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i> <span class="hide-on-mobile">{{user.name()}}</span> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a ui-sref="dashboard.profile"><i class="fa fa-user fa-fw"></i> User Profile</a>

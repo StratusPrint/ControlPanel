@@ -8,10 +8,14 @@ function AuthCtrl($scope, $state, auth) {
   });
 
   $scope.login = function(user) {
-    auth.login(user);
+    auth.login(user).then(function() {
+      $state.go('dashboard.overview');
+    });
   };
 
   $scope.logout = function() {
-    auth.logout();
+    auth.logout().then(function() {
+      $state.go('login');
+    });
   };
 }

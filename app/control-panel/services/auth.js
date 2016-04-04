@@ -26,11 +26,12 @@ function AuthService($auth, $rootScope, $state, user) {
    * @param  {String} password The password of the user
    */
   this.login = function(email, password) {
-    $auth.submitLogin(email, password).then(function(resp) {
+    var login = $auth.submitLogin(email, password);
+    login.then(function(resp) {
       console.log(resp);
       user.set(resp);
-      $state.go('dashboard.overview');
     });
+    return login;
   };
 
   /**
@@ -39,11 +40,12 @@ function AuthService($auth, $rootScope, $state, user) {
    * the user service.
    */
   this.logout = function() {
-    $auth.signOut().then(function(resp) {
+    var logout = $auth.signOut();
+    logout.then(function(resp) {
       console.log(resp);
       user.destroy();
-      $state.go('login');
     });
+    return logout;
   };
 
   /**
@@ -53,9 +55,11 @@ function AuthService($auth, $rootScope, $state, user) {
    * @param  {Object} data An object that contains valid params for the user model
    */
   this.updateAccount = function(data) {
-    $auth.updateAccount(data).then(function(resp) {
+    var update = $auth.updateAccount(data);
+    update.then(function(resp) {
       console.log(resp);
       user.set(resp);
     });
+    return update;
   };
 }

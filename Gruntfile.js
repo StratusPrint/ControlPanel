@@ -61,6 +61,7 @@ module.exports = function(grunt) {
                 'bower_components/angular-cookie/angular-cookie.js',
                 'bower_components/angular-local-storage/dist/angular-local-storage.js',
                 'bower_components/ng-token-auth/dist/ng-token-auth.js',
+                'bower_components/angular-bootstrap-show-errors/src/showErrors.js',
                 'app/app.js',
                 'app/control-panel/**/*.js'
               ]

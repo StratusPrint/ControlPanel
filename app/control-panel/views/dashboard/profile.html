@@ -1,27 +1,36 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header"><img src={{user.image}} class="profilePic" alt="User Avatar" />
-          <p>Welcome {{user.email}}</p>
-        </h1>
-        <button data-toggle="collapse" data-target="#passwordForm">Change Password</button>
-        <div id="passwordForm" class="collapse">
-            <form ng-submit="updateAccount(updateAccountForm)" role="form" ng-init="updateAccountForm = {}">
-                <div>
-                    <div class="form-group">
-                        <label>Current password</label>
-                        <input type="password" name="text" ng-model="updateAccountForm.current_password">
-                    </div>
-                    <div class="form-group">
-                        <label>New password</label>
-                        <input type="password" name="text" ng-model="updateAccountForm.password">
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm new password</label>
-                        <input type="password" name="text" ng-model="updateAccountForm.password_confirmation">
-                    </div>
-                </div>
-                <button type="submit">Update account</button>
-            </form>
-        </div>
+        <h1 class="page-header">User Profile</h1>
     </div>
 </div>
+
+<form name="userForm" role="form" ng-submit="save(profile)" ng-init="profile = {}" novalidate>
+    <div class="form-group" show-errors>
+        <label for="name">Name</label>
+        <input name="name" ng-model="profile.name" type="text" class="form-control" placeholder="{{user.name()}}" ng-minlength="5" />
+        <span ng-show="userForm.name.$error.minlength" class="help-block">Name is too short.</span>
+    </div>
+
+    <div class="form-group" show-errors>
+        <label for="email">E-mail</label>
+        <input name="email" ng-model="profile.email" type="email" class="form-control" placeholder="{{user.email()}}" />
+        <span ng-show="userForm.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
+    </div>
+
+    <div class="form-group">
+        <label for="current_password">Current Password</label>
+        <input name="current_password" ng-model="profile.current_password" name="user.current_password" type="text" class="form-control" placeholder="" />
+    </div>
+
+    <div class="form-group">
+        <label for="password">New Password</label>
+        <input name="password" ng-model="profile.password" type="text" class="form-control" placeholder="">
+    </div>
+
+    <div class="form-group">
+        <label for="password_confirmation">Confirm New Password</label>
+        <input name="password_confirmation" ng-model="profile.password_confirmation" type="text" class="form-control" placeholder="" />
+    </div>
+
+    <button class="btn btn-primary pull-right" type="submit">Save Changes</button>
+</form>

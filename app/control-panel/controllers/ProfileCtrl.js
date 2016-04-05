@@ -19,6 +19,13 @@ function ProfileCtrl($scope, auth, user) {
       return;
     }
 
+    // Remove empty fields from profile to prevent errors
+    Object.keys($scope.profile).forEach(function(key) {
+      if ($scope.profile[key] === '') {
+        delete $scope.profile[key];
+      }
+    });
+
     // Update user profile
     auth.updateAccount(profile)
       .then(function(resp) {
@@ -28,8 +35,11 @@ function ProfileCtrl($scope, auth, user) {
       })
       .catch(function(resp) {
         $scope.closeAllAlerts();
-        var errors = resp.data.errors;
-        errors.forEach(function(error) { $scope.addAlert('danger', error); });
+        // jscs:disable
+        angular.forEach(resp.data.errors.full_messages, function(key, value) {
+          $scope.addAlert('danger', key);
+        });
+        // jscs:enable
       });
   };
 

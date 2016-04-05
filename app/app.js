@@ -2,7 +2,9 @@ angular.module('ControlPanel', [
     'ui.router',
     'ng-token-auth',
     'LocalStorageModule',
+    'ui.bootstrap',
     'ui.bootstrap.showErrors',
+    'validation.match',
 ]);
 
 var app = angular.module('ControlPanel');

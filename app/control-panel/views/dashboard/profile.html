@@ -4,32 +4,51 @@
     </div>
 </div>
 
-<form name="userForm" role="form" ng-submit="save(profile)" ng-init="profile = {}" novalidate>
-    <div class="form-group" show-errors>
-        <label for="name">Name</label>
-        <input name="name" ng-model="profile.name" type="text" class="form-control" placeholder="{{user.name()}}" ng-minlength="5" />
-        <span ng-show="userForm.name.$error.minlength" class="help-block">Name is too short.</span>
-    </div>
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"> {{alert.msg}}</uib-alert>
 
-    <div class="form-group" show-errors>
-        <label for="email">E-mail</label>
-        <input name="email" ng-model="profile.email" type="email" class="form-control" placeholder="{{user.email()}}" />
-        <span ng-show="userForm.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
-    </div>
+<form name="userForm" class="clearfix" role="form" ng-submit="save(profile)" ng-init="profile = {}" novalidate>
+    <div class="panel panel-kashmir">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-info-circle"></i> Basic Information</h3>
+        </div>
 
-    <div class="form-group">
-        <label for="current_password">Current Password</label>
-        <input name="current_password" ng-model="profile.current_password" name="user.current_password" type="text" class="form-control" placeholder="" />
-    </div>
+        <div class="panel-body">
+            <div class="form-group" show-errors>
+                <label for="name">Name</label>
+                <input autocomplete="off" name="name" ng-model="profile.name" type="text" class="form-control" placeholder="{{user.name()}}" ng-minlength="5" />
+                <span ng-show="userForm.name.$error.minlength" class="help-block">Name is too short. Must be at least 5 characters.</span>
+            </div>
 
-    <div class="form-group">
-        <label for="password">New Password</label>
-        <input name="password" ng-model="profile.password" type="text" class="form-control" placeholder="">
+            <div class="form-group" show-errors>
+                <label for="email">E-mail</label>
+                <input autocomplete="off" name="email" ng-model="profile.email" type="email" class="form-control" placeholder="{{user.email()}}" />
+                <span ng-show="userForm.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
+            </div>
+        </div>
     </div>
+    <div class="panel panel-kashmir">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-key"></i> Change Password</h3>
+        </div>
 
-    <div class="form-group">
-        <label for="password_confirmation">Confirm New Password</label>
-        <input name="password_confirmation" ng-model="profile.password_confirmation" type="text" class="form-control" placeholder="" />
+        <div class="panel-body">
+            <div class="form-group" show-errors>
+                <label for="current_password">Current Password</label>
+                <input name="current_password" ng-model="profile.current_password" name="user.current_password" type="password" class="form-control" placeholder="Enter current password" />
+            </div>
+
+            <div class="form-group" show-errors>
+                <label for="password">New Password</label>
+                <input name="password" ng-model="profile.password" type="password" class="form-control" placeholder="Enter new password (must be at least 8 characters long)" ng-minlength="8" />
+                <span ng-show="userForm.password.$error.minlength" class="help-block">Password is too short. Must be at least 8 characters.</span>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label for="password_confirmation">Confirm New Password</label>
+                <input name="password_confirmation" ng-model="profile.password_confirmation" type="password" class="form-control" placeholder="Confirm new password" match="password" />
+                <span ng-show="userForm.password_confirmation.$error.match" class="help-block">Password does not match the previously entered one.</span>
+            </div>
+        </div>
     </div>
 
     <button class="btn btn-primary pull-right" type="submit">Save Changes</button>

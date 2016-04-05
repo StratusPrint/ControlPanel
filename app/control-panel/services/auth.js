@@ -28,7 +28,6 @@ function AuthService($auth, $rootScope, $state, user) {
   this.login = function(email, password) {
     var login = $auth.submitLogin(email, password);
     login.then(function(resp) {
-      console.log(resp);
       user.set(resp);
     });
     return login;
@@ -42,7 +41,6 @@ function AuthService($auth, $rootScope, $state, user) {
   this.logout = function() {
     var logout = $auth.signOut();
     logout.then(function(resp) {
-      console.log(resp);
       user.destroy();
     });
     return logout;
@@ -57,7 +55,6 @@ function AuthService($auth, $rootScope, $state, user) {
   this.updateAccount = function(data) {
     var update = $auth.updateAccount(data);
     update.then(function(resp) {
-      console.log(resp);
       user.set(resp);
     });
     return update;

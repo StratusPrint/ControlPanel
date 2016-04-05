@@ -25,6 +25,21 @@ button {
     }
 }
 
+// -- Buttons
+.btn-primary {
+    background: @carnation;
+    border-color: darken(@carnation, 20%);
+    &:hover {
+        background: darken(@carnation, 2%);
+        border-color: darken(@carnation, 20%);
+    }
+    &:focus,
+    &:active {
+        background: darken(@carnation, 4%) !important;
+        border-color: darken(@carnation, 25%) !important;
+    }
+}
+
 // --Topbar
 
 .navbar {
@@ -237,35 +252,18 @@ button {
             height: auto;
         }
     }
-
-    button {
-        background: @carnation;
-        border-color: darken(@carnation, 20%);
-        &:hover {
-            background: darken(@carnation, 2%);
-            border-color: darken(@carnation, 20%);
-        }
-        &:focus,
-        &:active {
-            background: darken(@carnation, 4%) !important;
-            border-color: darken(@carnation, 25%) !important;
-        }
-    }
-}
-
-@media(max-width:767px) {
-    .login-panel {
-       max-width: 300px; 
-    }
 }
 
 // --Mobile
-@media(max-width:768px) {
+@media(max-width:769px) {
     .hide-on-mobile { display: none !important; }
     .navbar-header {
         border-bottom: 1px solid @swamp;
     }
     .navbar {
         border-bottom: 0;
+    }
+    .login-panel {
+       max-width: 300px; 
     }
 }

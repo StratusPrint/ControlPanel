@@ -55,9 +55,7 @@ function AuthService($auth, $rootScope, $state, user) {
   this.updateAccount = function(data) {
     var update = $auth.updateAccount(data);
     update.then(function(resp) {
-      console.log(resp);
       resp.data.data.signedIn = true;
-      console.log(resp.data.data);
       user.set(resp.data.data);
     });
     return update;

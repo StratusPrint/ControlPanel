@@ -34,19 +34,22 @@
         <div class="panel-body">
             <div class="form-group" show-errors>
                 <label for="current_password">Current Password</label>
-                <input name="current_password" ng-model="profile.current_password" name="user.current_password" type="password" class="form-control" placeholder="Enter current password" />
+                <input name="current_password" ng-model="profile.current_password" name="user.current_password" type="password" class="form-control" placeholder="Enter current password" ng-required="profile.password || profile.password_confirmation" />
+                <span ng-show="userForm.current_password.$error.required" class="help-block">Don't forget to add your current password.</span>
             </div>
 
             <div class="form-group" show-errors>
                 <label for="password">New Password</label>
-                <input name="password" ng-model="profile.password" type="password" class="form-control" placeholder="Enter new password (must be at least 8 characters long)" ng-minlength="8" />
+                <input name="password" ng-model="profile.password" type="password" class="form-control" placeholder="Enter new password (must be at least 8 characters long)" ng-minlength="8" ng-required="profile.current_password || profile.password_confirmation" />
                 <span ng-show="userForm.password.$error.minlength" class="help-block">Password is too short. Must be at least 8 characters.</span>
+                <span ng-show="userForm.password.$error.required" class="help-block">Don't forget to add your new password.</span>
             </div>
 
             <div class="form-group" show-errors>
                 <label for="password_confirmation">Confirm New Password</label>
-                <input name="password_confirmation" ng-model="profile.password_confirmation" type="password" class="form-control" placeholder="Confirm new password" match="password" />
+                <input name="password_confirmation" ng-model="profile.password_confirmation" type="password" class="form-control" placeholder="Confirm new password" match="profile.password" ng-required="profile.current_password || profile.password_confirmation" />
                 <span ng-show="userForm.password_confirmation.$error.match" class="help-block">Password does not match the previously entered one.</span>
+                <span ng-show="userForm.password.$error.required" class="help-block">Don't forget to confirm your new password.</span>
             </div>
         </div>
     </div>

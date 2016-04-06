@@ -77,8 +77,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.config(function($authProvider) {
   $authProvider.configure({
-    apiUrl: 'http://localhost:8081/v1',
-    passwordResetSuccessUrl: 'http://localhost:8080/#/change-password',
+    apiUrl: 'https://dev.api.stratusprint.com/v1',
+    passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
   });
 });
 

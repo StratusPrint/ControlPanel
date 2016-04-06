@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="login-panel">
+            <span class="sp-logo"></span>
+            <span class="sp-logo no-image">StratusPrint</span>
+            <div class="panel panel-kashmir">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fa fa-sign-in"></i> Web Control Panel
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"> {{alert.msg}}</uib-alert>
+                    <form ng-submit="login(user)" role="form" ng-init="user = {}">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" name="email" ng-model="user.email" placeholder="E-mail" type="email" autofocus required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="password" ng-model="user.password" placeholder="Password" type="password" value="" required="required">
+                            </div>
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <a id="pw-reset" ui-sref="reset-password">Forgot Your Password?</a>
+        </div>
+    </div>
+</div>

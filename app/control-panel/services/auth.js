@@ -3,6 +3,15 @@ app.service('auth', AuthService);
 AuthService.$inject = ['$auth', '$rootScope', '$state', 'user'];
 
 function AuthService($auth, $rootScope, $state, user) {
+  var self = this;
+
+  /**
+   * Listen for event indicating invalid or expired access token.
+   * If this occurs, then the user is logged out.
+   */
+  $rootScope.$on('auth:invalid', function() { self.logout(); });
+  $rootScope.$on('auth:session-expired', function() { self.logout(); });
+
   /**
    * Listen for state changes. If the new state requires that the
    * user has to be logged in, and the user is in fact not, then
@@ -31,6 +40,10 @@ function AuthService($auth, $rootScope, $state, user) {
       user.set(resp);
     });
     return login;
+  };
+
+  this.test = function() {
+    console.log('test');
   };
 
   /**

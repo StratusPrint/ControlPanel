@@ -13,6 +13,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
         .state('login', {
           url: '/login',
+          params: {
+            passwordResetEmailSent: {
+              value: false,
+            },
+            passwordReset: {
+              value: false,
+            },
+            hiddenParam: 'YES',
+          },
           templateUrl: 'control-panel/views/auth/login.html',
           controller: 'AuthCtrl',
           data: {
@@ -68,7 +77,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.config(function($authProvider) {
   $authProvider.configure({
-    apiUrl: 'https://dev.api.stratusprint.com/v1',
+    apiUrl: 'http://localhost:8081/v1',
     passwordResetSuccessUrl: 'http://localhost:8080/#/change-password',
   });
 });

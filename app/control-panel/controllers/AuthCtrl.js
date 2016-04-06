@@ -1,13 +1,13 @@
 app.controller('AuthCtrl', AuthCtrl);
 
-AuthCtrl.$inject = ['$scope', '$state', 'auth'];
+AuthCtrl.$inject = ['$scope', '$state', '$stateParams', 'auth'];
 
-function AuthCtrl($scope, $state, auth) {
+function AuthCtrl($scope, $state, $stateParams, auth) {
   // List of open alerts
   $scope.alerts = [];
 
   $scope.$on('auth:login-error', function(ev, reason) {
-    $scope.error = reason.errors.toString();
+    $scope.addAlert('danger', reason.errors.toString());
   });
 
   $scope.login = function(user) {
@@ -24,22 +24,29 @@ function AuthCtrl($scope, $state, auth) {
 
   $scope.requestPasswordReset = function(email) {
     auth.requestPasswordReset(email).then(function(resp) {
-      $scope.addAlert('info', 'Password reset instructions have sent to your e-mail address.');
+      $state.go('login', { passwordResetEmailSent: true });
     })
     .catch(function(resp) {
-      $scope.addAlert('info', 'Unable to request a password reset. Please try again.');
+      if (resp.data.errors.length) {
+        $scope.addAlert('danger', resp.data.errors[0]);
+      } else {
+        $scope.addAlert('danger', 'Unable to request a password reset. Please try again.');
+      }
+      console.log(resp);
     });
   };
 
   $scope.updatePassword = function(data) {
-    // jscs:disable
-    data.current_password = 'dummypassword';
-    // jscs:enable
     auth.updatePassword(data).then(function(resp) {
-      $scope.addAlert('success', 'Your password has been successfully updated.');
+      $state.go('login', { passwordReset: true });
     })
     .catch(function(resp) {
-      $scope.addAlert('danger', 'Unable to update your password. Please try again.');
+      if (resp.data.errors.length) {
+        $scope.addAlert('danger', resp.data.errors[0]);
+      } else {
+        $scope.addAlert('danger', 'Unable to update your password. Please try again.');
+      }
+      console.log(resp);
     });
   };
 
@@ -61,4 +68,16 @@ function AuthCtrl($scope, $state, auth) {
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);
   };
+
+  /**
+   * Display default alerts according to parameters passed to login
+   * state.
+   */
+  if ($stateParams.passwordResetEmailSent) {
+    $scope.addAlert('info', 'Password reset instructions been have sent to your e-mail address.');
+  }
+
+  if ($stateParams.passwordReset) {
+    $scope.addAlert('success', 'Your password has been successfully updated.');
+  }
 }

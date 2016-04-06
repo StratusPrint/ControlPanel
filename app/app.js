@@ -71,6 +71,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
           data: {
             requireLogin: true,
           },
+        })
+        .state('dashboard.hub', {
+          url: '/hub',
+          templateUrl: 'control-panel/views/dashboard/hub.html',
+          controller: 'HubCtrl',
+          data: {
+            requireLogin: true,
+          },
         });
   $urlRouterProvider.otherwise('dashboard');
 });

@@ -13,7 +13,23 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
         .state('login', {
           url: '/login',
-          templateUrl: 'control-panel/views/login/login.html',
+          templateUrl: 'control-panel/views/auth/login.html',
+          controller: 'AuthCtrl',
+          data: {
+            requireLogin: false,
+          },
+        })
+        .state('reset-password', {
+          url: '/reset-password',
+          templateUrl: 'control-panel/views/auth/reset-password.html',
+          controller: 'AuthCtrl',
+          data: {
+            requireLogin: false,
+          },
+        })
+        .state('change-password', {
+          url: '/change-password',
+          templateUrl: 'control-panel/views/auth/change-password.html',
           controller: 'AuthCtrl',
           data: {
             requireLogin: false,
@@ -53,6 +69,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.config(function($authProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
+    passwordResetSuccessUrl: 'http://localhost:8080/#/change-password',
   });
 });
 

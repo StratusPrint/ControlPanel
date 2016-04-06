@@ -6,7 +6,7 @@ function AuthService($auth, $rootScope, $state, user) {
   var self = this;
 
   /**
-   * Listen for event indicating invalid or expired access token.
+   * Listen for events indicating an invalid or expired access token.
    * If this occurs, then the user is logged out.
    */
   $rootScope.$on('auth:invalid', function() { self.logout(); });
@@ -42,10 +42,6 @@ function AuthService($auth, $rootScope, $state, user) {
     return login;
   };
 
-  this.test = function() {
-    console.log('test');
-  };
-
   /**
    * De-authenticate current user. This method does not take any
    * arguments. This will also destroy the current user by calling
@@ -71,6 +67,16 @@ function AuthService($auth, $rootScope, $state, user) {
       resp.data.data.signedIn = true;
       user.set(resp.data.data);
     });
+    return update;
+  };
+
+  this.requestPasswordReset = function(email) {
+    var reset = $auth.requestPasswordReset(email);
+    return reset;
+  };
+
+  this.updatePassword = function(data) {
+    var update = $auth.updatePassword(data);
     return update;
   };
 }

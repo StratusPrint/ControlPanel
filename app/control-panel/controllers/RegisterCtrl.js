@@ -3,6 +3,9 @@ app.controller('RegisterCtrl', RegisterCtrl);
 RegisterCtrl.$inject = ['$scope', '$auth'];
 
 function RegisterCtrl($scope, $auth) {
+  /**
+   * Register new user.
+   */
   $scope.register = function() {
     $auth.submitRegistration($scope.registerForm)
       .then(function(resp) {

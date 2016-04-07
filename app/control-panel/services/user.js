@@ -21,7 +21,7 @@ function UserService(localStorageService) {
   /**
    * Set current user.
    *
-   * @return {JSON} A JSON representation of the current user
+   * @return {JSON} A JSON representation of the current user.
    */
   this.set = function(user) {
     this._user = user;

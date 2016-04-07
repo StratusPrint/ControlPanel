@@ -7,13 +7,13 @@ function HubService($http, $state, user) {
 
   /**
    * @return {JSON} A JSON representation of all the hubs
-  */
+   */
   this.getAllHubs = function() {
-    $http({
+    return $http({
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/hubs',
     }).then(function successCallback(response) {
-      // Success right here
+      return response.data;
     }, function errorCallback(response) {
       // Error response right here
     });
@@ -23,11 +23,12 @@ function HubService($http, $state, user) {
     $http({
       method: 'POST',
       url: 'https://dev.api.stratusprint.com/v1/hubs',
-      data: hub,
+      data: {hub: hub},
     }).then(function successCallback(response) {
       console.log(response);
       // Success right here
     }, function errorCallback(response) {
+      console.log(hub);
       console.log(response);
       // Error response right here
     });

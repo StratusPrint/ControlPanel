@@ -3,11 +3,14 @@ app.controller('HubCtrl', HubCtrl);
 HubCtrl.$inject = ['$scope','hub'];
 
 function HubCtrl($scope,hub) {
-  $scope.hubs = hub.getAllHubs();
-  console.log($scope.hubs);
+  var hubsPromise = hub.getAllHubs();
 
-  $scope.addHub = function(hub) {
-    hub.addHub(hub);
+  hubsPromise.then(function(hubs) {
+    $scope.hubs = hubs;
+  });
+
+  $scope.addHub = function(_hub) {
+    console.log('In Ctrl ' + _hub);
+    hub.addHub(_hub);
   };
-
 }

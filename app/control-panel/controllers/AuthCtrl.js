@@ -15,7 +15,7 @@ function AuthCtrl($scope, $state, $stateParams, auth) {
 
   /**
    * Login a user.
-   * 
+   *
    * @param  {Object} user valid params for User model
    */
   $scope.login = function(user) {
@@ -36,7 +36,7 @@ function AuthCtrl($scope, $state, $stateParams, auth) {
 
   /**
    * Request a password reset for a particular user.
-   * 
+   *
    * @param  {String} email the e-mail of the user requesting the password reset
    */
   $scope.requestPasswordReset = function(email) {
@@ -55,7 +55,7 @@ function AuthCtrl($scope, $state, $stateParams, auth) {
 
   /**
    * Update password of the current user.
-   * 
+   *
    * @param  {Object} data password and password_confirmation params
    */
   $scope.updatePassword = function(data) {

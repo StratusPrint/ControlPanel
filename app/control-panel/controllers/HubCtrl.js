@@ -13,4 +13,8 @@ function HubCtrl($scope,hub) {
     console.log('In Ctrl ' + _hub);
     hub.addHub(_hub);
   };
+
+  $scope.deleteHub = function(_id) {
+    hub.deleteHub(_id);
+  };
 }

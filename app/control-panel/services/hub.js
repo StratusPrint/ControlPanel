@@ -3,10 +3,11 @@ app.service('hub', HubService);
 HubService.$inject = ['$http', '$state', 'user'];
 
 function HubService($http, $state, user) {
-
-
   /**
-   * @return {JSON} A JSON representation of all the hubs
+   * GetAllHubs
+   * Fetches every hub from the database
+   *
+   * @returns {JSON}
    */
   this.getAllHubs = function() {
     return $http({
@@ -19,18 +20,39 @@ function HubService($http, $state, user) {
     });
   };
 
+  /**
+   * AddHub
+   * Takes in a hub object that consists of a friendly_id, ip, hostname, location, and desc
+   * All of type string
+   *
+   * @param hub
+   * @returns {JSON} response
+   */
   this.addHub = function(hub) {
-    $http({
+    return $http({
       method: 'POST',
       url: 'https://dev.api.stratusprint.com/v1/hubs',
       data: {hub: hub},
     }).then(function successCallback(response) {
-      console.log(response);
-      // Success right here
+      return response.data;
+
     }, function errorCallback(response) {
-      console.log(hub);
-      console.log(response);
-      // Error response right here
+
+      return response.data;
+    });
+  };
+
+  this.deleteHub = function(id) {
+    return $http({
+      method: 'DELETE',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + id,
+    }).then(function successCallback(response) {
+      console.log('Success: ' + response.data);
+      return response.data;
+
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+      return response.data;
     });
   };
 }

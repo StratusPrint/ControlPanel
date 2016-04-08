@@ -4,40 +4,56 @@
     </div>
 </div>
 
+<div class="row">
+  <table class="table">
+      <th>id</th>
+      <th>Friendly Id</th>
+      <th>Location</th>
+      <th>Hostname</th>
+      <th>Description</th>
+     <tr ng-repeat="hub in hubs">
+      <td>{{hub.id}}</td>
+      <td>{{hub.friendly_id}}</td>
+      <td>{{hub.hostname}}</td>
+      <td>{{hub.location}}</td>
+      <td>{{hub.desc}}</td>
+    </tr>
+  </table>
+</div>
+
 <form name="addHubForm" class="clearfix" role="form" ng-submit="addHub(hub)" ng-init="hub = {}" novalidate>
-
-    <div class="panel panel-kashmir">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-info-circle"></i> Basic Information</h3>
-        </div>
-
-        <div class="panel-body">
-            <div class="form-group" show-errors>
-                <label for="friendly_id">Hub Name</label>
-                <input autocomplete="off" name="friendly_id" ng-model="hub.friendly_id" type="text" class="form-control" placeholder="Please Give this hub a name" />
-            </div>
-
-            <div class="form-group">
-              <label for="ip">Ip Adress</label>
-              <input autocomplete="off" name="ip" ng-model="hub.ip" type="text" class="form-control" placeholder="Please enter the hubs IP adress" />
-            </div>
-
-            <div class="form-group">
-              <label for="hostname">Host Name</label>
-              <input autocomplete="off" name="ip" ng-model="hub.hostname" type="text" class="form-control" placeholder="Please enter the hubs host name" />
-            </div>
-
-            <div class="form-group">
-              <label for="location">Hub Location</label>
-              <input autocomplete="off" name="location"
-              ng-model="hub.location" type="text" class="form-control" placeholder="Please enter the hubs location" />
-            </div>
-            
-            <div class="form-group">
-              <label for="desc">Description</label>
-              <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Please enter a description of the hub" />
-            </div>
-       </div>
+  <div class="panel panel-kashmir">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-info-circle"></i> Basic Information</h3>
     </div>
-    <button class="btn btn-primary pull-right" type="submit">Save Changes</button>
+
+    <div class="panel-body">
+      <div class="form-group" show-errors>
+        <label for="friendly_id">Hub Name</label>
+        <input autocomplete="off" name="friendly_id" ng-model="hub.friendly_id" type="text" class="form-control" placeholder="Please Give this hub a name" />
+      </div>
+
+      <div class="form-group">
+        <label for="ip">Ip Adress</label>
+        <input autocomplete="off" name="ip" ng-model="hub.ip" type="text" class="form-control" placeholder="Please enter the hubs IP adress" />
+      </div>
+
+      <div class="form-group">
+        <label for="hostname">Host Name</label>
+        <input autocomplete="off" name="ip" ng-model="hub.hostname" type="text" class="form-control" placeholder="Please enter the hubs host name" />
+      </div>
+
+      <div class="form-group">
+        <label for="location">Hub Location</label>
+        <input autocomplete="off" name="location"
+                                  ng-model="hub.location" type="text" class="form-control" placeholder="Please enter the hubs location" />
+      </div>
+
+      <div class="form-group">
+        <label for="desc">Description</label>
+        <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Please enter a description of the hub" />
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary pull-right" type="submit">Save Changes</button>
 </form>

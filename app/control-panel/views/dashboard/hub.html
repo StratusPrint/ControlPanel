@@ -6,17 +6,21 @@
 
 <div class="row">
   <table class="table">
+      <th>Status</th>
       <th>id</th>
       <th>Friendly Id</th>
       <th>Location</th>
       <th>Hostname</th>
       <th>Description</th>
+      <th></th>
      <tr ng-repeat="hub in hubs">
+      <td>{{hub.status}}</td>
       <td>{{hub.id}}</td>
       <td>{{hub.friendly_id}}</td>
       <td>{{hub.hostname}}</td>
       <td>{{hub.location}}</td>
       <td>{{hub.desc}}</td>
+      <td><button class="btn btn-primary pull-right" ng-click="deleteHub(hub.id)">Delete</button></td>
     </tr>
   </table>
 </div>

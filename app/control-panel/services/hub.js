@@ -9,6 +9,7 @@ function HubService($http, $state, user) {
    *
    * @returns {JSON}
    */
+  /*
   this.getAllHubs = function() {
     return $http({
       method: 'GET',
@@ -17,6 +18,23 @@ function HubService($http, $state, user) {
       return response.data;
     }, function errorCallback(response) {
       // Error response right here
+    });
+  };
+ */
+
+  this.getAllHubs = function() {
+    var hubsPromise = $http({
+      method: 'GET',
+      url: 'https://dev.api.stratusprint.com/v1/hubs',
+    });
+
+    hubsPromise.then(function(hubs) {
+      console.log('In then: ' + JSON.stringify(hubs.data[0]));
+      return hubs.data;
+    });
+
+    hubsPromise.catch(function(hubs) {
+      console.log('In catch ' + hubs.data);
     });
   };
 
@@ -42,16 +60,42 @@ function HubService($http, $state, user) {
     });
   };
 
+
+  /**
+   * DeleteHub
+   * deletes a hub by id
+   *
+   * @param id
+   * @returns {promise}
+   */
   this.deleteHub = function(id) {
     return $http({
       method: 'DELETE',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + id,
     }).then(function successCallback(response) {
-      console.log('Success: ' + response.data);
+      console.log('Delete hub ' + response);
       return response.data;
 
     }, function errorCallback(response) {
-      console.log('Error: ' + response.data);
+      return response.data;
+    });
+  };
+
+  /**
+   * ViewHub
+   * Returns a hub with the associated id
+   *
+   * @param id
+   * @returns {undefined}
+   */
+  this.getHub = function(id) {
+    return $http({
+      method: 'GET',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + id,
+    }).then(function successCallback(response) {
+      return response.data;
+
+    }, function errorCallback(response) {
       return response.data;
     });
   };

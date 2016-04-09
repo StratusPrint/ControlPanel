@@ -93,7 +93,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             requireLogin: true,
           },
         });
-        $urlRouterProvider.otherwise('dashboard');
+  $urlRouterProvider.otherwise('dashboard');
 });
 
 app.config(function($authProvider) {

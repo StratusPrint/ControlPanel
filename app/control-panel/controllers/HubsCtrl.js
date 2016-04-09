@@ -11,6 +11,12 @@ function HubsCtrl($scope,$state,$stateParams,hub) {
     $scope.hubs = hubs;
   });
 
+  var promise = hub.getHub(8);
+
+  promise.then(function(hub) {
+      $scope.currentHub = hub;
+    });
+
 
   $scope.addHub = function(_hub) {
     console.log('In Ctrl ' + _hub);
@@ -20,6 +26,9 @@ function HubsCtrl($scope,$state,$stateParams,hub) {
   $scope.deleteHub = function(_id) {
     hub.deleteHub(_id);
   };
+
+  $scope.getHub = function(_id) {
+    };
 
   $scope.viewDetails = function(_hubId) {
     $state.go('dashboard.hubs.hubId', { hubId: _hubId }, {reload: true});

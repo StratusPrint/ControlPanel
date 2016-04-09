@@ -81,14 +81,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
           },
         })
         .state('dashboard.hubs.hubId', {
-          url: '/hubId',
+          url: '/:hubId',
           templateUrl: 'control-panel/views/dashboard/hub.html',
           controller: 'HubsCtrl',
+          params: {
+            hubId: {
+              value: '0',
+            },
+          },
           data: {
             requireLogin: true,
           },
         });
-  $urlRouterProvider.otherwise('dashboard');
+        $urlRouterProvider.otherwise('dashboard');
 });
 
 app.config(function($authProvider) {

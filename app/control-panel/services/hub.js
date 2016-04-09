@@ -7,9 +7,8 @@ function HubService($http, $state, user) {
    * GetAllHubs
    * Fetches every hub from the database
    *
-   * @returns {JSON}
+   * @returns {promise}
    */
-  /*
   this.getAllHubs = function() {
     return $http({
       method: 'GET',
@@ -18,23 +17,6 @@ function HubService($http, $state, user) {
       return response.data;
     }, function errorCallback(response) {
       // Error response right here
-    });
-  };
- */
-
-  this.getAllHubs = function() {
-    var hubsPromise = $http({
-      method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/hubs',
-    });
-
-    hubsPromise.then(function(hubs) {
-      console.log('In then: ' + JSON.stringify(hubs.data[0]));
-      return hubs.data;
-    });
-
-    hubsPromise.catch(function(hubs) {
-      console.log('In catch ' + hubs.data);
     });
   };
 
@@ -86,7 +68,7 @@ function HubService($http, $state, user) {
    * Returns a hub with the associated id
    *
    * @param id
-   * @returns {undefined}
+   * @returns {promise}
    */
   this.getHub = function(id) {
     return $http({

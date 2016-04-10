@@ -105,9 +105,7 @@ function AuthCtrl($scope, $state, $stateParams, auth, hub) {
   var promise = hub.getAllHubs();
 
   promise.then(function(_hubs) {
-    console.log('response: ' + _hubs);
     $scope.hubs = _hubs;
-    console.log('hubs: ' + JSON.stringify($scope.hubs));
   });
 
   $scope.viewHub = function(_hubId) {

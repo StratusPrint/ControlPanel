@@ -55,7 +55,6 @@ function HubService($http, $state, user) {
       method: 'DELETE',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + id,
     }).then(function successCallback(response) {
-      console.log('Delete hub ' + response);
       return response.data;
 
     }, function errorCallback(response) {

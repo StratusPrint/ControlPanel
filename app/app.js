@@ -84,7 +84,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('dashboard.hubs.hubId', {
           url: '/:hubId',
           templateUrl: 'control-panel/views/dashboard/hub.html',
-          controller: 'HubsCtrl',
+          controller: 'HubDetailsCtrl',
           params: {
             hubId: {
               value: '0',

@@ -15,7 +15,6 @@ function RegisterCtrl($scope, $auth) {
       .catch(function(resp) {
         // Handle error response
         console.log(resp);
-        console.log('Obviously got an error response!');
         $scope.registerErrorMessage = 'Sorry, but uh we couldn\'t find you, try again';
       });
   };

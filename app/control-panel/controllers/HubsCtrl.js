@@ -17,7 +17,6 @@ function HubsCtrl($scope,$state,$stateParams,hub) {
    * @returns {}
    */
   $scope.toHubsPage = function(refresh) {
-    console.log('Refresh? ' + refresh);
     $state.go('dashboard.hubs',{},{reload: refresh});
   };
 
@@ -51,7 +50,7 @@ function HubsCtrl($scope,$state,$stateParams,hub) {
    * GetHub
    * Retrieves the hub from the hubs JSON array
    * @param _id
-   * @returns {JSON}
+   * @returns {JSON} if hub is found else returns {NUMBER} 0
    */
   $scope.getHub = function(_id) {
     console.log('Fetching hub#: ' + _id);
@@ -72,8 +71,8 @@ function HubsCtrl($scope,$state,$stateParams,hub) {
    * @returns {}
    */
   $scope.viewDetails = function(_hubId) {
-    console.log('Details of hub#: ' + _hubId);
     $scope.currentHub = this.getHub(_hubId);
+    console.log('Current hub: ' + $scope.currentHub.id);
     $state.go('dashboard.hubs.hubId', { hubId: _hubId });
   };
 

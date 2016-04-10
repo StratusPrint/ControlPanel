@@ -5,10 +5,26 @@ function HubDetailsCtrl($scope, $state, $stateParams, hub) {
   console.log('Params: ' + $stateParams.hubId);
   console.log('Params: ' + JSON.stringify($stateParams));
 
-  var hubPromise = hub.getHub($stateParams.hubId);
+  var hubId = Number($stateParams.hubId);
+  console.log('Hub id is: ' + hubId + 'And it\'s type is: ' + typeof (hubId));
+
+  var hubPromise = hub.getHub(hubId);
+  var changed = false;
 
   hubPromise.then(function(_hub) {
-    $scope.currentHub = _hub;
+    $scope.hub = _hub;
+  });
+
+  var sensorsPromise = hub.getSensors(hubId);
+
+  sensorsPromise.then(function(_sensors) {
+    $scope.sensors = _sensors;
+  });
+
+  var printersPromise = hub.getPrinters(hubId);
+
+  printersPromise.then(function(_printers) {
+    $scope.printers = _printers;
   });
 
   /**
@@ -17,8 +33,15 @@ function HubDetailsCtrl($scope, $state, $stateParams, hub) {
    * @param refresh
    * @returns {}
    */
-  $scope.toHubsPage = function(refresh) {
-    $state.go('dashboard.hubs',{},{reload: refresh});
+  $scope.toHubsPage = function() {
+    $state.go('dashboard.hubs',{},{reload: changed});
+    changed = false;
+  };
+
+  $scope.updateHub = function(_hubId, _hub) {
+    console.log('Updating hub!' + _hubId);
+    hub.updateHub(_hubId, _hub);
+    changed = true;
   };
 
 }

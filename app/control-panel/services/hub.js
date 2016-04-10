@@ -80,4 +80,47 @@ function HubService($http, $state, user) {
       return response.data;
     });
   };
+
+  this.updateHub = function(_hubId, _hub) {
+    return $http({
+      method: 'PATCH',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + _hubId,
+      data: {hub: _hub},
+    }).then(function successCallback(response) {
+      console.log('Hub updated! ' + JSON.stringify(response.data));
+      return response.data;
+
+    }, function errorCallback(response) {
+      return response.data;
+    });
+  };
+
+  this.getSensors = function(id) {
+    console.log('service: ' + id);
+    return $http({
+      method: 'GET',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + id + '/sensors',
+    }).then(function successCallback(response) {
+      console.log('Success For sensors: ' + JSON.stringify(response.data));
+      return response.data;
+
+    }, function errorCallback(response) {
+      return response.data;
+    });
+  };
+
+  this.getPrinters = function(hubId) {
+    console.log('service: ' + hubId);
+    return $http({
+      method: 'GET',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + hubId + '/printers',
+    }).then(function successCallback(response) {
+      console.log('Success For printers: ' + JSON.stringify(response.data));
+      return response.data;
+
+    }, function errorCallback(response) {
+      return response.data;
+    });
+  };
+
 }

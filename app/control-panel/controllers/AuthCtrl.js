@@ -1,8 +1,8 @@
 app.controller('AuthCtrl', AuthCtrl);
 
-AuthCtrl.$inject = ['$scope', '$state', '$stateParams', 'auth'];
+AuthCtrl.$inject = ['$scope', '$state', '$stateParams', 'auth', 'hub'];
 
-function AuthCtrl($scope, $state, $stateParams, auth) {
+function AuthCtrl($scope, $state, $stateParams, auth, hub) {
   // List of open alerts
   $scope.alerts = [];
 
@@ -81,7 +81,6 @@ function AuthCtrl($scope, $state, $stateParams, auth) {
   $scope.addAlert = function(type, msg) {
     $scope.alerts.push({type: type, msg: msg});
   };
-
   /**
    * Close an open alert.
    *
@@ -102,4 +101,17 @@ function AuthCtrl($scope, $state, $stateParams, auth) {
   if ($stateParams.passwordReset) {
     $scope.addAlert('success', 'Your password has been successfully updated.');
   }
+
+  var promise = hub.getAllHubs();
+
+  promise.then(function(_hubs) {
+    console.log('response: ' + _hubs);
+    $scope.hubs = _hubs;
+    console.log('hubs: ' + JSON.stringify($scope.hubs));
+  });
+
+  $scope.viewHub = function(_hubId) {
+    $state.go('dashboard.hubs.hubId', { hubId: _hubId });
+  };
+
 }

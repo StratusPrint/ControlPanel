@@ -46,8 +46,9 @@ module.exports = function(grunt) {
       ],
       options: {
         "config": ".jscsrc",
-        "preset": "google",
+        "preset": "node-style-guide",
         "maximumLineLength": 160,
+        "validateIndentation": 2,
         "fix": true 
       }
     },
@@ -58,7 +59,13 @@ module.exports = function(grunt) {
                 'bower_components/angular/angular.js',
                 'bower_components/angular-ui-router/release/angular-ui-router.js',
                 'bower_components/angular-cookie/angular-cookie.js',
+                'bower_components/angular-local-storage/dist/angular-local-storage.js',
                 'bower_components/ng-token-auth/dist/ng-token-auth.js',
+                'bower_components/angular-bootstrap/ui-bootstrap.js',
+                'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+                'bower_components/angular-bootstrap-show-errors/src/showErrors.js',
+                'bower_components/angular-validation-match/dist/angular-validation-match.js',
+                'bower_components/angular-datatables/dist/angular-datatables.js',
                 'app/app.js',
                 'app/control-panel/**/*.js'
               ]
@@ -69,7 +76,8 @@ module.exports = function(grunt) {
       options: {
         banner: '/* <%= grunt.template.today("yyyy-mm-dd") %> */\n',
         sourceMap: false,
-        beautify: false,
+        beautify: true,
+        //beautify: false,
         mangle: false
       },
       base: {
@@ -78,7 +86,9 @@ module.exports = function(grunt) {
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/metisMenu/dist/metisMenu.js',
-            'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js'
+            'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
+            'bower_components/datatables/media/js/jquery.dataTables.js',
+            'bower_components/datatables/media/js/dataTables.bootstrap.js'
           ],
           'app/public/js/graphs.js': [
             'bower_components/raphael/raphael.js',
@@ -89,8 +99,20 @@ module.exports = function(grunt) {
       app: {
         files: {
           'app/public/js/app.js': [
-            'app/public/app.js'
+            'app/public/js/app.js'
           ]
+        }
+      }
+    },
+    less: {
+      base: {
+        options: {
+          paths: ["app/assets/less"]
+        },
+        files: {
+          "app/public/css/sb-admin-2.css": "app/assets/less/sb-admin-2.less",
+          "app/public/css/stratus-print.css": "app/assets/less/themes/stratus-print.less",
+          "app/public/css/styles.css": "app/assets/less/styles.less"
         }
       }
     },
@@ -105,10 +127,12 @@ module.exports = function(grunt) {
             'bower_components/bootstrap/dist/css/bootstrap.css',
             'bower_components/metisMenu/dist/metisMenu.css',
             'bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css',
-            'bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css',
             'bower_components/font-awesome/css/font-awesome.css',
             'bower_components/morrisjs/morris.css',
-            'app/assets/css/styles.css'
+            'bower_components/datatables/media/css/dataTables.bootstrap.css',
+            'app/public/css/sb-admin-2.css',
+            'app/public/css/stratus-print.css',
+            'app/public/css/styles.css'
           ]
         }
       }
@@ -126,10 +150,10 @@ module.exports = function(grunt) {
       },
       styles: {
         files: [
-          'app/assets/css/*.css',
-          'app/assets/css/**/*.css'
+          'app/assets/less/*.less',
+          'app/assets/less/**/*.less'
         ],
-        tasks: ['cssmin'],
+        tasks: ['less', 'cssmin'],
         options: {
           spawn: false,
         },
@@ -139,10 +163,11 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'newer:jscs',
     'ngAnnotate:angular_app',
     'newer:uglify',
-    'newer:cssmin'
+    'newer:less',
+    'newer:cssmin',
+    'newer:jscs'
   ]);
 
   grunt.registerTask('lint', [

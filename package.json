@@ -11,6 +11,7 @@
     "grunt-contrib-clean": "^0.6",
     "grunt-contrib-cssmin": "^0.12",
     "grunt-contrib-jshint": "^0.11",
+    "grunt-contrib-less": "^1.2.0",
     "grunt-contrib-uglify": "^0.9.2",
     "grunt-contrib-watch": "^0.6",
     "grunt-html": "^5.0.0",

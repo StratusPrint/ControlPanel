@@ -1,105 +1,114 @@
 angular.module('ControlPanel', [
     'ui.router',
-    'ng-token-auth'
+    'ng-token-auth',
+    'LocalStorageModule',
+    'ui.bootstrap',
+    'ui.bootstrap.showErrors',
+    'validation.match',
+    'datatables',
 ]);
 
 var app = angular.module('ControlPanel');
 
-var user;
 
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
+
   $stateProvider
-        .state('/login', {
+        .state('login', {
           url: '/login',
-          templateUrl: 'control-panel/views/login/loginView.html',
-          controller: 'LoginCtrl'
+          params: {
+            passwordResetEmailSent: {
+              value: false,
+            },
+            passwordReset: {
+              value: false,
+            },
+            hiddenParam: 'YES',
+          },
+          templateUrl: 'control-panel/views/auth/login.html',
+          controller: 'AuthCtrl',
+          data: {
+            requireLogin: false,
+          },
         })
-        .state('/dashboard', {
+        .state('reset-password', {
+          url: '/reset-password',
+          templateUrl: 'control-panel/views/auth/reset-password.html',
+          controller: 'AuthCtrl',
+          data: {
+            requireLogin: false,
+          },
+        })
+        .state('change-password', {
+          url: '/change-password',
+          templateUrl: 'control-panel/views/auth/change-password.html',
+          controller: 'AuthCtrl',
+          data: {
+            requireLogin: false,
+          },
+        })
+        .state('dashboard', {
+          templateUrl: 'control-panel/views/dashboard/common.html',
+          abstract: true,
+        })
+        .state('dashboard.overview', {
           url: '/dashboard',
-          templateUrl: 'control-panel/views/dashboard/dashboardView.html',
+          templateUrl: 'control-panel/views/dashboard/overview.html',
           controller: 'DashboardCtrl',
-          resolve: {
-            auth: ['$auth', function($auth) {
-              var aut = $auth.validateUser();
-              return aut;
-            }]
-          }
+          data: {
+            requireLogin: true,
+          },
         })
-        .state('/register', {
+        .state('dashboard.register', {
           url: '/register',
-          templateUrl: 'control-panel/views/register/registerView.html',
-          controller: 'RegisterCtrl'
+          templateUrl: 'control-panel/views/dashboard/register.html',
+          controller: 'RegisterCtrl',
+          data: {
+            requireLogin: true,
+          },
         })
-        .state('/profile', {
+        .state('dashboard.profile', {
           url: '/profile',
-          templateUrl: 'control-panel/views/profile/profileView.html',
+          templateUrl: 'control-panel/views/dashboard/profile.html',
           controller: 'ProfileCtrl',
-          resolve: {
-            auth: ['$auth', function($auth) {
-              var aut = $auth.validateUser();
-              return aut;
-            }]
-          }
+          data: {
+            requireLogin: true,
+          },
+        })
+        .state('dashboard.hubs', {
+          url: '/hubs',
+          templateUrl: 'control-panel/views/dashboard/hubs.html',
+          controller: 'HubsCtrl',
+          data: {
+            requireLogin: true,
+          },
+        })
+        .state('dashboard.hubs.hubId', {
+          url: '/:hubId',
+          templateUrl: 'control-panel/views/dashboard/hub.html',
+          controller: 'HubsCtrl',
+          params: {
+            hubId: {
+              value: '0',
+            },
+          },
+          data: {
+            requireLogin: true,
+          },
         });
-  $urlRouterProvider.otherwise('/dashboard');
-  //To remove the hash from the URL
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
-  });
+
+  $urlRouterProvider.otherwise('dashboard');
+
 });
 
 app.config(function($authProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
-    handleLoginResponse: function(response) {
-      SetUser(response);
-      return response;
-    }
+    passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
   });
 });
 
-/* Setting up authentication, redirections, and signout */
-app.run(function($rootScope, $state, $auth) {
-  $rootScope.$on('auth:invalid', function(e) {
-    $state.go('/login');
-  });
-
-  $rootScope.$on('auth:login-success', function(e) {
-    $rootScope.user = GetUser();
-    $state.go('/dashboard');
-  });
-
-  $rootScope.$on('auth:logout-error', function(ev, reason) {});
-
-  $rootScope.$on('auth:account-update-success', function(ev) {
-    alert('Your account has been successfully updated!');
-  });
-
-  $rootScope.$on('auth:validation-success', function(ev) {
-    $state.go('/dashboard');
-  });
-
+app.run(function($rootScope, $state, user, auth) {
+  $rootScope.user = user;
+  $rootScope.auth = auth;
 });
-
-function SetUser(userInfo) {
-  user = {
-    id: userInfo.data.id,
-    email: userInfo.data.email,
-    name: userInfo.data.name,
-    nickname: userInfo.data.nickname,
-    image: userInfo.data.image,
-    admin: userInfo.data.admin
-  };
-  if (user.image === null) {
-    console.log('going here?');
-    user.image = 'assets/img/avatar.png';
-  }
-  if (user.admin === null) {
-    user.admin = false;
-  }
-}
-
-function GetUser() {
-  return user;
-}

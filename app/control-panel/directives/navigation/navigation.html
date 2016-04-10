@@ -241,12 +241,12 @@
                 <a ui-sref="dashboard.overview"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
             <li>
-                <a href=""><i class="fa fa-bar-chart-o fa-fw"></i> Hubs<span class="fa arrow"></span></a>
+                <a href=""><i class="fa fa-cloud fa-fw"></i> Enviroments<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                   <li ng-repeat='hub in hubs'>
-                    <a ui-sref="dashboard.hubs"> <i class="fa fa-user fa-fw"></i> {{hub.friendly_id}}</a>
+                    <a ui-sref="dashboard.hubs.hubId({ hubId: hub.id })"> <i class="fa fa-cloud-upload fa-fw"></i> {{hub.friendly_id}}</a>
                   </li> 
-                  <li> <a ui-sref="dashboard.hubs({hubId: hub.id})">View All</a></li>
+                  <li> <a ui-sref="dashboard.hubs"> <i class="fa fa-table fa-fw"></i> View All</a></li>
                 </ul>
                 <!-- /.nav-second-level -->
             </li>

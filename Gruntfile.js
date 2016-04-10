@@ -65,6 +65,7 @@ module.exports = function(grunt) {
                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
                 'bower_components/angular-bootstrap-show-errors/src/showErrors.js',
                 'bower_components/angular-validation-match/dist/angular-validation-match.js',
+                'bower_components/angular-datatables/dist/angular-datatables.js',
                 'app/app.js',
                 'app/control-panel/**/*.js'
               ]
@@ -85,7 +86,9 @@ module.exports = function(grunt) {
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/metisMenu/dist/metisMenu.js',
-            'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js'
+            'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
+            'bower_components/datatables/media/js/jquery.dataTables.js',
+            'bower_components/datatables/media/js/dataTables.bootstrap.js'
           ],
           'app/public/js/graphs.js': [
             'bower_components/raphael/raphael.js',
@@ -126,6 +129,7 @@ module.exports = function(grunt) {
             'bower_components/startbootstrap-sb-admin-2/dist/css/timeline.css',
             'bower_components/font-awesome/css/font-awesome.css',
             'bower_components/morrisjs/morris.css',
+            'bower_components/datatables/media/css/dataTables.bootstrap.css',
             'app/public/css/sb-admin-2.css',
             'app/public/css/stratus-print.css',
             'app/public/css/styles.css'

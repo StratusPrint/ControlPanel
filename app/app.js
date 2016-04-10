@@ -5,6 +5,7 @@ angular.module('ControlPanel', [
     'ui.bootstrap',
     'ui.bootstrap.showErrors',
     'validation.match',
+    'datatables',
 ]);
 
 var app = angular.module('ControlPanel');

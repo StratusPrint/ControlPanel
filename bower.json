@@ -34,7 +34,8 @@
     "tests"
   ],
   "resolutions": {
-    "angular": "1.5.3"
+    "angular": "1.5.3",
+    "datatables-responsive": "^2.0.2"
   },
   "dependencies": {
     "startbootstrap-sb-admin-2": "^1.0.8",
@@ -44,6 +45,7 @@
     "angular-validation-match": "^1.7.1",
     "angular-bootstrap-show-errors": "^2.3.0",
     "angular-datatables": "^0.5.4",
-    "datatables": "^1.10.11"
+    "datatables": "^1.10.11",
+    "datatables-responsive": "^2.0.2"
   }
 }

@@ -88,7 +88,9 @@ module.exports = function(grunt) {
             'bower_components/metisMenu/dist/metisMenu.js',
             'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
             'bower_components/datatables/media/js/jquery.dataTables.js',
-            'bower_components/datatables/media/js/dataTables.bootstrap.js'
+            'bower_components/datatables/media/js/dataTables.bootstrap.js',
+            'bower_components/datatables-responsive/js/dataTables.responsive.js',
+            'bower_components/datatables-responsive/js/responsive.bootstrap.js'
           ],
           'app/public/js/graphs.js': [
             'bower_components/raphael/raphael.js',

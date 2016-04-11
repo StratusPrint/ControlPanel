@@ -103,7 +103,7 @@ function AuthCtrl($scope, $state, $stateParams, auth, hub) {
   }
 
   if ($stateParams.accountConfirmed) {
-    $scope.addAlert('success', 'Your account has been successfully confirmed. Please login below.');
+    $scope.addAlert('success', 'Your account has been successfully confirmed. You can now login below.');
   }
 
   var promise = hub.getAllHubs();

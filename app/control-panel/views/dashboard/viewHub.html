@@ -8,9 +8,14 @@
 <div class="row">
   <div class="col-md-4" ng-repeat="sensor in ::sensors">
     <div class="panel panel-info">
-      <div class="panel-heading"> {{sensors.friendly_id}}</div>
+      <div class="panel-heading"> Sensor {{sensor.friendly_id}}</div>
       <div class="panel-body">
-        <p>Some stuff</p>
+        <ul>
+          <li>{{sensor.category}}</li>
+          <li>{{sensor.desc}}</li>
+          <li>Datum: {{sensor.data_count}}</li>
+
+        </ul>
       </div>
     </div>
   </div>

@@ -13,7 +13,7 @@ var app = angular.module('ControlPanel');
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
         .state('login', {
-          url: '/login',
+          url: '/login?accountConfirmed',
           params: {
             passwordResetEmailSent: {
               value: false,
@@ -101,6 +101,7 @@ app.config(function($authProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
     passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
+    confirmationSuccessUrl: 'https://dev.stratusprint.com/#/login?accountConfirmed=true',
   });
 });
 

@@ -102,6 +102,10 @@ function AuthCtrl($scope, $state, $stateParams, auth, hub) {
     $scope.addAlert('success', 'Your password has been successfully updated.');
   }
 
+  if ($stateParams.accountConfirmed) {
+    $scope.addAlert('success', 'Your account has been successfully confirmed. Please login below.');
+  }
+
   var promise = hub.getAllHubs();
 
   promise.then(function(_hubs) {

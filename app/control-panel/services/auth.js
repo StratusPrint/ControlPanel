@@ -9,8 +9,20 @@ function AuthService($auth, $rootScope, $state, user) {
    * Listen for events indicating an invalid or expired access token.
    * If this occurs, then the user is logged out.
    */
-  $rootScope.$on('auth:invalid', function() { self.logout(); });
-  $rootScope.$on('auth:session-expired', function() { self.logout(); });
+  $rootScope.$on('auth:invalid', function() {
+    self.logout();
+    $state.go('login');
+  });
+
+  $rootScope.$on('auth:validation-error', function() {
+    self.logout();
+    $state.go('login');
+  });
+
+  $rootScope.$on('auth:session-expired', function() {
+    self.logout();
+    $state.go('login');
+  });
 
   /**
    * Listen for state changes. If the new state requires that the

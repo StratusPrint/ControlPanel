@@ -1,7 +1,7 @@
-app.controller('HubDetailsCtrl', HubDetailsCtrl);
-HubDetailsCtrl.$inject = ['$scope','$state','$stateParams','hub'];
+app.controller('ViewHubCtrl', ViewHubCtrl);
+ViewHubCtrl.$inject = ['$scope','$state','$stateParams','hub'];
 
-function HubDetailsCtrl($scope, $state, $stateParams, hub) {
+function ViewHubCtrl($scope, $state, $stateParams, hub) {
   console.log('Params: ' + $stateParams.hubId);
   console.log('Params: ' + JSON.stringify($stateParams));
 

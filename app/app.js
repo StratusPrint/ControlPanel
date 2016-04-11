@@ -76,15 +76,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('dashboard.hubs', {
           url: '/hubs',
           templateUrl: 'control-panel/views/dashboard/listHubs.html',
-          controller: 'HubsCtrl',
+          controller: 'ListHubsCtrl',
           data: {
             requireLogin: true,
           },
         })
         .state('dashboard.hubs.hubId', {
           url: '/:hubId',
-          templateUrl: 'control-panel/views/dashboard/showHub.html',
-          controller: 'HubDetailsCtrl',
+          templateUrl: 'control-panel/views/dashboard/viewHub.html',
+          controller: 'ViewHubCtrl',
           params: {
             hubId: {
               value: '0',

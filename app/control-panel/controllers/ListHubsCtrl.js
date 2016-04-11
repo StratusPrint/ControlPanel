@@ -1,8 +1,8 @@
-app.controller('HubsCtrl', HubsCtrl);
+app.controller('ListHubsCtrl', ListHubsCtrl);
 
-HubsCtrl.$inject = ['$scope','$state','$stateParams','hub'];
+ListHubsCtrl.$inject = ['$scope','$state','$stateParams','hub'];
 
-function HubsCtrl($scope,$state,$stateParams,hub) {
+function ListHubsCtrl($scope,$state,$stateParams,hub) {
 
   var hubsPromise = hub.getAllHubs();
 

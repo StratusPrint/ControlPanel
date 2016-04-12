@@ -2,14 +2,14 @@ app.controller('ViewHubCtrl', ViewHubCtrl);
 ViewHubCtrl.$inject = ['$scope','$state','$stateParams','hub'];
 
 function ViewHubCtrl($scope, $state, $stateParams, hub) {
-  console.log('Params: ' + $stateParams.hubId);
-  console.log('Params: ' + JSON.stringify($stateParams));
-
   var hubId = Number($stateParams.hubId);
-  console.log('Hub id is: ' + hubId + 'And it\'s type is: ' + typeof (hubId));
 
   var hubPromise = hub.getHub(hubId);
   var changed = false;
+
+  $scope.printerCurrentPage = 1;
+  $scope.printerItemsPerPage = 2;
+
 
   hubPromise.then(function(_hub) {
     $scope.hub = _hub;
@@ -25,6 +25,7 @@ function ViewHubCtrl($scope, $state, $stateParams, hub) {
 
   printersPromise.then(function(_printers) {
     $scope.printers = _printers;
+    $scope.printerTotalItems = _printers.length;
   });
 
   /**
@@ -44,4 +45,11 @@ function ViewHubCtrl($scope, $state, $stateParams, hub) {
     changed = true;
   };
 
+  $scope.setPage = function(pageNo) {
+    $scope.printerCurrentPage = pageNo;
+  };
+
+  $scope.pageChanged = function() {
+    console.log('Page changed to: ' + $scope.printerCurrentPage);
+  };
 }

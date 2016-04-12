@@ -96,7 +96,7 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
         });
   $urlRouterProvider.otherwise('dashboard');
   $locationProvider.html5Mode({
-    enabled: true,
+    enabled: false,
     requireBase: false,
   });
 });

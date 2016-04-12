@@ -24,7 +24,6 @@
   </div>
 </div>
 
-
 <div class="row">
   <div class="col-sm-7 col-lg-7">
     <div class="panel panel-info">
@@ -32,7 +31,7 @@
         Printers 
       </div>
       <div class="panel-body">
-        <div class="printer-container"ng-repeat="printer in ::printers">
+        <div class="item-container" ng-repeat="printer in printers.slice(((printerCurrentPage-1)*printerItemsPerPage), ((printerCurrentPage)*printerItemsPerPage))">
           <h1>
             {{printer.friendly_id}}
           </h1>
@@ -46,6 +45,7 @@
           </ul>
           <button class="btn btn-primary" ng-click="viewPrinter(printer.id)">View Details</button>
         </div>
+<uib-pagination total-items="printerTotalItems" items-per-page = "printerItemsPerPage"  ng-model="printerCurrentPage" ng-change="pageChanged()"></uib-pagination>
       </div>
     </div>
   </div>

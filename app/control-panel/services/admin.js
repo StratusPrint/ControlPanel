@@ -30,15 +30,8 @@ function AdminService($http, $state, user, $auth) {
    *
    */
   this.registerUser = function(newUser) {
-    $auth.submitRegistration(newUser)
-        .then(function(resp) {
-          // Handle success response
-          return 'User Registered!';
-        })
-        .catch(function(resp) {
-          console.log(resp);
-          return 'User could not be registered. Try Again!';
-        });
+    return $auth.submitRegistration(newUser);
+
   };
 
 

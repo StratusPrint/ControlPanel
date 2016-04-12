@@ -10,7 +10,7 @@ angular.module('ControlPanel', [
 
 var app = angular.module('ControlPanel');
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
   $stateProvider
         .state('login', {
           url: '/login?accountConfirmed',
@@ -95,13 +95,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
           },
         });
   $urlRouterProvider.otherwise('dashboard');
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false,
+  });
 });
 
 app.config(function($authProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
-    passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
-    confirmationSuccessUrl: 'https://dev.stratusprint.com/#/login?accountConfirmed=true',
+    passwordResetSuccessUrl: 'https://dev.stratusprint.com/change-password',
+    confirmationSuccessUrl: 'https://dev.stratusprint.com/login?accountConfirmed=true',
   });
 });
 

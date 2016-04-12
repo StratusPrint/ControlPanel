@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-lg-12">
-    <button class="btn btn-primary" ng-click="toHubsPage(false)">Back</button>
+    <button class="btn btn-primary" ng-click="toHubsPage(false)">
+      <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Back
+    </button>
     <h1 class="page-header">{{hub.friendly_id}} Details</h1>
   </div>
 </div>
@@ -8,50 +10,77 @@
 <div class="row">
   <div class="col-md-4" ng-repeat="sensor in ::sensors">
     <div class="panel panel-info">
-      <div class="panel-heading"> Sensor {{sensor.friendly_id}}</div>
+      <div class="panel-heading">
+        <i class="fa fa-industry" ></i> Sensor {{sensor.friendly_id}}
+      </div>
       <div class="panel-body">
         <ul>
+          <li>get some morris.js in here</li>
           <li>{{sensor.category}}</li>
           <li>{{sensor.desc}}</li>
-          <li>Datum: {{sensor.data_count}}</li>
-
         </ul>
       </div>
     </div>
   </div>
 </div>
 
-  <form name="addHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hub)" ng-init="hub = {}" novalidate>
-    <div class="panel panel-kashmir">
+
+<div class="row">
+  <div class="col-sm-7 col-lg-7">
+    <div class="panel panel-info">
       <div class="panel-heading">
-        <i class="fa fa-plus-circle"></i> Edit Hub Details 
+        Printers 
       </div>
       <div class="panel-body">
-        <div class="form-group" show-errors>
-          <label for="friendly_id">Hub Name</label>
-          <input autocomplete="off" name="friendly_id" ng-model="hub.friendly_id" type="text" class="form-control" placeholder="Enter a friendly identifier for the new hub (e.g. hub0)" />
-        </div>
-        <div class="form-group">
-          <label for="ip">IP Address</label>
-          <input autocomplete="off" name="ip" ng-model="hub.ip" type="text" class="form-control" placeholder="Enter the new hub's IP address (e.g. 212.134.24.244)" />
-        </div>
-        <div class="form-group">
-          <label for="hostname">Host Name</label>
-          <input autocomplete="off" name="ip" ng-model="hub.hostname" type="text" class="form-control" placeholder="Enter the new hub's hostname (e.g. hub.yourdomain.com)" />
-        </div>
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input autocomplete="off" name="location" ng-model="hub.location" type="text" class="form-control" placeholder="Describe where this new hub (e.g. Computer Lab)" />
-        </div>
-        <div class="form-group">
-          <label for="desc">Description</label>
-          <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Describe environment that the new hub is representing" />
+        <div class="printer-container"ng-repeat="printer in ::printers">
+          <h1>
+            {{printer.friendly_id}}
+          </h1>
+          <ul>
+            <li>{{printer.location}}</li>
+            <li>{{printer.model}}</li>
+            <li>{{printer.num_jobs}}</li>
+            <li>{{printer.description}}</li>
+            <li>{{printer.data.state.text}}</li>
+            <li>Ready to print: {{printer.data.state.flags.ready}}</li>
+          </ul>
+          <button class="btn btn-primary" ng-click="viewPrinter(printer.id)">View Details</button>
         </div>
       </div>
     </div>
-    <button class="btn btn-primary pull-right" type="submit">Save Changes</button>
-  </form>
+  </div>
 
-  <button class="btn btn-primary" ng-click="deleteHub(currentHub.id)">Delete Hub</button>
-
+  <div class="col-sm-5 col-lg-5">
+    <form name="addHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hub)" ng-init="hub = {}" novalidate>
+      <div class="panel panel-kashmir">
+        <div class="panel-heading">
+          <i class="fa fa-plus-circle"></i> Edit Hub Details 
+        </div>
+        <div class="panel-body">
+          <div class="form-group" show-errors>
+            <label for="friendly_id">Hub Name</label>
+            <input autocomplete="off" name="friendly_id" ng-model="hub.friendly_id" type="text" class="form-control" placeholder="Enter a friendly identifier for the new hub (e.g. hub0)" />
+          </div>
+          <div class="form-group">
+            <label for="ip">IP Address</label>
+            <input autocomplete="off" name="ip" ng-model="hub.ip" type="text" class="form-control" placeholder="Enter the new hub's IP address (e.g. 212.134.24.244)" />
+          </div>
+          <div class="form-group">
+            <label for="hostname">Host Name</label>
+            <input autocomplete="off" name="ip" ng-model="hub.hostname" type="text" class="form-control" placeholder="Enter the new hub's hostname (e.g. hub.yourdomain.com)" />
+          </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input autocomplete="off" name="location" ng-model="hub.location" type="text" class="form-control" placeholder="Describe where this new hub (e.g. Computer Lab)" />
+          </div>
+          <div class="form-group">
+            <label for="desc">Description</label>
+            <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Describe environment that the new hub is representing" />
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Save Changes</button>
+      <button class="btn btn-primary" ng-click="deleteHub(currentHub.id)">Delete Hub</button>
+    </form>
+  </div>
 </div>

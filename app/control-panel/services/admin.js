@@ -11,10 +11,11 @@ function AdminService($http, $state, user, $auth) {
    * @returns {promise}
    */
   this.getAllUsers = function() {
-    $http({
+    return $http({
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/users',
     }).then(function successCallback(response) {
+
       return response.data;
     }, function errorCallback(response) {
       // Error response right here
@@ -32,9 +33,11 @@ function AdminService($http, $state, user, $auth) {
     $auth.submitRegistration(newUser)
         .then(function(resp) {
           // Handle success response
+          return 'User Registered!';
         })
         .catch(function(resp) {
-          // Handle error response
+          console.log(resp);
+          return 'User could not be registered. Try Again!';
         });
   };
 

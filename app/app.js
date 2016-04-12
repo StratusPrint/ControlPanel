@@ -95,7 +95,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
           data: {
             requireLogin: true,
           },
-        });
+        })
+        .state('dashboard.users', {
+          url: '/users',
+          templateUrl: 'control-panel/views/dashboard/users.html',
+          controller: 'UsersCtrl',
+          data: {
+            requireLogin: true,
+          },
+        })
+
+
+        ;
 
   $urlRouterProvider.otherwise('dashboard');
 
@@ -105,6 +116,7 @@ app.config(function($authProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
     passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
+    confirmationSuccessUrl:  'https://dev.stratusprint.com/#/dashboard',
   });
 });
 

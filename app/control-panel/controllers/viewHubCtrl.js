@@ -46,6 +46,20 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
     console.log('Printers Page changed to: ' + $scope.printersCurrentPage);
   };
 
+  /**
+   * DeleteHub
+   * calls deleteHub from the service
+   * deleteHub in the service removes the hub by id
+   * @param _id
+   * @returns {}
+   */
+  $scope.deleteHub = function(_id) {
+    console.log('Deleting Hub ' + _id);
+    hub.deleteHub(_id);
+    changed = true;
+    this.toHubsPage();
+  };
+
 
   /**
   *

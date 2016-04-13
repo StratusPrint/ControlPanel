@@ -33,7 +33,8 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
         $scope.sensors[j].data = $scope.sensorData[j];
         var dataLength = $scope.sensors[j].data.length;
         $scope.sensors[j].newestDatum = $scope.sensors[j].data[dataLength - 1];
-        console.log('Newest Datum: ' + $scope.sensors[j].newestDatum);
+        $scope.sensors[j].newestDatum.value = parseFloat($scope.sensors[j].data[dataLength - 1].value).toFixed(2);
+        console.log('Newest Datum: ' + $scope.sensors[j].newestDatum + ' it\'s value type is: ' + typeof ($scope.sensors[j].newestDatum.value));
       }
 
     });

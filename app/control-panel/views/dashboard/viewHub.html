@@ -3,7 +3,7 @@
     <button class="btn btn-primary" ng-click="toHubsPage(false)">
       <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Back
     </button>
-    <h1 class="page-header">{{hub.friendly_id}} Details</h1>
+    <h1 class="page-header">{{::hub.friendly_id}} Details</h1>
   </div>
 </div>
 
@@ -62,7 +62,7 @@
   </div>
 
   <div class="col-sm-5 col-lg-5">
-    <form name="addHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hub)" ng-init="hub = {}" novalidate>
+    <form name="addHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hubDetails)" ng-init="hubDetails = {}" novalidate>
       <div class="panel panel-kashmir">
         <div class="panel-heading">
           <i class="fa fa-plus-circle"></i> Edit Hub Details 
@@ -70,23 +70,23 @@
         <div class="panel-body">
           <div class="form-group" show-errors>
             <label for="friendly_id">Hub Name</label>
-            <input autocomplete="off" name="friendly_id" ng-model="hub.friendly_id" type="text" class="form-control" placeholder="Enter a friendly identifier for the new hub (e.g. hub0)" />
+            <input autocomplete="off" name="friendly_id" ng-model="hubDetails.friendly_id" type="text" class="form-control" placeholder="{{::hub.friendly_id}}" />
           </div>
           <div class="form-group">
             <label for="ip">IP Address</label>
-            <input autocomplete="off" name="ip" ng-model="hub.ip" type="text" class="form-control" placeholder="Enter the new hub's IP address (e.g. 212.134.24.244)" />
+            <input autocomplete="off" name="ip" ng-model="hubDetails.ip" type="text" class="form-control" placeholder="{{::hub.ip}}" />
           </div>
           <div class="form-group">
             <label for="hostname">Host Name</label>
-            <input autocomplete="off" name="ip" ng-model="hub.hostname" type="text" class="form-control" placeholder="Enter the new hub's hostname (e.g. hub.yourdomain.com)" />
+            <input autocomplete="off" name="ip" ng-model="hubDetails.hostname" type="text" class="form-control" placeholder="{{::hub.hostname}}" />
           </div>
           <div class="form-group">
             <label for="location">Location</label>
-            <input autocomplete="off" name="location" ng-model="hub.location" type="text" class="form-control" placeholder="Describe where this new hub (e.g. Computer Lab)" />
+            <input autocomplete="off" name="location" ng-model="hubDetails.location" type="text" class="form-control" placeholder="{{::hub.location}}" />
           </div>
           <div class="form-group">
             <label for="desc">Description</label>
-            <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Describe environment that the new hub is representing" />
+            <input autocomplete="off" name="desc" ng-model="hubDetails.desc" type="text" class="form-control" placeholder="{{::hub.desc}}" />
           </div>
         </div>
       </div>

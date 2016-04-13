@@ -55,4 +55,12 @@ function AdminService($http, $state, user, $auth) {
       return response.data;
     });
   };
+
+
+  this.deleteUser = function(id) {
+    return $http({
+      method: 'DELETE',
+      url: 'https://dev.api.stratusprint.com/v1/users/' + id,
+    });
+  };
 }

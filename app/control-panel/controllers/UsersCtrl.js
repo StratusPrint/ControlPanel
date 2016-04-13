@@ -10,18 +10,21 @@ function UsersCtrl($scope, $state, $stateParams, admin) {
   function loadUsers() {
     var userPromise = admin.getAllUsers();
     userPromise.then(function(response) {
+      $scope.users = [];//To empty before reloading
+      var i;
+      for (i = 0 ; i < response.length; i++)
+        $scope.users.push(response[i]);
 
-      $scope.users = response;
 
     }).catch(function(response) {
-
+      addErrorAlert(response.data);
     });
   }
 
   $scope.register = function(user) {
     console.log(user);
-    var RegisterPromise = admin.registerUser(user);
-    RegisterPromise.then(function(response) {
+    var registerPromise = admin.registerUser(user);
+    registerPromise.then(function(response) {
       addSuccessAlert('User Successfully Registered!');
       loadUsers();
     })
@@ -32,6 +35,18 @@ function UsersCtrl($scope, $state, $stateParams, admin) {
         addErrorAlert(errors[i]);
       }
     });
+  };
+
+  $scope.delete = function(_id) {
+    var deletePromise = admin.deleteUser(_id);
+    deletePromise.then(function() {
+      loadUsers();
+      addSuccessAlert('User Deleted!');
+    })
+    .catch(function() {
+
+    });
+
 
 
   };
@@ -50,6 +65,9 @@ function UsersCtrl($scope, $state, $stateParams, admin) {
     $scope.alerts.splice(index, 1);
   };
   $scope.alerts = [];
+  $scope.users = [];
+
+
   loadUsers();
 
 }

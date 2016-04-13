@@ -8,22 +8,19 @@
 </div>
 
 <div class="row">
-  <div class="panel panel-info">
+  <div class="panel panel-green col-lg-2" 
+       ng-repeat="sensor in ::sensors">
     <div class="panel-heading">
-      Sensors 
+      <h3 class="centerAlign noMargin">{{sensor.newestDatum.value}}</h3>
     </div>
     <div class="panel-body">
-      <div class="well col-lg-2" 
-           ng-repeat="sensor in ::sensors">
-        <h3>{{sensor.newestDatum.value}}</h3> 
-        <h3>{{sensor.friendly_id}}</h3> 
-        <ul>
-          <li>{{sensor.category}}</li>
-          <li>{{sensor.desc}}</li>
-        </ul>
-      </div>
-    </div>
+      <h3>{{sensor.friendly_id}}</h3> 
+      <ul>
+        <li>{{sensor.category}}</li>
+        <li>{{sensor.desc}}</li>
+      </ul>
   </div>
+</div>
 </div>
 
 <div class="row">

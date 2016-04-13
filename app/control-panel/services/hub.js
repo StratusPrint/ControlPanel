@@ -101,7 +101,6 @@ function HubService($http, $state, user) {
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + id + '/sensors',
     }).then(function successCallback(response) {
-      console.log('Success For sensors: ' + JSON.stringify(response.data));
       return response.data;
 
     }, function errorCallback(response) {
@@ -115,7 +114,6 @@ function HubService($http, $state, user) {
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + hubId + '/printers',
     }).then(function successCallback(response) {
-      console.log('Success For printers: ' + JSON.stringify(response.data));
       return response.data;
 
     }, function errorCallback(response) {

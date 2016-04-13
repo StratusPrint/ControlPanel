@@ -15,7 +15,7 @@
     <div class="panel-body">
       <div class="well col-lg-2" 
            ng-repeat="sensor in ::sensors">
-        <h3>{{sensor.data[0]}}</h3> 
+        <h3>{{sensor.newestDatum.value}}</h3> 
         <h3>{{sensor.friendly_id}}</h3> 
         <ul>
           <li>{{sensor.category}}</li>

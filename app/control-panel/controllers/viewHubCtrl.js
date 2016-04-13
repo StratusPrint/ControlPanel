@@ -1,7 +1,7 @@
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope','$state','$stateParams','hub','printer','sensor'];
+ViewHubCtrl.$inject = ['$scope','$state','$stateParams','$q','hub','printer','sensor'];
 
-function ViewHubCtrl($scope, $state, $stateParams, hub, printer, sensor) {
+function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
   var hubId = Number($stateParams.hubId);
 
   var hubPromise = hub.getHub(hubId);
@@ -10,18 +10,33 @@ function ViewHubCtrl($scope, $state, $stateParams, hub, printer, sensor) {
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
 
-  $scope.sensorsCurrentPage = 1;
-  $scope.sensorsItemsPerPage = 4;
-
   hubPromise.then(function(_hub) {
     $scope.hub = _hub;
   });
 
+
   var sensorsPromise = hub.getSensors(hubId);
 
   sensorsPromise.then(function(_sensors) {
+    var sensorDataPromises = [];
     $scope.sensors = _sensors;
-    $scope.sensorsTotalItems = _sensors.length;
+
+    for (var i = 0; i < $scope.sensors.length; i++) {
+      sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
+    }
+
+    $q.all(sensorDataPromises).then(function(_data) {
+      $scope.sensorData = _data;
+      console.log('Sensor Data Size: ' + $scope.sensorData.length);
+
+      for (var j = 0; j < $scope.sensorData.length; j++) {
+        $scope.sensors[j].data = $scope.sensorData[j];
+        var dataLength = $scope.sensors[j].data.length;
+        $scope.sensors[j].newestDatum = $scope.sensors[j].data[dataLength - 1];
+        console.log('Newest Datum: ' + $scope.sensors[j].newestDatum);
+      }
+
+    });
   });
 
   var printersPromise = hub.getPrinters(hubId);
@@ -55,11 +70,7 @@ function ViewHubCtrl($scope, $state, $stateParams, hub, printer, sensor) {
     changed = true;
   };
 
-  $scope.pageChanged = function(object) {
-    if (object === $scope.printers) {
-      console.log('Printers Page changed to: ' + $scope.printersCurrentPage);
-    } else if (object === $scope.sensors) {
-      console.log('Sensors Page changed to: ' + $scope.sensorsCurrentPage);
-    }
+  $scope.pageChanged = function() {
+    console.log('Printers Page changed to: ' + $scope.printersCurrentPage);
   };
 }

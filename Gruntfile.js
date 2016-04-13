@@ -49,6 +49,8 @@ module.exports = function(grunt) {
         "preset": "node-style-guide",
         "maximumLineLength": 160,
         "validateIndentation": 2,
+        "disallowMultipleVarDecl": false,
+        "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
         "fix": true 
       }
     },

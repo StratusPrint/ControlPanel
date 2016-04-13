@@ -8,29 +8,22 @@
 </div>
 
 <div class="row">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        Sensors 
-      </div>
-      <div class="panel-body">
-        <div class="item-container col-lg-2" 
-             ng-repeat="sensor in sensors.slice(((sensorsCurrentPage-1)*sensorsItemsPerPage), ((sensorsCurrentPage)*sensorsItemsPerPage))">
-          <div class="row">
-            <div class="col-lg-12">
-              <img class="itemPic" src="http://placehold.it/250x250">
-            </div>
-              <h3 class="noMargin">{{sensor.friendly_id}}</h3> 
-              <ul>
-                <li>{{sensor.category}}</li>
-                <li>{{sensor.desc}}</li>
-              </ul>
-          </div>
-        </div>
-      </div>
-        <uib-pagination total-items="sensorsTotalItems" items-per-page = "sensorsItemsPerPage"  
-                        ng-model="sensorsCurrentPage" ng-change="pageChanged(sensors)">
-        </uib-pagination>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      Sensors 
     </div>
+    <div class="panel-body">
+      <div class="well col-lg-2" 
+           ng-repeat="sensor in ::sensors">
+        <h3>{{sensor.data[0]}}</h3> 
+        <h3>{{sensor.friendly_id}}</h3> 
+        <ul>
+          <li>{{sensor.category}}</li>
+          <li>{{sensor.desc}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row">

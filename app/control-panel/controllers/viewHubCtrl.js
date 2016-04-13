@@ -1,7 +1,7 @@
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope','$state','$stateParams','hub'];
+ViewHubCtrl.$inject = ['$scope','$state','$stateParams','hub','printer','sensor'];
 
-function ViewHubCtrl($scope, $state, $stateParams, hub) {
+function ViewHubCtrl($scope, $state, $stateParams, hub, printer, sensor) {
   var hubId = Number($stateParams.hubId);
 
   var hubPromise = hub.getHub(hubId);

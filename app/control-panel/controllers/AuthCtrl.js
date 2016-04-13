@@ -1,8 +1,8 @@
 app.controller('AuthCtrl', AuthCtrl);
 
-AuthCtrl.$inject = ['$scope', '$state', '$stateParams', 'auth', 'hub', 'alert'];
+AuthCtrl.$inject = ['$scope', '$state', '$stateParams', 'auth', 'alert'];
 
-function AuthCtrl($scope, $state, $stateParams, auth, hub, alert) {
+function AuthCtrl($scope, $state, $stateParams, auth, alert) {
   // List of open alerts
   $scope.alerts = alert.get();
 
@@ -87,15 +87,4 @@ function AuthCtrl($scope, $state, $stateParams, auth, hub, alert) {
   if ($stateParams.accountConfirmed) {
     alert.add('success', 'Your account has been successfully confirmed. You can now login below.');
   }
-
-  var promise = hub.getAllHubs();
-
-  promise.then(function(_hubs) {
-    $scope.hubs = _hubs;
-  });
-
-  $scope.viewHub = function(_hubId) {
-    $state.go('dashboard.hubs.hubId', { hubId: _hubId });
-  };
-
 }

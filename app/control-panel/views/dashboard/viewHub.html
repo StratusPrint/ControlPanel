@@ -11,10 +11,16 @@
   <div class="panel panel-green col-lg-2" 
        ng-repeat="sensor in ::sensors">
     <div class="panel-heading">
-      <h3 class="centerAlign noMargin">{{sensor.newestDatum.value}}</h3>
+      <h2 class="centerAlign noMargin" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}}</h2>
+      <h2 class="centerAlign noMargin" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</h2>
+      <h2 class="centerAlign noMargin" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}}&#8457;</h2>
+      <h2 class="centerAlign noMargin" 
+        ng-if="sensor.category != 'temperature' && sensor.category != 'infrared' && sensor.category != 'humidity' ">
+        {{sensor.newestDatum.value}};
+      </h2>
     </div>
     <div class="panel-body">
-      <h3>{{sensor.friendly_id}}</h3> 
+      <h3 class="noMargin">{{sensor.friendly_id}}</h3> 
       <ul>
         <li>{{sensor.category}}</li>
         <li>{{sensor.desc}}</li>

@@ -32,20 +32,26 @@
       </div>
       <div class="panel-body">
         <div class="item-container" ng-repeat="printer in printers.slice(((printerCurrentPage-1)*printerItemsPerPage), ((printerCurrentPage)*printerItemsPerPage))">
-          <h1>
-            {{printer.friendly_id}}
-          </h1>
-          <ul>
-            <li>{{printer.location}}</li>
-            <li>{{printer.model}}</li>
-            <li>{{printer.num_jobs}}</li>
-            <li>{{printer.description}}</li>
-            <li>{{printer.data.state.text}}</li>
-            <li>Ready to print: {{printer.data.state.flags.ready}}</li>
-          </ul>
-          <button class="btn btn-primary" ng-click="viewPrinter(printer.id)">View Details</button>
+
+          <div class="row">
+            <div class="col-lg-3">
+              <img class="itemPic" src="http://placehold.it/140x100">
+              <button class="btn btn-primary marginTop15" ng-click="viewPrinter(printer.id)">View Details</button>
+            </div>
+
+            <div class="col-lg-9">
+              <h3 class="noMargin">{{printer.friendly_id}}</h3> 
+              <ul>
+                <li>{{printer.location}}</li>
+                <li>{{printer.model}}</li>
+                <li>{{printer.description}}</li>
+                <li>Ready to print: {{printer.data.state.flags.ready}}</li>
+              </ul>
+            </div>
+          </div>
         </div>
-<uib-pagination total-items="printerTotalItems" items-per-page = "printerItemsPerPage"  ng-model="printerCurrentPage" ng-change="pageChanged()"></uib-pagination>
+        <uib-pagination total-items="printerTotalItems" items-per-page = "printerItemsPerPage"  ng-model="printerCurrentPage" ng-change="pageChanged()"></uib-pagination>
+
       </div>
     </div>
   </div>

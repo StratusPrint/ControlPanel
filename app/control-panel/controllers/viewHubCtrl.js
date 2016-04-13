@@ -5,61 +5,24 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
   var hubId = Number($stateParams.hubId);
 
   var hubPromise = hub.getHub(hubId);
+  var sensorsPromise = hub.getSensors(hubId);
+  var printersPromise = hub.getPrinters(hubId);
   var changed = false;
 
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
 
-  hubPromise.then(function(_hub) {
-    $scope.hub = _hub;
-  });
-
-
-  var sensorsPromise = hub.getSensors(hubId);
-
-  sensorsPromise.then(function(_sensors) {
-    var sensorDataPromises = [];
-    $scope.sensors = _sensors;
-
-    for (var i = 0; i < $scope.sensors.length; i++) {
-      sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
-    }
-
-    $q.all(sensorDataPromises).then(function(_data) {
-      $scope.sensorData = _data;
-      console.log('Sensor Data Size: ' + $scope.sensorData.length);
-
-      for (var j = 0; j < $scope.sensorData.length; j++) {
-        $scope.sensors[j].data = $scope.sensorData[j];
-        var dataLength = $scope.sensors[j].data.length;
-        $scope.sensors[j].newestDatum = $scope.sensors[j].data[dataLength - 1];
-        if ($scope.sensors[j].data[dataLength - 1].value === '1' || $scope.sensors[j].data[dataLength - 1].value === '0') {
-          if ($scope.sensors[j].data[dataLength - 1].value === '1') {
-            $scope.sensors[j].newestDatum.value = 'True';
-          } else {
-            $scope.sensors[j].newestDatum.value = 'False';
-          }
-        }else {
-          $scope.sensors[j].newestDatum.value = parseFloat($scope.sensors[j].data[dataLength - 1].value).toFixed(2);
-        }
-        console.log('Newest Datum: ' + $scope.sensors[j].newestDatum + ' it\'s value type is: ' + typeof ($scope.sensors[j].newestDatum.value));
-      }
-
-    });
-  });
-
-  var printersPromise = hub.getPrinters(hubId);
-
-  printersPromise.then(function(_printers) {
-    $scope.printers = _printers;
-    $scope.printersTotalItems = _printers.length;
-  });
+  /**
+   *
+   * FUNCTIONS
+   *
+   * /
 
   /**
    * ToHubsPage
-   * Sets the state to the main hubs page, takes in a boolean if the page should refresh or not
-   * @param refresh
-   * @returns {}
+   * Sets the state to the main hubs page
+   *  if changed = true the ListHubs controller will refresh
+   * @returns {undefined}
    */
   $scope.toHubsPage = function() {
     $state.go('dashboard.hubs',{},{reload: changed});
@@ -82,4 +45,70 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
   $scope.pageChanged = function() {
     console.log('Printers Page changed to: ' + $scope.printersCurrentPage);
   };
+
+
+  /**
+  *
+  * Promise handling
+  * Setting scope variables
+  *
+  * /
+
+
+ /*
+  * Handling the promise and
+  * Retrieving the proper hub
+  *  $scope.hub
+  */
+  hubPromise.then(function(_hub) {
+    $scope.hub = _hub;
+  });
+
+
+  /*
+   * Retrieving all sensors that are connected to the hub
+   *  $scope.sensors {object}[]
+   * Handling the promise for retrieving the sensor data and assigning that data to the associated sensor
+   *  $scope.sensors.data {object}
+   *  $scope.sensors.newestDatum
+   */
+  sensorsPromise.then(function(_sensors) {
+    var sensorDataPromises = [];
+    $scope.sensors = _sensors;
+
+    for (var i = 0; i < $scope.sensors.length; i++) {
+      sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
+    }
+
+    $q.all(sensorDataPromises).then(function(_data) {
+      var sensorData = _data;
+      console.log('Sensor Data Size: ' + sensorData.length);
+
+      for (var j = 0; j < sensorData.length; j++) {
+        $scope.sensors[j].data = sensorData[j];
+        var dataLength = $scope.sensors[j].data.length;
+        $scope.sensors[j].newestDatum = $scope.sensors[j].data[dataLength - 1];
+        if ($scope.sensors[j].data[dataLength - 1].value === '1' || $scope.sensors[j].data[dataLength - 1].value === '0') {
+          if ($scope.sensors[j].data[dataLength - 1].value === '1') {
+            $scope.sensors[j].newestDatum.value = 'True';
+          } else {
+            $scope.sensors[j].newestDatum.value = 'False';
+          }
+        }else {
+          $scope.sensors[j].newestDatum.value = parseFloat($scope.sensors[j].data[dataLength - 1].value).toFixed(2);
+        }
+      }
+
+    });
+  });
+
+  /*
+   * Retrieving all printers connected to the hub
+   *  $scope.printers {object}[]
+   */
+  printersPromise.then(function(_printers) {
+    $scope.printers = _printers;
+    $scope.printersTotalItems = _printers.length;
+  });
+
 }

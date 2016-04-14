@@ -8,21 +8,22 @@
 </div>
 
 <div class="row">
-  <div class="panel panel-green col-lg-2" 
-       ng-repeat="sensor in ::sensors">
-    <div class="panel-heading">
-      <h2 class="centerAlign noMargin" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}}</h2>
-      <h2 class="centerAlign noMargin" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</h2>
-      <h2 class="centerAlign noMargin" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}}&#8457;</h2>
-      <h2 class="centerAlign noMargin" 
-        ng-if="sensor.category != 'temperature' && sensor.category != 'infrared' && sensor.category != 'humidity' ">
-        {{sensor.newestDatum.value}};
-      </h2>
-    </div>
-    <div class="panel-body">
-      <h3 class="noMargin">{{sensor.friendly_id}}</h3> 
-        <p>{{sensor.category}}<p>
-        <p>{{sensor.desc}}<p>
+  <div class="col-lg-2" ng-repeat="sensor in ::sensors">
+    <div class="panel panel-green">
+      <div class="panel-heading">
+        <h2 class="centerAlign noMargin" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}}</h2>
+        <h2 class="centerAlign noMargin" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</h2>
+        <h2 class="centerAlign noMargin" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}}&#8457;</h2>
+        <h2 class="centerAlign noMargin" 
+          ng-if="sensor.category != 'temperature' && sensor.category != 'infrared' && sensor.category != 'humidity' ">
+          {{sensor.newestDatum.value}};
+        </h2>
+      </div>
+      <div class="panel-body">
+        <h3 class="noMargin">{{sensor.friendly_id}}</h3> 
+          <p>{{sensor.category}}<p>
+          <p>{{sensor.desc}}<p>
+      </div>
     </div>
   </div>
 </div>

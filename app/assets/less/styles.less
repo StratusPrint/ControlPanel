@@ -1,28 +1,21 @@
 @import "variables.less";
 
-.marginTop15 {
-  margin-top: 15px;
-}
-
-.noMargin {
-  margin: 0 0 0 0;
-}
-
-.centerAlign {
-  text-align: center;
-}
-
-.profilePic {
+.profile-pic {
   width: 30%;
 }
 
-.itemPic {
-  width: 100%;
-}
-
-.item-container {
-  margin:10px 5px 15px;
-  padding: 15px 5px 15px 15px;
-  border-bottom: 1px solid #afd9ee;
-  box-shadow: 0 2px 6px rgba(0,0,0,.4);
+// View Hub
+#view-hub {
+	@media(max-width: 1280px) {
+		.printer .row {
+			display: block;
+		}
+		.printer .row > div,
+		#printer-list > div  {
+			width: 100%;
+		}
+	}
+	.printer-icon {
+		font-size: 96px;
+	}
 }

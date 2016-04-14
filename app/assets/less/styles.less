@@ -29,4 +29,39 @@
 	.printer-icon {
 		font-size: 96px;
 	}
+	.sensor {
+		.panel-heading .label {
+			text-shadow: none;
+		}
+		.panel-heading .info {
+			display: inline-block;
+			margin-top: 3px;
+			.label {
+				cursor: pointer;
+				color: lighten(#d9edf7, 5%);
+			}
+		}
+		.panel-heading .glyphicon {
+		    vertical-align: middle;
+		    margin-top: -0.125em;
+		}
+		.reading {
+			text-align: center;
+			padding: 10px;
+			font-size: 24pt;
+			font-weight: bold;
+			border-radius: 5px;
+			margin: 0;
+			color: white;
+			&.reading-ok {
+				background-color: @forestgreen;
+			}
+			&.reading-alert {
+				background-color: @flushorange;
+			}
+			&.reading-danger {
+				background-color: @venetionred;
+			}
+		}
+	}
 }

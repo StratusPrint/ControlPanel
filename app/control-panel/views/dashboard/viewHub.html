@@ -5,26 +5,26 @@
                 <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Back
             </button>-->
             <h1 class="page-header flex-wrap flex-valign">
-              <span class="label label-default">{{::hub.friendly_id}} Overview</span>
+              <span class="label label-default">{{::hub.friendly_id}}</span>
               <span class="desc">{{::hub.desc}}</span>
             </h1>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-3" ng-repeat="sensor in ::sensors">
-            <div class="panel panel-green">
-                <div class="panel-heading">
-                    <h2 class="text-center no-margin" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}}</h2>
-                    <h2 class="text-center no-margin" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</h2>
-                    <h2 class="text-center no-margin" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}}&#8457;</h2>
-                    <h2 class="text-center no-margin" ng-if="sensor.category != 'temperature' && sensor.category != 'infrared' && sensor.category != 'humidity' ">
-            {{sensor.newestDatum.value}};
-          </h2>
+            <div class="sensor panel panel-info">
+                <div class="panel-heading clearfix">
+                  <span class="name pull-left"><i class="glyphicon glyphicon-scale"></i> {{sensor.friendly_id}}</span>
+                  <a class="info pull-right" href="javascript:void" tooltip-close-delay="200" uib-tooltip="{{sensor.desc}}"><label class="label label-info pull-right"><i class="fa fa-tag"></i> {{sensor.category}}</label></a>
                 </div>
                 <div class="panel-body">
+                    <p class="reading reading-danger" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}} %</p>
+                    <p class="reading reading-alert" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</p>
+                    <p class="reading reading-ok" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}} &#8457;</span>
+                    <!--
                     <h3 class="no-margin">{{sensor.friendly_id}}</h3>
                     <p>{{sensor.category}}</p>
-                    <p>{{sensor.desc}}</p>
+                    <p>{{sensor.desc}}</p>-->
                 </div>
             </div>
         </div>

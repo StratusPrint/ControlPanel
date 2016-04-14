@@ -1,14 +1,17 @@
-<div id="view-hub">
+<div id="view-hub" class="resource-page">
     <div class="row">
         <div class="col-lg-12">
-            <button class="btn btn-primary" ng-click="toHubsPage(false)">
+            <!--<button class="btn btn-primary" ng-click="toHubsPage(false)">
                 <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Back
-            </button>
-            <h1 class="page-header">{{::hub.friendly_id}} Overview</h1>
+            </button>-->
+            <h1 class="page-header flex-wrap flex-valign">
+              <span class="label label-default">{{::hub.friendly_id}} Overview</span>
+              <span class="desc">{{::hub.desc}}</span>
+            </h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-2" ng-repeat="sensor in ::sensors">
+        <div class="col-lg-3" ng-repeat="sensor in ::sensors">
             <div class="panel panel-green">
                 <div class="panel-heading">
                     <h2 class="text-center no-margin" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}}</h2>

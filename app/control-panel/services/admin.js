@@ -15,7 +15,7 @@ function AdminService($http, $state, user, $auth) {
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/users',
     }).then(function successCallback(response) {
-
+      console.log(response);
       return response.data;
     }, function errorCallback(response) {
       // Error response right here

@@ -100,7 +100,7 @@
                 </div>
               </div>
             </div>
-            <div class="panel panel-red" ng-if="user._user.admin === true">
+            <div class="panel panel-red" ng-show="user.isAdmin()">
               <div class="panel-heading">
                 <i class="fa fa-trash"></i> Delete Hub
               </div>

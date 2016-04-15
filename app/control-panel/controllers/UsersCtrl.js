@@ -10,7 +10,7 @@ function UsersCtrl($scope, $state, $stateParams, admin) {
   function loadUsers() {
     var userPromise = admin.getAllUsers();
     userPromise.then(function(response) {
-      $scope.users = [];//To empty before reloading
+      $scope.users = []; // To empty before reloading
       var i;
       for (i = 0 ; i < response.length; i++) {
         $scope.users.push(response[i]);
@@ -30,7 +30,8 @@ function UsersCtrl($scope, $state, $stateParams, admin) {
       loadUsers();
     })
     .catch(function(response) {
-      var errors = response.data.errors.full_messages;
+      // Var errors = response.data.errors.full_messages;
+      var errors = [];
       var i;
       for (i = 0 ; i < errors.length ;i++) {
         addErrorAlert(errors[i]);

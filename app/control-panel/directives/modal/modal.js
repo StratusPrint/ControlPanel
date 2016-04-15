@@ -1,5 +1,5 @@
 app.directive('modal', function() {
-    return {
+  return {
       template: '<div class="modal fade">' +
           '<div class="modal-dialog">' +
             '<div class="modal-content">' +
@@ -19,10 +19,11 @@ app.directive('modal', function() {
         scope.title = attrs.title;
 
         scope.$watch(attrs.visible, function(value) {
-          if (value === true)
+          if (value === true) {
             $(element).modal('show');
-          else
+          } else {
             $(element).modal('hide');
+          }
           console.log('this worked');
         });
 
@@ -39,4 +40,4 @@ app.directive('modal', function() {
         });
       },
     };
-  });
+});

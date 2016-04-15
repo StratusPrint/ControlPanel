@@ -36,6 +36,8 @@ function AuthService($auth, $rootScope, $state, user) {
       event.preventDefault();
       $state.go('login');
     }
+
+
   });
 
   /**

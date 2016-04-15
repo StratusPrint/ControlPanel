@@ -93,7 +93,19 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
           data: {
             requireLogin: true,
           },
-        });
+        })
+        .state('dashboard.users', {
+          url: '/users',
+          templateUrl: 'control-panel/views/dashboard/users.html',
+          controller: 'UsersCtrl',
+          data: {
+            requireLogin: true,
+          },
+        })
+
+
+        ;
+
   $urlRouterProvider.otherwise('dashboard');
   $locationProvider.html5Mode({
     enabled: false,

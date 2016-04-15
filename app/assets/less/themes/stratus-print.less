@@ -422,24 +422,24 @@ button {
         border-color: darken(#d9edf7, 10%);
         background-color: #d9edf7;
         box-shadow: inset 0px 2px 3px lighten(#d9edf7, 3%);
-        text-shadow: 1px 1px 0px darken(#d9edf7, 8%);
+        text-shadow: 1px 1px 0px darken(#d9edf7, 2%);
     
         i {
-            color: lighten(#d9edf7, 45%);
+            color: @matisse;
         }
 
         button,
         .open button {
             background: darken(#d9edf7, 15%);
             border-color: darken(#d9edf7, 25%);
-            i { color: white; }
+            i { color: @matisse; }
             &:hover,
             &:focus,
             &:active {
                 background: darken(#d9edf7, 12%) !important;
                 border-color: darken(#d9edf7, 25%) !important;
                 color: white !important;
-                i { color: white !important; }
+                i { color: @matisse !important; }
             }
         }
     }

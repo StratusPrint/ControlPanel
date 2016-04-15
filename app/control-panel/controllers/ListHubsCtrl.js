@@ -34,19 +34,6 @@ function ListHubsCtrl($scope,$state,$stateParams,hub) {
   };
 
   /**
-   * DeleteHub
-   * calls deleteHub from the service
-   * deleteHub in the service removes the hub by id
-   * @param _id
-   * @returns {}
-   */
-  $scope.deleteHub = function(_id) {
-    console.log('Deleting Hub ' + _id);
-    hub.deleteHub(_id);
-    this.toHubsPage(true);
-  };
-
-  /**
    * GetHub
    * Retrieves the hub from the hubs JSON array
    * @param _id

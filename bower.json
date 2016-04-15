@@ -15,7 +15,7 @@
     "angular-ui-router": "^0.2.13",
     "bootstrap": "^3.3.6",
     "bootstrap-social": "~4.8.0",
-    "datatables-responsive": "1.0.6",
+    "datatables-responsive": "^2.0.2",
     "datatables": "~1.10.4",
     "datatables-plugins": "~1.0.1",
     "font-awesome": "~4.2.0",
@@ -45,7 +45,6 @@
     "angular-validation-match": "^1.7.1",
     "angular-bootstrap-show-errors": "^2.3.0",
     "angular-datatables": "^0.5.4",
-    "datatables": "^1.10.11",
-    "datatables-responsive": "^2.0.2"
+    "datatables": "^1.10.11"
   }
 }

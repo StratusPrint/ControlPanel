@@ -1,16 +1,16 @@
 app.controller('AuthCtrl', AuthCtrl);
 
-AuthCtrl.$inject = ['$scope', '$state', '$stateParams', 'auth', 'hub'];
+AuthCtrl.$inject = ['$scope', '$state', '$stateParams', 'auth', 'alert'];
 
-function AuthCtrl($scope, $state, $stateParams, auth, hub) {
+function AuthCtrl($scope, $state, $stateParams, auth, alert) {
   // List of open alerts
-  $scope.alerts = [];
+  $scope.alerts = alert.get();
 
   /**
    * Listen for login error events and display an alert.
    */
   $scope.$on('auth:login-error', function(ev, reason) {
-    $scope.addAlert('danger', reason.errors.toString());
+    alert.add('danger', reason.errors.toString());
   });
 
   /**
@@ -45,9 +45,9 @@ function AuthCtrl($scope, $state, $stateParams, auth, hub) {
     })
     .catch(function(resp) {
       if (resp.data.errors.length) {
-        $scope.addAlert('danger', resp.data.errors[0]);
+        alert.add('danger', resp.data.errors[0]);
       } else {
-        $scope.addAlert('danger', 'Unable to request a password reset. Please try again.');
+        alert.add('danger', 'Unable to request a password reset. Please try again.');
       }
       console.log(resp);
     });
@@ -64,30 +64,12 @@ function AuthCtrl($scope, $state, $stateParams, auth, hub) {
     })
     .catch(function(resp) {
       if (resp.data.errors.length) {
-        $scope.addAlert('danger', resp.data.errors[0]);
+        alert.add('danger', resp.data.errors[0]);
       } else {
-        $scope.addAlert('danger', 'Unable to update your password. Please try again.');
+        alert.add('danger', 'Unable to update your password. Please try again.');
       }
       console.log(resp);
     });
-  };
-
-  /**
-   * Add an alert to the view.
-   *
-   * @param {enum} type 'danger', 'warning', etc...
-   * @param {String} msg  The alert message
-   */
-  $scope.addAlert = function(type, msg) {
-    $scope.alerts.push({type: type, msg: msg});
-  };
-  /**
-   * Close an open alert.
-   *
-   * @param  {Integer} index The index of the alert
-   */
-  $scope.closeAlert = function(index) {
-    $scope.alerts.splice(index, 1);
   };
 
   /**
@@ -95,25 +77,14 @@ function AuthCtrl($scope, $state, $stateParams, auth, hub) {
    * state.
    */
   if ($stateParams.passwordResetEmailSent) {
-    $scope.addAlert('info', 'Password reset instructions been have sent to your e-mail address.');
+    alert.add('info', 'Password reset instructions been have sent to your e-mail address.');
   }
 
   if ($stateParams.passwordReset) {
-    $scope.addAlert('success', 'Your password has been successfully updated.');
+    alert.add('success', 'Your password has been successfully updated.');
   }
 
   if ($stateParams.accountConfirmed) {
-    $scope.addAlert('success', 'Your account has been successfully confirmed. You can now login below.');
+    alert.add('success', 'Your account has been successfully confirmed. You can now login below.');
   }
-
-  var promise = hub.getAllHubs();
-
-  promise.then(function(_hubs) {
-    $scope.hubs = _hubs;
-  });
-
-  $scope.viewHub = function(_hubId) {
-    $state.go('dashboard.hubs.hubId', { hubId: _hubId });
-  };
-
 }

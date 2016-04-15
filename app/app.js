@@ -93,10 +93,22 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
           data: {
             requireLogin: true,
           },
-        });
+        })
+        .state('dashboard.users', {
+          url: '/users',
+          templateUrl: 'control-panel/views/dashboard/users.html',
+          controller: 'UsersCtrl',
+          data: {
+            requireLogin: true,
+          },
+        })
+
+
+        ;
+
   $urlRouterProvider.otherwise('dashboard');
   $locationProvider.html5Mode({
-    enabled: true,
+    enabled: false,
     requireBase: false,
   });
 });
@@ -104,8 +116,8 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
 app.config(function($authProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
-    passwordResetSuccessUrl: 'https://dev.stratusprint.com/change-password',
-    confirmationSuccessUrl: 'https://dev.stratusprint.com/login?accountConfirmed=true',
+    passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
+    confirmationSuccessUrl: 'https://dev.stratusprint.com/#/login?accountConfirmed=true',
   });
 });
 

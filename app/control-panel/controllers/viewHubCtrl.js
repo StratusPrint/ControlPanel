@@ -1,47 +1,160 @@
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope','$state','$stateParams','hub'];
+ViewHubCtrl.$inject = ['$scope','$state','$stateParams','$q','alert','hub','printer','sensor'];
 
-function ViewHubCtrl($scope, $state, $stateParams, hub) {
-  console.log('Params: ' + $stateParams.hubId);
-  console.log('Params: ' + JSON.stringify($stateParams));
-
+function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, sensor) {
   var hubId = Number($stateParams.hubId);
-  console.log('Hub id is: ' + hubId + 'And it\'s type is: ' + typeof (hubId));
 
   var hubPromise = hub.getHub(hubId);
+  var sensorsPromise = hub.getSensors(hubId);
+  var printersPromise = hub.getPrinters(hubId);
   var changed = false;
 
-  hubPromise.then(function(_hub) {
-    $scope.hub = _hub;
-  });
+  $scope.printersCurrentPage = 1;
+  $scope.printersItemsPerPage = 2;
 
-  var sensorsPromise = hub.getSensors(hubId);
+  $scope.alerts = alert.get();
 
-  sensorsPromise.then(function(_sensors) {
-    $scope.sensors = _sensors;
-  });
-
-  var printersPromise = hub.getPrinters(hubId);
-
-  printersPromise.then(function(_printers) {
-    $scope.printers = _printers;
-  });
+  /**
+   *
+   * FUNCTIONS
+   *
+   * /
 
   /**
    * ToHubsPage
-   * Sets the state to the main hubs page, takes in a boolean if the page should refresh or not
-   * @param refresh
-   * @returns {}
+   * Sets the state to the main hubs page
+   *  if changed = true the ListHubs controller will refresh
+   * @returns {undefined}
    */
   $scope.toHubsPage = function() {
     $state.go('dashboard.hubs',{},{reload: changed});
     changed = false;
   };
 
+  /**
+   * UpdateHub
+   * Updates a hub in the DB with the hub object gathered from the form
+   * @param _hubId
+   * @param _hub
+   * @returns {undefined}
+   */
   $scope.updateHub = function(_hubId, _hub) {
+    if (!$scope.updateHubForm.$valid) {
+      alert.add('danger', 'Please correct the errors below and try submitting the form again.');
+      return;
+    }
+
+    // Check whether form has not been filled out
+    if ($scope.updateHubForm.$pristine) {
+      alert.add('warning', 'Please fill out the form below before saving.');
+      return;
+    }
+
+    // Remove empty fields from profile to prevent errors
+    Object.keys($scope.hub).forEach(function(key) {
+      if ($scope.hub[key] === '') {
+        delete $scope.hub[key];
+      }
+    });
+
     console.log('Updating hub!' + _hubId);
-    hub.updateHub(_hubId, _hub);
+    if (hub.updateHub(_hubId, _hub) === false) {
+      alert.add('warning', 'There was an unprocessable entity');
+      return;
+    }
     changed = true;
   };
+
+  $scope.resetForm = function() {
+    $scope.hub = {};
+    $scope.updateHubForm.$setPristine();
+  };
+
+  $scope.pageChanged = function() {
+    console.log('Printers Page changed to: ' + $scope.printersCurrentPage);
+  };
+
+  /**
+   * DeleteHub
+   * calls deleteHub from the service
+   * deleteHub in the service removes the hub by id
+   * @param _id
+   * @returns {}
+   */
+  $scope.deleteHub = function(_id) {
+    if (user._user.admin === true) {
+      console.log('Deleting Hub ' + _id);
+      hub.deleteHub(_id);
+      changed = true;
+      this.toHubsPage();
+    } else {
+      console.log('Permission Denied');
+    }
+  };
+
+
+  /**
+   *
+   * Promise handling
+   * Setting scope variables
+   *
+   * /
+
+
+  /*
+   * Handling the promise and
+   * Retrieving the proper hub
+   *  $scope.hub
+   */
+  hubPromise.then(function(_hub) {
+    $scope.hub = _hub;
+  });
+
+
+  /*
+   * Retrieving all sensors that are connected to the hub
+   *  $scope.sensors {object}[]
+   * Handling the promise for retrieving the sensor data and assigning that data to the associated sensor
+   *  $scope.sensors.data {object}
+   *  $scope.sensors.newestDatum
+   */
+  sensorsPromise.then(function(_sensors) {
+    var sensorDataPromises = [];
+    $scope.sensors = _sensors;
+
+    for (var i = 0; i < $scope.sensors.length; i++) {
+      sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
+    }
+
+    $q.all(sensorDataPromises).then(function(_data) {
+      var sensorData = _data;
+      console.log('Sensor Data Size: ' + sensorData.length);
+
+      for (var j = 0; j < sensorData.length; j++) {
+        $scope.sensors[j].data = sensorData[j];
+        var dataLength = $scope.sensors[j].data.length;
+        $scope.sensors[j].newestDatum = $scope.sensors[j].data[dataLength - 1];
+        if ($scope.sensors[j].data[dataLength - 1].value === '1' || $scope.sensors[j].data[dataLength - 1].value === '0') {
+          if ($scope.sensors[j].data[dataLength - 1].value === '1') {
+            $scope.sensors[j].newestDatum.value = 'True';
+          } else {
+            $scope.sensors[j].newestDatum.value = 'False';
+          }
+        }else {
+          $scope.sensors[j].newestDatum.value = parseFloat($scope.sensors[j].data[dataLength - 1].value).toFixed(2);
+        }
+      }
+
+    });
+  });
+
+  /*
+   * Retrieving all printers connected to the hub
+   *  $scope.printers {object}[]
+   */
+  printersPromise.then(function(_printers) {
+    $scope.printers = _printers;
+    $scope.printersTotalItems = _printers.length;
+  });
 
 }

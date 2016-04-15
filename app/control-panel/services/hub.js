@@ -81,6 +81,13 @@ function HubService($http, $state, user) {
     });
   };
 
+  /**
+   * UpdateHub
+   * Updates the information of the hub with the associated id
+   * @param _hubId
+   * @param _hub
+   * @returns {boolean}
+   */
   this.updateHub = function(_hubId, _hub) {
     return $http({
       method: 'PATCH',
@@ -88,10 +95,10 @@ function HubService($http, $state, user) {
       data: {hub: _hub},
     }).then(function successCallback(response) {
       console.log('Hub updated! ' + JSON.stringify(response.data));
-      return response.data;
+      return true;
 
     }, function errorCallback(response) {
-      return response.data;
+      return false;
     });
   };
 

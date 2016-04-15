@@ -65,48 +65,51 @@
                 </div>
             </div>
         </div>
+
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"> {{alert.msg}}</uib-alert>
         <div class="col-sm-5 col-lg-5">
-            <form name="addHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hubDetails)" ng-init="hubDetails = {}" novalidate>
-                <div class="panel panel-kashmir">
-                    <div class="panel-heading">
-                        <i class="fa fa-pencil-square"></i> Modify Hub Profile
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group" show-errors>
-                            <label for="friendly_id">Hub Name</label>
-                            <input autocomplete="off" name="friendly_id" ng-model="hubDetails.friendly_id" type="text" class="form-control" placeholder="{{::hub.friendly_id}}" />
-                        </div>
-                        <div class="form-group">
-                            <label for="ip">IP Address</label>
-                            <input autocomplete="off" name="ip" ng-model="hubDetails.ip" type="text" class="form-control" placeholder="{{::hub.ip}}" />
-                        </div>
-                        <div class="form-group">
-                            <label for="hostname">Host Name</label>
-                            <input autocomplete="off" name="ip" ng-model="hubDetails.hostname" type="text" class="form-control" placeholder="{{::hub.hostname}}" />
-                        </div>
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <input autocomplete="off" name="location" ng-model="hubDetails.location" type="text" class="form-control" placeholder="{{::hub.location}}" />
-                        </div>
-                        <div class="form-group">
-                            <label for="desc">Description</label>
-                            <input autocomplete="off" name="desc" ng-model="hubDetails.desc" type="text" class="form-control" placeholder="{{::hub.desc}}" />
-                        </div>
-                        <div class="clearfix">
-                            <button class="pull-right btn btn-success" type="submit"><i class="fa fa-save"></i> Save Changes</button>
-                        </div>
-                    </div>
+          <form name="updateHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hub)" ng-init="hub = {}" novalidate>
+            <div class="panel panel-kashmir">
+              <div class="panel-heading">
+                <i class="fa fa-pencil-square"></i> Modify Hub Profile
+              </div>
+              <div class="panel-body">
+                <div class="form-group" show-errors>
+                  <label for="friendly_id">Hub Name</label>
+                  <input autocomplete="off" name="friendly_id" ng-model="hub.friendly_id" type="text" class="form-control" placeholder="{{::hub.friendly_id}}" />
                 </div>
-                <div class="panel panel-red">
-                    <div class="panel-heading">
-                        <i class="fa fa-trash"></i> Delete Hub
-                    </div>
-                    <div class="panel-body">
-                        <p class="alert alert-danger text-center"><strong>WARNING!</strong> This action is irreversible. Proceed with caution.</p>
-                        <button class="btn btn-danger btn-block" ng-click="deleteHub(currentHub.id)">Delete Hub</button>
-                    </div>
+                <div class="form-group" show-errors>
+                  <label for="ip">IP Address</label>
+                  <input autocomplete="off" name="ip" ng-model="hub.ip" type="text" class="form-control" placeholder="{{::hub.ip}}" ng-minlength=8 />
+                  <span ng-show="userForm.name.$error.minlength" class="help-block">Name is too short. Must be at least 8 characters.</span>
                 </div>
-            </form>
+                <div class="form-group" show-errors>
+                  <label for="hostname">Host Name</label>
+                  <input autocomplete="off" name="ip" ng-model="hub.hostname" type="text" class="form-control" placeholder="{{::hub.hostname}}" />
+                </div>
+                <div class="form-group" show-errors>
+                  <label for="location">Location</label>
+                  <input autocomplete="off" name="location" ng-model="hub.location" type="text" class="form-control" placeholder="{{::hub.location}}" />
+                </div>
+                <div class="form-group" show-errors>
+                  <label for="desc">Description</label>
+                  <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="{{::hub.desc}}" />
+                </div>
+                <div class="clearfix">
+                  <button class="pull-right btn btn-success" type="submit"><i class="fa fa-save"></i> Save Changes</button>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-red" ng-if="user._user.admin === true">
+              <div class="panel-heading">
+                <i class="fa fa-trash"></i> Delete Hub
+              </div>
+              <div class="panel-body">
+                <p class="alert alert-danger text-center"><strong>WARNING!</strong> This action is irreversible. Proceed with caution.</p>
+                <button class="btn btn-danger btn-block" ng-click="deleteHub(currentHub.id)">Delete Hub</button>
+              </div>
+            </div>
+          </form>
         </div>
     </div>
 </div>

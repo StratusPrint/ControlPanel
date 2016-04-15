@@ -1,7 +1,7 @@
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope','$state','$stateParams','$q','hub','printer','sensor'];
+ViewHubCtrl.$inject = ['$scope','$state','$stateParams','$q','alert','hub','printer','sensor'];
 
-function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
+function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, sensor) {
   var hubId = Number($stateParams.hubId);
 
   var hubPromise = hub.getHub(hubId);
@@ -11,6 +11,8 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
 
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
+
+  $scope.alerts = alert.get();
 
   /**
    *
@@ -37,9 +39,35 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
    * @returns {undefined}
    */
   $scope.updateHub = function(_hubId, _hub) {
+    if (!$scope.updateHubForm.$valid) {
+      alert.add('danger', 'Please correct the errors below and try submitting the form again.');
+      return;
+    }
+
+    // Check whether form has not been filled out
+    if ($scope.updateHubForm.$pristine) {
+      alert.add('warning', 'Please fill out the form below before saving.');
+      return;
+    }
+
+    // Remove empty fields from profile to prevent errors
+    Object.keys($scope.hub).forEach(function(key) {
+      if ($scope.hub[key] === '') {
+        delete $scope.hub[key];
+      }
+    });
+
     console.log('Updating hub!' + _hubId);
-    hub.updateHub(_hubId, _hub);
+    if (hub.updateHub(_hubId, _hub) === false) {
+      alert.add('warning', 'There was an unprocessable entity');
+      return;
+    }
     changed = true;
+  };
+
+  $scope.resetForm = function() {
+    $scope.hub = {};
+    $scope.updateHubForm.$setPristine();
   };
 
   $scope.pageChanged = function() {
@@ -54,26 +82,30 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, hub, printer, sensor) {
    * @returns {}
    */
   $scope.deleteHub = function(_id) {
-    console.log('Deleting Hub ' + _id);
-    hub.deleteHub(_id);
-    changed = true;
-    this.toHubsPage();
+    if (user._user.admin === true) {
+      console.log('Deleting Hub ' + _id);
+      hub.deleteHub(_id);
+      changed = true;
+      this.toHubsPage();
+    } else {
+      console.log('Permission Denied');
+    }
   };
 
 
   /**
-  *
-  * Promise handling
-  * Setting scope variables
-  *
-  * /
+   *
+   * Promise handling
+   * Setting scope variables
+   *
+   * /
 
 
- /*
-  * Handling the promise and
-  * Retrieving the proper hub
-  *  $scope.hub
-  */
+  /*
+   * Handling the promise and
+   * Retrieving the proper hub
+   *  $scope.hub
+   */
   hubPromise.then(function(_hub) {
     $scope.hub = _hub;
   });

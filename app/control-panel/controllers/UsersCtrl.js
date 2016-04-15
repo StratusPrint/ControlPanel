@@ -12,8 +12,9 @@ function UsersCtrl($scope, $state, $stateParams, admin) {
     userPromise.then(function(response) {
       $scope.users = [];//To empty before reloading
       var i;
-      for (i = 0 ; i < response.length; i++)
+      for (i = 0 ; i < response.length; i++) {
         $scope.users.push(response[i]);
+      }
 
 
     }).catch(function(response) {
@@ -51,20 +52,26 @@ function UsersCtrl($scope, $state, $stateParams, admin) {
 
   };
 
-
-
   function addSuccessAlert(alert) {
-    $scope.alerts.push({type: 'success', msg: alert});
+    alerts.push({type: 'success', msg: alert});
   }
 
   function addErrorAlert(alert) {
-    $scope.alerts.push({type: 'danger', msg: alert});
+    alerts.push({type: 'danger', msg: alert});
   }
 
   $scope.closeAlert = function(index) {
-    $scope.alerts.splice(index, 1);
+    alerts.splice(index, 1);
   };
-  $scope.alerts = [];
+  alerts = [];
+
+  $scope.showModal = false;
+  $scope.toggleModal = function() {
+    $scope.showModal = !$scope.showModal;
+    console.log($scope.showModal);
+  };
+
+
   $scope.users = [];
 
 

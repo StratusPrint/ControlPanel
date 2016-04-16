@@ -27,7 +27,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    * @returns {undefined}
    */
   $scope.toHubsPage = function() {
-    $state.go('dashboard.hubs',{},{reload: changed});
+    $state.go('dashboard.listHubs',{},{reload: changed});
     changed = false;
   };
 

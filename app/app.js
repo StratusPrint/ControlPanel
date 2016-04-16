@@ -73,7 +73,7 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
             requireLogin: true,
           },
         })
-        .state('dashboard.hubs', {
+        .state('dashboard.listHubs', {
           url: '/hubs',
           templateUrl: 'control-panel/views/dashboard/listHubs.html',
           controller: 'ListHubsCtrl',
@@ -81,15 +81,18 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
             requireLogin: true,
           },
         })
-        .state('dashboard.hubs.hubId', {
-          url: '/:hubId',
+        .state('dashboard.viewHub', {
+          url: '/hubs/:hubId',
           templateUrl: 'control-panel/views/dashboard/viewHub.html',
           controller: 'ViewHubCtrl',
-          params: {
-            hubId: {
-              value: '0',
-            },
+          data: {
+            requireLogin: true,
           },
+        })
+        .state('dashboard.printer', {
+          url: '/hubs/:hubId/printers/:printerId',
+          templateUrl: 'control-panel/views/dashboard/printer.html',
+          controller: 'PrinterCtrl',
           data: {
             requireLogin: true,
           },
@@ -101,16 +104,9 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
           data: {
             requireLogin: true,
           },
-        })
-
-
-        ;
+        });
 
   $urlRouterProvider.otherwise('dashboard');
-  $locationProvider.html5Mode({
-    enabled: false,
-    requireBase: false,
-  });
 });
 
 app.config(function($authProvider) {

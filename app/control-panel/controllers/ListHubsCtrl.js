@@ -17,7 +17,7 @@ function ListHubsCtrl($scope,$state,$stateParams,hub) {
    * @returns {}
    */
   $scope.toHubsPage = function(refresh) {
-    $state.go('dashboard.hubs',{},{reload: refresh});
+    $state.go('dashboard.listHubs',{},{reload: refresh});
   };
 
   /**
@@ -60,7 +60,7 @@ function ListHubsCtrl($scope,$state,$stateParams,hub) {
   $scope.viewDetails = function(_hubId) {
     $scope.currentHub = this.getHub(_hubId);
     console.log('Current hub: ' + $scope.currentHub.id);
-    $state.go('dashboard.hubs.hubId', { hubId: _hubId });
+    $state.go('dashboard.viewHub', { hubId: _hubId });
   };
 
 }

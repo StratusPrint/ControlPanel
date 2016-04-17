@@ -20,7 +20,7 @@ function AuthCtrl($scope, $state, $stateParams, auth, alert) {
    */
   $scope.login = function(user) {
     auth.login(user).then(function() {
-      $state.go('dashboard.overview');
+      $state.go('dashboard.overview', {}, {inherit: false});
     });
   };
 

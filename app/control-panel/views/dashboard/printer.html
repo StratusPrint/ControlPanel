@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header flex-wrap flex-valign">
-              Printer
+              <a href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This printer is currently ONLINE."><span class="label label-success"><i class="fa fa-check-circle"></i> printer0</span></a>
+              <span class="desc">This is a printer description.</span>
             </h1>
         </div>
     </div>
@@ -11,17 +12,22 @@
     <div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Print Job</div>
+				<div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Job</div>
 
 				<div class="panel-body">
+					<!--Job Progress-->
 					<h4><i class="fa fa-tasks"></i> Current Progress</h4>
 					<uib-progressbar class="progress-striped active" max="100" value="50" type="info"><i>50% Completed</i></uib-progressbar>
 					<h4><i class="fa fa-hand-o-right"></i> Job Actions</h4>
+
+					<!--Job Actions-->
 					<div class="btn-group" role="printer-actions" style="margin-bottom: 10px;">
 						<button disabled type="button" class="btn btn-default"><i class="fa fa-play"></i> Start</button>
 						<button type="button" class="btn btn-default"><i class="fa fa-pause"></i> Pause</button>
 						<button type="button" class="btn btn-default"><i class="fa fa-ban"></i> Cancel</button>
 					</div>
+
+					<!--Job Information-->
 					<h4><i class="fa fa-info-circle"></i> Job Information</h4>
 					<ul class="list-group no-margin">
 						<li class="list-group-item"><label class="no-margin">Created At:</label> April 16th, 2016 at 4:11 PM EST</li>
@@ -33,6 +39,97 @@
 						<li class="list-group-item"><label class="no-margin">Print Time Left:</label> 2 Hours and 2 Minutes</li>
 						<li class="list-group-item"><label class="no-margin">Progress:</label> 33%</li>
 					</ul>
+				</div>
+			</div>
+		</div>
+    </div>
+
+	<div class="row" vertilize-container>
+		<div class="col-lg-6">
+			<!--Upload Job Panel-->
+			<div class="panel panel-kashmir">
+				<div class="panel-heading"><i class="fa fa-upload"></i> Upload New Job</div>
+	
+				<div class="panel-body">
+					<ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-6">
+			<!--Live Video Panel-->
+			<div class="panel panel-kashmir">
+				<div class="panel-heading"><i class="fa fa-video-camera"></i> Live Video</div>
+	
+				<div class="panel-body">
+					<div class="well no-margin" style="height: 353px;">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="row">
+		<div class="col-lg-6">
+			<!--Previous Jobs Panel-->
+			<div class="panel panel-kashmir">
+				<div class="panel-heading"><i class="fa fa-clock-o"></i> Previous Jobs</div>
+			
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<th>File</th>
+							<th>File Size</th>
+							<th>Completed At</th>
+							<th>Action</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td>model.stl</td>
+								<td>2.3 MB</td>
+								<td>April 16th, 2016 at 2:00 PM EST</td>
+								<td><button class="btn btn-primary" href="">View Details</button></td>
+							</tr>
+							<tr>
+								<td>model.stl</td>
+								<td>2.3 MB</td>
+								<td>April 16th, 2016 at 2:00 PM EST</td>
+								<td><button class="btn btn-primary" href="">View Details</button></td>
+							</tr>
+							<tr>
+								<td>model.stl</td>
+								<td>2.3 MB</td>
+								<td>April 16th, 2016 at 2:00 PM EST</td>
+								<td><button class="btn btn-primary" href="">View Details</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-6">
+			<!--Queued Jobs Panel-->
+			<div class="panel panel-kashmir">
+				<div class="panel-heading clearfix">
+					<i class="fa fa-hourglass-half"></i> Queued Jobs 
+					<a tooltip-placement="left" uib-tooltip="Queued jobs are jobs that have been sent to the printer but can't be printed yet because the printer is currently busy." class="pull-right" href="javascript:void"><i class="fa fa-question-circle"></i></a>
+				</div>
+			
+				<div class="panel-body">
+					<p class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no queued jobs on this printer.</p>
+				</div>
+			</div>
+
+			<!--Processing Jobs Panel-->
+			<div class="panel panel-kashmir">
+				<div class="panel-heading clearfix">
+					<i class="fa fa-circle-o-notch fa-spin"></i> Processing Jobs 
+					<a tooltip-placement="left" uib-tooltip="Proccessing jobs are jobs that are currently being sliced or have not yet been sent to the printer." class="pull-right" href="javascript:void"><i class="fa fa-question-circle"></i></a>
+				</div>
+			
+				<div class="panel-body">
+					<p class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs processing.</p>
 				</div>
 			</div>
 		</div>

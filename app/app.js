@@ -6,6 +6,8 @@ angular.module('ControlPanel', [
     'ui.bootstrap.showErrors',
     'validation.match',
     'datatables',
+    'ngFileUpload',
+    'angular.vertilize',
 ]);
 
 var app = angular.module('ControlPanel');

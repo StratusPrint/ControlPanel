@@ -1,0 +1,10 @@
+<div class="well upload-drop flex-wrap flex-valign flex-halign text-center">
+    <div ngf-drop="uploadFiles($files)" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-pattern="'image/*,application/pdf'">
+        <h2>Drag N' Drop File to Print Here</h2>
+        <p>You can also use the button below to manually select a file.</p>
+    </div>
+
+    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+</div>
+
+<button class="btn btn-primary pull-right" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB"><i class="fa fa-external-link-square"></i> Select File</button>

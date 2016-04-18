@@ -66,8 +66,8 @@
             </div>
         </div>
 
-        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"> {{alert.msg}}</uib-alert>
         <div class="col-sm-5 col-lg-5">
+          <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"> {{alert.msg}}</uib-alert>
           <form name="updateHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hubDetails)" ng-init="hubDetails = {}" novalidate>
             <div class="panel panel-kashmir">
               <div class="panel-heading">
@@ -80,8 +80,9 @@
                 </div>
                 <div class="form-group" show-errors>
                   <label for="ip">IP Address</label>
-                  <input autocomplete="off" name="ip" ng-model="hubDetails.ip" type="text" class="form-control" placeholder="{{::hub.ip}}" ng-minlength=8 />
-                  <span ng-show="userForm.name.$error.minlength" class="help-block">Name is too short. Must be at least 8 characters.</span>
+                  <input autocomplete="off" name="ip" ng-model="hubDetails.ip" type="number" class="form-control" placeholder="{{::hub.ip}}" ng-minlength="8" />
+                  <span>test</span>
+                  <span ng-show="updateHubForm.ip.$error.minlength" class="help-block">IP is too short. Must be at least 8 characters.</span>
                 </div>
                 <div class="form-group" show-errors>
                   <label for="hostname">Host Name</label>

@@ -11,16 +11,6 @@ function ListHubsCtrl($scope,$state,$stateParams,hub) {
   });
 
   /**
-   * ToHubsPage
-   * Sets the state to the main hubs page, takes in a boolean if the page should refresh or not
-   * @param refresh
-   * @returns {}
-   */
-  $scope.toHubsPage = function(refresh) {
-    $state.go('dashboard.listHubs',{},{reload: refresh});
-  };
-
-  /**
    * AddHub
    * Calls addHub in the hubs service
    * addHub in the service adds a hub to the DB

@@ -244,9 +244,9 @@
                 <a href=""><i class="fa fa-cloud fa-fw"></i> Enviroments<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                   <li ng-repeat='hub in hubs'>
-                    <a ui-sref="dashboard.viewHub({ hubId: hub.id })"> <i class="fa fa-cloud-upload fa-fw"></i> {{hub.friendly_id}}</a>
+                    <a ui-sref="dashboard.viewHub({hubId: hub.id})"> <i class="fa fa-cloud-upload fa-fw"></i> {{hub.friendly_id}}</a>
                   </li> 
-                  <li> <a ui-sref="dashboard.listHubs"> <i class="fa fa-table fa-fw"></i> View All</a></li>
+                  <li> <a ui-sref="dashboard.listHubs" ui-sref-opts="{reload: true}"> <i class="fa fa-table fa-fw"></i> View All</a></li>
                 </ul>
                 <!-- /.nav-second-level -->
             </li>

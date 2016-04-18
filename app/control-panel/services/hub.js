@@ -1,8 +1,8 @@
 app.service('hub', HubService);
 
-HubService.$inject = ['$http', '$state', 'user'];
+HubService.$inject = ['$http', '$state'];
 
-function HubService($http, $state, user) {
+function HubService($http, $state) {
   /**
    * GetAllHubs
    * Fetches every hub from the database

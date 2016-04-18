@@ -81,8 +81,7 @@
                 <div class="form-group" show-errors>
                   <label for="ip">IP Address</label>
                   <input autocomplete="off" name="ip" ng-model="hubDetails.ip" type="number" class="form-control" placeholder="{{::hub.ip}}" ng-minlength="8" />
-                  <span>test</span>
-                  <span ng-show="updateHubForm.ip.$error.minlength" class="help-block">IP is too short. Must be at least 8 characters.</span>
+                  <span ng-show="updateHubForm.ip.$error.minlength" class="help-block">IP is too short. Must be at least 8 digits.</span>
                 </div>
                 <div class="form-group" show-errors>
                   <label for="hostname">Host Name</label>

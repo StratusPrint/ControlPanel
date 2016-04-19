@@ -76,16 +76,23 @@
               <div class="panel-body">
                 <div class="form-group" show-errors>
                   <label for="friendly_id">Hub Name</label>
-                  <input autocomplete="off" name="friendly_id" ng-model="hubDetails.friendly_id" type="text" class="form-control" placeholder="{{::hub.friendly_id}}" />
+                  <input autocomplete="off" name="friendlyid" ng-model="hubDetails.friendly_id" type="text" class="form-control" placeholder="{{::hub.friendly_id}}" 
+                                                                                                                                 ng-minlength="3" ng-maxlength="16" />
+                  <span ng-show="updateHubForm.friendlyid.$error.minlength" class="help-block">Friendly ID is too short.  Must be atleast 3 digits</span>
+                  <span ng-show="updateHubForm.friendlyid.$error.maxlength" class="help-block">Friendly ID is too long.  Must be at most 16 digits</span>
                 </div>
+
                 <div class="form-group" show-errors>
                   <label for="ip">IP Address</label>
-                  <input autocomplete="off" name="ip" ng-model="hubDetails.ip" type="number" class="form-control" placeholder="{{::hub.ip}}" ng-minlength="4" />
-                  <span ng-show="updateHubForm.ip.$error.minlength" class="help-block">IP is too short. Must be at least 8 digits.</span>
+                  <input autocomplete="off" name="ips" ng-model="hubDetails.ip" type="number" class="form-control" placeholder="{{::hub.ip}}" ng-minlength="8" />
+                  <span ng-show="updateHubForm.ips.$error.minlength" class="help-block">IP is too short. Must be at least 8 digits.</span>
                 </div>
+
                 <div class="form-group" show-errors>
                   <label for="hostname">Host Name</label>
-                  <input autocomplete="off" name="ip" ng-model="hubDetails.hostname" type="text" class="form-control" placeholder="{{::hub.hostname}}" />
+                  <input autocomplete="off" name="url" ng-model="hubDetails.hostname" type="text" class="form-control" placeholder="{{::hub.hostname}}" />
+                  <!-- Gonna need a custom regex
+                    <span ng-show="updateHubForm.url.$error." class="help-block">This is not a valid url</span> -->
                 </div>
                 <div class="form-group" show-errors>
                   <label for="location">Location</label>

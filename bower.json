@@ -34,7 +34,7 @@
     "tests"
   ],
   "resolutions": {
-    "angular": "1.5.3",
+    "angular": "^1.5.0",
     "datatables-responsive": "^2.0.2",
     "font-awesome": "^4.6.1"
   },

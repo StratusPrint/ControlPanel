@@ -19,12 +19,6 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, $http, Upload) {
             url = url.substr(0, 5) + 'application/gcode' + url.substr(5);
           }
 
-          /*file.upload = $http({
-            method: 'POST',
-            url: 'https://dev.api.stratusprint.com/v1/printers/12/jobs',
-            data: {model: url},
-          });*/
-
           file.upload = Upload.http({
             url: 'https://dev.api.stratusprint.com/v1/printers/12/jobs',
             headers: {'Content-Type': 'application/json' },
@@ -35,7 +29,6 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, $http, Upload) {
 
           file.upload.then(function(response) {
             $timeout(function() {
-              console.log('timeout');
               file.result = response.data;
             });
           }, function(response) {

@@ -34,7 +34,7 @@
     "tests"
   ],
   "resolutions": {
-    "angular": "^1.5.0",
+    "angular": "^1.5.5",
     "datatables-responsive": "^2.0.2",
     "font-awesome": "^4.6.1"
   },
@@ -49,6 +49,7 @@
     "datatables": "^1.10.11",
     "font-awesome": "^4.6.1",
     "ng-file-upload": "^12.0.4",
-    "angular-vertilize": "^1.0.1"
+    "angular-vertilize": "^1.0.1",
+    "angular": "^1.5.5"
   }
 }

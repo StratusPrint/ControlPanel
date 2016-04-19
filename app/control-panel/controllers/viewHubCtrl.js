@@ -57,11 +57,11 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
       }
     });
 
-    console.log('Updating hub!' + _hubId);
-    if (hub.updateHub(_hubId, _hub) === false) {
+    if ($scope.user.isAdmin() && hub.updateHub(_hubId, _hub) === false) {
       alert.add('warning', 'There was an unprocessable entity');
       return;
     }
+
     changed = true;
     $state.go('dashboard.viewHub', { hubId: _hubId },{reload: changed});
     alert.add('success', 'Hub updated successfully!');

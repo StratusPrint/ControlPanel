@@ -2,9 +2,9 @@
 
 app.controller('UploadJobCtrl', UploadJobCtrl);
 
-UploadJobCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$http', 'Upload'];
+UploadJobCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', 'Upload'];
 
-function UploadJobCtrl($scope, $state, $stateParams, $timeout, $http, Upload) {
+function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
   $scope.uploadFiles = function(files, errFiles) {
     $scope.files = files;
     $scope.errFiles = errFiles;
@@ -24,6 +24,7 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, $http, Upload) {
             headers: {'Content-Type': 'application/json' },
             data: {
               model: url,
+
             },
           });
 

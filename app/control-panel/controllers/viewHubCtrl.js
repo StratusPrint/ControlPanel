@@ -63,6 +63,8 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
       return;
     }
     changed = true;
+    $state.go('dashboard.viewHub', { hubId: _hubId },{reload: changed});
+    alert.add('success', 'Hub updated successfully!');
   };
 
   $scope.resetForm = function() {

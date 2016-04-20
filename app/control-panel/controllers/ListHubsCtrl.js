@@ -1,10 +1,12 @@
 app.controller('ListHubsCtrl', ListHubsCtrl);
 
-ListHubsCtrl.$inject = ['$scope','$state','$stateParams','hub'];
+ListHubsCtrl.$inject = ['$scope','$state','$stateParams','alert','hub'];
 
-function ListHubsCtrl($scope,$state,$stateParams,hub) {
+function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
 
   var hubsPromise = hub.getAllHubs();
+
+  $scope.alerts = alert.get();
 
   hubsPromise.then(function(hubs) {
     $scope.hubs = hubs;
@@ -28,11 +30,35 @@ function ListHubsCtrl($scope,$state,$stateParams,hub) {
    * @returns {}
    */
   $scope.addHub = function(_hub) {
-    console.log('Adding Hub ' + _hub);
-    hub.addHub(_hub);
-    this.toHubsPage(true);
+    if (!$scope.addHubForm.$valid) {
+      alert.add('danger', 'Please correct the errors below and try submitting the form again.');
+      return;
+    }
+
+    // Check whether form has not been filled out
+    if ($scope.addHubForm.$pristine) {
+      alert.add('warning', 'Please fill out the form below before saving.');
+      return;
+    }
+
+    // Remove empty fields from profile to prevent errors
+    Object.keys($scope.hub).forEach(function(key) {
+      if ($scope.hub[key] === '') {
+        delete $scope.hub[key];
+      }
+    });
+
+    if ($scope.user.isAdmin()) {
+      hub.addHub(_hub);
+      this.toHubsPage(true);
+      return;
+    }
   };
 
+  $scope.resetForm = function() {
+    $scope.hub = {};
+    $scope.addHubForm.$setPristine();
+  };
   /**
    * GetHub
    * Retrieves the hub from the hubs JSON array

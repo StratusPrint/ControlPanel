@@ -8,6 +8,7 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
   $scope.uploadFiles = function(files, errFiles) {
     $scope.files = files;
     $scope.errFiles = errFiles;
+
     angular.forEach(files, function(file) {
         Upload.base64DataUrl(file).then(function(url) {
 
@@ -24,7 +25,6 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
             headers: {'Content-Type': 'application/json' },
             data: {
               model: url,
-
             },
           });
 

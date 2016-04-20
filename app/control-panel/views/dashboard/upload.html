@@ -1,6 +1,6 @@
 <form ng-controller="UploadJobCtrl" name="form">
-    <div class="well upload-drop flex-wrap flex-valign flex-halign">
-        <div ngf-drop multiple accept=".stl,.gcode" ngf-no-object-url="true" ngf-select="uploadFiles($files)" class="drop-box" ngf-drag-over-class="'dragover'">
+    <div class="flex-wrap flex-valign flex-halign well upload-drop" ngf-drop="uploadFiles($files, $invalidFiles)" multiple accept=".stl,.gcode" ngf-no-object-url="true" ngf-select="uploadFiles($files, $invalidFiles)" class="drop-box" ngf-pattern="'.stl, .gcode'" ngf-drag-over-class="'dragover'">
+        <div>
             <h2>Drag N' Drop File(s) to Print Here</h2>
             <p>You can also use the button below to manually select one or more files.</p>
             <p>The accepted file formats are: *.stl and *.gcode.
@@ -19,6 +19,6 @@
         </li>
     </ul>
 
-	<p ng-if="errorMsg" class="alert-danger">{{errorMsg}}</p>
-    <p ng-repeat="f in errFiles" class="alert alert-danger">{{f.name}} {{f.$error}} {{f.$errorParam}}</p>
+	<p ng-if="errorMsg" class="margin-top-nudge alert-danger">{{errorMsg}}</p>
+    <p ng-repeat="f in errFiles" class="margin-top-nudge no-bottom-margin alert alert-danger">{{f.name}} {{f.$error}} {{f.$errorParam}}</p>
 </form>

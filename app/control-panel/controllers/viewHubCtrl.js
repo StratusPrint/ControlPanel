@@ -94,6 +94,10 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
     }
   };
 
+  $scope.viewPrinter = function(_id) {
+    $state.go('dashboard.printer', {hubId: hubId, printerId: _id });
+  };
+
 
   /**
    *

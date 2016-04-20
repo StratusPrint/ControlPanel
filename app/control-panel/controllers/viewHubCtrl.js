@@ -84,8 +84,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    * @returns {}
    */
   $scope.deleteHub = function(_id) {
-    if (user._user.admin === true) {
-      console.log('Deleting Hub ' + _id);
+    if ($scope.user._user.admin === true) {
       hub.deleteHub(_id);
       changed = true;
       this.toHubsPage();

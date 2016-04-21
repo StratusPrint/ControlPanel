@@ -3,10 +3,9 @@ app.controller('ListHubsCtrl', ListHubsCtrl);
 ListHubsCtrl.$inject = ['$scope','$state','$stateParams','alert','hub'];
 
 function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
+  $scope.alerts = alert.get();
 
   var hubsPromise = hub.getAllHubs();
-
-  $scope.alerts = alert.get();
 
   hubsPromise.then(function(hubs) {
     $scope.hubs = hubs;
@@ -49,10 +48,19 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
     });
 
     if ($scope.user.isAdmin()) {
-      hub.addHub(_hub);
-      this.toHubsPage(true);
+      addHubPromise = hub.addHub(_hub);
+      addHubPromise.then(function(response) {
+        console.log('output bruh: ' + response);
+        if (response) {
+          $scope.resetForm();
+          this.toHubsPage(true);
+        } else {
+          alert.add('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
+        }
+      });
       return;
     }
+    alert.add('warning', 'Sorry, but you are not an admin.');
   };
 
   $scope.resetForm = function() {

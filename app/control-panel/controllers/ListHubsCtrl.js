@@ -49,8 +49,8 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
 
     if ($scope.user.isAdmin()) {
       addHubPromise = hub.addHub(_hub);
+
       addHubPromise.then(function(response) {
-        console.log('output bruh: ' + response);
         if (response) {
           $scope.resetForm();
           this.toHubsPage(true);

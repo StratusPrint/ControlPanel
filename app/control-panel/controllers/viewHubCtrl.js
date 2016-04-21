@@ -14,7 +14,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
 
   $scope.alerts = alert.get();
 
-  /**
+  /*********************************************************
    *
    * FUNCTIONS
    *
@@ -57,15 +57,22 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
       }
     });
 
-    if ($scope.user.isAdmin() && hub.updateHub(_hubId, _hub) === false) {
-      alert.add('warning', 'There was an unprocessable entity');
+    if ($scope.user.isAdmin()) {
+      updateHubPromise = hub.updateHub(_hubId, _hub);
+
+      updateHubPromise.then(function(response) {
+        if (response) {
+          $scope.resetForm();
+          alert.add('success', 'Hub updated successfully!');
+          $state.go('dashboard.viewHub', { hubId: _hubId },{reload: true});
+        } else {
+          alert.add('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable');
+        }
+      });
       return;
     }
-
-    changed = true;
-    $state.go('dashboard.viewHub', { hubId: _hubId },{reload: changed});
-    alert.add('success', 'Hub updated successfully!');
   };
+
 
   $scope.resetForm = function() {
     $scope.hub = {};
@@ -98,7 +105,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
   };
 
 
-  /**
+  /*********************************************************
    *
    * Promise handling
    * Setting scope variables
@@ -113,6 +120,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    */
   hubPromise.then(function(_hub) {
     $scope.hub = _hub;
+    console.log(hub.status);
   });
 
 

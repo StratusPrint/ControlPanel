@@ -24,7 +24,11 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
   /**
    * AddHub
    * Calls addHub in the hubs service
-   * addHub in the service adds a hub to the DB
+   * Adds a hub in the DB with the hub object gathered from the form
+   * Performs multiple checks on the form, check if there are no warnings
+   *  checks if the form is empty or not
+   *  Checks if the user is an admin, incase they edit some htlm and get the form to show
+   * If all checks clear, then it adds the hub, if the entity is invalid it will add the alert to tell the user
    * @param _hub
    * @returns {}
    */
@@ -63,10 +67,17 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
     alert.add('warning', 'Sorry, but you are not an admin.');
   };
 
+  /**
+   * ResetForm
+   * clears the $scope.hub and sets the form to pristine(cleared)
+   *
+   * @returns {undefined}
+   */
   $scope.resetForm = function() {
     $scope.hub = {};
     $scope.addHubForm.$setPristine();
   };
+
   /**
    * GetHub
    * Retrieves the hub from the hubs JSON array
@@ -96,5 +107,4 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
     console.log('Current hub: ' + $scope.currentHub.id);
     $state.go('dashboard.viewHub', { hubId: _hubId });
   };
-
 }

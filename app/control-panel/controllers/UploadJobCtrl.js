@@ -12,6 +12,7 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
     angular.forEach(files, function(file) {
         Upload.base64DataUrl(file).then(function(url) {
 
+          var name = file.name.replace(/\..+$/, '');
           var extension = file.name.split('.').pop();
 
           if (extension === 'stl') {
@@ -25,6 +26,7 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
             headers: {'Content-Type': 'application/json' },
             data: {
               model: url,
+              model_file_name: name,
             },
           });
 

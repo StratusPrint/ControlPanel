@@ -132,7 +132,6 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    */
   hubPromise.then(function(_hub) {
     $scope.hub = _hub;
-    console.log(hub.status);
   });
 
 

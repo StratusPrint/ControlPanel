@@ -46,8 +46,8 @@
       <!-- /.panel-body -->
     </div>
 
-    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"> {{alert.msg}}</uib-alert>
     <div ng-show="user.isAdmin()">
+      <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"> {{alert.msg}}</uib-alert>
       <form name="addHubForm" class="clearfix" role="form" ng-submit="addHub(hub)" ng-init="hub = {}" novalidate>
         <div class="panel panel-kashmir">
           <div class="panel-heading">
@@ -56,7 +56,7 @@
           <div class="panel-body">
             <div class="form-group" show-errors>
               <label for="friendly_id">Hub Name</label>
-              <input autocomplete="off" name="friendly_id"  ng-model="hub.friendly_id" ng-minlength="3" ng-maxlength="16" type="text" class="form-control" placeholder="Enter a friendly identifier for the new hub (e.g. hub0)" />
+              <input autocomplete="off" name="friendly_id"  ng-model="hub.friendly_id" ng-required="hub.friendly_id" ng-minlength="3" ng-maxlength="16" type="text" class="form-control" placeholder="Enter a friendly identifier for the new hub (e.g. hub0)" />
               <span ng-show="addHubForm.friendly_id.$error.minlength" class="help-block">Friendly ID is too short.  Must be atleast 3 digits</span>
               <span ng-show="addHubForm.friendly_id.$error.maxlength" class="help-block">Friendly ID is too long.  Must be at most 16 digits</span>
               <span ng-show="addHubForm.friendly_id.$error.required" class="help-block">This is a required field</span>
@@ -83,7 +83,7 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary pull-right" ng-required="hub.friendly_id" type="submit">Save Changes</button>
+        <button class="btn btn-primary pull-right" type="submit">Save Changes</button>
       </form>
     </div>
   </div>

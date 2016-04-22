@@ -47,7 +47,7 @@
     </div>
 
     <div ng-show="user.isAdmin()">
-      <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"> {{alert.msg}}</uib-alert>
+      <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
       <form name="addHubForm" class="clearfix" role="form" ng-submit="addHub(hub)" ng-init="hub = {}" novalidate>
         <div class="panel panel-kashmir">
           <div class="panel-heading">

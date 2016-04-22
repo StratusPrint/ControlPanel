@@ -1,9 +1,9 @@
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope','$state','$stateParams','$q','alert','hub','printer','sensor'];
+ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$q', '$controller', 'hub', 'printer', 'sensor'];
 
-function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, sensor) {
-  console.log('ViewHubCtrl clear alerts');
-  $scope.alerts = alert.get();
+function ViewHubCtrl($scope, $state, $stateParams, $q, $controller, hub, printer, sensor) {
+  // Inject alert controller scope
+  $controller('AlertCtrl', { $scope: $scope });
 
   var hubId = Number($stateParams.hubId);
 
@@ -45,13 +45,13 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    */
   $scope.updateHub = function(_hubId, _hub) {
     if (!$scope.updateHubForm.$valid) {
-      alert.add('danger', 'Please correct the errors below and try submitting the form again.');
+      $scope.addAlert('danger', 'Please correct the errors below and try submitting the form again.');
       return;
     }
 
     // Check whether form has not been filled out
     if ($scope.updateHubForm.$pristine) {
-      alert.add('warning', 'Please fill out the form below before saving.');
+      $scope.addAlert('warning', 'Please fill out the form below before saving.');
       return;
     }
 
@@ -71,7 +71,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
           alert.add('success', 'Hub updated successfully!');
           $scope.hub = data;
         } else {
-          alert.add('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable');
+          $scope.addAlert('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable');
         }
       });
       return;

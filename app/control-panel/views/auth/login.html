@@ -10,7 +10,7 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"> {{alert.msg}}</uib-alert>
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
                     <form ng-submit="login(user)" role="form" ng-init="user = {}">
                         <fieldset>
                             <div class="form-group">

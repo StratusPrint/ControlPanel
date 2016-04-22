@@ -1,10 +1,10 @@
 app.controller('ListHubsCtrl', ListHubsCtrl);
 
-ListHubsCtrl.$inject = ['$scope','$state','$stateParams','alert','hub'];
+ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', 'hub'];
 
-function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
-  console.log('ListHubsCtrl clear alerts');
-  $scope.alerts = alert.get();
+function ListHubsCtrl($scope, $state, $stateParams, $controller, hub) {
+  // Inject alert controller scope
+  $controller('AlertCtrl', { $scope: $scope });
 
   var hubsPromise = hub.getAllHubs();
 
@@ -35,13 +35,13 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
    */
   $scope.addHub = function(_hub) {
     if (!$scope.addHubForm.$valid) {
-      alert.add('danger', 'Please correct the errors below and try submitting the form again.');
+      $scope.addAlert('danger', 'Please correct the errors below and try submitting the form again.');
       return;
     }
 
     // Check whether form has not been filled out
     if ($scope.addHubForm.$pristine) {
-      alert.add('warning', 'Please fill out the form below before saving.');
+      $scope.addAlert('warning', 'Please fill out the form below before saving.');
       return;
     }
 
@@ -66,7 +66,7 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
       });
       return;
     }
-    alert.add('warning', 'Sorry, but you are not an admin.');
+    $scope.addAlert('warning', 'Sorry, but you are not an admin.');
   };
 
   /**

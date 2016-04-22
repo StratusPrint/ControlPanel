@@ -1,8 +1,8 @@
 app.controller('NavCtrl', NavCtrl);
 
-NavCtrl.$inject = ['$scope', '$state', '$stateParams', 'hub'];
+NavCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', 'hub'];
 
-function NavCtrl($scope, $state, $stateParams, hub) {
+function NavCtrl($scope, $state, $stateParams, $controller, hub) {
   var promise = hub.getAllHubs();
 
   promise.then(function(_hubs) {

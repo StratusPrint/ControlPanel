@@ -96,7 +96,7 @@ function HubService($http, $state, user) {
       data: {hub: _hub},
     }).then(function successCallback(response) {
       console.log('Hub updated! ' + JSON.stringify(response.data));
-      return true;
+      return response.data;
 
     }, function errorCallback(response) {
       return false;

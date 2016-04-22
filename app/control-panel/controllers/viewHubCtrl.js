@@ -65,11 +65,12 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
     if ($scope.user.isAdmin()) {
       updateHubPromise = hub.updateHub(_hubId, _hub);
 
-      updateHubPromise.then(function(response) {
-        if (response) {
+      updateHubPromise.then(function(data) {
+        if (typeof (data) === 'object') {
           $scope.resetForm();
           alert.add('success', 'Hub updated successfully!');
-   //       $state.go('dashboard.viewHub', { hubId: _hubId },{reload: true});
+          $scope.hub = data;
+          // $state.go('dashboard.viewHub', { hubId: _hubId },{reload: true});
         } else {
           alert.add('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable');
         }

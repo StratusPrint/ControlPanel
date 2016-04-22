@@ -8,6 +8,7 @@ angular.module('ControlPanel', [
     'datatables',
     'ngFileUpload',
     'angular.vertilize',
+
 ]);
 
 var app = angular.module('ControlPanel');
@@ -114,8 +115,8 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
 app.config(function($authProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
-    passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
-    confirmationSuccessUrl: 'https://dev.stratusprint.com/#/login?accountConfirmed=true',
+    // passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
+    // confirmationSuccessUrl: 'https://dev.stratusprint.com/#/login?accountConfirmed=true',
   });
 });
 

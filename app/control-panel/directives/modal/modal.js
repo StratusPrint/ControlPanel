@@ -24,7 +24,7 @@ app.directive('modal', function() {
           } else {
             $(element).modal('hide');
           }
-          console.log('this worked');
+
         });
 
         $(element).on('shown.bs.modal', function() {

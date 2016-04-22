@@ -34,7 +34,7 @@ function HubService($http, $state, user) {
       url: 'https://dev.api.stratusprint.com/v1/hubs',
       data: {hub: hub},
     }).then(function successCallback(response) {
-      return true;
+      return response.data;
 
     }, function errorCallback(response) {
       return false;

@@ -3,7 +3,7 @@ app.controller('ListHubsCtrl', ListHubsCtrl);
 ListHubsCtrl.$inject = ['$scope','$state','$stateParams','alert','hub'];
 
 function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
-  // Alert.clear();
+  console.log('ListHubsCtrl clear alerts');
   $scope.alerts = alert.get();
 
   var hubsPromise = hub.getAllHubs();
@@ -55,12 +55,12 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
     if ($scope.user.isAdmin()) {
       addHubPromise = hub.addHub(_hub);
 
-      addHubPromise.then(function(response) {
-        if (response) {
+      addHubPromise.then(function(data) {
+        if (typeof (data) === 'object') {
+          $scope.hubs.push(data);
           $scope.resetForm();
           alert.add('success', 'The hub was successfully added');
-          $scope.toHubsPage(true);
-        } else {
+        } else if (data === false) {
           alert.add('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
         }
       });

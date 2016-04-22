@@ -3,6 +3,7 @@ app.controller('AuthCtrl', AuthCtrl);
 AuthCtrl.$inject = ['$scope', '$state', '$stateParams', 'auth', 'alert'];
 
 function AuthCtrl($scope, $state, $stateParams, auth, alert) {
+  console.log('AuthCtrl clear alerts');
   // List of open alerts
   $scope.alerts = alert.get();
 

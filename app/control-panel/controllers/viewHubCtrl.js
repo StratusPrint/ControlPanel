@@ -2,16 +2,18 @@ app.controller('ViewHubCtrl', ViewHubCtrl);
 ViewHubCtrl.$inject = ['$scope','$state','$stateParams','$q','alert','hub','printer','sensor'];
 
 function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, sensor) {
+  console.log('ViewHubCtrl clear alerts');
+  $scope.alerts = alert.get();
+
   var hubId = Number($stateParams.hubId);
 
   var hubPromise = hub.getHub(hubId);
   var sensorsPromise = hub.getSensors(hubId);
   var printersPromise = hub.getPrinters(hubId);
 
+
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
-
-  $scope.alerts = alert.get();
 
   /*********************************************************
    *
@@ -67,7 +69,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
         if (response) {
           $scope.resetForm();
           alert.add('success', 'Hub updated successfully!');
-          $state.go('dashboard.viewHub', { hubId: _hubId },{reload: true});
+   //       $state.go('dashboard.viewHub', { hubId: _hubId },{reload: true});
         } else {
           alert.add('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable');
         }

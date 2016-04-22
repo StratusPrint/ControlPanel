@@ -3,6 +3,7 @@ app.controller('ProfileCtrl', ProfileCtrl);
 ProfileCtrl.$inject = ['$scope', 'auth', 'alert'];
 
 function ProfileCtrl($scope, auth, alert) {
+  console.log('Profile clear alerts');
   // List of open alerts
   $scope.alerts = alert.get();
 

@@ -59,9 +59,9 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, hub) {
         if (typeof (data) === 'object') {
           $scope.hubs.push(data);
           $scope.resetForm();
-          alert.add('success', 'The hub was successfully added');
+          $scope.addAlert('success', 'The hub was successfully added');
         } else {
-          alert.add('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
+          $scope.addAlert('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
         }
       });
       return;

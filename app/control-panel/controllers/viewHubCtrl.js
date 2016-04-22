@@ -70,7 +70,6 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
           $scope.resetForm();
           alert.add('success', 'Hub updated successfully!');
           $scope.hub = data;
-          // $state.go('dashboard.viewHub', { hubId: _hubId },{reload: true});
         } else {
           alert.add('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable');
         }

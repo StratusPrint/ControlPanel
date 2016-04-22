@@ -16,6 +16,8 @@ function HubService($http, $state, user) {
     }).then(function successCallback(response) {
       return response.data;
     }, function errorCallback(response) {
+
+
       // Error response right here
     });
   };
@@ -26,7 +28,8 @@ function HubService($http, $state, user) {
    * All of type string
    *
    * @param hub
-   * @returns {JSON} response
+   * @returns {$q} promise if it succeeds
+   * @returns {boolean} if it fails
    */
   this.addHub = function(hub) {
     return $http({
@@ -37,6 +40,8 @@ function HubService($http, $state, user) {
       return response.data;
 
     }, function errorCallback(response) {
+      console.log('Failed to add hub');
+      console.log(JSON.stringify(response));
       return false;
     });
   };
@@ -58,7 +63,7 @@ function HubService($http, $state, user) {
       return response.data;
 
     }, function errorCallback(response) {
-      console.log('In delete: ' + JSON.stringify(response));
+      console.log('Failed to delete hub: ' + JSON.stringify(response));
       return response.data;
     });
   };
@@ -78,6 +83,8 @@ function HubService($http, $state, user) {
       return response.data;
 
     }, function errorCallback(response) {
+      console.log('Failed to retreive the hub with id of: ' + id);
+      console.log(JSON.stringify(response));
       return response.data;
     });
   };
@@ -87,7 +94,9 @@ function HubService($http, $state, user) {
    * Updates the information of the hub with the associated id
    * @param _hubId
    * @param _hub
-   * @returns {boolean}
+   *
+   * @returns {$q} promise if it succeeds
+   * @returns {boolean} if it fails
    */
   this.updateHub = function(_hubId, _hub) {
     return $http({
@@ -95,14 +104,22 @@ function HubService($http, $state, user) {
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + _hubId,
       data: {hub: _hub},
     }).then(function successCallback(response) {
-      console.log('Hub updated! ' + JSON.stringify(response.data));
       return response.data;
-
     }, function errorCallback(response) {
+      console.log('Failed to update the hub with id of: ' + _hubId);
+      console.log(JSON.stringify(response));
       return false;
     });
   };
 
+  /**
+   * GetSensors
+   * performs a get request to retrieve the sensors associated with a hub
+   * returns a promise that this data will be retrieved
+   *
+   * @param id
+   * @returns {$q} (promise)
+   */
   this.getSensors = function(id) {
     console.log('service: ' + id);
     return $http({
@@ -112,10 +129,20 @@ function HubService($http, $state, user) {
       return response.data;
 
     }, function errorCallback(response) {
+      console.log('Failed to retrieve the sensor with id of: ' + id);
+      console.log(JSON.stringify(response));
       return response.data;
     });
   };
 
+  /**
+   * GetPrinters
+   * performs a get request to retrieve the printers associated with a hub
+   * returns a promise that this data will be retrieved
+   *
+   * @param hubId
+   * @returns {$q} (promise)
+   */
   this.getPrinters = function(hubId) {
     console.log('service: ' + hubId);
     return $http({
@@ -125,8 +152,9 @@ function HubService($http, $state, user) {
       return response.data;
 
     }, function errorCallback(response) {
+      console.log('Failed to retrieve the sensor with id of: ' + hubId);
+      console.log(JSON.stringify(response));
       return response.data;
     });
   };
-
 }

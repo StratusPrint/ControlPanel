@@ -60,7 +60,7 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
           $scope.hubs.push(data);
           $scope.resetForm();
           alert.add('success', 'The hub was successfully added');
-        } else if (data === false) {
+        } else {
           alert.add('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
         }
       });

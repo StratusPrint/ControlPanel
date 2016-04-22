@@ -48,7 +48,7 @@
             <!-- /.panel-body -->
         </div>
         <div>
-            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)">{{alert.msg}}</uib-alert>
             
         </div>
                 <form name="registerUser" class="clearfix" role="form" ng-submit="register(_user)" ng-init="_user = {}" novalidate>

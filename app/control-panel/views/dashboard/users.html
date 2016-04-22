@@ -1,4 +1,3 @@
-<ui-view>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">All Users</h1>
@@ -37,7 +36,7 @@
                                 </td>
                                 <td>
                                     <button class="btn btn-danger" ng-click="delete(user.id)">Delete User</button>
-                                    <button class="btn btn-danger" ng-click="toggleModal()">Delete</button>
+                                    
                                 </td>
                             </tr>
                         </tbody>
@@ -87,7 +86,17 @@
     </div>
 </div>
 
- <modal title="Login form" visible="showModal">
+ <modal title="Delete User" visible="showDeleteModal">
+    <form role="form">
+      <div class="form-group">
+        <label for="email">Email address</label>
+       
+      </div>
+      <button type="submit" ng-click="deleteUser()" class="btn btn-default">Submit</button>
+    </form>
+  </modal>
+
+   <modal title="Edit User" visible="showEditModal">
     <form role="form">
       <div class="form-group">
         <label for="email">Email address</label>
@@ -100,7 +109,9 @@
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
   </modal>
-</ui-view>
+
+
+
 
 
 

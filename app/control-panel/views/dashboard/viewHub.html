@@ -20,9 +20,9 @@
           <a class="info pull-right" href="javascript:void" tooltip-close-delay="200" uib-tooltip="{{sensor.desc}}"><label class="label label-info pull-right"><i class="fa fa-tag"></i> {{sensor.category}}</label></a>
         </div>
         <div class="panel-body">
-          <p class="reading reading-danger" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}} %</p>
-          <p class="reading reading-alert" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</p>
-          <p class="reading reading-ok" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}} &#8457;</span>
+          <p class="reading reading-default" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}} %</p>
+          <p class="reading reading-default" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</p>
+          <p class="reading reading-default" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}} &#8457;</span>
         <!--
           <h3 class="no-margin">{{sensor.friendly_id}}</h3>
           <p>{{sensor.category}}</p>

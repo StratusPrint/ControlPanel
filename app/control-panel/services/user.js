@@ -75,7 +75,6 @@ function UserService(localStorageService) {
    * @return {Boolean} true if user has admin priveleges, false otherwise
    */
   this.isAdmin = function() {
-    console.log(this._user.admin);
     return this._user.admin;
   };
 

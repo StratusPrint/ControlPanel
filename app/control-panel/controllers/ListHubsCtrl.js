@@ -3,6 +3,7 @@ app.controller('ListHubsCtrl', ListHubsCtrl);
 ListHubsCtrl.$inject = ['$scope','$state','$stateParams','alert','hub'];
 
 function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
+  // Alert.clear();
   $scope.alerts = alert.get();
 
   var hubsPromise = hub.getAllHubs();
@@ -57,7 +58,7 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
       addHubPromise.then(function(response) {
         if (response) {
           $scope.resetForm();
-          this.toHubsPage(true);
+          $scope.toHubsPage(true);
         } else {
           alert.add('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
         }

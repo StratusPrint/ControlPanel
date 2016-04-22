@@ -78,7 +78,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
 
 
   /**
-   * resetForm
+   * ResetForm
    * clears the $scope.hub and sets the form to pristine(cleared)
    *
    * @returns {undefined}
@@ -88,7 +88,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
     $scope.updateHubForm.$setPristine();
   };
 
- 
+
   /**
    * DeleteHub
    * calls deleteHub from the service
@@ -106,7 +106,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
   };
 
   /**
-   * viewPrinter
+   * ViewPrinter
    * Sets the state to that of the printer with the associated _id
    *
    * @param _id
@@ -132,7 +132,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    */
   hubPromise.then(function(_hub) {
     $scope.hub = _hub;
-    console.log(hub.status);
+    console.log('Hub Status type: ' + typeof (hub.status));
   });
 
 

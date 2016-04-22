@@ -34,11 +34,10 @@ function HubService($http, $state, user) {
       url: 'https://dev.api.stratusprint.com/v1/hubs',
       data: {hub: hub},
     }).then(function successCallback(response) {
-      return response.data;
+      return true;
 
     }, function errorCallback(response) {
-
-      return response.data;
+      return false;
     });
   };
 
@@ -55,9 +54,11 @@ function HubService($http, $state, user) {
       method: 'DELETE',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + id,
     }).then(function successCallback(response) {
+      console.log('In delete: ' + JSON.stringify(response));
       return response.data;
 
     }, function errorCallback(response) {
+      console.log('In delete: ' + JSON.stringify(response));
       return response.data;
     });
   };

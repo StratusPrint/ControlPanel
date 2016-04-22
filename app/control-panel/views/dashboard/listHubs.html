@@ -1,81 +1,90 @@
-<ui-view>
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Environments</h1>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Environments</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <i class="fa fa-th-list"></i> All Environments
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <table width="100%" class="dt-responsive table table-striped table-bordered table-hover" datatable="ng">
+          <thead>
+            <tr>
+              <th data-priority="3">Status</th>
+              <th data-priority="6">id</th>
+              <th data-priority="2">Friendly Id</th>
+              <th data-priority="5">Location</th>
+              <th data-priority="4">Hostname</th>
+              <th data-priority="7">Description</th>
+              <th data-priority="1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="hub in ::hubs">
+              <td>{{hub.status}}</td>
+              <td>{{hub.id}}</td>
+              <td>{{hub.friendly_id}}</td>
+              <td>{{hub.hostname}}</td>
+              <td>{{hub.location}}</td>
+              <td>{{hub.desc}}</td>
+              <td>
+                <button class="btn btn-primary" ng-click="viewDetails(hub.id)">View Details</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- /.table-responsive -->
+        <div class="well">
+          <h4>What is a Hub?</h4>
+          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
         </div>
+      </div>
+      <!-- /.panel-body -->
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-th-list"></i> All Environments
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <table width="100%" class="dt-responsive table table-striped table-bordered table-hover" datatable="ng">
-                        <thead>
-                            <tr>
-                                <th data-priority="3">Status</th>
-                                <th data-priority="6">id</th>
-                                <th data-priority="2">Friendly Id</th>
-                                <th data-priority="5">Location</th>
-                                <th data-priority="4">Hostname</th>
-                                <th data-priority="7">Description</th>
-                                <th data-priority="1"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="hub in ::hubs">
-                                <td>{{hub.status}}</td>
-                                <td>{{hub.id}}</td>
-                                <td>{{hub.friendly_id}}</td>
-                                <td>{{hub.hostname}}</td>
-                                <td>{{hub.location}}</td>
-                                <td>{{hub.desc}}</td>
-                                <td>
-                                    <button class="btn btn-primary" ng-click="viewDetails(hub.id)">View Details</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- /.table-responsive -->
-                    <div class="well">
-                        <h4>What is a Hub?</h4>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-                    </div>
-                </div>
-                <!-- /.panel-body -->
+
+    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"> {{alert.msg}}</uib-alert>
+    <div ng-show="user.isAdmin()">
+      <form name="addHubForm" class="clearfix" role="form" ng-submit="addHub(hub)" ng-init="hub = {}" novalidate>
+        <div class="panel panel-kashmir">
+          <div class="panel-heading">
+            <i class="fa fa-plus-circle"></i> Add New Hub
+          </div>
+          <div class="panel-body">
+            <div class="form-group" show-errors>
+              <label for="friendly_id">Hub Name</label>
+              <input autocomplete="off" name="friendly_id"  ng-model="hub.friendly_id" ng-minlength="3" ng-maxlength="16" type="text" class="form-control" placeholder="Enter a friendly identifier for the new hub (e.g. hub0)" />
+              <span ng-show="addHubForm.friendly_id.$error.minlength" class="help-block">Friendly ID is too short.  Must be atleast 3 digits</span>
+              <span ng-show="addHubForm.friendly_id.$error.maxlength" class="help-block">Friendly ID is too long.  Must be at most 16 digits</span>
+              <span ng-show="addHubForm.friendly_id.$error.required" class="help-block">This is a required field</span>
             </div>
-            <form name="addHubForm" class="clearfix" role="form" ng-submit="addHub(hub)" ng-init="hub = {}" novalidate>
-                <div class="panel panel-kashmir">
-                    <div class="panel-heading">
-                        <i class="fa fa-plus-circle"></i> Add New Hub
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group" show-errors>
-                            <label for="friendly_id">Hub Name</label>
-                            <input autocomplete="off" name="friendly_id" ng-model="hub.friendly_id" type="text" class="form-control" placeholder="Enter a friendly identifier for the new hub (e.g. hub0)" />
-                        </div>
-                        <div class="form-group">
-                            <label for="ip">IP Address</label>
-                            <input autocomplete="off" name="ip" ng-model="hub.ip" type="text" class="form-control" placeholder="Enter the new hub's IP address (e.g. 212.134.24.244)" />
-                        </div>
-                        <div class="form-group">
-                            <label for="hostname">Host Name</label>
-                            <input autocomplete="off" name="ip" ng-model="hub.hostname" type="text" class="form-control" placeholder="Enter the new hub's hostname (e.g. hub.yourdomain.com)" />
-                        </div>
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <input autocomplete="off" name="location" ng-model="hub.location" type="text" class="form-control" placeholder="Describe where this new hub (e.g. Computer Lab)" />
-                        </div>
-                        <div class="form-group">
-                            <label for="desc">Description</label>
-                            <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Describe environment that the new hub is representing" />
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-primary pull-right" type="submit">Save Changes</button>
-            </form>
+            <div class="form-group">
+              <label for="ip">IP Address</label>
+              <input autocomplete="off" name="ips" ng-required="hub.ip" ng-model="hub.ip" ng-minlength = "8" type="text" class="form-control" placeholder="Enter the new hub's IP address (e.g. 212.134.24.244)" />
+              <!-- TODO change to regex -->
+              <span ng-show="addHubForm.ips.$error.minlength" class="help-block">IP is too short. Must be at least 8 digits.</span>
+              <span ng-show="addHubForm.ips.$error.required" class="help-block">This is a required field</span>
+            </div>
+            <div class="form-group">
+              <label for="hostname">Host Name</label>
+              <input autocomplete="off" name="domain" ng-required="hub.hostname" ng-model="hub.hostname" type="text" class="form-control" placeholder="Enter the new hub's hostname (e.g. hub.yourdomain.com)" />
+              <span ng-show="addHubForm.domain.$error.required" class="help-block">This is a required field</span>
+            </div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input autocomplete="off" name="location" ng-model="hub.location" type="text" class="form-control" placeholder="Describe where this new hub (e.g. Computer Lab)" />
+            </div>
+            <div class="form-group">
+              <label for="desc">Description</label>
+              <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Describe environment that the new hub is representing" />
+            </div>
+          </div>
         </div>
+        <button class="btn btn-primary pull-right" ng-required="hub.friendly_id" type="submit">Save Changes</button>
+      </form>
     </div>
-</ui-view>
+  </div>
+</div>

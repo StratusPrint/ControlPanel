@@ -1,8 +1,9 @@
 app.controller('ListHubsCtrl', ListHubsCtrl);
 
-ListHubsCtrl.$inject = ['$scope','$state','$stateParams','hub'];
+ListHubsCtrl.$inject = ['$scope','$state','$stateParams','alert','hub'];
 
-function ListHubsCtrl($scope,$state,$stateParams,hub) {
+function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
+  $scope.alerts = alert.get();
 
   var hubsPromise = hub.getAllHubs();
 
@@ -17,20 +18,64 @@ function ListHubsCtrl($scope,$state,$stateParams,hub) {
    * @returns {}
    */
   $scope.toHubsPage = function(refresh) {
-    $state.go('dashboard.hubs',{},{reload: refresh});
+    $state.go('dashboard.listHubs',{},{reload: refresh});
   };
 
   /**
    * AddHub
    * Calls addHub in the hubs service
-   * addHub in the service adds a hub to the DB
+   * Adds a hub in the DB with the hub object gathered from the form
+   * Performs multiple checks on the form, check if there are no warnings
+   *  checks if the form is empty or not
+   *  Checks if the user is an admin, incase they edit some htlm and get the form to show
+   * If all checks clear, then it adds the hub, if the entity is invalid it will add the alert to tell the user
    * @param _hub
    * @returns {}
    */
   $scope.addHub = function(_hub) {
-    console.log('Adding Hub ' + _hub);
-    hub.addHub(_hub);
-    this.toHubsPage(true);
+    if (!$scope.addHubForm.$valid) {
+      alert.add('danger', 'Please correct the errors below and try submitting the form again.');
+      return;
+    }
+
+    // Check whether form has not been filled out
+    if ($scope.addHubForm.$pristine) {
+      alert.add('warning', 'Please fill out the form below before saving.');
+      return;
+    }
+
+    // Remove empty fields from profile to prevent errors
+    Object.keys($scope.hub).forEach(function(key) {
+      if ($scope.hub[key] === '') {
+        delete $scope.hub[key];
+      }
+    });
+
+    if ($scope.user.isAdmin()) {
+      addHubPromise = hub.addHub(_hub);
+
+      addHubPromise.then(function(response) {
+        if (response) {
+          $scope.resetForm();
+          this.toHubsPage(true);
+        } else {
+          alert.add('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
+        }
+      });
+      return;
+    }
+    alert.add('warning', 'Sorry, but you are not an admin.');
+  };
+
+  /**
+   * ResetForm
+   * clears the $scope.hub and sets the form to pristine(cleared)
+   *
+   * @returns {undefined}
+   */
+  $scope.resetForm = function() {
+    $scope.hub = {};
+    $scope.addHubForm.$setPristine();
   };
 
   /**
@@ -60,7 +105,6 @@ function ListHubsCtrl($scope,$state,$stateParams,hub) {
   $scope.viewDetails = function(_hubId) {
     $scope.currentHub = this.getHub(_hubId);
     console.log('Current hub: ' + $scope.currentHub.id);
-    $state.go('dashboard.hubs.hubId', { hubId: _hubId });
+    $state.go('dashboard.viewHub', { hubId: _hubId });
   };
-
 }

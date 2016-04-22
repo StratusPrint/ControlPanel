@@ -8,8 +8,7 @@ node default {
   class { 'nginx': 
   }
   nginx::resource::vhost { 'default_server':
-    www_root => '/vagrant/app',
-    sendfile => 'off'
+    www_root => '/vagrant/app'
   }
   # Developer Utilities
   class { 'utils': }

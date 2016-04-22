@@ -7,14 +7,13 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
   var hubPromise = hub.getHub(hubId);
   var sensorsPromise = hub.getSensors(hubId);
   var printersPromise = hub.getPrinters(hubId);
-  var changed = false;
 
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
 
   $scope.alerts = alert.get();
 
-  /**
+  /*********************************************************
    *
    * FUNCTIONS
    *
@@ -26,14 +25,18 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    *  if changed = true the ListHubs controller will refresh
    * @returns {undefined}
    */
-  $scope.toHubsPage = function() {
-    $state.go('dashboard.hubs',{},{reload: changed});
-    changed = false;
+  $scope.toHubsPage = function(changed) {
+    $state.go('dashboard.listHubs',{},{reload: changed});
   };
 
   /**
    * UpdateHub
    * Updates a hub in the DB with the hub object gathered from the form
+   * Performs multiple checks on the form, check if there are no warnings
+   *  checks if the form is empty or not
+   *  Checks if the user is an admin, incase they edit some htlm and get the form to show
+   * If all checks clear, then it updates the hub, if the entity is invalid it will add the alert to tell the user
+   *
    * @param _hubId
    * @param _hub
    * @returns {undefined}
@@ -57,23 +60,35 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
       }
     });
 
-    console.log('Updating hub!' + _hubId);
-    if (hub.updateHub(_hubId, _hub) === false) {
-      alert.add('warning', 'There was an unprocessable entity');
+    if ($scope.user.isAdmin()) {
+      updateHubPromise = hub.updateHub(_hubId, _hub);
+
+      updateHubPromise.then(function(response) {
+        if (response) {
+          $scope.resetForm();
+          alert.add('success', 'Hub updated successfully!');
+          $state.go('dashboard.viewHub', { hubId: _hubId },{reload: true});
+        } else {
+          alert.add('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable');
+        }
+      });
       return;
     }
-    changed = true;
   };
 
+
+  /**
+   * resetForm
+   * clears the $scope.hub and sets the form to pristine(cleared)
+   *
+   * @returns {undefined}
+   */
   $scope.resetForm = function() {
     $scope.hub = {};
     $scope.updateHubForm.$setPristine();
   };
 
-  $scope.pageChanged = function() {
-    console.log('Printers Page changed to: ' + $scope.printersCurrentPage);
-  };
-
+ 
   /**
    * DeleteHub
    * calls deleteHub from the service
@@ -82,18 +97,27 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    * @returns {}
    */
   $scope.deleteHub = function(_id) {
-    if (user._user.admin === true) {
-      console.log('Deleting Hub ' + _id);
+    if ($scope.user._user.admin === true) {
       hub.deleteHub(_id);
-      changed = true;
-      this.toHubsPage();
+      this.toHubsPage(true);
     } else {
       console.log('Permission Denied');
     }
   };
 
-
   /**
+   * viewPrinter
+   * Sets the state to that of the printer with the associated _id
+   *
+   * @param _id
+   * @returns {undefined}
+   */
+  $scope.viewPrinter = function(_id) {
+    $state.go('dashboard.printer', {hubId: hubId, printerId: _id });
+  };
+
+
+  /*********************************************************
    *
    * Promise handling
    * Setting scope variables
@@ -108,6 +132,7 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
    */
   hubPromise.then(function(_hub) {
     $scope.hub = _hub;
+    console.log(hub.status);
   });
 
 
@@ -156,5 +181,4 @@ function ViewHubCtrl($scope, $state, $stateParams,$q, alert, hub, printer, senso
     $scope.printers = _printers;
     $scope.printersTotalItems = _printers.length;
   });
-
 }

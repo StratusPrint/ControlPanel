@@ -58,6 +58,7 @@ function ListHubsCtrl($scope,$state,$stateParams,alert,hub) {
       addHubPromise.then(function(response) {
         if (response) {
           $scope.resetForm();
+          alert.add('success', 'The hub was successfully added');
           $scope.toHubsPage(true);
         } else {
           alert.add('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');

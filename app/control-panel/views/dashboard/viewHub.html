@@ -7,7 +7,7 @@
         <h1 class="page-header flex-wrap flex-valign">
           <a ng-if="hub.status === 'online'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This hub is currently {{::hub.status | uppercase}}."><span class="label label-success"><i class="fa fa-check-circle"></i> {{::hub.friendly_id}}</span></a>
           <a ng-if="hub.status === 'offline'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This hub is currently {{::hub.status | uppercase}}."><span class="label label-danger"><i class="fa fa-times-circle"></i> {{::hub.friendly_id}}</span></a>
-          <a ng-if="hub.status === 'unknown' || typeof(hub.status) === undefined" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="The status of this hub is currently {{::hub.status | uppercase}}."><span class="label label-default"><i class="fa fa-question-circle"></i> {{::hub.friendly_id}}</span></a>
+          <a ng-if="hub.status === 'unknown'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="The status of this hub is currently {{::hub.status | uppercase}}."><span class="label label-default"><i class="fa fa-question-circle"></i> {{::hub.friendly_id}}</span></a>
           <span class="desc">{{::hub.desc}}</span>
         </h1>
     </div>

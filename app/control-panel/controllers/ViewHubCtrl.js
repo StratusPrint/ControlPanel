@@ -68,10 +68,10 @@ function ViewHubCtrl($scope, $state, $stateParams, $q, $controller, hub, printer
       updateHubPromise.then(function(data) {
         if (typeof (data) === 'object') {
           $scope.resetForm();
-          alert.add('success', 'Hub updated successfully!');
+          $scope.addAlert('success', 'Hub updated successfully!');
           $scope.hub = data;
         } else {
-          $scope.addAlert('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable');
+          $scope.addAlert('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable.');
         }
       });
       return;

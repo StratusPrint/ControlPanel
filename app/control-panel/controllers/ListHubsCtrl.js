@@ -1,16 +1,51 @@
 app.controller('ListHubsCtrl', ListHubsCtrl);
 
-ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', 'hub'];
+ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller','$compile','DTOptionsBuilder', 'DTColumnBuilder', 'hub'];
 
-function ListHubsCtrl($scope, $state, $stateParams, $controller, hub) {
+function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, hub) {
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
+  var vm = this;
 
-  var hubsPromise = hub.getAllHubs();
+  vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+    return hub.getAllHubs();
+  })
+  .withPaginationType('full_numbers')
+  .withOption('createdRow',createdRow);
 
-  hubsPromise.then(function(hubs) {
-    $scope.hubs = hubs;
-  });
+  vm.cols = [
+    DTColumnBuilder.newColumn('status').withTitle('Status'),
+    DTColumnBuilder.newColumn('id').withTitle('Id'),
+    DTColumnBuilder.newColumn('friendly_id').withTitle('Friendly Id'),
+    DTColumnBuilder.newColumn('location').withTitle('Location'),
+    DTColumnBuilder.newColumn('hostname').withTitle('Hostname'),
+    DTColumnBuilder.newColumn('desc').withTitle('Description'),
+    DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml),
+  ];
+  vm.newPromise = getNewPromise;
+  vm.reloadData = reloadData;
+  vm.dtInstance = {};
+
+  function getNewPromise() {
+    console.log('Fired');
+    return hub.getAllHubs();
+  }
+  function actionsHtml(data, type, full, meta) {
+    return '<button class="btn btn-primary" ng-click="viewDetails(' + data.id + ')">View Details</button>';
+  }
+  function createdRow(row, data, dataIndex) {
+    // Recompiling so we can bind Angular directive to the DT
+    $compile(angular.element(row).contents())($scope);
+  }
+
+  function reloadData() {
+    var resetPaging = true;
+    vm.dtInstance.reloadData(callback, resetPaging);
+  }
+
+  function callback(json) {
+    console.log(json);
+  }
 
   /**
    * ToHubsPage
@@ -60,6 +95,7 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, hub) {
           $scope.hubs.push(data);
           $scope.resetForm();
           $scope.addAlert('success', 'The hub was successfully added');
+          // Vm.reloadData();
         } else {
           $scope.addAlert('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
         }

@@ -10,9 +10,9 @@
             </button>
             <a class="navbar-brand" ui-sref="dashboard.overview">StratusPrint <span class="hide-on-mobile">Web Control Panel</span></a>
         </div>
-        <!-- /.navbar-header -->
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
+<!--Saving this stuff
                 <a class="dropdown-toggle" data-toggle="dropdown" href="">
                     <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
@@ -60,9 +60,7 @@
                         </a>
                     </li>
                 </ul>
-                <!-- /.dropdown-messages -->
             </li>
-            <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="">
                     <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -139,9 +137,7 @@
                         </a>
                     </li>
                 </ul>
-                <!-- /.dropdown-tasks -->
             </li>
-            <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="">
                     <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -199,12 +195,11 @@
                         </a>
                     </li>
                 </ul>
-                <!-- /.dropdown-alerts -->
             </li>
-            <!-- /.dropdown -->
+-->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                    <i class="fa fa-user fa-fw"></i> <span class="hide-on-mobile">{{user.name()}}</span> <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-2x  fa-fw"></i> <span class="hide-on-mobile">{{user.name()}}</span> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a ui-sref="dashboard.profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -215,73 +210,29 @@
                     <li ng-controller="AuthCtrl"><a ng-click="logout()" href="#/login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
-                <!-- /.dropdown-user -->
             </li>
-            <!-- /.dropdown -->
         </ul>
-        <!-- /.navbar-top-links -->
     </nav>
 </div>
 
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse navbar-ex1-collapse collapse in">
-        <ul class="nav" id="side-menu">
-            <li class="sidebar-search">
-                <div class="input-group custom-search-form">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-              <button class="btn btn-default" type="button">
-                <i class="fa fa-search"></i>
-              </button>
-            </span>
-                </div>
-                <!-- /input-group -->
-            </li>
-            <li>
-                <a ui-sref="dashboard.overview"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-cloud fa-fw"></i> Enviroments<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                  <li ng-repeat='hub in hubs'>
-                    <a ui-sref="dashboard.viewHub({ hubId: hub.id })" ui-sref-opts="{reload: true}"> <i class="fa fa-cloud-upload fa-fw"></i> {{hub.friendly_id}}</a>
-                  </li> 
-                  <li> <a ui-sref="dashboard.listHubs" ui-sref-opts="{reload: true}"> <i class="fa fa-table fa-fw"></i> View All</a></li>
-                </ul>
-                <!-- /.nav-second-level -->
-            </li>
-            <li ng-show="user.isAdmin()">
-              <a ui-sref="dashboard.users"><i class="fa fa-user fa-fw"></i>User Management</a>
-            </li>
-            <li>
-              <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-            </li>
-            <li>
-              <a href=""><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-              <ul class="nav nav-second-level">
-                <li>
-                  <a href="panels-wells.html">Panels and Wells</a>
-                </li>
-                <li>
-                  <a href="buttons.html">Buttons</a>
-                </li>
-                <li>
-                  <a href="notifications.html">Notifications</a>
-                </li>
-                <li>
-                  <a href="typography.html">Typography</a>
-                </li>
-                <li>
-                  <a href="icons.html"> Icons</a>
-                </li>
-                <li>
-                  <a href="grid.html">Grid</a>
-                </li>
-              </ul>
-              <!-- /.nav-second-level -->
-            </li>
-        </ul>
+      <ul class="nav" id="side-menu">
+        <li>
+          <a ui-sref="dashboard.overview"><i class="fa fa-dashboard fa-2x fa-fw"></i> Dashboard</a>
+        </li>
+        <li>
+          <a href=""><i class="fa fa-cloud fa-2x fa-fw"></i> Enviroments<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <li ng-repeat='hub in hubs'>
+              <a ui-sref="dashboard.viewHub({ hubId: hub.id })" ui-sref-opts="{reload: true}"> <i class="fa fa-cloud-upload fa-fw"></i> {{hub.friendly_id}}</a>
+            </li> 
+            <li> <a ui-sref="dashboard.listHubs" ui-sref-opts="{reload: true}"> <i class="fa fa-table fa-fw"></i> View All</a></li>
+          </ul>
+        </li>
+        <li ng-show="user.isAdmin()">
+          <a ui-sref="dashboard.users"><i class="fa fa-users fa-2x fa-fw"></i>User Management</a>
+        </li>
+      </ul>
     </div>
-    <!-- /.sidebar-collapse -->
 </div>
-<!-- /.navbar-static-side -->

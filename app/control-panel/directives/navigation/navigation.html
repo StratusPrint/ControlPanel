@@ -199,7 +199,7 @@
 -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                    <i class="fa fa-user fa-2x  fa-fw"></i> <span class="hide-on-mobile">{{user.name()}}</span> <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user"></i> <span class="hide-on-mobile">{{user.name()}}</span> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a ui-sref="dashboard.profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -219,10 +219,10 @@
     <div class="sidebar-nav navbar-collapse navbar-ex1-collapse collapse in">
       <ul class="nav" id="side-menu">
         <li>
-          <a ui-sref="dashboard.overview"><i class="fa fa-dashboard fa-2x fa-fw"></i> Dashboard</a>
+          <a ui-sref="dashboard.overview"><i class="fa fa-dashboard"></i> Dashboard</a>
         </li>
         <li>
-          <a href=""><i class="fa fa-cloud fa-2x fa-fw"></i> Enviroments<span class="fa arrow"></span></a>
+          <a href=""><i class="fa fa-cloud"></i> Enviroments<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li ng-repeat='hub in hubs'>
               <a ui-sref="dashboard.viewHub({ hubId: hub.id })" ui-sref-opts="{reload: true}"> <i class="fa fa-cloud-upload fa-fw"></i> {{hub.friendly_id}}</a>
@@ -231,7 +231,7 @@
           </ul>
         </li>
         <li ng-show="user.isAdmin()">
-          <a ui-sref="dashboard.users"><i class="fa fa-users fa-2x fa-fw"></i>User Management</a>
+          <a ui-sref="dashboard.users"><i class="fa fa-users"></i> User Management</a>
         </li>
       </ul>
     </div>

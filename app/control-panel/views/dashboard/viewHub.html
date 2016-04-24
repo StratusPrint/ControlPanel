@@ -68,12 +68,12 @@
             </div>
         </div>
         <div class="col-sm-5 col-lg-5" ng-show="user.isAdmin()">
-            <form name="updateHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hubDetails)" ng-init="hubDetails = {}" novalidate>
-                <div class="panel panel-kashmir">
-                    <div class="panel-heading">
-                        <i class="fa fa-wrench"></i> Hub Management
-                    </div>
-                    <div class="panel-body">
+            <div class="panel panel-kashmir">
+                <div class="panel-heading">
+                    <i class="fa fa-wrench"></i> Hub Management
+                </div>
+                <div class="panel-body">
+                    <form name="updateHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hubDetails)" ng-init="hubDetails = {}" novalidate>
                         <uib-tabset active="active">
                             <uib-tab index="0">
                                 <uib-tab-heading>
@@ -117,7 +117,7 @@
                                 <div class="margin-top-nudge">
                                     <p class="well">This action will generate a new API key that the hub can use to communicate updates with the control panel. Note that this action will <strong>delete any existing API key</strong> rendering it useless. The newly generated API key will <strong>only be displayed once in plaintext</strong> below for security purposes so be sure to copy it in a safe place after retrieving it.</p>
                                     <p class="alert alert-success" ng-show="apiKey"><i class="fa fa-check-circle"></i> API key generated: <code>{{apiKey}}</code></p>
-                                    <button class="btn btn-primary" ng-click="generateApiKey(hub.id)">Generate API Key</button>
+                                    <button type="button" class="btn btn-primary" ng-click="generateApiKey(hub.id)">Generate API Key</button>
                                 </div>
                             </uib-tab>
                             <uib-tab index="2">
@@ -126,13 +126,13 @@
                                 </uib-tab-heading>
                                 <div class="margin-top-nudge">
                                     <p class="margin-top-nudge alert alert-danger text-center"><strong>WARNING!</strong> This action is irreversible. Proceed with caution.</p>
-                                    <button class="btn btn-danger btn-block" ng-click="deleteHub(hub.id)">Delete Hub</button>
+                                    <button type="button" class="btn btn-danger btn-block" ng-click="deleteHub(hub.id)">Delete Hub</button>
                                 </div>
                             </uib-tab>
                         </uib-tabset>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

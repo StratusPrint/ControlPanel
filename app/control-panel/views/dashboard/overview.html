@@ -14,7 +14,7 @@
                         <i class="fa fa-tasks fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">4</div>
+                      <div class="huge">{{stats.jobs_in_progress}}</div>
                         <div>Print Jobs In Progress</div>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
                         <i class="fa fa-clock-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">3</div>
-                        <div>Hour Average Wait Time</div>
+                      <div class="huge">{{stats.current_wait_time}}(Null)</div>
+                        <div>Current Wait Time</div>
                     </div>
                 </div>
             </div>
@@ -58,8 +58,8 @@
                         <i class="fa fa-bell-o fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">9</div>
-                        <div>New Environment Alerts</div>
+                      <div class="huge">{{stats.ready_printers}}</div>
+                        <div>Ready Printers</div>
                     </div>
                 </div>
             </div>
@@ -80,8 +80,8 @@
                         <i class="fa fa-exclamation-triangle fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">1</div>
-                        <div>New Printer Error</div>
+                        <div class="huge">Sensor</div>
+                        <div>Enviromental Alerts</div>
                     </div>
                 </div>
             </div>

@@ -142,7 +142,6 @@ function HubService($http, $state, user) {
    * @returns {$q} (promise)
    */
   this.getSensors = function(id) {
-    console.log('service: ' + id);
     return $http({
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + id + '/sensors',
@@ -165,7 +164,6 @@ function HubService($http, $state, user) {
    * @returns {$q} (promise)
    */
   this.getPrinters = function(hubId) {
-    console.log('service: ' + hubId);
     return $http({
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + hubId + '/printers',

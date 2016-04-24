@@ -28,8 +28,8 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
    */
   dtCtrl.cols = [
     DTColumnBuilder.newColumn('status').withTitle('Status').withOption('responsivePriority',3),
-    DTColumnBuilder.newColumn('id').withTitle('Id').withOption('responsivePriority',5),
-    DTColumnBuilder.newColumn('friendly_id').withTitle('Friendly Id').withOption('responsivePriority',2),
+    DTColumnBuilder.newColumn('id').withTitle('ID').withOption('responsivePriority',5),
+    DTColumnBuilder.newColumn('friendly_id').withTitle('Hub Name').withOption('responsivePriority',2),
     DTColumnBuilder.newColumn('location').withTitle('Location').withOption('responsivePriority',7),
     DTColumnBuilder.newColumn('hostname').withTitle('Hostname').withOption('responsivePriority',6),
     DTColumnBuilder.newColumn('desc').withTitle('Description').withOption('responsivePriority',4),
@@ -64,7 +64,7 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
    * @returns {undefined}
    */
   function detailsButtonHTML(data) {
-    return '<button class="btn btn-primary" ng-click="viewDetails(' + data.id + ')">View Details</button>';
+    return '<button class="btn btn-primary btn-block" ng-click="viewDetails(' + data.id + ')"><i class="fa fa-gears"></i> Manage Hub</button>';
   }
 
   /**

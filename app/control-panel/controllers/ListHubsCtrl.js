@@ -5,59 +5,87 @@ ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller','$comp
 function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, hub) {
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
-  var vm = this;
+  var dtCtrl = this;
 
-  vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+  /******************************************************
+   *
+   * DataTables funsies
+   */
+
+  /*
+   * Starts building the DataTable when the function returns!
+   * Fetches promise and waits until it is fulfilled
+   */
+  dtCtrl.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
     return hub.getAllHubs();
   })
-  .withPaginationType('full_numbers')
+  .withPaginationType('simple_numbers')
   .withOption('createdRow',createdRow);
 
-  vm.cols = [
+  /*
+   * Scoops up the data returned from the promise
+   * Sets columns and fills data based off of that
+   */
+  dtCtrl.cols = [
     DTColumnBuilder.newColumn('status').withTitle('Status'),
     DTColumnBuilder.newColumn('id').withTitle('Id'),
     DTColumnBuilder.newColumn('friendly_id').withTitle('Friendly Id'),
     DTColumnBuilder.newColumn('location').withTitle('Location'),
     DTColumnBuilder.newColumn('hostname').withTitle('Hostname'),
     DTColumnBuilder.newColumn('desc').withTitle('Description'),
-    DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml),
+    DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(detailsButtonHTML),
   ];
-  vm.newPromise = getNewPromise;
-  vm.reloadData = reloadData;
-  vm.changeData = changeData;
-  vm.dtInstance = {};
+  dtCtrl.reloadData = reloadData;
+  dtCtrl.dtInstance = {};
 
-  function getNewPromise() {
-    console.log('Fired');
-    return hub.getAllHubs();
-  }
-  function actionsHtml(data, type, full, meta) {
-    return '<button class="btn btn-primary" ng-click="viewDetails(' + data.id + ')">View Details</button>';
-  }
+  /**
+   * CreatedRow
+   * Lets datatables know what row just got created
+   * Recompiles the table so that a directive can get binded to the DT
+   * It is used to bind the data to the directive
+   * Without this ng-click will not work
+   *
+   * @param row
+   * @param data
+   * @param dataIndex
+   * @returns {undefined}
+   */
   function createdRow(row, data, dataIndex) {
-    // Recompiling so we can bind Angular directive to the DT
     $compile(angular.element(row).contents())($scope);
   }
 
+  /**
+   * DetailsButtonHTML
+   *
+   * This is pretty much a directive
+   * It gets called by the DTColumnBuilder .renderWith()
+   *
+   * @param data
+   * @returns {undefined}
+   */
+  function detailsButtonHTML(data) {
+    return '<button class="btn btn-primary" ng-click="viewDetails(' + data.id + ')">View Details</button>';
+  }
+
+  /**
+   * ReloadData
+   * Fetches a new hub.getAllHubs() promise
+   * When the promise is fulfilled it will reload the data in the table
+   *
+   * @returns {undefined}
+   */
   function reloadData() {
-    console.log('fireing');
     var resetPaging = true;
     var hubsPromise = hub.getAllHubs();
-
     hubsPromise.then(function(response) {
-      vm.dtInstance.reloadData(response, resetPaging);
+      dtCtrl.dtInstance.reloadData(response, resetPaging);
     });
   }
 
-  function callback(json) {
-    console.log(json);
-  }
-
-  function changeData() {
-    vm.dtInstance.changeData(function() {
-      return hub.getAllHubs();
-    });
-  }
+  /******************************************************
+   *
+   * Rest of the webpage
+   * /
 
   /**
    * ToHubsPage
@@ -107,7 +135,6 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
           $scope.hubs.push(data);
           $scope.resetForm();
           $scope.addAlert('success', 'The hub was successfully added');
-          // Vm.reloadData();
         } else {
           $scope.addAlert('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
         }

@@ -14,40 +14,11 @@
         <button ng-click="ctrl.reloadData()" type="button" class="btn btn-info">Reload</button>
         <button ng-click="ctrl.dtInstance.changeData(ctrl.newPromise)" type="button" class="btn btn-info">New Data</button>
         <div class="panel-body">
-          <table datatable="" dt-options="ctrl.dtOptions" dt-columns="ctrl.cols" dt-instance="ctrl.dtInstance" class="dt-responsive table table-striped table-bordered table-hover"></table></table>
-        <!--
-          <table width="100%" class="dt-responsive table table-striped table-bordered table-hover" datatable="ng" dt-options="options">
-          <thead>
-          <tr>
-          <th data-priority="3">Status</th>
-          <th data-priority="6">id</th>
-          <th data-priority="2">Friendly Id</th>
-          <th data-priority="5">Location</th>
-          <th data-priority="4">Hostname</th>
-          <th data-priority="7">Description</th>
-          <th data-priority="1"></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="hub in hubs">
-          <td>{{hub.status}}</td>
-          <td>{{hub.id}}</td>
-          <td>{{hub.friendly_id}}</td>
-          <td>{{hub.hostname}}</td>
-          <td>{{hub.location}}</td>
-          <td>{{hub.desc}}</td>
-          <td>
-          <button class="btn btn-primary" ng-click="viewDetails(hub.id)">View Details</button>
-          </td>
-          </tr>
-          </tbody>
-          </table>
-        -->
-        <!-- /.table-responsive -->
-        <div class="well">
-          <h4>What is a Hub?</h4>
-          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-        </div>
+          <table width="100%" datatable="" dt-options="ctrl.dtOptions" dt-columns="ctrl.cols" dt-instance="ctrl.dtInstance" class="dt-responsive table table-striped table-bordered table-hover"></table>
+          <div class="well">
+            <h4>What is a Hub?</h4>
+            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+          </div>
         </div>
         <!-- /.panel-body -->
       </div>

@@ -11,6 +11,12 @@ function DashboardCtrl($scope, hub, printer, sensor) {
 
   defaultHubPromise.then(function(response) {
     $scope.hub = response;
-    console.log(JSON.stringify($scope.hub));
+  });
+
+  var hubStatisticsPromise = hub.getStatistics(27);
+
+  hubStatisticsPromise.then(function(response) {
+    $scope.hubStats = response;
+    console.log('Hubs stats: ' + JSON.stringify($scope.hubStats));
   });
 }

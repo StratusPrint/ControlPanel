@@ -178,4 +178,26 @@ function HubService($http, $state, user) {
       return response.data;
     });
   };
+
+  /**
+     *GetStatistics
+     * performs a get request to retrieve the statistics associated with a hub
+     * returns a promise that this data will be retrieved
+     *
+     * @param hubId
+     * @returns {$q} (promise)
+     */
+  this.getStatistics = function(hubId) {
+    return $http({
+      method: 'GET',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + hubId + '/statistics',
+    }).then(function successCallback(response) {
+      return response.data;
+
+    }, function errorCallback(response) {
+      console.log('Failed to retrieve the statistics of the hub with id of: ' + hubId);
+      console.log(JSON.stringify(response));
+      return response.data;
+    });
+  };
 }

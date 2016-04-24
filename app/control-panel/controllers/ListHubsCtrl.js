@@ -27,9 +27,9 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
    * Sets columns and fills data based off of that
    */
   dtCtrl.cols = [
-    DTColumnBuilder.newColumn('status').withTitle('Status').withOption('responsivePriority',2),
+    DTColumnBuilder.newColumn('status').withTitle('Status').withOption('responsivePriority',3),
     DTColumnBuilder.newColumn('id').withTitle('Id').withOption('responsivePriority',5),
-    DTColumnBuilder.newColumn('friendly_id').withTitle('Friendly Id').withOption('responsivePriority',3),
+    DTColumnBuilder.newColumn('friendly_id').withTitle('Friendly Id').withOption('responsivePriority',2),
     DTColumnBuilder.newColumn('location').withTitle('Location').withOption('responsivePriority',7),
     DTColumnBuilder.newColumn('hostname').withTitle('Hostname').withOption('responsivePriority',6),
     DTColumnBuilder.newColumn('desc').withTitle('Description').withOption('responsivePriority',4),

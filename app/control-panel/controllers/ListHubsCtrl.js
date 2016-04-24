@@ -24,6 +24,7 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
   ];
   vm.newPromise = getNewPromise;
   vm.reloadData = reloadData;
+  vm.changeData = changeData;
   vm.dtInstance = {};
 
   function getNewPromise() {
@@ -39,12 +40,23 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
   }
 
   function reloadData() {
+    console.log('fireing');
     var resetPaging = true;
-    vm.dtInstance.reloadData(callback, resetPaging);
+    var hubsPromise = hub.getAllHubs();
+
+    hubsPromise.then(function(response) {
+      vm.dtInstance.reloadData(response, resetPaging);
+    });
   }
 
   function callback(json) {
     console.log(json);
+  }
+
+  function changeData() {
+    vm.dtInstance.changeData(function() {
+      return hub.getAllHubs();
+    });
   }
 
   /**

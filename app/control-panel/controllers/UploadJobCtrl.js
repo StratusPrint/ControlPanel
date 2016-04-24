@@ -5,11 +5,12 @@ app.controller('UploadJobCtrl', UploadJobCtrl);
 UploadJobCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', 'Upload'];
 
 function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
+  $scope.files = [];
+  $scope.errFiles = [];
   $scope.uploadFiles = function(files, errFiles) {
-    $scope.files = files;
-    $scope.errFiles = errFiles;
 
     angular.forEach(files, function(file) {
+        $scope.files.unshift(file);
         Upload.base64DataUrl(file).then(function(url) {
 
           var name = file.name.replace(/\..+$/, '');

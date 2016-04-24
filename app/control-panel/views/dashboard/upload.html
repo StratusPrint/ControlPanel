@@ -1,5 +1,5 @@
 <form ng-controller="UploadJobCtrl" name="form">
-    <div class="flex-wrap flex-valign flex-halign well upload-drop" ngf-drop="uploadFiles($files, $invalidFiles)" multiple accept=".stl,.gcode" ngf-no-object-url="true" ngf-select="uploadFiles($files, $invalidFiles)" class="drop-box" ngf-pattern="'.stl, .gcode'" ngf-drag-over-class="'dragover'">
+    <div class="flex-wrap flex-valign flex-halign well upload-drop" ngf-drop="uploadFiles($files, $invalidFiles)" ngf-multiple="true" accept=".stl,.gcode" ngf-no-object-url="true" ngf-select="uploadFiles($files, $invalidFiles)" class="drop-box" ngf-pattern="'.stl, .gcode'" ngf-drag-over-class="'dragover'">
         <div>
             <h2>Drag N' Drop File(s) to Print Here</h2>
             <p>You can also use the button below to manually select one or more files.</p>
@@ -9,7 +9,7 @@
     <div class="clearfix">
         <button class="btn btn-primary pull-right" ngf-select="uploadFiles($files, $invalidFiles)" multiple accept=".stl,.gcode" ngf-no-object-url="true"><i class="fa fa-external-link-square"></i> Select File(s)</button>
     </div>
-    <h4 ng-show="files">Files Uploaded</h4>
+    <h4 ng-show="files.length">Files Uploaded</h4>
     <ul class="list-group no-margin">
         <li ng-repeat="f in files" class="list-group-item">
         	<label>{{f.name}} {{f.$errorParam}}</label>

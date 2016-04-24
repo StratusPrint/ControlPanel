@@ -1,6 +1,6 @@
 app.controller('ListHubsCtrl', ListHubsCtrl);
 
-ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller','$compile','DTOptionsBuilder', 'DTColumnBuilder', 'hub'];
+ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder', 'hub'];
 
 function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, hub) {
   // Inject alert controller scope
@@ -20,20 +20,20 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
     return hub.getAllHubs();
   })
   .withPaginationType('simple_numbers')
-  .withOption('createdRow',createdRow);
-
+  .withOption('createdRow',createdRow)
+  .withOption('responsive', true);
   /*
    * Scoops up the data returned from the promise
    * Sets columns and fills data based off of that
    */
   dtCtrl.cols = [
-    DTColumnBuilder.newColumn('status').withTitle('Status'),
+    DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(detailsButtonHTML),
     DTColumnBuilder.newColumn('id').withTitle('Id'),
     DTColumnBuilder.newColumn('friendly_id').withTitle('Friendly Id'),
     DTColumnBuilder.newColumn('location').withTitle('Location'),
     DTColumnBuilder.newColumn('hostname').withTitle('Hostname'),
     DTColumnBuilder.newColumn('desc').withTitle('Description'),
-    DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(detailsButtonHTML),
+    DTColumnBuilder.newColumn('status').withTitle('Status'),
   ];
   dtCtrl.reloadData = reloadData;
   dtCtrl.dtInstance = {};

@@ -5,12 +5,18 @@ DashboardCtrl.$inject = ['$scope', '$q', 'hub', 'printer', 'sensor'];
 function DashboardCtrl($scope, $q, hub, printer, sensor) {
   console.log('User Default Hub: ' + $scope.user._user.default_hub_id);
 
+  $scope.printer = {};
+
   var defaultHubId = 27;
   // Var defaultHubId = $scope.user_user.default_hub_id;
 
   console.log('Using Hub id ' + defaultHubId + ' for now');
   // Var defaultHubPromise = hub.getHub(defaultHubId);
 
+  /********************************************************
+   * Promise Handling
+   * Fetching all objects
+   */
   var defaultHubPromise = hub.getHub(defaultHubId);
   defaultHubPromise.then(function(response) {
     $scope.hub = response;
@@ -24,6 +30,7 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
   var printersPromise = hub.getPrinters(defaultHubId);
   printersPromise .then(function(response) {
     $scope.printers = response;
+    $scope.printer = $scope.printers[0];
   });
 
   var sensorsPromise = hub.getSensors(defaultHubId);
@@ -54,5 +61,13 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
       }
     });
   });
+
+  $scope.setPrinter = function(id) {
+    for (var i = 0; i < $scope.printers.length; i++) {
+      if ($scope.printers[i].id === id) {
+        $scope.printer = $scope.printers[i];
+      }
+    }
+  };
 
 }

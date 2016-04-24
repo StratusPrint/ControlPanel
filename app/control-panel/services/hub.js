@@ -46,6 +46,27 @@ function HubService($http, $state, user) {
     });
   };
 
+  /**
+   * GenerateApiKey
+   * Generates a new hub API key that can be used for authentication
+   *
+   * @param _hubId
+   * @returns {$q} promise if it succeeds
+   * @returns {boolean} if it fails
+   */
+  this.generateApiKey = function(_hubId) {
+    return $http({
+      method: 'POST',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + _hubId + '/generate_api_key',
+      data: {},
+    }).then(function successCallback(response) {
+      return response.data;
+    }, function errorCallback(response) {
+      console.log('Unable to generate hub API key');
+      console.log(JSON.stringify(response));
+      return false;
+    });
+  };
 
   /**
    * DeleteHub

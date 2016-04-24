@@ -1,121 +1,134 @@
 <div id="view-hub" class="resource-page">
-  <div class="row">
-    <div class="col-lg-12">
-      <!--<button class="btn btn-primary" ng-click="toHubsPage(false)">
+    <div class="row">
+        <div class="col-lg-12">
+            <!--<button class="btn btn-primary" ng-click="toHubsPage(false)">
         <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Back
         </button>-->
-        <h1 class="page-header flex-wrap flex-valign">
+            <h1 class="page-header flex-wrap flex-valign">
           <a ng-if="hub.status === 'online'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This hub is currently {{::hub.status | uppercase}}."><span class="label label-success"><i class="fa fa-check-circle"></i> {{hub.friendly_id}}</span></a>
           <a ng-if="hub.status === 'offline'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This hub is currently {{::hub.status | uppercase}}."><span class="label label-danger"><i class="fa fa-times-circle"></i> {{hub.friendly_id}}</span></a>
           <a ng-if="hub.status === 'unknown'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="The status of this hub is currently {{::hub.status | uppercase}}."><span class="label label-default"><i class="fa fa-question-circle"></i> {{hub.friendly_id}}</span></a>
           <span class="desc">{{hub.desc}}</span>
         </h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-3" ng-repeat="sensor in ::sensors">
-      <div class="sensor panel panel-info">
-        <div class="panel-heading clearfix">
-          <span class="name pull-left"><i class="glyphicon glyphicon-scale"></i> {{sensor.friendly_id}}</span>
-          <a class="info pull-right" href="javascript:void" tooltip-close-delay="200" uib-tooltip="{{sensor.desc}}"><label class="label label-info pull-right"><i class="fa fa-tag"></i> {{sensor.category}}</label></a>
         </div>
-        <div class="panel-body">
-          <p class="reading reading-default" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}} %</p>
-          <p class="reading reading-default" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</p>
-          <p class="reading reading-default" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}} &#8457;</span>
-        <!--
+    </div>
+    <div class="row">
+        <div class="col-lg-3" ng-repeat="sensor in ::sensors">
+            <div class="sensor panel panel-info">
+                <div class="panel-heading clearfix">
+                    <span class="name pull-left"><i class="glyphicon glyphicon-scale"></i> {{sensor.friendly_id}}</span>
+                    <a class="info pull-right" href="javascript:void" tooltip-close-delay="200" uib-tooltip="{{sensor.desc}}">
+                        <label class="label label-info pull-right"><i class="fa fa-tag"></i> {{sensor.category}}</label>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <p class="reading reading-default" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}} %</p>
+                    <p class="reading reading-default" ng-if="sensor.category==='infrared'">{{sensor.newestDatum.value}}</p>
+                    <p class="reading reading-default" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}} &#8457;</span>
+                        <!--
           <h3 class="no-margin">{{sensor.friendly_id}}</h3>
           <p>{{sensor.category}}</p>
           <p>{{sensor.desc}}</p>-->
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="row" id="printer-list">
-    <div ng-class="user.isAdmin() ? class='col-sm-7 col-lg-7' : class='col-sm-12 col-lg-12'">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <i class="fa fa-list"></i> Printers
+    <div class="row" id="printer-list">
+        <div ng-class="user.isAdmin() ? class='col-sm-7 col-lg-7' : class='col-sm-12 col-lg-12'">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-list"></i> Printers
+                </div>
+                <div class="panel-body">
+                    <div class="well printer" ng-repeat="printer in printers.slice(((printersCurrentPage-1)*printersItemsPerPage), ((printersCurrentPage)*printersItemsPerPage))">
+                        <div class="row flex-wrap flex-valign">
+                            <div class="col-lg-4 text-center">
+                                <span class="printer-icon glyphicon glyphicon-print"></span>
+                                <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
+                            </div>
+                            <div class="col-lg-8">
+                                <ul class="list-group no-margin">
+                                    <li class="list-group-item">
+                                        <label>Friendly ID:</label> {{printer.friendly_id}}</li>
+                                    <li class="list-group-item">
+                                        <label>Location:</label> {{printer.location}}</li>
+                                    <li class="list-group-item">
+                                        <label>Play:</label> {{printer.model}}</li>
+                                    <li class="list-group-item">
+                                        <label>Description:</label> {{printer.description}}</li>
+                                    <li class="list-group-item">
+                                        <label>Status:</label> {{printer.data.state.text}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <uib-pagination total-items="printersTotalItems" items-per-page="printersItemsPerPage" ng-model="printersCurrentPage" ng-change="pageChanged(printers)" class="pull-right no-margin">
+                    </uib-pagination>
+                </div>
+            </div>
         </div>
-        <div class="panel-body">
-          <div class="well printer" ng-repeat="printer in printers.slice(((printersCurrentPage-1)*printersItemsPerPage), ((printersCurrentPage)*printersItemsPerPage))">
-            <div class="row flex-wrap flex-valign">
-              <div class="col-lg-4 text-center">
-                <span class="printer-icon glyphicon glyphicon-print"></span>
-                <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
-              </div>
-              <div class="col-lg-8">
-                <ul class="list-group no-margin">
-                  <li class="list-group-item">
-                    <label>Friendly ID:</label> {{printer.friendly_id}}</li>
-                  <li class="list-group-item">
-                    <label>Location:</label> {{printer.location}}</li>
-                  <li class="list-group-item">
-                    <label>Play:</label> {{printer.model}}</li>
-                  <li class="list-group-item">
-                    <label>Description:</label> {{printer.description}}</li>
-                  <li class="list-group-item">
-                    <label>Status:</label> {{printer.data.state.text}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <uib-pagination total-items="printersTotalItems" items-per-page="printersItemsPerPage" ng-model="printersCurrentPage" 
-            ng-change="pageChanged(printers)" class="pull-right no-margin">
-          </uib-pagination>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-5 col-lg-5" ng-show="user.isAdmin()">
-      <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
-      <form name="updateHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hubDetails)" ng-init="hubDetails = {}" novalidate>
-        <div class="panel panel-kashmir">
-          <div class="panel-heading">
-            <i class="fa fa-pencil-square"></i> Modify Hub Profile
-          </div>
-          <div class="panel-body">
-            <div class="form-group" show-errors>
-              <label for="friendly_id">Hub Name</label>
-              <input autocomplete="off" name="friendlyid" ng-model="hubDetails.friendly_id" type="text" class="form-control" placeholder="{{::hub.friendly_id}}" ng-minlength="3" ng-maxlength="16" />
-              <span ng-show="updateHubForm.friendlyid.$error.minlength" class="help-block">Friendly ID is too short.  Must be atleast 3 digits</span>
-              <span ng-show="updateHubForm.friendlyid.$error.maxlength" class="help-block">Friendly ID is too long.  Must be at most 16 digits</span>
-            </div>
-            <div class="form-group" show-errors>
-              <label for="ip">IP Address</label>
-              <input autocomplete="off" name="ips" ng-model="hubDetails.ip" type="number" class="form-control" placeholder="{{::hub.ip}}" ng-minlength="8" />
-              <span ng-show="updateHubForm.ips.$error.minlength" class="help-block">IP is too short. Must be at least 8 digits.</span>
-            </div>
-            <div class="form-group" show-errors>
-              <label for="hostname">Host Name</label>
-              <input autocomplete="off" name="url" ng-model="hubDetails.hostname" type="text" class="form-control" placeholder="{{::hub.hostname}}" />
-              <!--TODO Custom regex
+        <div class="col-sm-5 col-lg-5" ng-show="user.isAdmin()">
+            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
+            <form name="updateHubForm" class="clearfix" role="form" ng-submit="updateHub(hub.id, hubDetails)" ng-init="hubDetails = {}" novalidate>
+                <div class="panel panel-kashmir">
+                    <div class="panel-heading">
+                        <i class="fa fa-pencil-square"></i> Modify Hub Profile
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group" show-errors>
+                            <label for="friendly_id">Hub Name</label>
+                            <input autocomplete="off" name="friendlyid" ng-model="hubDetails.friendly_id" type="text" class="form-control" placeholder="{{::hub.friendly_id}}" ng-minlength="3" ng-maxlength="16" />
+                            <span ng-show="updateHubForm.friendlyid.$error.minlength" class="help-block">Friendly ID is too short.  Must be atleast 3 digits</span>
+                            <span ng-show="updateHubForm.friendlyid.$error.maxlength" class="help-block">Friendly ID is too long.  Must be at most 16 digits</span>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label for="ip">IP Address</label>
+                            <input autocomplete="off" name="ips" ng-model="hubDetails.ip" type="number" class="form-control" placeholder="{{::hub.ip}}" ng-minlength="8" />
+                            <span ng-show="updateHubForm.ips.$error.minlength" class="help-block">IP is too short. Must be at least 8 digits.</span>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label for="hostname">Host Name</label>
+                            <input autocomplete="off" name="url" ng-model="hubDetails.hostname" type="text" class="form-control" placeholder="{{::hub.hostname}}" />
+                            <!--TODO Custom regex
                 <span ng-show="updateHubForm.url.$error." class="help-block">This is not a valid url</span> -->
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label for="location">Location</label>
+                            <input autocomplete="off" name="location" ng-model="hubDetails.location" type="text" class="form-control" placeholder="{{::hub.location}}" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label for="desc">Description</label>
+                            <input autocomplete="off" name="desc" ng-model="hubDetails.desc" type="text" class="form-control" placeholder="{{::hub.desc}}" />
+                        </div>
+                        <div class="clearfix">
+                            <button class="pull-right btn btn-success" type="submit" ui-sref-opts="{reload: true}"><i class="fa fa-save"></i> Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="panel panel-red" ng-show="user.isAdmin()">
+                <div class="panel-heading">
+                    <i class="fa fa-trash"></i> Delete Hub
+                </div>
+                <div class="panel-body">
+                    <p class="alert alert-danger text-center"><strong>WARNING!</strong> This action is irreversible. Proceed with caution.</p>
+                    <button class="btn btn-danger btn-block" ng-click="deleteHub(hub.id)">Delete Hub</button>
+                </div>
             </div>
-            <div class="form-group" show-errors>
-              <label for="location">Location</label>
-              <input autocomplete="off" name="location" ng-model="hubDetails.location" type="text" class="form-control" placeholder="{{::hub.location}}" />
-            </div>
-            <div class="form-group" show-errors>
-              <label for="desc">Description</label>
-              <input autocomplete="off" name="desc" ng-model="hubDetails.desc" type="text" class="form-control" placeholder="{{::hub.desc}}" />
-            </div>
-            <div class="clearfix">
-              <button class="pull-right btn btn-success" type="submit" ui-sref-opts="{reload: true}"><i class="fa fa-save"></i> Save Changes</button>
-            </div>
-          </div>
-        </div>
-      </form>
-
-        <div class="panel panel-red" ng-show="user.isAdmin()">
-          <div class="panel-heading">
-            <i class="fa fa-trash"></i> Delete Hub
-          </div>
-          <div class="panel-body">
-            <p class="alert alert-danger text-center"><strong>WARNING!</strong> This action is irreversible. Proceed with caution.</p>
-            <button class="btn btn-danger btn-block" ng-click="deleteHub(hub.id)">Delete Hub</button>
-          </div>
         </div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-lg-12" ng-show="user.isAdmin()">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-key"></i> Generate API Key
+                </div>
+                <div class="panel-body">
+                    <p class="well">This will generate a new API key that the hub can use to communicate updates with the control panel. Note that this action will <strong>delete any existing API key</strong>. The newly generated API key will <strong>only be displayed once in plaintext</strong> below for security purposes so be sure to copy it in a safe place after retrieving it.</p>
+                    <p class="alert alert-success" ng-show="apiKey"><i class="fa fa-check-circle"></i> API key generated: <code>{{apiKey}}</code></p>
+                    <button class="btn btn-primary" ng-click="generateApiKey(hub.id)">Generate API Key</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

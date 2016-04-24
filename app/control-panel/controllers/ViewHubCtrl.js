@@ -108,6 +108,24 @@ function ViewHubCtrl($scope, $state, $stateParams, $q, $controller, hub, printer
   };
 
   /**
+   * GenerateApiKey
+   * calls generateApiKey from the service
+   * generateApiKey in the service generates a new hub API key
+   * @param _id
+   * @returns a new hub api key
+   */
+  $scope.generateApiKey = function(_id) {
+    if ($scope.user._user.admin === true) {
+      hub.generateApiKey(_id).then(function(resp) {
+        console.log(resp);
+        $scope.apiKey = resp.api_key;
+      });
+    } else {
+      console.log('Permission Denied');
+    }
+  };
+
+  /**
    * ViewPrinter
    * Sets the state to that of the printer with the associated _id
    *

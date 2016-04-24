@@ -86,7 +86,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $q, $controller, hub, printer
    * @returns {undefined}
    */
   $scope.resetForm = function() {
-    $scope.hub = {};
+    $scope.hubDetails = {};
     $scope.updateHubForm.$setPristine();
   };
 

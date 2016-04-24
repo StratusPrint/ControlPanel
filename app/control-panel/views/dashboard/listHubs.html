@@ -38,14 +38,14 @@
               </div>
               <div class="form-group">
                 <label for="ip">IP Address</label>
-                <input autocomplete="off" name="ips" ng-required="hub.ip" ng-model="hub.ip" ng-minlength = "8" type="text" class="form-control" placeholder="Enter the new hub's IP address (e.g. 212.134.24.244)" />
-                <!-- TODO change to regex -->
-                <span ng-show="addHubForm.ips.$error.minlength" class="help-block">IP is too short. Must be at least 8 digits.</span>
+                <input autocomplete="off" name="ips" ng-model="hub.ip" class="form-control" placeholder="Enter the new hub's IP address (e.g. 212.134.24.244)" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
+                <span ng-show="addHubForm.ips.$error.pattern" class="help-block">That does not appear to be a valid IPv4 address.</span>
                 <span ng-show="addHubForm.ips.$error.required" class="help-block">This is a required field</span>
               </div>
               <div class="form-group">
                 <label for="hostname">Host Name</label>
-                <input autocomplete="off" name="domain" ng-required="hub.hostname" ng-model="hub.hostname" type="text" class="form-control" placeholder="Enter the new hub's hostname (e.g. hub.yourdomain.com)" />
+                <input autocomplete="off" name="domain" ng-required="hub.hostname" ng-model="hub.hostname" ng-pattern="/^([a-z0-9]+(-[a-z0-9]+)*\.)+([a-z]{2,12})$/i" type="text" class="form-control" placeholder="Enter the new hub's hostname (e.g. hub.yourdomain.com)" />
+                <span ng-show="addHubForm.domain.$error.pattern" class="help-block">That does not appear to be a valid hostname.</span>
                 <span ng-show="addHubForm.domain.$error.required" class="help-block">This is a required field</span>
               </div>
               <div class="form-group">

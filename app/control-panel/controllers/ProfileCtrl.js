@@ -1,10 +1,18 @@
 app.controller('ProfileCtrl', ProfileCtrl);
 
-ProfileCtrl.$inject = ['$scope', '$controller', 'auth'];
+ProfileCtrl.$inject = ['$scope', '$controller', 'auth','hub'];
 
-function ProfileCtrl($scope, $controller, auth) {
+function ProfileCtrl($scope, $controller, auth, hub) {
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
+
+  var hubsPromise = hub.getAllHubs();
+
+  hubsPromise.then(function(response) {
+    $scope.hubs = response;
+  });
+
+  console.log('User: ' + JSON.stringify($scope.user));
 
   $scope.save = function(profile) {
     // Check whether any validation errors are present on the form
@@ -29,6 +37,8 @@ function ProfileCtrl($scope, $controller, auth) {
     // Update user profile
     auth.updateAccount(profile)
       .then(function(resp) {
+        profile.default_hub_id = Number(profile.default_hub_id);
+        console.log('Submitted profile: ' + JSON.stringify(profile));
         $scope.addAlert('success', 'Profile successfully updated.');
         $scope.resetForm();
       })
@@ -46,4 +56,6 @@ function ProfileCtrl($scope, $controller, auth) {
     $scope.profile = {};
     $scope.userForm.$setPristine();
   };
+
+
 }

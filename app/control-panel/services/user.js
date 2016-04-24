@@ -79,6 +79,16 @@ function UserService(localStorageService) {
   };
 
   /**
+   * GetDefaultHubId
+   * Gets the users default hub
+   *
+   * @returns {Number}
+   */
+  this.getDefaultHubId = function() {
+    return this._user.default_hub_id;
+  };
+
+  /**
    * Destroy current user and remove from the brower's local
    * storage.
    */

@@ -61,7 +61,7 @@ function UsersCtrl($scope, $state, $stateParams, admin) {
 
   alerts = [];
 
-  $scope.showDeleteModal = true; // Set to true to show the delete confirmation modal
+  $scope.showDeleteModal = false; // Set to true to show the delete confirmation modal
   $scope.showEditModal = false; // Set true to show Edit Modal
   $scope.modalUserID = -1;
   $scope.users = [];

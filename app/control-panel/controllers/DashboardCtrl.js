@@ -13,6 +13,23 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
   console.log('Using Hub id ' + defaultHubId + ' for now');
   // Var defaultHubPromise = hub.getHub(defaultHubId);
 
+
+  /**
+   * SetPrinter
+   * sets the $scope.printer to the printer with the id passed in
+   * Used for the printer well
+   *
+   * @param id
+   * @returns {undefined}
+   */
+  $scope.setPrinter = function(id) {
+    for (var i = 0; i < $scope.printers.length; i++) {
+      if ($scope.printers[i].id === id) {
+        $scope.printer = $scope.printers[i];
+      }
+    }
+  };
+
   /********************************************************
    * Promise Handling
    * Fetching all objects
@@ -32,6 +49,14 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
     $scope.printers = response;
     $scope.printer = $scope.printers[0];
   });
+
+  /*
+   * Retrieving all sensors that are connected to the hub
+   *  $scope.sensors {object}[]
+   * Handling the promise for retrieving the sensor data and assigning that data to the associated sensor
+   *  $scope.sensors.data {object}
+   *  $scope.sensors.newestDatum
+   */
 
   var sensorsPromise = hub.getSensors(defaultHubId);
   sensorsPromise.then(function(_sensors) {
@@ -61,13 +86,5 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
       }
     });
   });
-
-  $scope.setPrinter = function(id) {
-    for (var i = 0; i < $scope.printers.length; i++) {
-      if ($scope.printers[i].id === id) {
-        $scope.printer = $scope.printers[i];
-      }
-    }
-  };
 
 }

@@ -44,12 +44,13 @@
                         <div class="row flex-wrap flex-valign">
                             <div class="col-lg-4 text-center">
                                 <span class="printer-icon glyphicon glyphicon-print"></span>
+                                <h3>{{printer.friendly_id}}</h3>
                                 <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
                             </div>
                             <div class="col-lg-8">
                                 <ul class="list-group no-margin">
                                     <li class="list-group-item">
-                                        <label>Friendly ID:</label> {{printer.friendly_id}}</li>
+                                        <label>Name:</label> {{printer.friendly_id}}</li>
                                     <li class="list-group-item">
                                         <label>Location:</label> {{printer.location}}</li>
                                     <li class="list-group-item">

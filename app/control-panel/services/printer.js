@@ -3,80 +3,109 @@ app.service('printer', PrinterService);
 PrinterService.$inject = ['$http'];
 
 function PrinterService($http) {
-
-  /**
-   * GetSensor
-   * Returns a promise to retreive the printer with the associated ID
-   * @param _sensorId
-   * @returns {promise}
-   */
-  this.getById = function(_printerId) {
-    return $http({
-      method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/printers/' + _printerId,
-    }).then(function successCallback(response) {
-      return response.data;
-    }, function errorCallback(response) {
-      return response.data;
-    });
+  var service = {
+    getJobs: getJobs,
+    jobs: [],
+    getCurrentJob: getActiveJobs,
+    currentJob: [],
+    getProcessingJobs: getProcessingJobs,
+    processingJobs: [],
+    getQueuedJobs: getQueuedJobs,
+    queuedJobs: [],
+    getPrinter: getPrinter,
+    printer: [],
+    issueCommand: issueCommand,
+    getCommands: getCommands,
+    commands: [],
   };
-
-
-
-  /**
-   * Update
-   * Updates information of the printer with the associated ID
-   * Returns a promise of retreieving the new JSON object that is the updated sensor
-   * @param _sensorId
-   * @returns {promise}
-   */
-  this.update = function(_printerId) {
-    return $http({
-      method: 'PATCH',
-      url: 'https://dev.api.stratusprint.com/v1/printers/' + _printerId,
-    }).then(function successCallback(response) {
-      return response.data;
-    }, function errorCallback(response) {
-      return response.data;
-    });
-  };
+  return service;
 
   /**
-   * GetJobs
-   * Returns a promise to retrieve the data from the printer with the associated ID
-   * @param _sensorId
-   * @returns {promise}
-   */
-  this.getJobs = function(_printerId) {
-    return $http({
-      method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/printers/' + _printerId + '/jobs',
-    }).then(function successCallback(response) {
-      return response.data;
-    }, function errorCallback(response) {
-      return response.data;
-    });
-  };
-
-  /**
-   * AddJob
-   * Adds a job to an associated printer
+   * Retreieve jobs associated with a printer
    *
-   * @param _printerId
-   * @param _job
-   * @returns {promise}
+   * @param  {Integer} printerId The ID of the printer
+   * @return {Promise}           $http promise
    */
-  this.addJob = function(_printerId, _job) {
+  function getJobs(printerId) {
     return $http({
-      method: 'POST',
-      url: 'https://dev.api.stratusprint.com/v1/printers/' + _printerId + '/jobs',
-      data: {job: _job},
-    }).then(function successCallback(response) {
-      console.log('Job added!' + JSON.stringify(response.data));
-      return response.data;
-    }, function errorCallback(response) {
-      return response.data;
-    });
-  };
+        method: 'GET',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/jobs',
+      }).success(function(data) {
+        service.jobs = data;
+      });
+  }
+
+  /**
+   * Retreieve a printer
+   *
+   * @param  {Integer} printerId The ID of the printer
+   * @return {Promise}           $http promise
+   */
+  function getPrinter(printerId) {
+    return $http({
+        method: 'GET',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId,
+      }).success(function(data) {
+        service.printer = data;
+      });
+  }
+
+  /**
+   * Issue a command to a printer
+   *
+   * @param  {Integer} printerId The ID of the printer
+   * @param  {String}  command   The command to issue
+   * @return {Promise}           $http promise
+   */
+  function issueCommand(printerId, command) {
+    return $http({
+        method: 'POST',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/commands',
+        data: {
+          name: command,
+        },
+      });
+  }
+
+  /**
+   * Retrieve all commands issued to a printer
+   *
+   * @param  {Integer} printerId The ID of the printer
+   * @return {Promise}           $http promise
+   */
+  function getCommands(printerId) {
+    return $http({
+        method: 'GET',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/commands',
+        data: {
+          name: command,
+        },
+      }).success(function(data) {
+        service.commands = data;
+      });
+  }
+
+  /**
+   * Update a printer
+   *
+   * @param  {Integer} printerId  The ID of the printer
+   * @param  {JSON}    attributes New printer attributes
+   * @return {Promise}            $http promise
+   */
+  function update(printerId, attributes) {
+    return $http({
+        method: 'PATCH',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId,
+        data: attributes,
+      }).success(function(data) {
+        service.printer = data;
+      });
+  }
+
+  function getCurrentJob() {}
+
+  function getQueuedJobs() {}
+
+  function getProcessingJobs() {}
 
 }

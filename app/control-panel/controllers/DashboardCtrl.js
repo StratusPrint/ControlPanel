@@ -3,16 +3,13 @@ app.controller('DashboardCtrl', DashboardCtrl);
 DashboardCtrl.$inject = ['$scope', '$q', 'hub', 'printer', 'sensor'];
 
 function DashboardCtrl($scope, $q, hub, printer, sensor) {
-  console.log('User Default Hub: ' + $scope.user._user.default_hub_id);
-
   $scope.printer = {};
+  var defaultHubId = $scope.user._user.default_hub_id;
+  console.log('using hub: ' + defaultHubId);
 
-  var defaultHubId = 27;
-  // Var defaultHubId = $scope.user_user.default_hub_id;
-
-  console.log('Using Hub id ' + defaultHubId + ' for now');
-  // Var defaultHubPromise = hub.getHub(defaultHubId);
-
+  /********************************************************
+   * Methods and chart handling
+   */
 
   /**
    * SetPrinter

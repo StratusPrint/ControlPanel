@@ -57,7 +57,7 @@ function HubService($http, $state, user) {
   this.generateApiKey = function(_hubId) {
     return $http({
       method: 'POST',
-      url: 'https://dev.api.stratusprint.com/v1/hubs/' + _hubId + '/generate_api_key',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + _hubId + '/api_key',
       data: {},
     }).then(function successCallback(response) {
       return response.data;

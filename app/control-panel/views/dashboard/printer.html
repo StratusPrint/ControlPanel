@@ -2,137 +2,184 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header flex-wrap flex-valign">
-              <a href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This printer is currently ONLINE."><span class="label label-success"><i class="fa fa-check-circle"></i> printer0</span></a>
-              <span class="desc">This is a printer description.</span>
+	          <a 
+	          	ng-if="printer.data.state.flags.operational" 
+	          	href="javascript:void" tooltip-placement="bottom" 
+	          	tooltip-close-delay="200"
+	          	uib-tooltip="This printer is currently {{::printer.data.state.text | uppercase}}.">
+	          		<span class="label label-success">
+	          			<i class="fa fa-check-circle"></i>
+	          			{{printer.friendly_id}}
+	          		</span>
+	          </a>
+
+	          <a 
+	          	ng-if="printer.data.state.flags.error || printer.data.state.flags.closedOrError" 
+	          	href="javascript:void" tooltip-placement="bottom" 
+	          	tooltip-close-delay="200"
+	          	uib-tooltip="This printer is currently {{::printer.data.state.text | uppercase}}.">
+	          		<span class="label label-danger">
+	          			<i class="fa fa-times-circle"></i>
+	          			{{printer.friendly_id}}
+	          		</span>
+	          </a>
+
+	          <a 
+	          	ng-if="printer.data.state.flags.paused"
+	          	href="javascript:void" tooltip-placement="bottom" 
+	          	tooltip-close-delay="200"
+	          	uib-tooltip="This printer is currently {{::printer.data.state.text | uppercase}}.">
+	          		<span class="label label-default">
+	          			<i class="fa fa-pause"></i>
+	          			{{printer.friendly_id}}
+	          		</span>
+	          </a>
+
+              <span class="desc">{{printer.description}}</span>
             </h1>
         </div>
     </div>
-	
-	<!--Current Print Job Panel-->
+    <!--Current Print Job Panel-->
     <div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Job</div>
-
-				<div class="panel-body">
-					<!--Job Progress-->
-					<h4><i class="fa fa-tasks"></i> Current Progress</h4>
-					<uib-progressbar class="progress-striped active" max="100" value="50" type="info"><i>50% Completed</i></uib-progressbar>
-					<h4><i class="fa fa-hand-o-right"></i> Job Actions</h4>
-
-					<!--Job Actions-->
-					<div class="btn-group" role="printer-actions" style="margin-bottom: 10px;">
-						<button disabled type="button" class="btn btn-default"><i class="fa fa-play"></i> Start</button>
-						<button type="button" class="btn btn-default"><i class="fa fa-pause"></i> Pause</button>
-						<button type="button" class="btn btn-default"><i class="fa fa-ban"></i> Cancel</button>
-					</div>
-
-					<!--Job Information-->
-					<h4><i class="fa fa-info-circle"></i> Job Information</h4>
-					<ul class="list-group no-margin">
-						<li class="list-group-item"><label class="no-margin">Created At:</label> April 16th, 2016 at 4:11 PM EST</li>
-						<li class="list-group-item"><label class="no-margin">Status:</label> Printing</li>
-						<li class="list-group-item"><label class="no-margin">File:</label> model.stl</li>
-						<li class="list-group-item"><label class="no-margin">File Size:</label> 2.3 MB</li>
-						<li class="list-group-item"><label class="no-margin">Estimated Print Time:</label> 3 Hours and 15 Minutes</li>
-						<li class="list-group-item"><label class="no-margin">Elapsed Print Time:</label> 1 Hour and 12 Minutes</li>
-						<li class="list-group-item"><label class="no-margin">Print Time Left:</label> 2 Hours and 2 Minutes</li>
-						<li class="list-group-item"><label class="no-margin">Progress:</label> 33%</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Job</div>
+                <div class="panel-body">
+                    <!--Job Progress-->
+                    <h4><i class="fa fa-tasks"></i> Current Progress</h4>
+                    <uib-progressbar class="progress-striped active" max="100" value="50" type="info"><i>50% Completed</i></uib-progressbar>
+                    <h4><i class="fa fa-hand-o-right"></i> Job Actions</h4>
+                    <!--Job Actions-->
+                    <div class="btn-group" role="printer-actions" style="margin-bottom: 10px;">
+                        <button disabled type="button" class="btn btn-default"><i class="fa fa-play"></i> Start</button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-pause"></i> Pause</button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-ban"></i> Cancel</button>
+                    </div>
+                    <!--Job Information-->
+                    <h4><i class="fa fa-info-circle"></i> Job Information</h4>
+                    <ul class="list-group no-margin">
+                        <li class="list-group-item">
+                            <label class="no-margin">Created At:</label> {{currentJob.created_at}}</li>
+                        <li class="list-group-item">
+                            <label class="no-margin">Status:</label> {{currentJob.data.status}}</li>
+                        <li class="list-group-item">
+                            <label class="no-margin">File:</label> {{currentJob.model_file_name_full}}</li>
+                        <li class="list-group-item">
+                            <label class="no-margin">File Size:</label> {{currentJob.data.file.size}}</li>
+                        <li class="list-group-item">
+                            <label class="no-margin">Estimated Print Time:</label> {{currentJob.data.estimated_print_time}}</li>
+                        <li class="list-group-item">
+                            <label class="no-margin">Elapsed Print Time:</label> {{currentJob.data.progress.print_time}}</li>
+                        <li class="list-group-item">
+                            <label class="no-margin">Print Time Left:</label> {{currentJob.data.progress.print_time_left}}</li>
+                        <li class="list-group-item">
+                            <label class="no-margin">Progress:</label> {{currentJob.data.progress.completion}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="row" vertilize-container>
+        <div class="col-lg-6">
+            <!--Upload Job Panel-->
+            <div class="panel panel-kashmir">
+                <div class="panel-heading"><i class="fa fa-upload"></i> Upload New Job</div>
+                <div class="panel-body">
+                    <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
+                </div>
+            </div>
 
-	<div class="row" vertilize-container>
-		<div class="col-lg-6">
-			<!--Upload Job Panel-->
-			<div class="panel panel-kashmir">
-				<div class="panel-heading"><i class="fa fa-upload"></i> Upload New Job</div>
-	
-				<div class="panel-body">
-					<ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-6">
-			<!--Live Video Panel-->
-			<div class="panel panel-kashmir">
-				<div class="panel-heading"><i class="fa fa-video-camera"></i> Live Video</div>
-	
-				<div class="panel-body">
-					<div class="well no-margin" style="height: 353px;">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-    <div class="row">
-		<div class="col-lg-6">
-			<!--Previous Jobs Panel-->
-			<div class="panel panel-kashmir">
-				<div class="panel-heading"><i class="fa fa-clock-o"></i> Previous Jobs</div>
-			
-				<div class="panel-body">
-					{{jobs}}
-					<table class="table">
-						<thead>
-							<th>File</th>
-							<th>File Size</th>
-							<th>Completed At</th>
-							<th>Action</th>
-						</thead>
-						<tbody>
-							<tr>
-								<td>model.stl</td>
-								<td>2.3 MB</td>
-								<td>April 16th, 2016 at 2:00 PM EST</td>
-								<td><button class="btn btn-primary" href="">View Details</button></td>
-							</tr>
-							<tr>
-								<td>model.stl</td>
-								<td>2.3 MB</td>
-								<td>April 16th, 2016 at 2:00 PM EST</td>
-								<td><button class="btn btn-primary" href="">View Details</button></td>
-							</tr>
-							<tr>
-								<td>model.stl</td>
-								<td>2.3 MB</td>
-								<td>April 16th, 2016 at 2:00 PM EST</td>
-								<td><button class="btn btn-primary" href="">View Details</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-6">
-			<!--Queued Jobs Panel-->
-			<div class="panel panel-kashmir">
-				<div class="panel-heading clearfix">
-					<i class="fa fa-hourglass-half"></i> Queued Jobs 
-					<a tooltip-placement="left" uib-tooltip="Queued jobs are jobs that have been sent to the printer but can't be printed yet because the printer is currently busy." class="pull-right" href="javascript:void"><i class="fa fa-question-circle"></i></a>
-				</div>
-			
-				<div class="panel-body">
-					<p class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no queued jobs on this printer.</p>
-				</div>
-			</div>
-
-			<!--Processing Jobs Panel-->
-			<div class="panel panel-kashmir">
-				<div class="panel-heading clearfix">
-					<i class="fa fa-circle-o-notch fa-spin"></i> Processing Jobs 
-					<a tooltip-placement="left" uib-tooltip="Proccessing jobs are jobs that are currently being sliced or have not yet been sent to the printer." class="pull-right" href="javascript:void"><i class="fa fa-question-circle"></i></a>
-				</div>
-			
-				<div class="panel-body">
-					<p class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs processing.</p>
-				</div>
-			</div>
-		</div>
+            <!--Completed Jobs Panel-->
+            <div class="panel panel-kashmir">
+                <div class="panel-heading"><i class="fa fa-clock-o"></i> Completed Jobs</div>
+                <div class="panel-body">
+                    <!--No completed jobs alert-->
+                    <p ng-if="!completedJobs.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no completed jobs associated with this printer.</p>
+                    <table ng-if="completedJobs.length" class="table">
+                        <thead>
+                            <th>ID</th>
+                            <th>File</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="job in completedJobs">
+                                <td>{{job.id}}</td>
+                                <td>{{job.model_file_name_full}}</td>
+                                <td>{{job.created_at}}</td>
+                                <td>{{job.data.status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <!--Queued Jobs Panel-->
+            <div class="panel panel-kashmir">
+                <div class="panel-heading clearfix">
+                    <i class="fa fa-hourglass-half"></i> Queued Jobs
+                    <a tooltip-placement="left" uib-tooltip="Queued jobs are jobs that have been sent to the printer but can't be printed yet because the printer is currently busy." class="pull-right" href="javascript:void"><i class="fa fa-question-circle"></i></a>
+                </div>
+                <div class="panel-body">
+                    <!--No queued jobs alert-->
+                    <p ng-if="!queuedJobs.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no queued jobs associated with this printer.</p>
+                    <!--List of queued jobs-->
+                    <table ng-if="queuedJobs.length" class="table">
+                        <thead>
+                            <th>ID</th>
+                            <th>File</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="job in queuedJobs">
+                                <td>{{job.id}}</td>
+                                <td>{{job.model_file_name_full}}</td>
+                                <td>{{job.created_at}}</td>
+                                <td>{{job.data.status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+            <!--Processing Jobs Panel-->
+            <div class="panel panel-kashmir">
+                <div class="panel-heading clearfix">
+                    <i class="fa fa-circle-o-notch fa-spin"></i> Processing Jobs
+                    <a tooltip-placement="left" uib-tooltip="Proccessing jobs are jobs that are currently being sliced or have not yet been sent to the printer." class="pull-right" href="javascript:void"><i class="fa fa-question-circle"></i></a>
+                </div>
+                <div class="panel-body">
+                    <!--No processing jobs alert-->
+                    <p ng-if="!processingJobs.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs processing.</p>
+                    <!--List of processing jobs-->
+                    <table ng-if="processingJobs.length" class="table">
+                        <thead>
+                            <th>ID</th>
+                            <th>File</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="job in processingJobs">
+                                <td>{{job.id}}</td>
+                                <td>{{job.model_file_name_full}}</td>
+                                <td>{{job.created_at}}</td>
+                                <td>{{job.data.status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>           
+	        <!--Live Video Panel
+	            <div class="panel panel-kashmir">
+	                <div class="panel-heading"><i class="fa fa-video-camera"></i> Live Video</div>
+	                <div class="panel-body">
+	                    <div class="well no-margin" style="height: 353px;">
+	                    </div>
+	                </div>
+	            </div>
+	        -->
+        </div>
     </div>
 </div>

@@ -6,12 +6,14 @@ function PrinterService($http) {
   var service = {
     getJobs: getJobs,
     jobs: [],
-    getCurrentJob: getActiveJobs,
+    getCurrentJob: getCurrentJob,
     currentJob: [],
     getProcessingJobs: getProcessingJobs,
     processingJobs: [],
     getQueuedJobs: getQueuedJobs,
     queuedJobs: [],
+    getCompletedJobs: getCompletedJobs,
+    completedJobs: [],
     getPrinter: getPrinter,
     printer: [],
     issueCommand: issueCommand,
@@ -77,9 +79,6 @@ function PrinterService($http) {
     return $http({
         method: 'GET',
         url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/commands',
-        data: {
-          name: command,
-        },
       }).success(function(data) {
         service.commands = data;
       });
@@ -102,10 +101,63 @@ function PrinterService($http) {
       });
   }
 
-  function getCurrentJob() {}
+  /**
+   * Retreieve the current associated with a printer
+   *
+   * @param  {Integer} printerId The ID of the printer
+   * @return {Promise}           $http promise
+   */
+  function getCurrentJob(printerId) {
+    return $http({
+        method: 'GET',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/current_job',
+      }).success(function(data) {
+        service.currentJob = data;
+      });
+  }
 
-  function getQueuedJobs() {}
+  /**
+   * Retreieve queued jobs associated with a printer
+   *
+   * @param  {Integer} printerId The ID of the printer
+   * @return {Promise}           $http promise
+   */
+  function getQueuedJobs(printerId) {
+    return $http({
+        method: 'GET',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/queued_jobs',
+      }).success(function(data) {
+        service.queuedJobs = data;
+      });
+  }
 
-  function getProcessingJobs() {}
+  /**
+   * Retreieve processing jobs associated with a printer
+   *
+   * @param  {Integer} printerId The ID of the printer
+   * @return {Promise}           $http promise
+   */
+  function getProcessingJobs(printerId) {
+    return $http({
+        method: 'GET',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/processing_jobs',
+      }).success(function(data) {
+        service.processingJobs = data;
+      });
+  }
 
+  /**
+   * Retreieve completed jobs associated with a printer
+   *
+   * @param  {Integer} printerId The ID of the printer
+   * @return {Promise}           $http promise
+   */
+  function getCompletedJobs(printerId) {
+    return $http({
+        method: 'GET',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/completed_jobs',
+      }).success(function(data) {
+        service.completedJobs = data;
+      });
+  }
 }

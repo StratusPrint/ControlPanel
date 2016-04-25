@@ -28,10 +28,10 @@
             <div class="form-group">
               <label for="defaultHubSelect"> Default Hub: </label><br>
               <select name="defaultHubSelect" ng-model="profile.default_hub_id" >
-                <option ng-repeat="hub in hubs" value="{{hub.id}}">{{hub.friendly_id}}</option>
+                <option value="">{{currentHub.friendly_id}}</option> <!-- not selected / blank option -->
+                <option ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id" value="{{hub.id}}">{{hub.friendly_id}}</option>
               </select>
             </div>
-            <p>profile.default_hub_id = {{profile.default_hub_id}}</p>
         </div>
     </div>
     <div class="panel panel-kashmir">
@@ -56,5 +56,5 @@
       </div>
     </div>
 
-    <button class="btn btn-primary pull-right" type="submit">Save Changes</button>
+    <button class="btn btn-primary pull-right" type="submit" ng-click="setCurrentHub(profile.default_hub_id)">Save Changes</button>
 </form>

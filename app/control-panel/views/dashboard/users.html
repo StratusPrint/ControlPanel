@@ -1,3 +1,4 @@
+<div ng-controller=" UsersCtrl as ctrl">
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">All Users</h1>
@@ -11,38 +12,7 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <div class="table-responsive">
-                    <table width="100%" class="table table-striped table-bordered table-hover" datatable="ng" >
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Admin</th>
-                                <th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="user in users">
-                                <td>{{user.id}}</td>
-                                <td>{{user.name}}</td>
-                                <td>{{user.email}}</td>
-                                <td><i ng-class="{ 'fa fa-check': user.admin, 'fa fa-close' : !user.admin }" class="fa"></i></td>
-
-                               <td>
-                                    <button class="btn btn-primary" ng-click="">View Details</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger" ng-click="delete(user.id)">Delete User</button>
-                                    
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.table-responsive -->
+                <table width="100%" datatable="" dt-options="ctrl.dtOptions" dt-columns="ctrl.cols" dt-instance="ctrl.dtInstance" class="dt-responsive table table-striped table-bordered table-hover"></table>
                 
             </div>
             <!-- /.panel-body -->
@@ -51,7 +21,7 @@
             <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)">{{alert.msg}}</uib-alert>
             
         </div>
-                <form name="registerUser" class="clearfix" role="form" ng-submit="register(_user)" ng-init="_user = {}" novalidate>
+            <form name="registerUser" class="clearfix" role="form" ng-submit="register(_user)" ng-init="_user = {}" novalidate>
             <div class="panel panel-kashmir">
                 <div class="panel-heading">
                     <i class="fa fa-plus-circle"></i> Add New User
@@ -79,22 +49,29 @@
                    
                 </div>
             </div>
-            <button class="btn btn-primary pull-right" type="submit">Create new user</button>
+            <button class="btn btn-primary pull-right" type="submit" ng-click="ctrl.reloadData()">Create new user</button>
         </form>
 
 
     </div>
 </div>
 
- <modal title="Delete User" visible="showDeleteModal">
-    <form role="form">
-      <div class="form-group">
-        <label for="email">Email address</label>
-       
-      </div>
-      <button type="submit" ng-click="deleteUser()" class="btn btn-default">Submit</button>
-    </form>
-  </modal>
+    <modal title="Delete User" visible="showDeleteModal">
+        <form role="form">
+          <div class="form-group">
+            <label for="email"></label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" />
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <label for="email">Are you sure you want to delete user?</label>
+        <button type="submit" ng-click="deleteUser()" class="btn btn-default">Yes</button>
+    
+    </modal>
 
    <modal title="Edit User" visible="showEditModal">
     <form role="form">
@@ -110,7 +87,7 @@
     </form>
   </modal>
 
-
+</div>
 
 
 

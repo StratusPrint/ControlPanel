@@ -9,6 +9,7 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.commands = [];
 	$scope.printer = [];
 	$scope.command = [];
+	$scope.currentJob = [];
 	$scope.currentJobAlert = [];
 	$scope.issuedCommandsConfig = {
 		itemsPerPage: 6,
@@ -23,6 +24,7 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 		printer.getCurrentJob($stateParams.printerId)
 			.success(function(response) {
 				$scope.currentJob = response;
+				console.log(response);
 			})
 			.error(function(response) {
 				console.log('Unable to retrieve current job.');
@@ -102,10 +104,9 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 
 	$scope.refresh();
 
-/*
 	this.interval = setInterval(function(){
 		$scope.refresh();
-	}, 2000);*/
+	}, 2000);
 
 	$scope.$watch('command', $scope.issueCommand);
 }

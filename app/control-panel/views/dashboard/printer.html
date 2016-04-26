@@ -46,10 +46,10 @@
                 <div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Job</div>
                 <div class="panel-body">
 				<!--No current job Alert-->
-                <p ng-if="!currentJob.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
+                <p ng-if="!currentJob" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
 
                 <!--Current Job-->
-               	<div ng-if="currentJob.length">
+               	<div ng-if="currentJob">
                 	<!--Alert-->
                 	<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
 
@@ -71,9 +71,9 @@
 							<label class="no-margin">ID:</label> {{currentJob.id}}</li>
                     	</li>
                         <li class="list-group-item">
-                            <label class="no-margin">Created At:</label> {{currentJob.created_at}}</li>
+                            <label class="no-margin">Created At:</label> {{currentJob.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</li>
                         <li class="list-group-item">
-                            <label class="no-margin">Status:</label> {{currentJob.data.status}}</li>
+                            <label class="no-margin">Status:</label> {{currentJob.data.status | capitalize}}</li>
                         <li class="list-group-item">
                             <label class="no-margin">File:</label> {{currentJob.model_file_name_full}}</li>
                         <li class="list-group-item">
@@ -138,7 +138,7 @@
 					            		{{item.status}}
 					            	</span>					            	
 					            </td>
-					            <td at-attribute="created_at" at-title="Issued At">{{item.created_at | date :'medium'}}</td>
+					            <td at-attribute="created_at" at-title="Issued At">{{item.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</td>
 					            <td at-implicit at-attribute="issued_by" at-title="Issued By"></td>
 					        </tr>
 					    </tbody>
@@ -175,22 +175,10 @@
 					<span class="label label-{{job.data.status}}">{{job.data.status | capitalize}}</span>
 				</h3>
 				<p class="meta">
-					<span class="date"><i class="fa fa-calendar"></i> {{job.created_at | date :'medium'}}</span>
+					<span class="date"><i class="fa fa-calendar"></i> {{job.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</span>
 					<span class="file"> &middot; <i class="fa fa-file"></i> {{job.model_file_name_full}}
 				</span>
 			</div>
-			<!--Processing jobs
-			<div class="job" ng-repeat="job in processingJobs">
-				<h3>
-					<i class="fa fa-circle-o-notch fa-spin"></i> <span class="title">Job #{{job.id}}</span>
-					<span class="label label-{{job.data.status}}">{{job.data.status | capitalize}}</span>
-					<button style="margin-top: -5px;" class="btn btn-primary pull-right">Cancel</button>
-				</h3>
-				<p class="meta">
-					<span class="date"><i class="fa fa-calendar"></i> {{job.created_at | date :'medium'}}</span>
-					<span class="file"> &middot; <i class="fa fa-file"></i> {{job.model_file_name_full}}
-				</span>
-			</div>-->
 		</div>
     </div>
 </div>

@@ -25,8 +25,7 @@ Running locally
 4. Fetch and build the project dependencies:
 	```sh
 	cd /vagrant
-	npm install bower
-	npm install grunt-cli
+	npm install
 	bower install
 	grunt clean default
 	```

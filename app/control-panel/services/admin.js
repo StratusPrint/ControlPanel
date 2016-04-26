@@ -14,11 +14,8 @@ function AdminService($http, $state, user, $auth) {
     return $http({
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/users',
-    }).then(function successCallback(response) {
-      console.log(response);
+    }).then(function(response) {
       return response.data;
-    }, function errorCallback(response) {
-      // Error response right here
     });
   };
 
@@ -61,6 +58,18 @@ function AdminService($http, $state, user, $auth) {
     return $http({
       method: 'DELETE',
       url: 'https://dev.api.stratusprint.com/v1/users/' + id,
+    });
+  };
+
+  this.updateUser = function(user) {
+    return $http({
+      method: 'PATCH',
+      url: 'https://dev.api.stratusprint.com/v1/users/' + user.id,
+      data: { email: user.email,
+              name: user.name,
+              image: user.image,
+              admin: user.admin,
+      },
     });
   };
 }

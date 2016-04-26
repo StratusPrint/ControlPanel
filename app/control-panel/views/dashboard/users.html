@@ -1,93 +1,104 @@
 <div ng-controller=" UsersCtrl as ctrl">
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">All Users</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">All Users</h1>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-th-list"></i> Users
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <table width="100%" datatable="" dt-options="ctrl.dtOptions" dt-columns="ctrl.cols" dt-instance="ctrl.dtInstance" class="dt-responsive table table-striped table-bordered table-hover"></table>
-                
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <div>
-            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)">{{alert.msg}}</uib-alert>
-            
-        </div>
-            <form name="registerUser" class="clearfix" role="form" ng-submit="register(_user)" ng-init="_user = {}" novalidate>
-            <div class="panel panel-kashmir">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-plus-circle"></i> Add New User
+                    <i class="fa fa-th-list"></i> Users
                 </div>
+                <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <div class="form-group" show-errors>
-                        <label for="name">Name</label>
-                        <input autocomplete="off" name="name" ng-model="_user.name" type="text" class="form-control" placeholder="Please provide the name for the user" ng-minlength="5" />
-                        <span ng-show="registerUser.name.$error.minlength" class="help-block">Name is too short. Must be at least 5 characters.</span>
-                    </div>
-                    <div class="form-group" show-errors>
-                        <label for="email">Email</label>
-                        <input autocomplete="off" name="email" ng-model="_user.email" type="email" class="form-control" placeholder="Please provide the name for the user" />
-                        <span ng-show="registerUser.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
-                    </div>
-                    <div class="form-group" >
-                        <label >Admin Priviledges</label>
-                        <div  class="checkbox">
-                         <label><input autocomplete="off" name="admin" ng-model="_user.admin" type="checkbox" />Set as Admin</label>
-                        </div>
-                       
-                       
-                    </div>
+                    <table width="100%" datatable="" dt-options="ctrl.dtOptions" dt-columns="ctrl.cols" dt-instance="ctrl.dtInstance" class="dt-responsive table table-striped table-bordered table-hover"></table>
                     
-                   
                 </div>
+                <!-- /.panel-body -->
             </div>
-            <button class="btn btn-primary pull-right" type="submit" ng-click="ctrl.reloadData()">Create new user</button>
-        </form>
-
+            <div>
+                <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)">{{alert.msg}}
+                </uib-alert>
+            </div>
+            <form name="registerUser" class="clearfix" role="form" ng-submit="register(_user)" ng-init="_user = {}" novalidate>
+                <div class="panel panel-kashmir">
+                    <div class="panel-heading">
+                        <i class="fa fa-plus-circle"></i> Add New User
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group" show-errors>
+                            <label for="name">Name</label>
+                            <input autocomplete="off" name="name" ng-model="_user.name" type="text" class="form-control" placeholder="Please provide the name for the user" ng-minlength="5" />
+                            <span ng-show="registerUser.name.$error.minlength" class="help-block">Name is too short. Must be at least 5 characters.</span>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label for="email">Email</label>
+                            <input autocomplete="off" name="email" ng-model="_user.email" type="email" class="form-control" placeholder="Please provide the name for the user" />
+                            <span ng-show="registerUser.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
+                        </div>
+                        <div class="form-group" >
+                            <label >Admin Priviledges</label>
+                            <div  class="checkbox">
+                             <label><input autocomplete="off" name="admin" ng-model="_user.admin" type="checkbox" />Set as Admin</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success pull-right" type="submit" ng-click="ctrl.reloadData()">Create new user</button>
+            </form>
+        </div>
 
     </div>
-</div>
+
+
 
     <modal title="Delete User" visible="showDeleteModal">
         <form role="form">
           <div class="form-group">
-            <label for="email"></label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" />
+            <label >Name: {{modalUser.name}}</label>
+            
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" />
+            <label >Email: {{modalUser.email}}</label>
+           
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          
         </form>
         <label for="email">Are you sure you want to delete user?</label>
-        <button type="submit" ng-click="deleteUser()" class="btn btn-default">Yes</button>
+        <button type="submit" ng-click="deleteUser()" class="btn btn-warning">Yes</button>
     
     </modal>
 
-   <modal title="Edit User" visible="showEditModal">
-    <form role="form">
+   <modal  title="Edit User" visible="showEditModal">
+    <form name="$scope.updateUser" class="clearfix" role="form" novalidate>
+    
       <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" />
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form-control" ng-model="modalUser.name"  placeholder="{{modalUser.name}}" ng-minlength="5" />
+        <span ng-show="$scope.updateUser.name.$error.minlength" class="help-block">Name is too short. Must be at least 5 characters.</span>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password" />
+        <label for="email">Email Address</label>
+        <input type="email" name="email" class="form-control" ng-model="modalUser.email" placeholder="{{modalUser.email}}" />
+        <span ng-show="$scope.updateUser.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
       </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+        <div class="form-group">
+            <label >Admin Priviledges</label>
+                <div  class="checkbox">
+                    <label>
+                    <input autocomplete="off" name="admin" ng-model="modalUser.admin" type="checkbox" />
+                    Set as Admin
+                    </label>
+                </div>
+        </div>
+       
+      <button  class="btn btn-success" ng-click="editUser()">Edit User</button>
     </form>
   </modal>
-
 </div>
+
+
 
 
 

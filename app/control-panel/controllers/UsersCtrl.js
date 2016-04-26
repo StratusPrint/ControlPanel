@@ -56,7 +56,7 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
   }
 
   function actionButtonHTML(data, type, full, meta) {
-    return '<button class="btn btn-warning" ng-click=""><i class="fa fa-edit fa-fw"></i></button>&nbsp;' +
+    return '<button class="btn btn-warning" ng-click="editModal(' + meta.row + ')"><i class="fa fa-edit fa-fw"></i></button>&nbsp;' +
     '<button class="btn btn-danger" ng-click="deleteModal(' + meta.row + ')"><i class="fa fa-trash-o fa-fw"></i></button>';
   }
 
@@ -68,7 +68,7 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
     return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
   }
 
-  function createdAt(data){
+  function createdAt(data) {
     var d = new Date(data.created_at);
     return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
   }
@@ -153,7 +153,7 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
       var deletePromise = admin.deleteUser($scope.modalUser.id);
       deletePromise.then(function() {
         reloadData();
-        $scope.addAlert('success', 'The user was successfully added');
+        $scope.addAlert('warning', 'The user was successfully deleted');
       })
       .catch(function(response) {
         $scope.addAlert('danger','User could not be deleted');
@@ -165,10 +165,42 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
 
   $scope.deleteModal = function(_rowId) {
     var user = dtCtrl.dtInstance.DataTable.rows(_rowId).data()[0];
-    if (user.id === undefined) return;
+    if (user.id === undefined) {
+      return;
+    }
     $scope.showDeleteModal = !$scope.showDeleteModal;
     $scope.modalUser = user;
   };
+
+  $scope.editModal = function(_rowId) {
+    var user = dtCtrl.dtInstance.DataTable.rows(_rowId).data()[0];
+    if (user.id === undefined)  {
+      return;
+    }
+    $scope.showEditModal = !$scope.showEditModal;
+    $scope.modalUser = user;
+  };
+
+  $scope.editUser = function() {
+    console.log($scope.updateUser);
+    // If (!$scope.updateUser.$valid) {
+    //  $scope.addAlert('danger', 'User was not updated');
+    //  return;
+    // }
+    if ($scope.modalUser.id !== undefined) {
+      var updatePromise = admin.updateUser($scope.modalUser);
+      updatePromise.then(function(response) {
+        reloadData();
+        $scope.addAlert('success', 'The user was successfully updated');
+      })
+      .catch(function(response) {
+        $scope.addAlert('danger',response.data.error.full_messages[0]);
+      });
+    }
+    $scope.showEditModal = false;
+    $scope.modalUser = {};
+  };
+
 
 
   alerts = [];

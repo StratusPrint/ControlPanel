@@ -23,8 +23,20 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
     for (var i = 0; i < $scope.printers.length; i++) {
       if ($scope.printers[i].id === id) {
         $scope.printer = $scope.printers[i];
+        $scope.getCurrentJob();
       }
     }
+  };
+
+  $scope.getCurrentJob = function() {
+    printer.getCurrentJob($scope.printer.id)
+    .success(function(response) {
+      $scope.printer.currentJob = response;
+    })
+    .error(function(response) {
+      console.log('Unable to retrieve current job.');
+      console.log(response);
+    });
   };
 
   /********************************************************
@@ -32,19 +44,21 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
    * Fetching all objects
    */
   var defaultHubPromise = hub.getHub(defaultHubId);
-  defaultHubPromise.then(function(response) {
-    $scope.hub = response;
+  defaultHubPromise.then(function(_hub) {
+    $scope.hub = _hub;
   });
 
   var statsPromise = hub.getStatistics(defaultHubId);
-  statsPromise.then(function(response) {
-    $scope.stats = response;
+  statsPromise.then(function(_stats) {
+    $scope.stats = _stats;
   });
 
   var printersPromise = hub.getPrinters(defaultHubId);
-  printersPromise .then(function(response) {
-    $scope.printers = response;
+  printersPromise .then(function(_printers) {
+    var currentJobsPromise = [];
+    $scope.printers = _printers;
     $scope.printer = $scope.printers[0];
+    $scope.getCurrentJob($scope.printer.id);
   });
 
   /*
@@ -54,7 +68,6 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
    *  $scope.sensors.data {object}
    *  $scope.sensors.newestDatum
    */
-
   var sensorsPromise = hub.getSensors(defaultHubId);
   sensorsPromise.then(function(_sensors) {
     var sensorDataPromises = [];
@@ -77,7 +90,7 @@ function DashboardCtrl($scope, $q, hub, printer, sensor) {
           } else {
             $scope.sensors[j].newestDatum.value = 'False';
           }
-        }else {
+        } else {
           $scope.sensors[j].newestDatum.value = parseFloat($scope.sensors[j].data[dataLength - 1].value).toFixed(2);
         }
       }

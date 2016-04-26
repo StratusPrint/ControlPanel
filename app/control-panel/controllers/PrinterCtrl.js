@@ -8,7 +8,7 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.recentJobs = [];
 	$scope.commands = [];
 	$scope.printer = [];
-	$scope.command = [];
+	$scope.command = {name: ''};
 	$scope.currentJobAlert = [];
 	$scope.issuedCommandsConfig = {
 		itemsPerPage: 6,
@@ -76,14 +76,14 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	 * Issue a printer command.
 	 */
 	$scope.issueCommand = function() {
-		if(!$scope.command.length) { return; }
+		if($scope.command.name === '') { return; }
 
-		printer.issueCommand($stateParams.printerId, $scope.command)
+		printer.issueCommand($stateParams.printerId, $scope.command.name)
 			.success(function(response) {
-				$scope.addAlert('info', 'The ' + $scope.command + ' command has been sent to the printer. Please wait a minute for the command be executed and the current job status updated.');
+				$scope.addAlert('info', 'The ' + $scope.command.name + ' command has been sent to the printer. Please wait a minute for the command be executed and the current job status updated.');
 			})
 			.error(function(response) {
-				$scope.addAlert('danger', 'Command successfully issued.');
+				$scope.addAlert('danger', 'Unable to issue command. Please try again.');
 				console.log(response);
 			});
 	};
@@ -106,5 +106,5 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 		$scope.refresh();
 	}, 2000);
 
-	$scope.$watch('command', $scope.issueCommand);
+	$scope.$watch('command.name', $scope.issueCommand);
 }

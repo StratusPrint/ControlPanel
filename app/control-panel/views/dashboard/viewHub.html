@@ -146,9 +146,12 @@
     <div class="form-group">
       <label >Description: {{hub.desc}}</label>
     </div>
+    <div class="form-group">
+      <label >Location: {{hub.location}}</label>
+    </div>
   </form>
   <label>Are you sure you want to delete this hub?</label>
-   <button type="submit" ng-click="deleteHub(hub.id)" class="btn btn-warning">Yes</button>
+   <button type="submit" ng-click="deleteHub(hub.id)" class="btn btn-danger">Yes</button>
    <button type="" ng-click="deleteModal()" class="btn btn-warning">No</button>
   </modal>
 </div>

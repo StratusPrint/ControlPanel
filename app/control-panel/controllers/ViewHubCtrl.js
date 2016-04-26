@@ -1,7 +1,7 @@
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$q', '$controller', 'hub', 'printer', 'sensor'];
+ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$q', '$controller', 'hub', 'printer', 'sensor'];
 
-function ViewHubCtrl($scope, $state, $stateParams, $q, $controller, hub, printer, sensor) {
+function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hub, printer, sensor) {
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
 
@@ -12,6 +12,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $q, $controller, hub, printer
   var printersPromise = hub.getPrinters(hubId);
 
 
+  $scope.showDeleteModal = false; // Set to true to show the delete confirmation modal
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
 
@@ -23,12 +24,16 @@ function ViewHubCtrl($scope, $state, $stateParams, $q, $controller, hub, printer
 
   /**
    * ToHubsPage
+   * Waits 500 milliseconds for the animation to fade
    * Sets the state to the main hubs page
-   *  if changed = true the ListHubs controller will refresh
+   * @param {boolean} reload
+   *  if reload = true the ListHubs controller will refresh
    * @returns {undefined}
    */
-  $scope.toHubsPage = function(changed) {
-    $state.go('dashboard.listHubs',{},{reload: changed});
+  $scope.toHubsPage = function(reload) {
+    $timeout(function() {
+      $state.go('dashboard.listHubs',{},{reload: reload});
+    },500);
   };
 
   /**
@@ -99,12 +104,27 @@ function ViewHubCtrl($scope, $state, $stateParams, $q, $controller, hub, printer
    * @returns {}
    */
   $scope.deleteHub = function(_id) {
+    console.log('Firing?');
+    $scope.showDeleteModal = false;
     if ($scope.user._user.admin === true) {
-      hub.deleteHub(_id);
+      // Hub.deleteHub(_id);
       this.toHubsPage(true);
+      console.log($scope.showDeleteModal);
     } else {
       console.log('Permission Denied');
     }
+  };
+
+  /**
+   * DeleteModal
+   * Called by the delete button
+   * makes the deleteModal visible
+   *
+   * @returns {undefined}
+   */
+  $scope.deleteModal = function() {
+    console.log('DeleteModal firing');
+    $scope.showDeleteModal = !$scope.showDeleteModal;
   };
 
   /**

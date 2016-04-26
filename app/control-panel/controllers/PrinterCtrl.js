@@ -114,12 +114,25 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 			});
 	};
 
+	/**
+	 * Refresh data.
+	 */
+	$scope.refresh = function() {
+		$scope.getCompletedJobs();
+		$scope.getQueuedJobs();
+		$scope.getProcessingJobs();
+		$scope.getCurrentJob();
+		$scope.getCommands();
+		$scope.getPrinter();		
+	};
+
 	$controller('AlertCtrl', { $scope: $scope });
-	$scope.getCompletedJobs();
-	$scope.getQueuedJobs();
-	$scope.getProcessingJobs();
-	$scope.getCurrentJob();
-	$scope.getCommands();
-	$scope.getPrinter();
+
+	$scope.refresh();
+
+	this.interval = setInterval(function(){
+		$scope.refresh();
+	}, 2000);
+
 	$scope.$watch('command', $scope.issueCommand);
 }

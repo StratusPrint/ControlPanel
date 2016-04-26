@@ -2,15 +2,37 @@
 
 app.controller('PrinterCtrl', PrinterCtrl);
 
-PrinterCtrl.$inject = ['$scope', '$state', '$stateParams', 'printer'];
+PrinterCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', 'printer'];
 
-function PrinterCtrl($scope, $state, $stateParams, printer) {
+function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.queuedJobs = [];
 	$scope.completedJobs = [];
 	$scope.processingJobs = [];
 	$scope.currentJob = [];
 	$scope.commands = [];
 	$scope.printer = [];
+	$scope.command = [];
+	$scope.currentJobAlert = [];
+	$scope.processingJobsConfig = {
+		itemsPerPage: 5,
+		maxPages: 5,
+		fillLastPage: "no"
+	};
+	$scope.completedJobsConfig = {
+		itemsPerPage: 5,
+		maxPages: 5,
+		fillLastPage: "no"
+	};
+	$scope.queuedJobsConfig = {
+		itemsPerPage: 5,
+		maxPages: 5,
+		fillLastPage: "no"
+	};
+	$scope.issuedCommandsConfig = {
+		itemsPerPage: 5,
+		maxPages: 5,
+		fillLastPage: "no"
+	};
 
 	/**
 	 * Retrieve list of all queued jobs associated with this printer
@@ -96,10 +118,41 @@ function PrinterCtrl($scope, $state, $stateParams, printer) {
 			});
 	};
 
-	$scope.getCompletedJobs();
-	$scope.getQueuedJobs();
-	$scope.getProcessingJobs();
-	$scope.getCurrentJob();
-	$scope.getCommands();
-	$scope.getPrinter();
+	/**
+	 * Issue a printer command.
+	 */
+	$scope.issueCommand = function() {
+		if(!$scope.command.length) { return; }
+
+		printer.issueCommand($stateParams.printerId, $scope.command)
+			.success(function(response) {
+				$scope.addAlert('info', 'The ' + $scope.command + ' command has been sent to the printer. Please wait a minute for the command be executed and the current job status updated.');
+			})
+			.error(function(response) {
+				$scope.addAlert('danger', 'Command successfully issued.');
+				console.log(response);
+			});
+	};
+
+	/**
+	 * Refresh data.
+	 */
+	$scope.refresh = function() {
+		$scope.getCompletedJobs();
+		$scope.getQueuedJobs();
+		$scope.getProcessingJobs();
+		$scope.getCurrentJob();
+		$scope.getCommands();
+		$scope.getPrinter();		
+	};
+
+	$controller('AlertCtrl', { $scope: $scope });
+
+	$scope.refresh();
+
+	this.interval = setInterval(function(){
+		$scope.refresh();
+	}, 2000);
+
+	$scope.$watch('command', $scope.issueCommand);
 }

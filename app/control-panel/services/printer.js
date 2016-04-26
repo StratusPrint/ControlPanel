@@ -14,6 +14,8 @@ function PrinterService($http) {
     queuedJobs: [],
     getCompletedJobs: getCompletedJobs,
     completedJobs: [],
+    getRecentJobs: getRecentJobs,
+    recentJobs: [],
     getPrinter: getPrinter,
     printer: [],
     issueCommand: issueCommand,
@@ -34,6 +36,21 @@ function PrinterService($http) {
         url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/jobs',
       }).success(function(data) {
         service.jobs = data;
+      });
+  }
+
+  /**
+   * Retreieve list of recent jobs associated with a printer
+   *
+   * @param  {Integer} printerId The ID of the printer
+   * @return {Promise}           $http promise
+   */
+  function getRecentJobs(printerId) {
+    return $http({
+        method: 'GET',
+        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/recent_jobs',
+      }).success(function(data) {
+        service.recentJobs = data;
       });
   }
 

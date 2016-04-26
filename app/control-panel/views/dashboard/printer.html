@@ -3,10 +3,10 @@
         <div class="col-lg-12">
             <h1 class="page-header flex-wrap flex-valign">
 	          <a 
-	          	ng-if="printer.data.state.flags.operational" 
+	          	ng-if="printer.status === 'ready' || printer.status === 'printing' || printer.status === 'completed'" 
 	          	href="javascript:void" tooltip-placement="bottom" 
 	          	tooltip-close-delay="200"
-	          	uib-tooltip="This printer is currently {{::printer.data.state.text | uppercase}}.">
+	          	uib-tooltip="This printer is currently {{::printer.status | uppercase}}.">
 	          		<span class="label label-success">
 	          			<i class="fa fa-check-circle"></i>
 	          			{{printer.friendly_id}}
@@ -14,10 +14,10 @@
 	          </a>
 
 	          <a 
-	          	ng-if="printer.data.state.flags.error || printer.data.state.flags.closedOrError" 
+	          	ng-if="printer.status === 'errored' || printer.status === 'offline'" 
 	          	href="javascript:void" tooltip-placement="bottom" 
 	          	tooltip-close-delay="200"
-	          	uib-tooltip="This printer is currently {{::printer.data.state.text | uppercase}}.">
+	          	uib-tooltip="This printer is currently {{::printer.status | uppercase}}.">
 	          		<span class="label label-danger">
 	          			<i class="fa fa-times-circle"></i>
 	          			{{printer.friendly_id}}
@@ -25,10 +25,10 @@
 	          </a>
 
 	          <a 
-	          	ng-if="printer.data.state.flags.paused"
+	          	ng-if="printer.status === 'paused' || printer.status === 'cancelled'"
 	          	href="javascript:void" tooltip-placement="bottom" 
 	          	tooltip-close-delay="200"
-	          	uib-tooltip="This printer is currently {{::printer.data.state.text | uppercase}}.">
+	          	uib-tooltip="This printer is currently {{::printer.status | uppercase}}.">
 	          		<span class="label label-default">
 	          			<i class="fa fa-pause"></i>
 	          			{{printer.friendly_id}}
@@ -104,7 +104,10 @@
         </div>
         <div class="col-lg-6">
             <div class="panel panel-kashmir">
-                <div class="panel-heading"><i class="fa fa-terminal"></i> Issued Commands</div>
+                <div class="panel-heading">
+                	<i class="fa fa-terminal"></i> 
+                	Issued Commands
+                </div>
                 <div class="panel-body">
                     <!--No issued commands alert-->
                     <p ng-if="!commands.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There have been no commands issued to this printer.</p>
@@ -159,7 +162,7 @@
     	<div class="col-lg-12">
     		<h2 id="recent-jobs"><i class="fa fa-list-alt"></i> Recent Jobs</h2>
     		<!--Queued jobs-->
-			<div class="job" ng-repeat="job in jobs">
+			<div class="job" ng-repeat="job in recentJobs">
 				<h3>
 					<i ng-if="job.data.status === 'queued'" class="fa fa-clock-o"></i>
 					<i ng-if="job.data.status === 'completed'" class="fa check-circle-o"></i>

@@ -45,6 +45,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Job</div>
                 <div class="panel-body">
+				<!--No current job Alert-->
+                <p ng-if="!currentJob.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
+
+                <!--Current Job-->
+               	<div ng-if="currentJob.length">
                 	<!--Alert-->
                 	<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
 
@@ -56,7 +61,7 @@
                     <div class="btn-group"  role="printer-actions" style="margin-bottom: 10px;">
                         <label ng-model="command" uib-btn-radio="'start'" type="button" class="btn btn-success"><i class="fa fa-play"></i> Start</label>
                         <label ng-model="command" uib-btn-radio="'pause'" type="button" class="btn btn-info"><i class="fa fa-pause"></i> Pause</label>
-                        <label ng-model="command" uib-btn-radio="'cancel'" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Cancel</button>
+                        <label ng-model="command" uib-btn-radio="'cancel'" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Cancel</button></label>
                     </div>
 
                     <!--Job Information-->
@@ -83,6 +88,7 @@
                             <label class="no-margin">Progress:</label> {{currentJob.data.progress.completion}}</li>
                     </ul>
                 </div>
+                </div>
             </div>
         </div>
     </div>
@@ -90,7 +96,7 @@
         <div class="col-lg-6">
             <!--Upload Job Panel-->
             <div class="panel panel-kashmir">
-                <div class="panel-heading"><i class="fa fa-upload"></i> Upload New Job</div>
+                <div class="panel-heading"><i class="fa fa-upload"></i> Upload New Job(s)</div>
                 <div class="panel-body">
                     <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
                 </div>
@@ -102,22 +108,19 @@
                 <div class="panel-body">
                     <!--No completed jobs alert-->
                     <p ng-if="!completedJobs.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no completed jobs associated with this printer.</p>
-                    <table ng-if="completedJobs.length" class="table">
-                        <thead>
-                            <th>ID</th>
-                            <th>File</th>
-                            <th>Created At</th>
-                            <th>Status</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="job in completedJobs">
-                                <td>{{job.id}}</td>
-                                <td>{{job.model_file_name_full}}</td>
-                                <td>{{job.created_at}}</td>
-                                <td>{{job.data.status}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <!--Completed jobs list-->
+					<table ng-if="completedJobs.length" at-table at-paginated at-list="completedJobs" at-config="completedJobsConfig" class="table table-striped table-bordered table-hover">
+					    <thead></thead>
+					    <tbody>
+					        <tr>
+					            <td at-implicit at-attribute="id" at-title="ID"></td>
+					            <td at-implicit at-attribute="model_file_name_full" at-title="File"></td>
+					            <td at-implicit at-attribute="created_at" at-title="Created At"></td>
+					            <td at-implicit at-attribute="data.status" at-title="Status"></td>
+					        </tr>
+					    </tbody>
+					</table>
+					<at-pagination ng-if="completedJobs.length" at-list="completedJobs" at-config="completedJobsConfig"></at-pagination>
                 </div>
             </div>
         </div>
@@ -132,22 +135,18 @@
                     <!--No queued jobs alert-->
                     <p ng-if="!queuedJobs.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no queued jobs associated with this printer.</p>
                     <!--List of queued jobs-->
-                    <table ng-if="queuedJobs.length" class="table">
-                        <thead>
-                            <th>ID</th>
-                            <th>File</th>
-                            <th>Created At</th>
-                            <th>Status</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="job in queuedJobs">
-                                <td>{{job.id}}</td>
-                                <td>{{job.model_file_name_full}}</td>
-                                <td>{{job.created_at}}</td>
-                                <td>{{job.data.status}}</td>
-                            </tr>
-                        </tbody>
+                    <table ng-if="queuedJobs.length" at-table at-paginated at-config="queuedJobsConfig" at-list="queuedJobs" class="table table-striped table-bordered table-hover">
+					    <thead></thead>
+					    <tbody>
+					        <tr>
+					            <td at-implicit at-attribute="id" at-title="ID"></td>
+					            <td at-implicit at-attribute="model_file_name_full" at-title="File"></td>
+					            <td at-implicit at-attribute="created_at" at-title="Created At"></td>
+					            <td at-implicit at-attribute="data.status" at-title="Status"></td>
+					        </tr>
+					    </tbody>
                     </table>
+					<at-pagination ng-if="queuedJobs.length" at-list="queuedJobs" at-config="queuedJobsConfig"></at-pagination>
                 </div>
             </div> 
             <!--Processing Jobs Panel-->
@@ -160,22 +159,18 @@
                     <!--No processing jobs alert-->
                     <p ng-if="!processingJobs.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs processing.</p>
                     <!--List of processing jobs-->
-                    <table ng-if="processingJobs.length" class="table">
-                        <thead>
-                            <th>ID</th>
-                            <th>File</th>
-                            <th>Created At</th>
-                            <th>Status</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="job in processingJobs">
-                                <td>{{job.id}}</td>
-                                <td>{{job.model_file_name_full}}</td>
-                                <td>{{job.created_at}}</td>
-                                <td>{{job.data.status}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+					<table ng-if="processingJobs.length" at-table at-paginated at-config="processingJobsConfig" at-list="processingJobs" class="table table-striped table-bordered table-hover">
+					    <thead></thead>
+					    <tbody>
+					        <tr>
+					            <td at-implicit at-attribute="id" at-title="ID"></td>
+					            <td at-implicit at-attribute="model_file_name_full" at-title="File"></td>
+					            <td at-implicit at-attribute="created_at" at-title="Created At"></td>
+					            <td at-implicit at-attribute="data.status" at-title="Status"></td>
+					        </tr>
+					    </tbody>
+					</table>
+					<at-pagination ng-if="processingJobs.length" at-list="processingJobs" at-config="processingJobsConfig"></at-pagination>
                 </div>
             </div> 
         	<!--Issued Commands Panel-->
@@ -185,22 +180,18 @@
                     <!--No issued commands alert-->
                     <p ng-if="!commands.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There have been no commands issued to this printer.</p>
                     <!--List of issued commands-->
-                    <table ng-if="commands.length" class="table">
-                        <thead>
-                            <th>Command</th>
-                            <th>Status</th>
-                            <th>Issued At</th>
-                            <th>Issued By</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="command in commands">
-                                <td>{{command.name}}</td>
-                                <td>{{command.status}}</td>
-                                <td>{{command.created_at}}</td>
-                                <td>{{command.issued_by}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+					<table ng-if="commands.length" at-table at-paginated at-config="issuedCommandsConfig" at-list="commands" class="table table-striped table-bordered table-hover">
+					    <thead></thead>
+					    <tbody>
+					        <tr>
+					            <td at-implicit at-attribute="name" at-title="Command"></td>
+					            <td at-implicit at-attribute="status" at-title="Status"></td>
+					            <td at-implicit at-attribute="created_at" at-title="Issued At"></td>
+					            <td at-implicit at-attribute="issued_by" at-title="Issued By"></td>
+					        </tr>
+					    </tbody>
+					</table>
+					<at-pagination ng-if="commands.length" at-list="commands" at-config="issuedCommandsConfig"></at-pagination>
                 </div>
             </div>        
 	        <!--Live Video Panel

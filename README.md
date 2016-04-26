@@ -21,5 +21,14 @@ Running locally
 	```sh
 	vagrant ssh
 	```
+	
+4. Fetch and build the project dependencies:
+```sh
+cd /vagrant
+npm install bower
+npm install grunt-cli
+bower install
+grunt clean default
+```
 
-4. Access the the server locally at [http://localhost:8080/](http://localhost:8080/)   
+5. Access the the server locally at [http://localhost:8080/](http://localhost:8080/)

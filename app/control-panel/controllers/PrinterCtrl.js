@@ -24,7 +24,6 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 		printer.getCurrentJob($stateParams.printerId)
 			.success(function(response) {
 				$scope.currentJob = response;
-				console.log(response);
 			})
 			.error(function(response) {
 				console.log('Unable to retrieve current job.');
@@ -47,7 +46,7 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	};
 
 	/**
-	 * Retrieve list of all jobs associated with this printer
+	 * Retrieve list of recent jobs associated with this printer
 	 */
 	$scope.getRecentJobs = function() {
 		printer.getRecentJobs($stateParams.printerId)

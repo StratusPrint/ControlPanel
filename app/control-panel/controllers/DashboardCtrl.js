@@ -18,6 +18,7 @@ function DashboardCtrl($scope, $q, hub,  printer, sensor) {
     return input + '%';
   };
 
+
   /********************************************************
    * Methods and chart handling
    */
@@ -88,24 +89,31 @@ function DashboardCtrl($scope, $q, hub,  printer, sensor) {
       sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
     }
 
+    // Execute all promises
     $q.all(sensorDataPromises).then(function(_data) {
       var sensorData = _data;
+      var tempSensors = [];
+      var humidSensors = [];
 
       for (var j = 0; j < sensorData.length; j++) {
+        // Bind to a variable in the sensor itself
         $scope.sensors[j].data = sensorData[j];
-        var dataLength = $scope.sensors[j].data.length;
-        $scope.sensors[j].newestDatum = $scope.sensors[j].data[dataLength - 1];
-        if ($scope.sensors[j].data[dataLength - 1].value === '1' || $scope.sensors[j].data[dataLength - 1].value === '0') {
-          if ($scope.sensors[j].data[dataLength - 1].value === '1') {
-            $scope.sensors[j].newestDatum.value = 'True';
-          } else {
-            $scope.sensors[j].newestDatum.value = 'False';
-          }
-        } else {
-          $scope.sensors[j].newestDatum.value = parseFloat($scope.sensors[j].data[dataLength - 1].value).toFixed(2);
+        if ($scope.sensors[j].category === 'temperature') {
+          populateTempGraph($scope.sensors[j].data);
+          // Populate temperature data for graph
+
+        } else if ($scope.sensors[j].category === 'humidity') {
+          // Populate humidity graph
         }
       }
     });
   });
 
+  /********************************************************
+   * Local functions
+   */
+
+  var truncateData = function(object) {
+    // $scope.sensors[j].data[j].value = parseFloat($scope.sensors[j].data[j].value.toFixed(2));
+  };
 }

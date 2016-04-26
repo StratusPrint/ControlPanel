@@ -8,6 +8,7 @@ angular.module('ControlPanel', [
     'datatables',
     'ngFileUpload',
     'angular.vertilize',
+    'angular-table',
 ]);
 
 var app = angular.module('ControlPanel');

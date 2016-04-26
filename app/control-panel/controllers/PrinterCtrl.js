@@ -13,6 +13,26 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.printer = [];
 	$scope.command = [];
 	$scope.currentJobAlert = [];
+	$scope.processingJobsConfig = {
+		itemsPerPage: 5,
+		maxPages: 5,
+		fillLastPage: "no"
+	};
+	$scope.completedJobsConfig = {
+		itemsPerPage: 5,
+		maxPages: 5,
+		fillLastPage: "no"
+	};
+	$scope.queuedJobsConfig = {
+		itemsPerPage: 5,
+		maxPages: 5,
+		fillLastPage: "no"
+	};
+	$scope.issuedCommandsConfig = {
+		itemsPerPage: 5,
+		maxPages: 5,
+		fillLastPage: "no"
+	};
 
 	/**
 	 * Retrieve list of all queued jobs associated with this printer

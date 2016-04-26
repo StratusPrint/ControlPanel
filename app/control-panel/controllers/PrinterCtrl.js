@@ -9,7 +9,6 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.commands = [];
 	$scope.printer = [];
 	$scope.command = [];
-	$scope.currentJob = [];
 	$scope.currentJobAlert = [];
 	$scope.issuedCommandsConfig = {
 		itemsPerPage: 6,

@@ -47,10 +47,10 @@
                 <div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Job</div>
                 <div class="panel-body">
 				<!--No current job Alert-->
-                <p ng-if="!currentJob" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
+                <p ng-if="!currentJob.id" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
 
                 <!--Current Job-->
-               	<div ng-if="currentJob">
+               	<div ng-if="currentJob.id">
                 	<!--Alert-->
                 	<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
 

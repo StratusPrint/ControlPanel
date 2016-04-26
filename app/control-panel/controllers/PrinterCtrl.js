@@ -5,61 +5,16 @@ app.controller('PrinterCtrl', PrinterCtrl);
 PrinterCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', 'printer'];
 
 function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
-	$scope.queuedJobs = [];
-	$scope.completedJobs = [];
-	$scope.processingJobs = [];
-	$scope.currentJob = [];
+	$scope.recentJobs = [];
 	$scope.commands = [];
 	$scope.printer = [];
 	$scope.command = [];
+	$scope.currentJob = [];
 	$scope.currentJobAlert = [];
-	$scope.processingJobsConfig = {
-		itemsPerPage: 5,
-		maxPages: 5,
-		fillLastPage: "no"
-	};
-	$scope.completedJobsConfig = {
-		itemsPerPage: 5,
-		maxPages: 5,
-		fillLastPage: "no"
-	};
-	$scope.queuedJobsConfig = {
-		itemsPerPage: 5,
-		maxPages: 5,
-		fillLastPage: "no"
-	};
 	$scope.issuedCommandsConfig = {
-		itemsPerPage: 5,
+		itemsPerPage: 6,
 		maxPages: 5,
 		fillLastPage: "no"
-	};
-
-	/**
-	 * Retrieve list of all queued jobs associated with this printer
-	 */
-	$scope.getQueuedJobs = function() {
-		printer.getQueuedJobs($stateParams.printerId)
-			.success(function(response) {
-				$scope.queuedJobs = response;
-			})
-			.error(function(response) {
-				console.log('Unable to retrieve list of queued jobs.');
-				console.log(response);
-			});
-	};
-
-	/**
-	 * Retrieve list of all queued jobs associated with this printer
-	 */
-	$scope.getProcessingJobs = function() {
-		printer.getProcessingJobs($stateParams.printerId)
-			.success(function(response) {
-				$scope.processingJobs = response;
-			})
-			.error(function(response) {
-				console.log('Unable to retrieve list of processing jobs.');
-				console.log(response);
-			});
 	};
 
 	/**
@@ -69,6 +24,7 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 		printer.getCurrentJob($stateParams.printerId)
 			.success(function(response) {
 				$scope.currentJob = response;
+				console.log(response);
 			})
 			.error(function(response) {
 				console.log('Unable to retrieve current job.');
@@ -91,15 +47,15 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	};
 
 	/**
-	 * Retrieve list of all completed jobs associated with this printer
+	 * Retrieve list of all jobs associated with this printer
 	 */
-	$scope.getCompletedJobs = function() {
-		printer.getCompletedJobs($stateParams.printerId)
+	$scope.getRecentJobs = function() {
+		printer.getRecentJobs($stateParams.printerId)
 			.success(function(response) {
-				$scope.completedJobs = response;
+				$scope.recentJobs = response;
 			})
 			.error(function(response) {
-				console.log('Unable to retrieve list of completed jobs.');
+				console.log('Unable to retrieve list of recent jobs.');
 				console.log(response);
 			});
 	};
@@ -138,12 +94,10 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	 * Refresh data.
 	 */
 	$scope.refresh = function() {
-		$scope.getCompletedJobs();
-		$scope.getQueuedJobs();
-		$scope.getProcessingJobs();
 		$scope.getCurrentJob();
 		$scope.getCommands();
-		$scope.getPrinter();		
+		$scope.getPrinter();
+		$scope.getRecentJobs();	
 	};
 
 	$controller('AlertCtrl', { $scope: $scope });

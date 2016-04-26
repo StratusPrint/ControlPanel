@@ -11,6 +11,7 @@
 		.desc {
 			padding-left: 15px;
 			font-size: 24px;
+			color: #353E33;
 		}
 		a:hover {
 			text-decoration: none;
@@ -94,7 +95,7 @@
 .upload-drop {
 	border: 5px dashed fade(black, 10%);
 	color: fade(black, 20%);
-	min-height: 232px;
+	min-height: 270px;
 	text-align: center;
 }
 .dragover {
@@ -105,5 +106,69 @@
 .resource-page#printer {
 	.pagination {
 		margin: 0;
+	}
+
+	h2#recent-jobs {
+		border-bottom: 2px solid @graynurse;
+		padding: 0 0 10px 0;
+		margin: 20px 0 20px 0;
+		color: #353E33;
+		i { color: @teal; }
+	}
+
+	.job {
+		background-color: white;
+		border: 1px solid @graynurse;
+		border-radius: 5px;
+		padding: 20px 20px;
+		margin: 0 0 20px 0;
+		i { color: @kashmir;}
+
+		h3 {
+			margin: 0;
+			border-bottom: 2px solid #F1F1F1;
+			padding: 0 0 10px 0;
+			span { display: inline-block; }
+			.label {
+			}
+		}
+		.meta {
+			margin: 0;
+			padding: 10px 0 0 0;
+			.date {
+			}			
+		}
+
+	}
+
+	.label-processing,
+	.label-slicing {
+		background-color: #f6ca6c;
+		text-shadow: 1px 1px 0 darken(#f6ca6c, 20%);
+	}
+
+	.label-queued {
+		background-color: #43A7C3;
+		text-shadow: 1px 1px 0 darken(#43A7C3, 20%);
+	}
+
+	.label-paused {
+		background-color: #707570;
+		text-shadow: 1px 1px 0 darken(#707570, 20%);
+	}
+
+	.label-errored {
+		background-color: @venetionred;
+		text-shadow: 1px 1px 0 darken(@venetionred, 20%);
+	}
+
+	.label-printing {
+		background-color: darken(@blossom, 20%);
+		text-shadow: 1px 1px 0 darken(@blossom, 20%);
+	}
+
+	.label-completed {
+		background-color: @forestgreen;
+		text-shadow: 1px 1px 0 darken(@forestgreen, 20%);
 	}
 }

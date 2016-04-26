@@ -8,6 +8,7 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.queuedJobs = [];
 	$scope.completedJobs = [];
 	$scope.processingJobs = [];
+	$scope.jobs = [];
 	$scope.currentJob = [];
 	$scope.commands = [];
 	$scope.printer = [];
@@ -105,6 +106,20 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	};
 
 	/**
+	 * Retrieve list of all jobs associated with this printer
+	 */
+	$scope.getJobs = function() {
+		printer.getJobs($stateParams.printerId)
+			.success(function(response) {
+				$scope.jobs = response;
+			})
+			.error(function(response) {
+				console.log('Unable to retrieve list of all jobs.');
+				console.log(response);
+			});
+	};
+
+	/**
 	 * Retrieve list of all completed jobs associated with this printer
 	 */
 	$scope.getPrinter = function() {
@@ -143,16 +158,18 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 		$scope.getProcessingJobs();
 		$scope.getCurrentJob();
 		$scope.getCommands();
-		$scope.getPrinter();		
+		$scope.getPrinter();
+		$scope.getJobs();	
 	};
 
 	$controller('AlertCtrl', { $scope: $scope });
 
 	$scope.refresh();
 
+/*
 	this.interval = setInterval(function(){
 		$scope.refresh();
-	}, 2000);
+	}, 2000);*/
 
 	$scope.$watch('command', $scope.issueCommand);
 }

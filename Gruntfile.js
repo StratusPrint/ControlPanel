@@ -71,6 +71,7 @@ module.exports = function(grunt) {
                 'bower_components/ng-file-upload/ng-file-upload.js',
                 'bower_components/angular-vertilize/angular-vertilize.js',
                 'bower_components/at-table/dist/angular-table.js',
+                'bower_components/angular-morris-chart/src/angular-morris-chart.js',
                 'app/app.js',
                 'app/control-panel/**/*.js'
               ]

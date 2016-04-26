@@ -2,15 +2,17 @@
 
 app.controller('PrinterCtrl', PrinterCtrl);
 
-PrinterCtrl.$inject = ['$scope', '$state', '$stateParams', 'printer'];
+PrinterCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', 'printer'];
 
-function PrinterCtrl($scope, $state, $stateParams, printer) {
+function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.queuedJobs = [];
 	$scope.completedJobs = [];
 	$scope.processingJobs = [];
 	$scope.currentJob = [];
 	$scope.commands = [];
 	$scope.printer = [];
+	$scope.command = [];
+	$scope.currentJobAlert = [];
 
 	/**
 	 * Retrieve list of all queued jobs associated with this printer
@@ -96,10 +98,28 @@ function PrinterCtrl($scope, $state, $stateParams, printer) {
 			});
 	};
 
+	/**
+	 * Issue a printer command.
+	 */
+	$scope.issueCommand = function() {
+		if(!$scope.command.length) { return; }
+
+		printer.issueCommand($stateParams.printerId, $scope.command)
+			.success(function(response) {
+				$scope.addAlert('info', 'The ' + $scope.command + ' command has been sent to the printer. Please wait a minute for the command be executed and the current job status updated.');
+			})
+			.error(function(response) {
+				$scope.addAlert('danger', 'Command successfully issued.');
+				console.log(response);
+			});
+	};
+
+	$controller('AlertCtrl', { $scope: $scope });
 	$scope.getCompletedJobs();
 	$scope.getQueuedJobs();
 	$scope.getProcessingJobs();
 	$scope.getCurrentJob();
 	$scope.getCommands();
 	$scope.getPrinter();
+	$scope.$watch('command', $scope.issueCommand);
 }

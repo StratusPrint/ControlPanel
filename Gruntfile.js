@@ -96,7 +96,9 @@ module.exports = function(grunt) {
             'bower_components/datatables/media/js/jquery.dataTables.js',
             'bower_components/datatables/media/js/dataTables.bootstrap.js',
             'bower_components/datatables-responsive/js/dataTables.responsive.js',
-            'bower_components/datatables-responsive/js/responsive.bootstrap.js'
+            'bower_components/datatables-responsive/js/responsive.bootstrap.js',
+            'bower_components/raphael/raphael.js',
+            'bower_components/morrisjs/morris.js'
           ],
           'app/public/js/graphs.js': [
             'bower_components/raphael/raphael.js',

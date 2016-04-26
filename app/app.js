@@ -9,6 +9,7 @@ angular.module('ControlPanel', [
     'ngFileUpload',
     'angular.vertilize',
     'angular-table',
+    'angular.morris-chart',
 ]);
 
 var app = angular.module('ControlPanel');

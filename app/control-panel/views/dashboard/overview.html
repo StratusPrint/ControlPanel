@@ -126,34 +126,34 @@
     </div>
   </div>
 
-    <div class="col-lg-4">
-      <div class="panel panel-kashmir">
-        <div class="panel-heading">
-          <i class="printer-icon glyphicon glyphicon-print"></i> Printers 
-        </div>
-        <div class="panel-body">
-          <div class="list-group">
-            <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
-              <i class="fa fa-comment fa-fw"></i> {{printer.friendly_id}}
-              <span class="pull-right text-muted small"><em>{{printer.data.state.flags.printing}}</em>
-              </span>
-            </a>
-          </div>
+  <div class="col-lg-4">
+    <div class="panel panel-kashmir">
+      <div class="panel-heading">
+        <i class="printer-icon glyphicon glyphicon-print"></i> Printers 
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
+            <i class="fa fa-comment fa-fw"></i> {{printer.friendly_id}}
+            <span class="pull-right text-muted small"><em>{{printer.data.state.flags.printing}}</em>
+            </span>
+          </a>
         </div>
       </div>
     </div>
-
   </div>
-  <div class="panel panel-kashmir">
-    <div class="panel-heading">
-      <i class="fa fa-bar-chart-o fa-fw"></i> Temperature 
-    </div>
-    <div class="panel-body">
-      <div class="row">
-        <div id="morris-area-chart"></div>
-      </div>
+
+</div>
+<div class="panel panel-kashmir">
+  <div class="panel-heading">
+    <i class="fa fa-bar-chart-o fa-fw"></i> Temperature 
+  </div>
+  <div class="panel-body">
+    <div class="row">
+
+      <h1>angular-morris-chart example This will be a temp sensor area chart</h1>
+      <div donut-chart="" donut-data="chartData" donut-colors="chartColors" donut-formatter="'currency'"></div>
     </div>
   </div>
 </div>
 
-<script src='public/js/graphs.js'></script>

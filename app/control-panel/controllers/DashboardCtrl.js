@@ -2,10 +2,21 @@ app.controller('DashboardCtrl', DashboardCtrl);
 
 DashboardCtrl.$inject = ['$scope', '$q', 'hub', 'printer', 'sensor'];
 
-function DashboardCtrl($scope, $q, hub, printer, sensor) {
+function DashboardCtrl($scope, $q, hub,  printer, sensor) {
   $scope.printer = {};
   var defaultHubId = $scope.user._user.default_hub_id;
   console.log('using hub: ' + defaultHubId);
+
+
+  $scope.chartData = [
+    {label: 'Download Sales', value: 12},
+    {label: 'In-Store Sales', value: 30},
+    {label: 'Mail-Order Sales', value: 20},
+  ];
+  $scope.chartColors = ['#31C0BE', '#c7254e', '#98a0d3'];
+  $scope.myFormatter = function(input) {
+    return input + '%';
+  };
 
   /********************************************************
    * Methods and chart handling

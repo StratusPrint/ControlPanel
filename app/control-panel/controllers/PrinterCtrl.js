@@ -10,10 +10,28 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.printer = [];
 	$scope.command = {name: ''};
 	$scope.currentJobAlert = [];
+	$scope.printerModal = {};
+	$scope.printerModal.show = false;
+	$scope.cancelJobModal = {};
+	$scope.cancelJobModal.show = false;
 	$scope.issuedCommandsConfig = {
 		itemsPerPage: 6,
 		maxPages: 5,
 		fillLastPage: "no"
+	};
+
+	/**
+	 * Update printer profile
+	 */
+	$scope.updatePrinter = function(attributes) {
+		printer.update($stateParams.printerId, attributes)
+			.success(function(response) {
+				$scope.printerModal.addAlert('success', 'The printer has been updated successfully.');
+			})
+			.error(function(response) {
+				$scope.printerModal.addAlert('danger', 'Unable to update printer. Please double check that the specified name is not already in use by another printer.');
+				console.log(response);
+			});
 	};
 
 	/**
@@ -99,6 +117,7 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	};
 
 	$controller('AlertCtrl', { $scope: $scope });
+	$controller('AlertCtrl', { $scope: $scope.printerModal});
 
 	$scope.refresh();
 

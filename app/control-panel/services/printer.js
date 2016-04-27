@@ -4,22 +4,23 @@ PrinterService.$inject = ['$http'];
 
 function PrinterService($http) {
   var service = {
-    getJobs: getJobs,
-    jobs: [],
     getCurrentJob: getCurrentJob,
-    currentJob: [],
     getProcessingJobs: getProcessingJobs,
-    processingJobs: [],
     getQueuedJobs: getQueuedJobs,
-    queuedJobs: [],
     getCompletedJobs: getCompletedJobs,
-    completedJobs: [],
     getRecentJobs: getRecentJobs,
-    recentJobs: [],
     getPrinter: getPrinter,
-    printer: [],
     issueCommand: issueCommand,
     getCommands: getCommands,
+    getJobs: getJobs,
+    jobs: [],
+    currentJob: [],
+    processingJobs: [],
+    queuedJobs: [],
+    completedJobs: [],
+    recentJobs: [],
+    printer: [],
+    update: update,
     commands: [],
   };
   return service;

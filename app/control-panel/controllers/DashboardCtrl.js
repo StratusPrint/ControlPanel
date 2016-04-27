@@ -99,7 +99,13 @@ function DashboardCtrl($scope, $q, hub,  printer, sensor) {
         // Bind to a variable in the sensor itself
         $scope.sensors[j].data = sensorData[j];
         if ($scope.sensors[j].category === 'temperature') {
-          populateTempGraph($scope.sensors[j].data);
+          // $scope.sensors[j].data = truncateData($scope.sensors[j].data);
+          // $scope.sensors[j] = truncateData($scope.sensors[j]);
+          truncateData($scope.sensors[j]);
+
+          // Console.log($scope.sensors[j].data);
+          // TempSensor.push($scope.sensors[j]);
+          // PopulateTempGraph($scope.sensors[j]);
           // Populate temperature data for graph
 
         } else if ($scope.sensors[j].category === 'humidity') {
@@ -112,8 +118,14 @@ function DashboardCtrl($scope, $q, hub,  printer, sensor) {
   /********************************************************
    * Local functions
    */
+  function truncateData(_sensor) {
+    for (var i; i < _sensor.data.length; i++) {
+      // _sensor.data[i].value = parseFloat(_sensor.data[i].value.toFixed(2));
+      _sensor.data[i].value = 5;
+      console.log('Truncated data ' + _sensor.data[i].value);
+    }
+    console.log('Truncated');
+    console.log(_sensor.data);
+  }
 
-  var truncateData = function(object) {
-    // $scope.sensors[j].data[j].value = parseFloat($scope.sensors[j].data[j].value.toFixed(2));
-  };
 }

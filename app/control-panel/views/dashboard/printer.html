@@ -220,8 +220,10 @@
     <div class="row">
     	<div class="col-lg-12">
     		<h2 id="recent-jobs"><i class="fa fa-list-alt"></i> Recent Jobs</h2>
-    		<!--Queued jobs-->
-			<div class="job" ng-repeat="job in recentJobs">
+            <!--No issued commands alert-->
+            <p ng-if="!recentJobs.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are no recent jobs associated with this printer.</p>
+    		<!--Recent jobs-->
+			<div class="job" ng-if="recentJobs.length" ng-repeat="job in recentJobs">
 				<h3>
 					<i ng-if="job.data.status === 'queued'" class="fa fa-clock-o"></i>
 					<i ng-if="job.data.status === 'completed'" class="fa check-circle-o"></i>

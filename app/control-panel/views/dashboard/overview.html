@@ -1,8 +1,19 @@
 <div class="row">
-  <div class="col-lg-12">
-    <h1 class="page-header">{{hub.friendly_id}} Dashboard</h1>
-  </div>
-  <!-- /.col-lg-12 -->
+    <div class="col-lg-12 page-header top-btm-margin20">
+      <div class="col-lg-8">
+        <h1>Dashboard {{currentHub.friendly_id}}</h1>
+      </div>
+      <div class="col-lg-4">
+        <div class="dropdown pull-right">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{currentHub.friendly_id}}
+            <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id"><a href="#">{{hub.friendly_id}}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
 <div class="row">

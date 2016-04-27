@@ -1,8 +1,9 @@
 app.controller('DashboardCtrl', DashboardCtrl);
 
-DashboardCtrl.$inject = ['$scope', '$q', 'hub', 'printer', 'sensor'];
+DashboardCtrl.$inject = ['$scope', '$stateParams', '$q', 'hub', 'printer', 'sensor'];
 
-function DashboardCtrl($scope, $q, hub,  printer, sensor) {
+function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
+  console.log($stateParams);
   $scope.printer = {};
   var defaultHubId = $scope.user._user.default_hub_id;
   console.log('using hub: ' + defaultHubId);
@@ -56,8 +57,14 @@ function DashboardCtrl($scope, $q, hub,  printer, sensor) {
    * Fetching all objects
    */
   var defaultHubPromise = hub.getHub(defaultHubId);
-  defaultHubPromise.then(function(_hub) {
-    $scope.hub = _hub;
+  defaultHubPromise.then(function(_defaultHub) {
+    $scope.currentHub = _defaultHub;
+  });
+
+  var hubsPromise = hub.getAllHubs();
+  hubsPromise.then(function(_hubs) {
+    $scope.hubs = _hubs;
+    console.log($scope.hubs);
   });
 
   var statsPromise = hub.getStatistics(defaultHubId);
@@ -122,10 +129,10 @@ function DashboardCtrl($scope, $q, hub,  printer, sensor) {
     for (var i; i < _sensor.data.length; i++) {
       // _sensor.data[i].value = parseFloat(_sensor.data[i].value.toFixed(2));
       _sensor.data[i].value = 5;
-      console.log('Truncated data ' + _sensor.data[i].value);
+      // Console.log('Truncated data ' + _sensor.data[i].value);
     }
-    console.log('Truncated');
-    console.log(_sensor.data);
+    // Console.log('Truncated');
+    // Console.log(_sensor.data);
   }
 
 }

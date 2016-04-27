@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Dashboard</h1>
+    <h1 class="page-header">{{hub.friendly_id}} Dashboard</h1>
   </div>
   <!-- /.col-lg-12 -->
 </div>
@@ -96,30 +96,35 @@
   </div>
 </div>
 
-<div class = "row">
+<div class="row">
   <div class="col-lg-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <i class="printer-icon glyphicon glyphicon-print"></i> Printer 
+        <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}} 
       </div>
-      <div class="panel-body">
-        <div class="well printer">
-          <div class="row flex-wrap flex-valign">
+      <div class="well printer">
+        <div class="panel-body row flex-valign">
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <ul class="list-group no-margin">
+              <li class="list-group-item">
+                <label>Friendly ID:</label> {{printer.friendly_id}}</li>
+              <li class="list-group-item">
+                <!-- Safe to assume printer location the same as hub location?  I think so, but maybe not -->
+                <label>Location:</label> {{hub.location}}</li>
+              <li class="list-group-item">
+                <label>Model:</label> {{printer.model}}</li>
+              <li class="list-group-item">
+                <label>Description:</label> {{printer.description}}</li>
+              <li class="list-group-item">
+                <label>Status:</label> {{printer.status}}</li>
+              <li class="list-group-item">
+                <label>Current Job:</label> {{printer.currentJob.id}}</li>
+            </ul>
+            <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" 
+                    ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
+          </div>
+          <div class="col-lg-4 col-md-12 col-sm-12">
             <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
-            <div class="col-lg-8">
-              <ul class="list-group no-margin">
-                <li class="list-group-item">
-                  <label>Friendly ID:</label> {{printer.id}}</li>
-                <li class="list-group-item">
-                  <label>Model:</label> {{printer.model}}</li>
-                <li class="list-group-item">
-                  <label>Description:</label> {{printer.description}}</li>
-                <li class="list-group-item">
-                  <label>Status:</label> {{printer.data.state.text}}</li>
-                <li class="list-group-item">
-                  <label>Current Job:</label> {{printer.currentJob.id}}</li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -144,16 +149,30 @@
   </div>
 
 </div>
-<div class="panel panel-kashmir">
-  <div class="panel-heading">
-    <i class="fa fa-bar-chart-o fa-fw"></i> Temperature 
-  </div>
-  <div class="panel-body">
-    <div class="row">
-
-      <h1>angular-morris-chart example This will be a temp sensor area chart</h1>
-      <div donut-chart="" donut-data="chartData" donut-colors="chartColors" donut-formatter="'currency'"></div>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="panel panel-kashmir">
+      <div class="panel-heading">
+        <i class="fa fa-bar-chart-o fa-fw"></i> Temperature 
+      </div>
+      <div class="panel-body">
+        <h1>angular-morris-chart example This will be a temp sensor line graph</h1>
+        <div donut-chart="" donut-data="chartData" donut-colors="chartColors" donut-formatter="'currency'"></div>
+      </div>
     </div>
   </div>
+
+  <div class="col-lg-6">
+    <div class="panel panel-kashmir">
+      <div class="panel-heading">
+        <i class="fa fa-bar-chart-o fa-fw"></i> Humidity 
+      </div>
+      <div class="panel-body">
+        <h1>angular-morris-chart example This will be a humidity area chart</h1>
+        <div donut-chart="" donut-data="chartData" donut-colors="chartColors" donut-formatter="'currency'"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 

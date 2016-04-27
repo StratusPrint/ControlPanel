@@ -1,6 +1,6 @@
 <modal title="Modify Printer Details" visible="printerModal.show">
 	<uib-alert ng-repeat="alert in printerModal.alerts" type="{{alert.type}}" close="printerModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
-	<form name="printerForm" role="form" ng-submit="updatePrinter(printerProfile)" ng-init="printerProfile = {}" novalidate>
+	<form name="printerForm" role="form" ng-submit="updatePrinter(printerProfile); printerProfile = {}; printerForm.$setPristine();" ng-init="printerProfile = {}" novalidate>
         <div class="form-group" show-errors>
             <label for="friendly_id">Name</label>
             <input autocomplete="off" name="friendly_id" ng-model="printerProfile.friendly_id" type="text" class="form-control" placeholder="{{printer.friendly_id}}" ng-minlength="4" />

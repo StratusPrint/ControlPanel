@@ -1,6 +1,6 @@
 <modal title="Update Sensor" visible="updateSensorModal.show">
     <uib-alert ng-repeat="alert in updateSensorModal.alerts" type="{{alert.type}}" close="updateSensorModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
-    <form name="sensorForm" role="form" ng-submit="updateSensor(updateSensorModal.sensor.id, sensorProfile)" ng-init="sensorProfile = {}" novalidate>
+    <form name="sensorForm" role="form" ng-submit="updateSensor(updateSensorModal.sensor.id, sensorProfile); sensorProfile = {}; sensorForm.$setPristine();" ng-init="sensorProfile = {}" novalidate>
         <div class="form-group" show-errors>
             <label for="friendly_id">Name</label>
             <input autocomplete="off" name="friendly_id" ng-model="sensorProfile.friendly_id" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.friendly_id}}" ng-minlength="4" />

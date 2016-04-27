@@ -1,10 +1,9 @@
+// jscs:disable
+
 app.controller('ViewHubCtrl', ViewHubCtrl);
 ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$q', '$controller', 'hub', 'printer', 'sensor'];
 
 function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hub, printer, sensor) {
-  // Inject alert controller scope
-  $controller('AlertCtrl', { $scope: $scope });
-
   var hubId = Number($stateParams.hubId);
 
   var hubPromise = hub.getHub(hubId);
@@ -15,12 +14,31 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
   $scope.showDeleteModal = false; // Set to true to show the delete confirmation modal
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
+  $scope.updateSensorModal = {};
+  $scope.updateSensorModal.show = false;
+
+  $controller('AlertCtrl', { $scope: $scope });
+  $controller('AlertCtrl', { $scope: $scope.updateSensorModal});
 
   /*********************************************************
    *
    * FUNCTIONS
    *
    * /
+
+  /**
+   * Update a sensor
+   */
+  $scope.updateSensor = function(sensorId, attributes) {
+    hub.updateSensor(sensorId, attributes)
+      .success(function(response) {
+        $scope.updateSensorModal.addAlert('success', 'The sensor has been updated successfully.');
+      })
+      .error(function(response) {
+          $scope.updateSensorModal.addAlert('danger', 'Unable to update sensor. Please double check that the specified name is not already in use by another sensor.');
+          console.log(response);
+      });
+  };
 
   /**
    * ToHubsPage

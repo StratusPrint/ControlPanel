@@ -177,6 +177,14 @@ function HubService($http, $state, user) {
     });
   };
 
+  this.updateSensor = function(sensorId, attributes) {
+    return $http({
+      method: 'PATCH',
+      url: 'https://dev.api.stratusprint.com/v1/sensors/' + sensorId,
+      data: attributes,
+    });
+  };
+
   /**
      *GetStatistics
      * performs a get request to retrieve the statistics associated with a hub

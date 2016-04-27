@@ -52,7 +52,7 @@
                     <p class="reading reading-default" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}} %</p>
                     <p class="reading reading-default" ng-if="sensor.category==='door'">{{sensor.newestDatum.value}}</p>
                     <p class="reading reading-default" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}} &#8457;</p>
-                    <button type="button" ng-click="updateSensorModal.show = true; updateSensorModal.sensor = sensor;" class="btn btn-info btn-block" style="margin-top: 10px;"><i class="fa fa-pencil-square"></i> Modify Details</button>
+                    <button type="button" ng-if="user.isAdmin()" ng-click="updateSensorModal.show = true; updateSensorModal.sensor = sensor;" class="btn btn-info btn-block" style="margin-top: 10px;"><i class="fa fa-pencil-square"></i> Modify Details</button>
                 </div>
             </div>
         </div>

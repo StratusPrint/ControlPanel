@@ -1,28 +1,28 @@
-<modal title="Update Sensor" visible="updateSensorModal.show">
+<modal title="Update Sensor" visible="updateSensorModalVisible">
     <uib-alert ng-repeat="alert in updateSensorModal.alerts" type="{{alert.type}}" close="updateSensorModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
-    <form name="sensorForm" role="form" ng-submit="updateSensor(updateSensorModal.sensor.id, sensorProfile); sensorProfile = {}; sensorForm.$setPristine();" ng-init="sensorProfile = {}" novalidate>
+    <form name="updateSensorModal.form" role="form" ng-submit="updateSensor(updateSensorModal.sensor.id, updateSensorModal.attributes)" novalidate>
         <div class="form-group" show-errors>
             <label for="friendly_id">Name</label>
-            <input autocomplete="off" name="friendly_id" ng-model="sensorProfile.friendly_id" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.friendly_id}}" ng-minlength="4" />
-            <span ng-show="sensorForm.friendly_id.$error.minlength" class="help-block">Name is too short. Must be at least 4 characters.</span>
+            <input autocomplete="off" name="friendly_id" ng-model="updateSensorModal.attributes.friendly_id" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.friendly_id}}" ng-minlength="4" />
+            <span ng-show="updateSensorModal.form.friendly_id.$error.minlength" class="help-block">Name is too short. Must be at least 4 characters.</span>
         </div>
         <div class="form-group" show-errors>
             <label for="manufacturer">Manufacturer</label>
-            <input autocomplete="off" name="manufacturer" ng-model="sensorProfile.manufacturer" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.manufacturer}}" ng-minlength="1" />
-            <span ng-show="sensorForm.manufacturer.$error.minlength" class="help-block">Must be at least 1 character long.</span>
+            <input autocomplete="off" name="manufacturer" ng-model="updateSensorModal.attributes.manufacturer" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.manufacturer}}" ng-minlength="1" />
+            <span ng-show="updateSensorModal.form.manufacturer.$error.minlength" class="help-block">Must be at least 1 character long.</span>
         </div>
         <div class="form-group" show-errors>
             <label for="model">Model</label>
-            <input autocomplete="off" name="manufacturer" ng-model="sensorProfile.model" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.model}}" ng-minlength="1" />
-            <span ng-show="sensorForm.model.$error.minlength" class="help-block">Must be at least 1 character long.</span>
+            <input autocomplete="off" name="manufacturer" ng-model="updateSensorModal.attributes.model" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.model}}" ng-minlength="1" />
+            <span ng-show="updateSensorModal.form.model.$error.minlength" class="help-block">Must be at least 1 character long.</span>
         </div>
         <div class="form-group" show-errors>
             <label for="desc">Description</label>
-            <input autocomplete="off" name="desc" ng-model="sensorProfile.desc" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.desc}}" ng-maxlength="256" />
-            <span ng-show="sensorForm.desc.$error.minlength" class="help-block">Cannot be longer than 256 characters.</span>
+            <input autocomplete="off" name="desc" ng-model="updateSensorModal.attributes.desc" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.desc}}" ng-maxlength="256" />
+            <span ng-show="updateSensorModal.form.desc.$error.minlength" class="help-block">Cannot be longer than 256 characters.</span>
         </div>
         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
-        <button type="button" ng-click="updateSensorModal.show = false; updateSensorModal.alerts = [];" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
+        <button type="button" ng-click="hideSensorModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
     </form>
 </modal>
 
@@ -52,7 +52,7 @@
                     <p class="reading reading-default" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}} %</p>
                     <p class="reading reading-default" ng-if="sensor.category==='door'">{{sensor.newestDatum.value}}</p>
                     <p class="reading reading-default" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}} &#8457;</p>
-                    <button type="button" ng-if="user.isAdmin()" ng-click="updateSensorModal.show = true; updateSensorModal.sensor = sensor;" class="btn btn-info btn-block" style="margin-top: 10px;"><i class="fa fa-pencil-square"></i> Modify Details</button>
+                    <button type="button" ng-if="user.isAdmin()" ng-click="updateSensorModal.sensor = sensor; showSensorModal()" class="btn btn-info btn-block" style="margin-top: 10px;"><i class="fa fa-pencil-square"></i> Modify Details</button>
                 </div>
             </div>
         </div>

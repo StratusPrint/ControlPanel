@@ -199,7 +199,6 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
     hub.getSensors(hubId)
       .success(function(response) {
         $scope.sensors = response;
-        console.log(response);
       })
       .error(function(response) {
         console.log('Unable to retrieve a list of sensors.');
@@ -276,4 +275,8 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
    * Retrieve list of sensors
    */
   $scope.getSensors();
+
+  this.interval = setInterval(function(){
+    $scope.getSensors();
+  }, 2000);
 }

@@ -10,10 +10,15 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.printer = [];
 	$scope.command = {name: ''};
 	$scope.currentJobAlert = [];
+
 	$scope.printerModal = {};
-	$scope.printerModal.show = false;
+	$scope.printerModal.form = {};
+	$scope.printerModal.printer = {};
+	$scope.printerModalVisible = false;
+
 	$scope.cancelJobModal = {};
-	$scope.cancelJobModal.show = false;
+	$scope.cancelJobModalVisible = false;
+
 	$scope.issuedCommandsConfig = {
 		itemsPerPage: 6,
 		maxPages: 5,
@@ -27,11 +32,34 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 		printer.update($stateParams.printerId, attributes)
 			.success(function(response) {
 				$scope.printerModal.addAlert('success', 'The printer has been updated successfully.');
+				$scope.getPrinter();
+				$scope.printerModal.form.$setPristine();
+				$scope.printerModal.printer = {};
 			})
 			.error(function(response) {
 				$scope.printerModal.addAlert('danger', 'Unable to update printer. Please double check that the specified name is not already in use by another printer.');
 				console.log(response);
 			});
+	};
+
+	/**
+	 * Modal visibility toggling
+	 */
+	$scope.showPrinterModal = function() {
+		$scope.printerModalVisible = true;
+	};
+
+	$scope.hidePrinterModal = function() {
+		$scope.printerModalVisible = false;
+		$scope.printerModal.alerts = [];
+	};
+
+	$scope.showCancelJobModal = function() {
+		$scope.cancelJobModalVisible = true;
+	};
+
+	$scope.hideCancelJobModal = function() {
+		$scope.cancelJobModalVisible = false;
 	};
 
 	/**

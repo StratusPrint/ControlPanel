@@ -1,38 +1,38 @@
-<modal title="Modify Printer Details" visible="printerModal.show">
+<modal title="Modify Printer Details" visible="printerModalVisible">
 	<uib-alert ng-repeat="alert in printerModal.alerts" type="{{alert.type}}" close="printerModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
-	<form name="printerForm" role="form" ng-submit="updatePrinter(printerProfile); printerProfile = {}; printerForm.$setPristine();" ng-init="printerProfile = {}" novalidate>
+	<form name="printerModal.form" role="form" ng-submit="updatePrinter(printerModal.printer)" novalidate>
         <div class="form-group" show-errors>
             <label for="friendly_id">Name</label>
-            <input autocomplete="off" name="friendly_id" ng-model="printerProfile.friendly_id" type="text" class="form-control" placeholder="{{printer.friendly_id}}" ng-minlength="4" />
-            <span ng-show="printerForm.friendly_id.$error.minlength" class="help-block">Name is too short. Must be at least 4 characters.</span>
+            <input autocomplete="off" name="friendly_id" ng-model="printerModal.printer.friendly_id" type="text" class="form-control" placeholder="{{printer.friendly_id}}" ng-minlength="4" />
+            <span ng-show="printerModal.form.friendly_id.$error.minlength" class="help-block">Name is too short. Must be at least 4 characters.</span>
         </div>
         <div class="form-group" show-errors>
             <label for="manufacturer">Manufacturer</label>
-            <input autocomplete="off" name="manufacturer" ng-model="printerProfile.manufacturer" type="text" class="form-control" placeholder="{{printer.manufacturer}}" ng-minlength="1" />
-            <span ng-show="printerForm.manufacturer.$error.minlength" class="help-block">Must be at least 1 character long.</span>
+            <input autocomplete="off" name="manufacturer" ng-model="printerModal.printer.manufacturer" type="text" class="form-control" placeholder="{{printer.manufacturer}}" ng-minlength="1" />
+            <span ng-show="printerModal.form.manufacturer.$error.minlength" class="help-block">Must be at least 1 character long.</span>
         </div>
         <div class="form-group" show-errors>
             <label for="model">Model</label>
-            <input autocomplete="off" name="model" ng-model="printerProfile.model" type="text" class="form-control" placeholder="{{printer.model}}" ng-minlength="1" />
-            <span ng-show="printerForm.model.$error.minlength" class="help-block">Must be at least 1 character long.</span>
+            <input autocomplete="off" name="model" ng-model="printerModal.printer.model" type="text" class="form-control" placeholder="{{printer.model}}" ng-minlength="1" />
+            <span ng-show="printerModal.form.model.$error.minlength" class="help-block">Must be at least 1 character long.</span>
         </div>
         <div class="form-group" show-errors>
             <label for="description">Description</label>
-            <input autocomplete="off" name="description" ng-model="printerProfile.description" type="text" class="form-control" placeholder="{{printer.description}}" ng-minlength="1" ng-maxlength="256" />
-            <span ng-show="printerForm.description.$error.minlength" class="help-block">Must be at least 1 character long.</span>
-            <span ng-show="printerForm.description.$error.maxlength" class="help-block">Must not be longer than 256 characters.</span>
+            <input autocomplete="off" name="description" ng-model="printerModal.printer.description" type="text" class="form-control" placeholder="{{printer.description}}" ng-minlength="1" ng-maxlength="256" />
+            <span ng-show="printerModal.form.description.$error.minlength" class="help-block">Must be at least 1 character long.</span>
+            <span ng-show="printerModal.form.description.$error.maxlength" class="help-block">Must not be longer than 256 characters.</span>
         </div>
     	<button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
-    	<button type="button" ng-click="printerModal.show = !printerModal.show; printerModal.alerts = [];" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
+    	<button type="button" ng-click="hidePrinterModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
     </form>
 </modal>
 
-<modal title="Cancel Current Job" visible="cancelJobModal.show">
+<modal title="Cancel Current Job" visible="cancelJobModalVisible">
 	<p class="alert alert-warning">
 		<i class="fa fa-exclamation-triangle"></i> Are you sure that you want to cancel the current print job? This action is <strong>not reversible</strong>.
 	</p>
-	<button type="button" class="btn btn-danger" ng-click="command.name = 'cancel'; cancelJobModal.show = !cancelJobModal.show"><i class="fa fa-check-circle"></i> Yes, Cancel Job Now</button>
-	<button type="button" class="btn btn-warning" ng-click="cancelJobModal.show = !cancelJobModal.show"><i class="fa fa-times"></i> Nevermind</button>
+	<button type="button" class="btn btn-danger" ng-click="command.name = 'cancel'; hideCancelJobModal();"><i class="fa fa-check-circle"></i> Yes, Cancel Job Now</button>
+	<button type="button" class="btn btn-warning" ng-click="hideCancelJobModal()"><i class="fa fa-times"></i> Nevermind</button>
 </modal>
 
 <div id="printer" class="resource-page">
@@ -92,7 +92,7 @@
 
 	            <div class="col-lg-3">
 	            	<p class="text-right" style="padding-top:45px;" ng-if="user.isAdmin()">
-	            		<button class="btn btn-info" href="javascript:void" ng-click="printerModal.show = !printerModal.show">Modify Details <i class="fa fa-pencil-square"></i></button>
+	            		<button class="btn btn-info" href="javascript:void" ng-click="showPrinterModal()">Modify Details <i class="fa fa-pencil-square"></i></button>
 	            	</p>
 	            </div>
             </div>
@@ -120,7 +120,7 @@
                     <div class="btn-group"  role="printer-actions" style="margin-bottom: 10px;">
                         <label ng-disabled="printer.status !== 'paused'" ng-model="command.name" uib-btn-radio="'start'" type="button" class="btn btn-success"><i class="fa fa-play"></i> Start</label>
                         <label ng-disabled="printer.status === 'paused'" ng-model="command.name" uib-btn-radio="'pause'" type="button" class="btn btn-info"><i class="fa fa-pause"></i> Pause</label>
-                        <label ng-click="cancelJobModal.show = !cancelJobModal.show" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Cancel</button></label>
+                        <label ng-click="showCancelJobModal()" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Cancel</button></label>
                     </div>
 
                     <!--Job Information-->

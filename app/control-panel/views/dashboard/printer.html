@@ -177,24 +177,24 @@
 					        <tr>
 					            <td class="text-center" at-attribute="name" at-title="Command">
 					            	<span class="label label-default" ng-if="item.name === 'pause'">
-					            		{{item.name}}
+					            		<i class="fa fa-pause"></i> {{item.name | capitalize}}
 					            	</span>					            	
 					            	<span class="label label-success" ng-if="item.name === 'start'">
-					            		{{item.name}}
+					            		<i class="fa fa-play"></i> {{item.name | capitalize}}
 					            	</span>					            	
 					            	<span class="label label-danger" ng-if="item.name === 'cancel'">
-					            		{{item.name}}
+					            		<i class="fa fa-ban"></i> {{item.name | capitalize}}
 					            	</span>
 					            </td>
 					            <td class="text-center" at-attribute="status" at-title="Status">
 					            	<span class="label label-info" ng-if="item.status === 'issued'">
-					            		{{item.status}}
+					            		{{item.status | capitalize}}
 					            	</span>					            	
 					            	<span class="label label-success" ng-if="item.status === 'executed'">
-					            		{{item.status}}
+					            		{{item.status | capitalize}}
 					            	</span>					            	
 					            	<span class="label label-danger" ng-if="item.status === 'errored'">
-					            		{{item.status}}
+					            		{{item.status | capitalize}}
 					            	</span>					            	
 					            </td>
 					            <td at-attribute="created_at" at-title="Issued At">{{item.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</td>

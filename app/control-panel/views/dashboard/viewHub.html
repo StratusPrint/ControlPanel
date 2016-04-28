@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3" ng-repeat="sensor in ::sensors">
+        <div class="col-lg-3" ng-repeat="sensor in sensors">
             <div class="sensor panel panel-info">
                 <div class="panel-heading clearfix">
                     <span class="name pull-left"><i class="glyphicon glyphicon-scale"></i> {{sensor.friendly_id}}</span>
@@ -49,9 +49,9 @@
                     </a>
                 </div>
                 <div class="panel-body">
-                    <p class="reading reading-default" ng-if="sensor.category==='humidity'">{{sensor.newestDatum.value}} %</p>
-                    <p class="reading reading-default" ng-if="sensor.category==='door'">{{sensor.newestDatum.value}}</p>
-                    <p class="reading reading-default" ng-if="sensor.category==='temperature'">{{sensor.newestDatum.value}} &#8457;</p>
+                    <p class="reading reading-default" ng-if="sensor.category==='humidity'">{{sensor.reading | number : 2}} %</p>
+                    <p class="reading reading-default" ng-if="sensor.category==='door'">{{sensor.reading | door}}</p>
+                    <p class="reading reading-default" ng-if="sensor.category==='temperature'">{{sensor.reading | number : 2}} &#8457;</p>
                     <button type="button" ng-if="user.isAdmin()" ng-click="updateSensorModal.sensor = sensor; showSensorModal()" class="btn btn-info btn-block" style="margin-top: 10px;"><i class="fa fa-pencil-square"></i> Modify Details</button>
                 </div>
             </div>

@@ -7,9 +7,9 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
   var hubId = Number($stateParams.hubId);
 
   var hubPromise = hub.getHub(hubId);
-  var sensorsPromise = hub.getSensors(hubId);
   var printersPromise = hub.getPrinters(hubId);
 
+  $scope.sensors = {};
   $scope.updateSensorModal = {};
   $scope.updateSensorModal.form = {};
   $scope.updateSensorModal.attributes = {};
@@ -53,6 +53,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
         });
         $scope.updateSensorModal.attributes = {};
         $scope.updateSensorModal.form.$setPristine();
+        $scope.getSensors();
       })
       .error(function(response) {
           $scope.updateSensorModal.addAlert('danger', 'Unable to update sensor. Please double check that the specified name is not already in use by another sensor.');
@@ -194,6 +195,18 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
     $state.go('dashboard.printer', {hubId: hubId, printerId: _id });
   };
 
+  $scope.getSensors = function() {
+    hub.getSensors(hubId)
+      .success(function(response) {
+        $scope.sensors = response;
+        console.log(response);
+      })
+      .error(function(response) {
+        console.log('Unable to retrieve a list of sensors.');
+        console.log(response);
+      });
+  };
+
 
   /*********************************************************
    *
@@ -220,7 +233,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
    *  $scope.sensors.data {object}
    *  $scope.sensors.newestDatum
    */
-  sensorsPromise.then(function(_sensors) {
+  /*sensorsPromise.then(function(_sensors) {
     var sensorDataPromises = [];
     $scope.sensors = _sensors;
 
@@ -248,7 +261,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
       }
 
     });
-  });
+  });*/
 
   /*
    * Retrieving all printers connected to the hub
@@ -258,4 +271,9 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
     $scope.printers = _printers;
     $scope.printersTotalItems = _printers.length;
   });
+
+  /**
+   * Retrieve list of sensors
+   */
+  $scope.getSensors();
 }

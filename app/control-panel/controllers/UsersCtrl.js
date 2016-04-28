@@ -62,10 +62,10 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
   }
 
   function lastSignIn(data) {
-    if (data.last_sign_in_at === null) {
+    if (data.current_sign_in_at === null) {
       return 'Has not yet signed in';
     }
-    return $filter('date')(data.last_sign_in_at, 'EEEE, MMMM dd \'at\' hh:mm a');
+    return $filter('date')(data.current_sign_in_at, 'EEEE, MMMM dd \'at\' hh:mm a');
   }
 
   function createdAt(data) {
@@ -74,10 +74,10 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
   }
 
   function ipAddress(data) {
-    if (!data.last_sign_in_ip) {
+    if (!data.current_sign_in_ip) {
       return 'Has not yet signed in';
     }
-    return data.last_sign_in_ip;
+    return data.current_sign_in_ip;
   }
 
   /**

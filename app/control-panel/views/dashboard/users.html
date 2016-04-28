@@ -1,7 +1,7 @@
 <div ng-controller=" UsersCtrl as ctrl">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">All Users</h1>
+            <h1 class="page-header">User Management</h1>
         </div>
     </div>
     <div class="row">
@@ -29,23 +29,26 @@
                     <div class="panel-body">
                         <div class="form-group" show-errors>
                             <label for="name">Name</label>
-                            <input autocomplete="off" name="name" ng-model="_user.name" type="text" class="form-control" placeholder="Please provide the name for the user" ng-minlength="5" />
+                            <input autocomplete="off" name="name" ng-model="_user.name" type="text" class="form-control" placeholder="Enter the user's name" ng-minlength="5" />
                             <span ng-show="registerUser.name.$error.minlength" class="help-block">Name is too short. Must be at least 5 characters.</span>
                         </div>
                         <div class="form-group" show-errors>
                             <label for="email">Email</label>
-                            <input autocomplete="off" name="email" ng-model="_user.email" type="email" class="form-control" placeholder="Please provide the name for the user" />
+                            <input autocomplete="off" name="email" ng-model="_user.email" type="email" class="form-control" placeholder="Enter the user's e-mail address" />
                             <span ng-show="registerUser.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
                         </div>
                         <div class="form-group" >
-                            <label >Admin Priviledges</label>
-                            <div  class="checkbox">
-                             <label><input autocomplete="off" name="admin" ng-model="_user.admin" type="checkbox" />Set as Admin</label>
+                            <label >Admin Priveleges</a></label>
+                            <p class="alert alert-info" style="margin-top: 5px;">
+                                Setting this user as an administrator will grant them <strong>full access</strong> to the system, which includes the ability to: (1)  <strong>add and remove users</strong>, and (2) <strong>update and manage the configuration for each hub, printer, and sensor</strong> . Admin privileges are <strong>NOT</strong> required to view the status of an environment and submit new print jobs, and <strong>should be granted sparingly</strong>.
+                            </p>
+                            <div class="checkbox">
+                             <label><input autocomplete="off" name="admin" ng-model="_user.admin" type="checkbox" />Grant Admin Priveleges</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-success pull-right" type="submit" ng-click="ctrl.reloadData()">Create new user</button>
+                <button class="btn btn-success pull-right" type="submit" ng-click="ctrl.reloadData()"><i class="fa fa-user-plus"></i> Create New User</button>
             </form>
         </div>
 

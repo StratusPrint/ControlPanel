@@ -1,8 +1,8 @@
 app.controller('UsersCtrl', UsersCtrl);
 
-UsersCtrl.$inject = ['$scope', '$state','$stateParams', 'admin','$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder'];
+UsersCtrl.$inject = ['$scope', '$state','$stateParams', 'admin','$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder', '$filter'];
 
-function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, DTOptionsBuilder, DTColumnBuilder) {
+function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, $filter) {
 
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
@@ -32,10 +32,11 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
   dtCtrl.cols = [
     DTColumnBuilder.newColumn('id').withTitle('ID').withOption('responsivePriority',3),
     DTColumnBuilder.newColumn('name').withTitle('Name').withOption('responsivePriority',5),
-    DTColumnBuilder.newColumn('email').withTitle('Email').withOption('responsivePriority',2),
+    DTColumnBuilder.newColumn('email').withTitle('E-mail').withOption('responsivePriority',2),
     DTColumnBuilder.newColumn(null).withTitle('Admin').notSortable().renderWith(adminHTML).withOption('responsivePriority',7),
     DTColumnBuilder.newColumn(null).withTitle('Last Sign In').renderWith(lastSignIn).withOption('responsivePriority',6),
-    DTColumnBuilder.newColumn(null).withTitle('Created at').renderWith(createdAt).withOption('responsivePriority',4),
+    DTColumnBuilder.newColumn(null).withTitle('IP Address').renderWith(ipAddress).withOption('responsivePriority',8),
+    DTColumnBuilder.newColumn(null).withTitle('Created').renderWith(createdAt).withOption('responsivePriority',4),
     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionButtonHTML).withOption('responsivePriority',1),
     // DTColumnBuilder.newColumn(null).withTitle('').notSortable().renderWith(deleteButtonHTML).withOption('responsivePriority',1),
   ];
@@ -46,9 +47,9 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
   function adminHTML(data) {
 
     if (data.admin) {
-      return '<i class="fa fa-check"></i>';
+      return '<div class="text-center text-success"><i class="fa fa-check-circle fa-2x"></i></div>';
     }
-    return '<i  class="fa fa fa-close"></i>';
+    return '<div class="text-center text-danger"><i class="fa fa fa-times-circle fa-2x"></i></div>';
   }
 
   function deleteButtonHTML(data) {
@@ -56,21 +57,27 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
   }
 
   function actionButtonHTML(data, type, full, meta) {
-    return '<button class="btn btn-warning" ng-click="editModal(' + meta.row + ')"><i class="fa fa-edit fa-fw"></i></button>&nbsp;' +
-    '<button class="btn btn-danger" ng-click="deleteModal(' + meta.row + ')"><i class="fa fa-trash-o fa-fw"></i></button>';
+    return '<div class="text-center"><button class="btn btn-warning" ng-click="editModal(' + meta.row + ')"><i class="fa fa-edit fa-fw"></i></button>&nbsp;' +
+    '<button class="btn btn-danger" ng-click="deleteModal(' + meta.row + ')"><i class="fa fa-trash-o fa-fw"></i></button></div>';
   }
 
   function lastSignIn(data) {
     if (data.last_sign_in_at === null) {
-      return 'Has not signed in';
+      return 'Has not yet signed in';
     }
-    var d = new Date(data.last_sign_in_at);
-    return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+    return $filter('date')(data.last_sign_in_at, 'EEEE, MMMM dd \'at\' hh:mm a');
   }
 
   function createdAt(data) {
     var d = new Date(data.created_at);
-    return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+    return $filter('date')(data.created_at, 'EEEE, MMMM dd \'at\' hh:mm a');
+  }
+
+  function ipAddress(data) {
+    if (!data.last_sign_in_ip) {
+      return 'Has not yet signed in';
+    }
+    return data.last_sign_in_ip;
   }
 
   /**
@@ -119,11 +126,11 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
       var registerPromise = admin.registerUser(user);
       registerPromise.then(function(response) {
         if (typeof (response) === 'object') {
-          $scope.addAlert('success', 'The user was successfully added');
+          $scope.addAlert('success', 'The user was successfully added. An e-mail has been sent with login instructions.');
           $scope.resetForm();
           reloadData();
         } else {
-          $scope.addAlert('danger', 'Sorry but this user could not be added.  Some values are unprocessable');
+          $scope.addAlert('danger', 'Sorry but this user could not be added. Please try again.');
         }
       })
       .catch(function(response) {
@@ -153,10 +160,10 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
       var deletePromise = admin.deleteUser($scope.modalUser.id);
       deletePromise.then(function() {
         reloadData();
-        $scope.addAlert('warning', 'The user was successfully deleted');
+        $scope.addAlert('warning', 'The user was successfully deleted.');
       })
       .catch(function(response) {
-        $scope.addAlert('danger','User could not be deleted');
+        $scope.addAlert('danger','User could not be deleted.');
       });
     }
     $scope.showDeleteModal = false;
@@ -191,7 +198,7 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
       var updatePromise = admin.updateUser($scope.modalUser);
       updatePromise.then(function(response) {
         reloadData();
-        $scope.addAlert('success', 'The user was successfully updated');
+        $scope.addAlert('success', 'The user was successfully updated.');
       })
       .catch(function(response) {
         $scope.addAlert('danger',response.data.error.full_messages[0]);

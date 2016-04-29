@@ -5,45 +5,47 @@ app.controller('UploadJobCtrl', UploadJobCtrl);
 UploadJobCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', 'Upload'];
 
 function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
+  console.log('Getting called now: ' + JSON.stringify($stateParams));
   $scope.files = [];
   $scope.errFiles = [];
   $scope.uploadFiles = function(files, errFiles) {
 
     angular.forEach(files, function(file) {
-        $scope.files.unshift(file);
-        Upload.base64DataUrl(file).then(function(url) {
+      $scope.files.unshift(file);
+      Upload.base64DataUrl(file).then(function(url) {
 
-          var name = file.name.replace(/\..+$/, '');
-          var extension = file.name.split('.').pop();
+        var name = file.name.replace(/\..+$/, '');
+        var extension = file.name.split('.').pop();
 
-          if (extension === 'stl') {
-            url = url.substr(0, 5) + 'application/stl' + url.substr(5);
-          } else if (extension === 'gcode') {
-            url = url.substr(0, 5) + 'application/gcode' + url.substr(5);
-          }
+        if (extension === 'stl') {
+          url = url.substr(0, 5) + 'application/stl' + url.substr(5);
+        } else if (extension === 'gcode') {
+          url = url.substr(0, 5) + 'application/gcode' + url.substr(5);
+        }
 
-          file.upload = Upload.http({
-            url: 'https://dev.api.stratusprint.com/v1/printers/' + $stateParams.printerId + '/jobs',
-            headers: {'Content-Type': 'application/json' },
-            data: {
-              model: url,
-              model_file_name: name,
-            },
-          });
-
-          file.upload.then(function(response) {
-            $timeout(function() {
-              file.result = response.data;
-            });
-          }, function(response) {
-            if (response.status > 0) {
-              $scope.errorMsg = response.status + ': ' + response.data;
-            }
-          }, function(evt) {
-            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-          });
-
+        file.upload = Upload.http({
+          url: 'https://dev.api.stratusprint.com/v1/printers/' + $stateParams.printerId + '/jobs',
+          headers: {'Content-Type': 'application/json' },
+          data: {
+            model: url,
+            model_file_name: name,
+          },
         });
+
+        file.upload.then(function(response) {
+          $timeout(function() {
+            file.result = response.data;
+          });
+        }, function(response) {
+          if (response.status > 0) {
+            $scope.errorMsg = response.status + ': ' + response.data;
+          }
+        }, function(evt) {
+          file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        });
+
       });
+    });
   };
+
 }

@@ -5,6 +5,9 @@ DashboardCtrl.$inject = ['$scope', '$stateParams', '$q', 'hub', 'printer', 'sens
 function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
   var defaultHubId = $scope.user._user.default_hub_id;
 
+  $stateParams.printerId = 5;
+  console.log('stateParams in dashboard: ' + JSON.stringify($stateParams));
+
   $scope.currentHub = {};
   $scope.hubs = {};
   $scope.stats = {};
@@ -27,7 +30,7 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
    *  $scope.stats
    *  $scope.printers
    *  $scope.printer
-      $scope.printer.currentJob
+   $scope.printer.currentJob
    *  $scope.sensors
    *  $scope.sensors.data
    *
@@ -214,4 +217,8 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
     // Console.log(_sensor.data);
   }
 
+  $scope.test = function(_id) {
+    console.log('Testing testing 1-2-3 ' + _id);
+    $stateParams.printerId = 5;
+  };
 }

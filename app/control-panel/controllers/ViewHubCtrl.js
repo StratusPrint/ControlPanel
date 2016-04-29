@@ -143,10 +143,9 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
    * @returns {}
    */
   $scope.deleteHub = function(_id) {
-    console.log('Firing?');
     $scope.showDeleteModal = false;
     if ($scope.user._user.admin === true) {
-      // Hub.deleteHub(_id);
+      hub.deleteHub(_id);
       this.toHubsPage(true);
       console.log($scope.showDeleteModal);
     } else {

@@ -1,9 +1,9 @@
 // jscs:disable
 
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$q', '$controller', 'hub', 'printer', 'sensor'];
+ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$q', '$controller', '$interval', 'hub', 'printer', 'sensor'];
 
-function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hub, printer, sensor) {
+function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $interval, hub, printer, sensor) {
   var hubId = Number($stateParams.hubId);
 
   var hubPromise = hub.getHub(hubId);
@@ -275,7 +275,17 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, hu
    */
   $scope.getSensors();
 
-  this.interval = setInterval(function(){
-    $scope.getSensors();
-  }, 2000);
+  var timerPromise;
+  $scope.timer = function() {
+    timerPromise = $interval($scope.getSensors, 2000);
+  };
+
+  $scope.timer();
+
+  $scope.$on('$destroy',function(){
+      if(timerPromise) {
+          $interval.cancel(timerPromise);   
+      }
+  });
+
 }

@@ -2,9 +2,9 @@
 
 app.controller('PrinterCtrl', PrinterCtrl);
 
-PrinterCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', 'printer'];
+PrinterCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', '$interval', 'printer'];
 
-function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
+function PrinterCtrl($scope, $state, $stateParams, $controller, $interval, printer) {
 	$scope.recentJobs = [];
 	$scope.commands = [];
 	$scope.printer = [];
@@ -140,18 +140,25 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, printer) {
 	$scope.refresh = function() {
 		$scope.getCurrentJob();
 		$scope.getCommands();
-		$scope.getPrinter();
+		//$scope.getPrinter();
 		$scope.getRecentJobs();	
 	};
 
 	$controller('AlertCtrl', { $scope: $scope });
 	$controller('AlertCtrl', { $scope: $scope.printerModal});
 
-	$scope.refresh();
+	var timerPromise;
+	$scope.timer = function() {
+		timerPromise = $interval($scope.refresh, 2000);
+	};
 
-	this.interval = setInterval(function(){
-		$scope.refresh();
-	}, 2000);
+	$scope.timer();
+
+	$scope.$on('$destroy',function(){
+	    if(timerPromise) {
+	        $interval.cancel(timerPromise);   
+	    }
+	});
 
 	$scope.$watch('command.name', $scope.issueCommand);
 }

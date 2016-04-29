@@ -147,6 +147,8 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, $interval, print
 	$controller('AlertCtrl', { $scope: $scope });
 	$controller('AlertCtrl', { $scope: $scope.printerModal});
 
+	$scope.refresh();
+	
 	var timerPromise;
 	$scope.timer = function() {
 		timerPromise = $interval($scope.refresh, 2000);

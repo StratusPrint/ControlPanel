@@ -154,11 +154,11 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, $interval, print
 
 	$scope.timer();
 
-	$scope.$watch('command.name', $scope.issueCommand);
-
 	$scope.$on('$destroy',function(){
 	    if(timerPromise) {
 	        $interval.cancel(timerPromise);   
 	    }
 	});
+
+	$scope.$watch('command.name', $scope.issueCommand);
 }

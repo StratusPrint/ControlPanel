@@ -140,7 +140,7 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, $interval, print
 	$scope.refresh = function() {
 		$scope.getCurrentJob();
 		$scope.getCommands();
-		//$scope.getPrinter();
+		$scope.getPrinter();
 		$scope.getRecentJobs();	
 	};
 

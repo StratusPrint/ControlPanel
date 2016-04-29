@@ -51,6 +51,7 @@ module.exports = function(grunt) {
         "validateIndentation": 2,
         "disallowMultipleVarDecl": false,
         "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+        "requireCapitalizedComments": false,
         "fix": false 
       }
     },

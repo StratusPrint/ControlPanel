@@ -3,10 +3,15 @@ app.controller('DashboardCtrl', DashboardCtrl);
 DashboardCtrl.$inject = ['$scope', '$stateParams', '$q', 'hub', 'printer', 'sensor'];
 
 function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
-  console.log($stateParams);
-  $scope.printer = {};
   var defaultHubId = $scope.user._user.default_hub_id;
-  console.log('using hub: ' + defaultHubId);
+
+  $scope.currentHub = {};
+  $scope.hubs = {};
+  $scope.stats = {};
+  $scope.printers = {};
+  $scope.printer = {};
+  $scope.sensors = {};
+
 
 
   $scope.chartData = [
@@ -20,29 +25,108 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
   };
 
 
+
   /********************************************************
    * Methods and chart handling
    */
 
+
+  /********************************************************
+   * Promise Handling
+   * Fetching all objects
+   */
+  $scope.setAllData = function(_hubId) {
+    $scope.setCurrentHub(_hubId);
+    $scope.setAllHubs();
+    $scope.setStats(_hubId);
+    $scope.setPrinters(_hubId);
+    $scope.setSensors(_hubId);
+  };
+
   /**
-   * SetPrinter
-   * sets the $scope.printer to the printer with the id passed in
-   * Used for the printer well
+   * setCurrentHub
+   * $scope.currentHub = the hub retrieved by _hubId
    *
-   * @param id
+   * @param {number} _hubId
    * @returns {undefined}
    */
-  $scope.setPrinter = function(id) {
+  $scope.setCurrentHub = function(_hubId) {
+    var defaultHubPromise = hub.getHub(_hubId);
+    defaultHubPromise.then(function(_hub) {
+      $scope.currentHub = _hub;
+    });
+  };
+
+  /**
+   * setAllHubs
+   * $scope.hubs = all hubs in the DB
+   *
+   * @returns {undefined}
+   */
+  $scope.setAllHubs = function() {
+    var hubsPromise = hub.getAllHubs();
+    hubsPromise.then(function(_hubs) {
+      $scope.hubs = _hubs;
+    });
+  };
+
+  /**
+   * setStats
+   * $scope.stats = statistics retrieved from the hub
+   *
+   * @param {number} _hubId
+   * @returns {undefined}
+   */
+  $scope.setStats = function(_hubId) {
+    var statsPromise = hub.getStatistics(_hubId);
+    statsPromise.then(function(_stats) {
+      $scope.stats = _stats;
+    });
+  };
+
+  /**
+   * setPrinters
+   * $scope.printers = printers retrieved from the hub id
+   * $scope.printer = first printer in the array
+   *
+   * @param {number} _hubId
+   * @returns {undefined}
+   */
+  $scope.setPrinters = function(_hubId) {
+    var printersPromise = hub.getPrinters(_hubId);
+    printersPromise .then(function(_printers) {
+      var currentJobsPromise = [];
+      $scope.printers = _printers;
+      $scope.printer = $scope.printers[0];
+    });
+  };
+
+  /**
+   * SetPrinter
+   * $scope.printer = the printer with the id passed in
+   * calls $scope.setCurrentJob($scope.printer.id)
+   *
+   * @param {number} _printerId
+   * @returns {undefined}
+   */
+  $scope.setPrinter = function(_printerId) {
     for (var i = 0; i < $scope.printers.length; i++) {
-      if ($scope.printers[i].id === id) {
+      if ($scope.printers[i].id === _printerId) {
         $scope.printer = $scope.printers[i];
-        $scope.getCurrentJob();
+        $scope.setCurrentJob($scope.printer.id);
       }
     }
   };
 
-  $scope.getCurrentJob = function() {
-    printer.getCurrentJob($scope.printer.id)
+  /**
+   * setCurrentJob
+   * $scope.printer.currentJob = current job of the printer
+   *
+   * @param _printerId
+   * @returns {undefined}
+   */
+  $scope.setCurrentJob = function(_printerId) {
+    printer.getCurrentJob(_printerId)
     .success(function(response) {
       $scope.printer.currentJob = response;
     })
@@ -52,75 +136,59 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
     });
   };
 
-  /********************************************************
-   * Promise Handling
-   * Fetching all objects
-   */
-  var defaultHubPromise = hub.getHub(defaultHubId);
-  defaultHubPromise.then(function(_defaultHub) {
-    $scope.currentHub = _defaultHub;
-  });
-
-  var hubsPromise = hub.getAllHubs();
-  hubsPromise.then(function(_hubs) {
-    $scope.hubs = _hubs;
-    console.log($scope.hubs);
-  });
-
-  var statsPromise = hub.getStatistics(defaultHubId);
-  statsPromise.then(function(_stats) {
-    $scope.stats = _stats;
-  });
-
-  var printersPromise = hub.getPrinters(defaultHubId);
-  printersPromise .then(function(_printers) {
-    var currentJobsPromise = [];
-    $scope.printers = _printers;
-    $scope.printer = $scope.printers[0];
-    $scope.getCurrentJob($scope.printer.id);
-  });
-
-  /*
+  /**
+   * setSensors
+   *
    * Retrieving all sensors that are connected to the hub
-   *  $scope.sensors {object}[]
+   * $scope.sensors = sensors attached to the a hub
+   *
    * Handling the promise for retrieving the sensor data and assigning that data to the associated sensor
-   *  $scope.sensors.data {object}
-   *  $scope.sensors.newestDatum
+   *
+   * $scope.sensors.data = data associated with each sensor
+   * $scope.sensors.newestDatum
+   *
+   * @param {number} _hubId
+   * @returns {undefined}
    */
-  var sensorsPromise = hub.getSensors(defaultHubId);
-  sensorsPromise.then(function(_sensors) {
-    var sensorDataPromises = [];
-    $scope.sensors = _sensors;
+  $scope.setSensors = function(_hubId) {
+    var sensorsPromise = hub.getSensors(_hubId);
+    sensorsPromise.then(function(_sensors) {
+      var sensorDataPromises = [];
+      $scope.sensors = _sensors;
 
-    for (var i = 0; i < $scope.sensors.length; i++) {
-      sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
-    }
-
-    // Execute all promises
-    $q.all(sensorDataPromises).then(function(_data) {
-      var sensorData = _data;
-      var tempSensors = [];
-      var humidSensors = [];
-
-      for (var j = 0; j < sensorData.length; j++) {
-        // Bind to a variable in the sensor itself
-        $scope.sensors[j].data = sensorData[j];
-        if ($scope.sensors[j].category === 'temperature') {
-          // $scope.sensors[j].data = truncateData($scope.sensors[j].data);
-          // $scope.sensors[j] = truncateData($scope.sensors[j]);
-          truncateData($scope.sensors[j]);
-
-          // Console.log($scope.sensors[j].data);
-          // TempSensor.push($scope.sensors[j]);
-          // PopulateTempGraph($scope.sensors[j]);
-          // Populate temperature data for graph
-
-        } else if ($scope.sensors[j].category === 'humidity') {
-          // Populate humidity graph
-        }
+      for (var i = 0; i < $scope.sensors.length; i++) {
+        sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
       }
+
+      // Execute all promises
+      $q.all(sensorDataPromises).then(function(_data) {
+        var sensorData = _data;
+        var tempSensors = [];
+        var humidSensors = [];
+
+        for (var j = 0; j < sensorData.length; j++) {
+          // Bind to a variable in the sensor itself
+          $scope.sensors[j].data = sensorData[j];
+          if ($scope.sensors[j].category === 'temperature') {
+            // $scope.sensors[j].data = truncateData($scope.sensors[j].data);
+            // $scope.sensors[j] = truncateData($scope.sensors[j]);
+            truncateData($scope.sensors[j]);
+
+            // Console.log($scope.sensors[j].data);
+            // TempSensor.push($scope.sensors[j]);
+            // PopulateTempGraph($scope.sensors[j]);
+            // Populate temperature data for graph
+
+          } else if ($scope.sensors[j].category === 'humidity') {
+            // Populate humidity graph
+          }
+        }
+      });
     });
-  });
+  };
+
+  $scope.setAllData(defaultHubId);
+
 
   /********************************************************
    * Local functions

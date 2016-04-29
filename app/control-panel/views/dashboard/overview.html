@@ -5,10 +5,10 @@
       </div>
       <div class="col-lg-4">
         <div class="dropdown pull-right">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{currentHub.friendly_id}}
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >{{currentHub.friendly_id}}
             <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id"><a href="#">{{hub.friendly_id}}</a></li>
+            <li ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id"><a href="#" ng-click="setAllData(hub.id)">{{hub.friendly_id}}</a></li>
           </ul>
         </div>
       </div>

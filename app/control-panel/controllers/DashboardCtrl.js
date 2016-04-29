@@ -35,6 +35,24 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
    * Promise Handling
    * Fetching all objects
    */
+
+  /**
+   * setAllData
+   * sets all scope variables by calling their associated functions
+   *
+   * Variables Set
+   *  $scope.currentHub
+   *  $scope.hubs
+   *  $scope.stats
+   *  $scope.printers
+   *  $scope.printer
+      $scope.printer.currentJob
+   *  $scope.sensors
+   *  $scope.sensors.data
+   *
+   * @param _hubId
+   * @returns {undefined}
+   */
   $scope.setAllData = function(_hubId) {
     $scope.setCurrentHub(_hubId);
     $scope.setAllHubs();

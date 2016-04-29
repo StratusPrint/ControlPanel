@@ -1,21 +1,18 @@
-<div class="row">
-    <div class="col-lg-12 page-header top-btm-margin20">
-      <div class="col-lg-8">
-        <h1>Dashboard {{currentHub.friendly_id}}</h1>
-      </div>
-      <div class="col-lg-4">
-        <div class="dropdown pull-right">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >{{currentHub.friendly_id}}
-            <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id"><a href="#" ng-click="setAllData(hub.id)">{{hub.friendly_id}}</a></li>
-          </ul>
-        </div>
-      </div>
+<div class="row page-header">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <h1>Dashboard {{currentHub.friendly_id}}</h1>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="dropdown pull-right">
+      <button class="btn btn-primary dropdown-toggle top-margin20 btm-margin10" type="button" data-toggle="dropdown" >{{currentHub.friendly_id}}
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id"><a href="#" ng-click="setAllData(hub.id)">{{hub.friendly_id}}</a></li>
+      </ul>
     </div>
-    <!-- /.col-lg-12 -->
+  </div>
 </div>
-<!-- /.row -->
+
 <div class="row">
   <div class="col-lg-3 col-md-6">
     <div class="panel panel-blue metric">

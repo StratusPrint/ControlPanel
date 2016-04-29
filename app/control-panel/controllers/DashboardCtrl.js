@@ -12,28 +12,9 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
   $scope.printer = {};
   $scope.sensors = {};
 
-
-
-  $scope.chartData = [
-    {label: 'Download Sales', value: 12},
-    {label: 'In-Store Sales', value: 30},
-    {label: 'Mail-Order Sales', value: 20},
-  ];
-  $scope.chartColors = ['#31C0BE', '#c7254e', '#98a0d3'];
-  $scope.myFormatter = function(input) {
-    return input + '%';
-  };
-
-
-
   /********************************************************
-   * Methods and chart handling
-   */
-
-
-  /********************************************************
-   * Promise Handling
-   * Fetching all objects
+   * Promise Handling methods
+   * Fetchs everything from the API, sets all variables
    */
 
   /**
@@ -120,7 +101,7 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
   };
 
   /**
-   * SetPrinter
+   * setPrinter
    * $scope.printer = the printer with the id passed in
    * calls $scope.setCurrentJob($scope.printer.id)
    *
@@ -207,6 +188,18 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
 
   $scope.setAllData(defaultHubId);
 
+  /********************************************************
+   * Chart Data
+   */
+  $scope.chartData = [
+    {label: 'Download Sales', value: 12},
+    {label: 'In-Store Sales', value: 30},
+    {label: 'Mail-Order Sales', value: 20},
+  ];
+  $scope.chartColors = ['#31C0BE', '#c7254e', '#98a0d3'];
+  $scope.myFormatter = function(input) {
+    return input + '%';
+  };
 
   /********************************************************
    * Local functions

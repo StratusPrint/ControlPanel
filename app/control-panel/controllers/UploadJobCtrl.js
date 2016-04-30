@@ -1,14 +1,17 @@
 /*jshint loopfunc: true */
-
 app.controller('UploadJobCtrl', UploadJobCtrl);
 
 UploadJobCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', 'Upload'];
 
 function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
-  console.log('Getting called now: ' + JSON.stringify($stateParams));
+  var printerId = $stateParams.printerId;
   $scope.files = [];
   $scope.errFiles = [];
+
   $scope.uploadFiles = function(files, errFiles) {
+    if ($stateParams.printerId === undefined) {
+      printerId = $scope.printer.id;
+    }
 
     angular.forEach(files, function(file) {
       $scope.files.unshift(file);
@@ -24,7 +27,7 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
         }
 
         file.upload = Upload.http({
-          url: 'https://dev.api.stratusprint.com/v1/printers/' + $stateParams.printerId + '/jobs',
+          url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/jobs',
           headers: {'Content-Type': 'application/json' },
           data: {
             model: url,
@@ -47,5 +50,4 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
       });
     });
   };
-
 }

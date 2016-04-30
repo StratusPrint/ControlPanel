@@ -185,13 +185,13 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
 
   /**
    * ViewPrinter
-   * Sets the state to that of the printer with the associated _id
+   * Sets the state to that of the printer with the associated _printerId
    *
-   * @param _id
+   * @param _printerId
    * @returns {undefined}
    */
-  $scope.viewPrinter = function(_id) {
-    $state.go('dashboard.printer', {hubId: hubId, printerId: _id });
+  $scope.viewPrinter = function(_printerId) {
+    $state.go('dashboard.printer', {hubId: hubId, printerId: _printerId});
   };
 
   $scope.getSensors = function() {

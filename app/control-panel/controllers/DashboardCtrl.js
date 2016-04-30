@@ -1,8 +1,8 @@
 app.controller('DashboardCtrl', DashboardCtrl);
 
-DashboardCtrl.$inject = ['$scope', '$stateParams', '$q', 'hub', 'printer', 'sensor'];
+DashboardCtrl.$inject = ['$scope', '$state', '$q', 'hub', 'printer', 'sensor'];
 
-function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
+function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
   var defaultHubId = $scope.user._user.default_hub_id;
 
   $scope.currentHub = {};
@@ -187,6 +187,21 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
   };
   $scope.setAllData(defaultHubId);
 
+  /*******************************************************
+   * Functions
+   */
+
+  /**
+   * ViewPrinter
+   * Sets the state to that of the printer with the associated _printerId
+   *
+   * @param _printerId
+   * @returns {undefined}
+   */
+  $scope.viewPrinter = function(_printerId) {
+    $state.go('dashboard.printer', {hubId: $scope.currentHub.id, printerId: _printerId });
+  };
+
   /********************************************************
    * Chart Data
    */
@@ -212,9 +227,4 @@ function DashboardCtrl($scope, $stateParams, $q, hub,  printer, sensor) {
     // Console.log('Truncated');
     // Console.log(_sensor.data);
   }
-
-  $scope.test = function(_id) {
-    console.log('Testing testing 1-2-3 ' + _id);
-    $stateParams.printerId = 5;
-  };
 }

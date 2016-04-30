@@ -129,7 +129,7 @@
                   <label>Current Job:</label> {{printer.currentJob.id}}</li>
               </ul>
               <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" 
-                      ng-click="test(5)"><i class="fa fa-gears"></i> Manage Printer</button>
+                      ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12">
               <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
@@ -147,8 +147,8 @@
         <div class="panel-body">
           <div class="list-group">
             <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
-              <i class="fa fa-comment fa-fw"></i> {{printer.friendly_id}}
-              <span class="pull-right text-muted small"><em>{{printer.data.state.flags.printing}}</em>
+              <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
+              <span class="pull-right text-muted small"><em>{{printer.status}}</em>
               </span>
             </a>
           </div>

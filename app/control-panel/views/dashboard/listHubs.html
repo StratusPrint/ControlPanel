@@ -42,6 +42,11 @@
                 <span ng-show="addHubForm.ips.$error.pattern" class="help-block">That does not appear to be a valid IPv4 address.</span>
                 <span ng-show="addHubForm.ips.$error.required" class="help-block">This is a required field.</span>
               </div>
+              <div class="form-group" show-errors>
+                  <label for="port">Port</label>
+                  <input autocomplete="off" name="port" ng-model="hubDetails.port" class="form-control" placeholder="Enter the hub's port (e.g. 42150)" min="0" max="65535" />
+                  <span ng-show="updateHubForm.ips.$error.pattern" class="help-block">That does not appear to be a valid port number.</span>
+              </div>
               <div class="form-group">
                 <label for="hostname">Host Name</label>
                 <input autocomplete="off" name="domain" ng-required="hub.hostname" ng-model="hub.hostname" ng-pattern="/^([a-z0-9]+(-[a-z0-9]+)*\.)+([a-z]{2,12})$/i" type="text" class="form-control" placeholder="Enter the new hub's hostname (e.g. hub.yourdomain.com)" />
@@ -54,7 +59,7 @@
               </div>
               <div class="form-group">
                 <label for="desc">Description (optional)</label>
-                <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Enter a description of the environment for organizational purposes" />
+                <input autocomplete="off" name="desc" ng-model="hub.desc" type="text" class="form-control" placeholder="Enter a description of the hub for organizational purposes" />
               </div>
             </div>
           </div>

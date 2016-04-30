@@ -118,6 +118,11 @@
                                         <span ng-show="updateHubForm.ips.$error.pattern" class="help-block">That does not appear to be a valid IPv4 address.</span>
                                     </div>
                                     <div class="form-group" show-errors>
+                                        <label for="port">Port</label>
+                                        <input autocomplete="off" name="port" ng-model="hubDetails.port" class="form-control" placeholder="{{hub.port}}" min="0" max="65535" />
+                                        <span ng-show="updateHubForm.ips.$error.pattern" class="help-block">That does not appear to be a valid port number.</span>
+                                    </div>
+                                    <div class="form-group" show-errors>
                                         <label for="hostname">Host Name</label>
                                         <input autocomplete="off" name="hostname" ng-model="hubDetails.hostname" type="text" class="form-control" placeholder="{{hub.hostname}}" ng-pattern="/^([a-z0-9]+(-[a-z0-9]+)*\.)+([a-z]{2,12})$/i" />
                                         <span ng-show="updateHubForm.hostname.$error.pattern" class="help-block">That does not appear to be a valid hostname.</span>

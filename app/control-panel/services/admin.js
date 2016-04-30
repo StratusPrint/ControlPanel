@@ -13,7 +13,7 @@ function AdminService($http, $state, user, $auth) {
   this.getAllUsers = function() {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/users',
+      url: 'http://test.api.stratusprint.com/v1/users',
     }).then(function(response) {
       return response.data;
     });
@@ -44,7 +44,7 @@ function AdminService($http, $state, user, $auth) {
   this.getUser = function(id) {
     $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/users/' + id,
+      url: 'http://test.api.stratusprint.com/v1/users/' + id,
     }).then(function successCallback(response) {
       return response.data;
 
@@ -57,14 +57,14 @@ function AdminService($http, $state, user, $auth) {
   this.deleteUser = function(id) {
     return $http({
       method: 'DELETE',
-      url: 'https://dev.api.stratusprint.com/v1/users/' + id,
+      url: 'http://test.api.stratusprint.com/v1/users/' + id,
     });
   };
 
   this.updateUser = function(user) {
     return $http({
       method: 'PATCH',
-      url: 'https://dev.api.stratusprint.com/v1/users/' + user.id,
+      url: 'http://test.api.stratusprint.com/v1/users/' + user.id,
       data: { email: user.email,
               name: user.name,
               image: user.image,

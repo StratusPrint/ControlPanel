@@ -1,4 +1,4 @@
-// https://gist.github.com/seyDoggy/66978b761fb8572250f7
+// http://gist.github.com/seyDoggy/66978b761fb8572250f7
 app.factory('alert', AlertService);
 
 AlertService.$inject = ['$http', '$state'];

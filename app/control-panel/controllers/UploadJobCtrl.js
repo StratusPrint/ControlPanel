@@ -23,7 +23,7 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
           }
 
           file.upload = Upload.http({
-            url: 'https://dev.api.stratusprint.com/v1/printers/' + $stateParams.printerId + '/jobs',
+            url: 'http://test.api.stratusprint.com/v1/printers/' + $stateParams.printerId + '/jobs',
             headers: {'Content-Type': 'application/json' },
             data: {
               model: url,

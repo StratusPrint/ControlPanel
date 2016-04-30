@@ -13,7 +13,7 @@ function SensorService($http) {
   this.getById = function(_sensorId) {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/sensors/' + _sensorId,
+      url: 'http://test.api.stratusprint.com/v1/sensors/' + _sensorId,
     }).then(function successCallback(response) {
       return response.data;
     }, function errorCallback(response) {
@@ -30,7 +30,7 @@ function SensorService($http) {
   this.getData = function(_sensorId) {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/sensors/' + _sensorId + '/data',
+      url: 'http://test.api.stratusprint.com/v1/sensors/' + _sensorId + '/data',
     }).then(function successCallback(response) {
       return response.data;
     }, function errorCallback(response) {
@@ -48,7 +48,7 @@ function SensorService($http) {
   this.update = function(_sensorId) {
     return $http({
       method: 'PATCH',
-      url: 'https://dev.api.stratusprint.com/v1/sensors/' + _sensorId,
+      url: 'http://test.api.stratusprint.com/v1/sensors/' + _sensorId,
     }).then(function successCallback(response) {
       return response.data;
     }, function errorCallback(response) {

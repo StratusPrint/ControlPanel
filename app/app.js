@@ -115,9 +115,9 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
 
 app.config(function($authProvider) {
   $authProvider.configure({
-    apiUrl: 'https://dev.api.stratusprint.com/v1',
-    passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
-    confirmationSuccessUrl: 'https://dev.stratusprint.com/#/login?accountConfirmed=true',
+    apiUrl: 'http://test.api.stratusprint.com/v1',
+    passwordResetSuccessUrl: 'http://test.stratusprint.com/#/change-password',
+    confirmationSuccessUrl: 'http://test.stratusprint.com/#/login?accountConfirmed=true',
   });
 });
 

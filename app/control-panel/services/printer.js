@@ -34,7 +34,7 @@ function PrinterService($http) {
   function getJobs(printerId) {
     return $http({
         method: 'GET',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/jobs',
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId + '/jobs',
       }).success(function(data) {
         service.jobs = data;
       });
@@ -49,7 +49,7 @@ function PrinterService($http) {
   function getRecentJobs(printerId) {
     return $http({
         method: 'GET',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/recent_jobs',
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId + '/recent_jobs',
       }).success(function(data) {
         service.recentJobs = data;
       });
@@ -64,7 +64,7 @@ function PrinterService($http) {
   function getPrinter(printerId) {
     return $http({
         method: 'GET',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId,
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId,
       }).success(function(data) {
         service.printer = data;
       });
@@ -80,7 +80,7 @@ function PrinterService($http) {
   function issueCommand(printerId, command) {
     return $http({
         method: 'POST',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/commands',
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId + '/commands',
         data: {
           name: command,
         },
@@ -96,7 +96,7 @@ function PrinterService($http) {
   function getCommands(printerId) {
     return $http({
         method: 'GET',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/commands',
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId + '/commands',
       }).success(function(data) {
         service.commands = data;
       });
@@ -112,7 +112,7 @@ function PrinterService($http) {
   function update(printerId, attributes) {
     return $http({
         method: 'PATCH',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId,
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId,
         data: attributes,
       }).success(function(data) {
         service.printer = data;
@@ -128,7 +128,7 @@ function PrinterService($http) {
   function getCurrentJob(printerId) {
     return $http({
         method: 'GET',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/current_job',
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId + '/current_job',
       }).success(function(data) {
         service.currentJob = data;
       });
@@ -143,7 +143,7 @@ function PrinterService($http) {
   function getQueuedJobs(printerId) {
     return $http({
         method: 'GET',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/queued_jobs',
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId + '/queued_jobs',
       }).success(function(data) {
         service.queuedJobs = data;
       });
@@ -158,7 +158,7 @@ function PrinterService($http) {
   function getProcessingJobs(printerId) {
     return $http({
         method: 'GET',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/processing_jobs',
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId + '/processing_jobs',
       }).success(function(data) {
         service.processingJobs = data;
       });
@@ -173,7 +173,7 @@ function PrinterService($http) {
   function getCompletedJobs(printerId) {
     return $http({
         method: 'GET',
-        url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/completed_jobs',
+        url: 'http://test.api.stratusprint.com/v1/printers/' + printerId + '/completed_jobs',
       }).success(function(data) {
         service.completedJobs = data;
       });

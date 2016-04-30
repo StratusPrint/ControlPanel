@@ -12,7 +12,7 @@ function HubService($http, $state, user) {
   this.getAllHubs = function() {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/hubs',
+      url: 'http://test.api.stratusprint.com/v1/hubs',
     }).then(function successCallback(response) {
       return response.data;
     }, function errorCallback(response) {
@@ -34,7 +34,7 @@ function HubService($http, $state, user) {
   this.addHub = function(hub) {
     return $http({
       method: 'POST',
-      url: 'https://dev.api.stratusprint.com/v1/hubs',
+      url: 'http://test.api.stratusprint.com/v1/hubs',
       data: {hub: hub},
     }).then(function successCallback(response) {
       return response.data;
@@ -57,7 +57,7 @@ function HubService($http, $state, user) {
   this.generateApiKey = function(_hubId) {
     return $http({
       method: 'POST',
-      url: 'https://dev.api.stratusprint.com/v1/hubs/' + _hubId + '/api_key',
+      url: 'http://test.api.stratusprint.com/v1/hubs/' + _hubId + '/api_key',
       data: {},
     }).then(function successCallback(response) {
       return response.data;
@@ -78,7 +78,7 @@ function HubService($http, $state, user) {
   this.deleteHub = function(id) {
     return $http({
       method: 'DELETE',
-      url: 'https://dev.api.stratusprint.com/v1/hubs/' + id,
+      url: 'http://test.api.stratusprint.com/v1/hubs/' + id,
     }).then(function successCallback(response) {
       console.log('Trying to delete: ' + JSON.stringify(response));
       return response.data;
@@ -99,7 +99,7 @@ function HubService($http, $state, user) {
   this.getHub = function(id) {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/hubs/' + id,
+      url: 'http://test.api.stratusprint.com/v1/hubs/' + id,
     }).then(function successCallback(response) {
       return response.data;
 
@@ -122,7 +122,7 @@ function HubService($http, $state, user) {
   this.updateHub = function(_hubId, _hub) {
     return $http({
       method: 'PATCH',
-      url: 'https://dev.api.stratusprint.com/v1/hubs/' + _hubId,
+      url: 'http://test.api.stratusprint.com/v1/hubs/' + _hubId,
       data: {hub: _hub},
     }).then(function successCallback(response) {
       return response.data;
@@ -144,7 +144,7 @@ function HubService($http, $state, user) {
   this.getSensors = function(id) {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/hubs/' + id + '/sensors',
+      url: 'http://test.api.stratusprint.com/v1/hubs/' + id + '/sensors',
     });
   };
 
@@ -159,7 +159,7 @@ function HubService($http, $state, user) {
   this.getPrinters = function(hubId) {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/hubs/' + hubId + '/printers',
+      url: 'http://test.api.stratusprint.com/v1/hubs/' + hubId + '/printers',
     }).then(function successCallback(response) {
       return response.data;
 
@@ -173,7 +173,7 @@ function HubService($http, $state, user) {
   this.updateSensor = function(sensorId, attributes) {
     return $http({
       method: 'PATCH',
-      url: 'https://dev.api.stratusprint.com/v1/sensors/' + sensorId,
+      url: 'http://test.api.stratusprint.com/v1/sensors/' + sensorId,
       data: attributes,
     });
   };
@@ -189,7 +189,7 @@ function HubService($http, $state, user) {
   this.getStatistics = function(hubId) {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/hubs/' + hubId + '/statistics',
+      url: 'http://test.api.stratusprint.com/v1/hubs/' + hubId + '/statistics',
     }).then(function successCallback(response) {
       return response.data;
 

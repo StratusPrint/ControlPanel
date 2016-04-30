@@ -148,8 +148,13 @@
           <div class="list-group">
             <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
               <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
-              <span class="pull-right text-muted small"><em>{{printer.status}}</em>
-              </span>
+              <span ng-if="printer.status === 'ready'" class="pull-right badge badge-printer-ready small">{{printer.status}}</span>
+              <span ng-if="printer.status === 'paused'" class="pull-right badge badge-printer-paused small">{{printer.status}}</span>
+              <span ng-if="printer.status === 'printing'" class="pull-right badge badge-printer-printing small">{{printer.status}}</span>
+              <span ng-if="printer.status === 'errored'" class="pull-right badge badge-printer-errored small">{{printer.status}}</span>
+              <span ng-if="printer.status === 'offline'" class="pull-right badge badge-printer-offline small">{{printer.status}}</span>
+              <span ng-if="printer.status === 'cancelled'" class="pull-right badge badge-printer-cancelled small">{{printer.status}}</span>
+              <span ng-if="printer.status === 'completed'" class="pull-right badge badge-printer-completed">{{printer.status}}</span>
             </a>
           </div>
         </div>

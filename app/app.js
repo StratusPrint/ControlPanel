@@ -121,7 +121,9 @@ app.config(function($authProvider) {
   });
 });
 
-app.run(function($rootScope, $state, user, auth) {
+app.run(function($rootScope, $state, $stateParams, user, auth) {
+  $rootScope.$state = $state;
+  $rootScope.$stateParams = $stateParams;
   $rootScope.user = user;
   $rootScope.auth = auth;
 });

@@ -1,201 +1,201 @@
-  <div class="row page-header">
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <h1>Dashboard {{currentHub.friendly_id}}</h1>
+<div class="row page-header">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <h1>Dashboard {{currentHub.friendly_id}}</h1>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="dropdown pull-right">
+      <button class="btn btn-primary dropdown-toggle top-margin20 btm-margin10" type="button" data-toggle="dropdown" >{{currentHub.friendly_id}}
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id"><a href="#" ng-click="setAllData(hub.id)">{{hub.friendly_id}}</a></li>
+      </ul>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <div class="dropdown pull-right">
-        <button class="btn btn-primary dropdown-toggle top-margin20 btm-margin10" type="button" data-toggle="dropdown" >{{currentHub.friendly_id}}
-          <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id"><a href="#" ng-click="setAllData(hub.id)">{{hub.friendly_id}}</a></li>
-        </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3 col-md-6">
+    <div class="panel panel-blue metric">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-3">
+            <i class="fa fa-tasks fa-5x"></i>
+          </div>
+          <div class="col-xs-9 text-right">
+            <div class="huge">{{stats.jobs_in_progress}}</div>
+            <div>Print Jobs In Progress</div>
+          </div>
+        </div>
+      </div>
+      <a href="">
+        <div class="panel-footer">
+          <span class="pull-left">View Details</span>
+          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="panel panel-green metric">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-3">
+            <i class="fa fa-clock-o fa-5x"></i>
+          </div>
+          <div class="col-xs-9 text-right">
+            <div class="huge">{{stats.current_wait_time}}</div>
+            <div>Current Wait Time</div>
+          </div>
+        </div>
+      </div>
+      <a href="">
+        <div class="panel-footer">
+          <span class="pull-left">View Details</span>
+          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="panel panel-yellow metric">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-3">
+            <i class="fa fa-bell-o fa-5x"></i>
+          </div>
+          <div class="col-xs-9 text-right">
+            <div class="huge">{{stats.ready_printers}}</div>
+            <div>Ready Printers</div>
+          </div>
+        </div>
+      </div>
+      <a href="">
+        <div class="panel-footer">
+          <span class="pull-left">View Details</span>
+          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="panel panel-red metric">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-3">
+            <i class="fa fa-exclamation-triangle fa-5x"></i>
+          </div>
+          <div class="col-xs-9 text-right">
+            <div class="huge">Sensor</div>
+            <div>Enviromental Alerts</div>
+          </div>
+        </div>
+      </div>
+      <a href="">
+        <div class="panel-footer">
+          <span class="pull-left">View Details</span>
+          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}} 
+      </div>
+      <div class="well printer">
+        <div class="panel-body row flex-valign">
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <ul class="list-group no-margin">
+              <li class="list-group-item">
+                <label>Friendly ID:</label> {{printer.friendly_id}}</li>
+              <li class="list-group-item">
+                <!-- Safe to assume printer location the same as hub location?  I think so, but maybe not -->
+                <label>Location:</label> {{hub.location}}</li>
+              <li class="list-group-item">
+                <label>Model:</label> {{printer.model}}</li>
+              <li class="list-group-item">
+                <label>Description:</label> {{printer.description}}</li>
+              <li class="list-group-item">
+                <label>Status:</label> {{printer.status}}</li>
+              <li class="list-group-item">
+                <label>Current Job:</label> {{printer.currentJob.id}}</li>
+            </ul>
+            <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" 
+              ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
+          </div>
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-lg-3 col-md-6">
-      <div class="panel panel-blue metric">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-tasks fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div class="huge">{{stats.jobs_in_progress}}</div>
-              <div>Print Jobs In Progress</div>
-            </div>
-          </div>
-        </div>
-        <a href="">
-          <div class="panel-footer">
-            <span class="pull-left">View Details</span>
-            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-            <div class="clearfix"></div>
-          </div>
-        </a>
+  <div class="col-lg-4">
+    <div class="panel panel-kashmir">
+      <div class="panel-heading">
+        <i class="printer-icon glyphicon glyphicon-print"></i> Printers 
       </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="panel panel-green metric">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-clock-o fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div class="huge">{{stats.current_wait_time}}</div>
-              <div>Current Wait Time</div>
-            </div>
-          </div>
+      <div class="panel-body">
+        <div class="list-group">
+          <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
+            <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
+            <span ng-if="printer.status === 'ready'" class="pull-right badge badge-printer-ready small">{{printer.status}}</span>
+            <span ng-if="printer.status === 'paused'" class="pull-right badge badge-printer-paused small">{{printer.status}}</span>
+            <span ng-if="printer.status === 'printing'" class="pull-right badge badge-printer-printing small">{{printer.status}}</span>
+            <span ng-if="printer.status === 'errored'" class="pull-right badge badge-printer-errored small">{{printer.status}}</span>
+            <span ng-if="printer.status === 'offline'" class="pull-right badge badge-printer-offline small">{{printer.status}}</span>
+            <span ng-if="printer.status === 'cancelled'" class="pull-right badge badge-printer-cancelled small">{{printer.status}}</span>
+            <span ng-if="printer.status === 'completed'" class="pull-right badge badge-printer-completed">{{printer.status}}</span>
+          </a>
         </div>
-        <a href="">
-          <div class="panel-footer">
-            <span class="pull-left">View Details</span>
-            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="panel panel-yellow metric">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-bell-o fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div class="huge">{{stats.ready_printers}}</div>
-              <div>Ready Printers</div>
-            </div>
-          </div>
-        </div>
-        <a href="">
-          <div class="panel-footer">
-            <span class="pull-left">View Details</span>
-            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="panel panel-red metric">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-exclamation-triangle fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div class="huge">Sensor</div>
-              <div>Enviromental Alerts</div>
-            </div>
-          </div>
-        </div>
-        <a href="">
-          <div class="panel-footer">
-            <span class="pull-left">View Details</span>
-            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-            <div class="clearfix"></div>
-          </div>
-        </a>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-lg-8">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}} 
-        </div>
-        <div class="well printer">
-          <div class="panel-body row flex-valign">
-            <div class="col-lg-8 col-md-12 col-sm-12">
-              <ul class="list-group no-margin">
-                <li class="list-group-item">
-                  <label>Friendly ID:</label> {{printer.friendly_id}}</li>
-                <li class="list-group-item">
-                  <!-- Safe to assume printer location the same as hub location?  I think so, but maybe not -->
-                  <label>Location:</label> {{hub.location}}</li>
-                <li class="list-group-item">
-                  <label>Model:</label> {{printer.model}}</li>
-                <li class="list-group-item">
-                  <label>Description:</label> {{printer.description}}</li>
-                <li class="list-group-item">
-                  <label>Status:</label> {{printer.status}}</li>
-                <li class="list-group-item">
-                  <label>Current Job:</label> {{printer.currentJob.id}}</li>
-              </ul>
-              <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" 
-                      ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
-            </div>
-            <div class="col-lg-4 col-md-12 col-sm-12">
-              <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
-            </div>
-          </div>
+</div>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="panel panel-kashmir">
+      <div class="panel-heading">
+        <i class="fa fa-bar-chart-o fa-fw"></i> Temperature 
+      </div>
+      <div class="panel-body">
+
+        <h1 align="center"><font face="Arial">Angular Morris Chart</font></h1>
+        <h2 align="center"><font face="Arial">postUnits Example</font></h2>
+        <div
+          class="line-chart"
+          line-chart
+          line-post-units="'%'"  
+          line-data='data'
+          line-xkey='y'
+          line-ykeys='["a", "b"]'
+          line-labels='["Serie A", "Serie B"]'
+          line-colors='["#31C0BE", "#c7254e"]'>
         </div>
       </div>
-    </div>
 
-    <div class="col-lg-4">
-      <div class="panel panel-kashmir">
-        <div class="panel-heading">
-          <i class="printer-icon glyphicon glyphicon-print"></i> Printers 
-        </div>
-        <div class="panel-body">
-          <div class="list-group">
-            <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
-              <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
-              <span ng-if="printer.status === 'ready'" class="pull-right badge badge-printer-ready small">{{printer.status}}</span>
-              <span ng-if="printer.status === 'paused'" class="pull-right badge badge-printer-paused small">{{printer.status}}</span>
-              <span ng-if="printer.status === 'printing'" class="pull-right badge badge-printer-printing small">{{printer.status}}</span>
-              <span ng-if="printer.status === 'errored'" class="pull-right badge badge-printer-errored small">{{printer.status}}</span>
-              <span ng-if="printer.status === 'offline'" class="pull-right badge badge-printer-offline small">{{printer.status}}</span>
-              <span ng-if="printer.status === 'cancelled'" class="pull-right badge badge-printer-cancelled small">{{printer.status}}</span>
-              <span ng-if="printer.status === 'completed'" class="pull-right badge badge-printer-completed">{{printer.status}}</span>
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
-
   </div>
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="panel panel-kashmir">
-        <div class="panel-heading">
-          <i class="fa fa-bar-chart-o fa-fw"></i> Temperature 
-        </div>
-        <div class="panel-body">
 
-            <h1 align="center"><font face="Arial">Angular Morris Chart</font></h1>
-            <h2 align="center"><font face="Arial">postUnits Example</font></h2>
-            <div
-                                     class="line-chart"
-                                     line-chart
-                                     line-post-units="'%'"  
-                                     line-data='data'
-                                     line-xkey='y'
-                                     line-ykeys='["a", "b"]'
-                                     line-labels='["Serie A", "Serie B"]'
-                                     line-colors='["#31C0BE", "#c7254e"]'>
-            </div>
-        </div>
-
+  <div class="col-lg-6">
+    <div class="panel panel-kashmir">
+      <div class="panel-heading">
+        <i class="fa fa-bar-chart-o fa-fw"></i> Humidity 
       </div>
-    </div>
-
-    <div class="col-lg-6">
-      <div class="panel panel-kashmir">
-        <div class="panel-heading">
-          <i class="fa fa-bar-chart-o fa-fw"></i> Humidity 
-        </div>
-        <div class="panel-body">
-          <h1>angular-morris-chart example This will be a humidity area chart</h1>
-          <div donut-chart="" donut-data="chartData" donut-colors="chartColors" donut-formatter="'currency'"></div>
-        </div>
+      <div class="panel-body">
+        <h1>angular-morris-chart example This will be a humidity area chart</h1>
+        <div donut-chart="" donut-data="chartData" donut-colors="chartColors" donut-formatter="'currency'"></div>
       </div>
     </div>
   </div>
+</div>

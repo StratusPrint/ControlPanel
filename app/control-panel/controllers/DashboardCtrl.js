@@ -153,7 +153,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
     var sensorsPromise = hub.getSensors(_hubId);
     sensorsPromise.then(function(_sensors) {
       var sensorDataPromises = [];
-      $scope.sensors = _sensors;
+      $scope.sensors = _sensors.data;
 
       for (var i = 0; i < $scope.sensors.length; i++) {
         sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
@@ -165,13 +165,14 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
         var tempSensors = [];
         var humidSensors = [];
 
+
         for (var j = 0; j < sensorData.length; j++) {
           // Bind to a variable in the sensor itself
           $scope.sensors[j].data = sensorData[j];
           if ($scope.sensors[j].category === 'temperature') {
             // $scope.sensors[j].data = truncateData($scope.sensors[j].data);
             // $scope.sensors[j] = truncateData($scope.sensors[j]);
-            truncateData($scope.sensors[j]);
+            // truncateData($scope.sensors[j]);
 
             // Console.log($scope.sensors[j].data);
             // TempSensor.push($scope.sensors[j]);
@@ -182,9 +183,12 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
             // Populate humidity graph
           }
         }
+
+        setTempData($scope.sensors);
       });
     });
   };
+
   $scope.setAllData(defaultHubId);
 
   /*******************************************************
@@ -205,14 +209,22 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
   /********************************************************
    * Chart Data
    */
-  $scope.chartData = [
-    {label: 'Download Sales', value: 12},
-    {label: 'In-Store Sales', value: 30},
-    {label: 'Mail-Order Sales', value: 20},
-  ];
-  $scope.chartColors = ['#31C0BE', '#c7254e', '#98a0d3'];
-  $scope.myFormatter = function(input) {
-    return input + '%';
+  var setTempData = function(sensors) {
+    console.log(sensors[1]);
+    console.log(sensors[2]);
+    var sensor1Data = sensors[1].data;
+    var sensor2Data = sensors[2].data;
+    // $scope.data = [];
+    // morris.setData();
+    $scope.data = [
+      { y: '2006', a: 100, b: 90 },
+      { y: '2007', a: 75,  b: 65 },
+      { y: '2008', a: 50,  b: 40 },
+      { y: '2009', a: 75,  b: 65 },
+      { y: '2010', a: 50,  b: 40 },
+      { y: '2011', a: 75,  b: 65 },
+      { y: '2012', a: 100, b: 90 },
+    ];
   };
 
   /********************************************************

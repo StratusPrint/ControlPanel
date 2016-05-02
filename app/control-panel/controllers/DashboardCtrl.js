@@ -12,6 +12,9 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
   $scope.printer = {};
   $scope.sensors = {};
 
+  $scope.lineChartdata = [
+    { y: '2002', a: 75,  b: 65 },
+  ];
   /********************************************************
    * Promise Handling methods
    * Fetchs everything from the API, sets all variables
@@ -210,21 +213,29 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
    * Chart Data
    */
   var setTempData = function(sensors) {
-    console.log(sensors[1]);
-    console.log(sensors[2]);
+    // console.log(sensors[1]);
+    // console.log(sensors[2]);
     var sensor1Data = sensors[1].data;
     var sensor2Data = sensors[2].data;
-    // $scope.data = [];
-    // morris.setData();
-    $scope.data = [
-      { y: '2006', a: 100, b: 90 },
-      { y: '2007', a: 75,  b: 65 },
-      { y: '2008', a: 50,  b: 40 },
-      { y: '2009', a: 75,  b: 65 },
-      { y: '2010', a: 50,  b: 40 },
-      { y: '2011', a: 75,  b: 65 },
-      { y: '2012', a: 100, b: 90 },
+
+    var someData = [
     ];
+    console.log(someData[0]);
+
+    var data = {};
+    data.y = sensors[0].data[0].created_at;
+    data.a = sensors[0].data[0].value;
+    data.b = sensors[1].data[0].value;
+    someData.push(data);
+    console.log(data);
+
+    data = {};
+    data.y = sensors[0].data[1].created_at;
+    data.a = sensors[0].data[1].value;
+    data.b = sensors[1].data[1].value;
+    someData.push(data);
+
+    $scope.lineChartData = someData;
   };
 
   /********************************************************

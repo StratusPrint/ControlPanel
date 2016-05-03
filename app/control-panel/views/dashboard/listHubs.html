@@ -44,7 +44,7 @@
               </div>
               <div class="form-group" show-errors>
                   <label for="port">Port</label>
-                  <input autocomplete="off" name="port" ng-model="hubDetails.port" class="form-control" placeholder="Enter the hub's port (e.g. 42150)" type="number" min="0" max="65535" />
+                  <input autocomplete="off" name="port" ng-model="hub.port" class="form-control" placeholder="Enter the hub's port (e.g. 42150)" type="number" min="0" max="65535" />
                   <span ng-show="addHubForm.port.$error.min || addHubForm.port.$error.max" class="help-block">That does not appear to be a valid port number.</span>
               </div>
               <div class="form-group">

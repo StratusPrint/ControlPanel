@@ -134,14 +134,14 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
         if (typeof (data) === 'object') {
           $scope.hubs.push(data);
           $scope.resetForm();
-          $scope.addAlert('success', 'The hub was successfully added');
+          $scope.addAlert('success', 'The hub was successfully added.');
         } else {
-          $scope.addAlert('danger', 'Sorry but this hub could not be added.  Some values are unprocessable');
+          $scope.addAlert('danger', 'Unable to add hub. Please try again.');
         }
       });
       return;
     }
-    $scope.addAlert('warning', 'Sorry, but you are not an admin.');
+    $scope.addAlert('warning', 'You do not have permission to add a new hub.');
   };
 
   /**

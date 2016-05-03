@@ -149,6 +149,18 @@ function HubService($http, $state, user) {
   };
 
   /**
+   * Delete sensor
+   * @param  {Integer} id The ID of the sensor to delete
+   * @return {Promise}    $http promise
+   */
+  this.deleteSensor = function(id) {
+    return $http({
+      method: 'DELETE',
+      url: 'https://dev.api.stratusprint.com/v1/sensors/' + id,
+    });
+  };
+
+  /**
    * GetPrinters
    * performs a get request to retrieve the printers associated with a hub
    * returns a promise that this data will be retrieved

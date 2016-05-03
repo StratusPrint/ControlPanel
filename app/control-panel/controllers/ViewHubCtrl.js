@@ -18,6 +18,8 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
   $scope.addSensorModal.form = {};
   $scope.addSensorModal.attributes = {};
   $scope.addSensorModalVisible = false;
+  $scope.deleteSensorModal = {};
+  $scope.deleteSensorModalVisible = false;
   $scope.showDeleteModal = false; // Set to true to show the delete confirmation modal
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
@@ -54,6 +56,13 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
     $scope.addSensorModalVisible = false;
     $scope.addSensorModal.alerts = [];
     $scope.addSensorModal.attributes = {};
+  };
+  $scope.showDeleteSensorModal = function() {
+    $scope.deleteSensorModalVisible = true;
+  };
+
+  $scope.hideDeleteSensorModal = function() {
+    $scope.deleteSensorModalVisible = false;
   };
 
   /**
@@ -103,6 +112,17 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
       .error(function(response) {
           $scope.updateSensorModal.addAlert('danger', 'Unable to update sensor. Please double check that the specified name is not already in use by another sensor.');
           console.log(response);
+      });
+  };
+
+  /**
+   * Delete a sensor
+   */
+  $scope.deleteSensor = function(sensorId) {
+    hub.deleteSensor(sensorId)
+      .then(function(response) {
+        $scope.hideDeleteSensorModal();
+        $scope.getSensors();
       });
   };
 

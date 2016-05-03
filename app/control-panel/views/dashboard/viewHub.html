@@ -6,25 +6,21 @@
             <input autocomplete="off" name="friendly_id" ng-model="addSensorModal.attributes.friendly_id" type="text" class="form-control" placeholder="Enter a name for the sensor" ng-minlength="4" ng-required />
             <span ng-show="addSensorModal.form.friendly_id.$error.minlength" class="help-block">Name is too short. Must be at least 4 characters.</span>
         </div>
-
         <div class="form-group" show-errors>
             <label for="desc">Description (optional)</label>
             <input autocomplete="off" name="desc" ng-model="addSensorModal.attributes.desc" type="text" class="form-control" placeholder="Enter a description for the sensor" ng-maxlength="256" />
             <span ng-show="addSensorModal.form.desc.$error.minlength" class="help-block">Cannot be longer than 256 characters.</span>
         </div>
-
         <div class="form-group" show-errors>
             <label for="manufacturer">Manufacturer (optional)</label>
             <input autocomplete="off" name="manufacturer" ng-model="addSensorModal.attributes.manufacturer" type="text" class="form-control" placeholder="Enter the manufacturer of the sensor" ng-minlength="1" />
             <span ng-show="addSensorModal.form.manufacturer.$error.minlength" class="help-block">Must be at least 1 character long.</span>
         </div>
-
         <div class="form-group" show-errors>
             <label for="model">Model (optional)</label>
             <input autocomplete="off" name="manufacturer" ng-model="addSensorModal.attributes.model" type="text" class="form-control" placeholder="Enter the model of the sensor" ng-minlength="1" />
             <span ng-show="addSensorModal.form.model.$error.minlength" class="help-block">Must be at least 1 character long.</span>
         </div>
-
         <div class="form-group" show-errors>
             <label for="category">Type</label>
             <select name="category" ng-init="addSensorModal.attributes.category = 'Specify the type of sensor'" ng-model="addSensorModal.attributes.category" class="form-control" required>
@@ -34,7 +30,6 @@
                 <option value="door">Door</option>
             </select>
         </div>
-
         <div class="form-group" show-errors>
             <label for="node_id">Node ID</label>
             <select name="node_id" ng-init="addSensorModal.attributes.node_id = 'Specify the ID of the node that the sensor is connected to'" ng-model="addSensorModal.attributes.node_id" class="form-control" required>
@@ -42,10 +37,9 @@
                 <option ng-repeat="id in hub.nodes" value="id">{{id}}</option>
             </select>
         </div>
-
         <div class="form-group" show-errors>
             <label for="node_id">PIN</label>
-            <select name="pin" ng-init="addSensorModal.attributes.pin = 'Specify which GPIO pin the sensor is connected to'"ng-model="addSensorModal.attributes.pin" class="form-control" required>
+            <select name="pin" ng-init="addSensorModal.attributes.pin = 'Specify which GPIO pin the sensor is connected to'" ng-model="addSensorModal.attributes.pin" class="form-control" required>
                 <option disabled selected>Specify which GPIO pin the sensor is connected to</option>
                 <option>0</option>
                 <option>1</option>
@@ -62,24 +56,19 @@
                 <option>12</option>
             </select>
         </div>
-
         <div class="form-group" show-errors>
             <label for="low_threshold">Low Threshold</label>
             <input autocomplete="off" name="low_threshold" ng-model="addSensorModal.attributes.low_threshold" type="number" class="form-control" placeholder="Enter the low threshold for the sensor" required />
         </div>
-
         <div class="form-group" show-errors>
             <label for="high_threshold">High Threshold</label>
             <input autocomplete="off" name="high_threshold" ng-model="addSensorModal.attributes.high_threshold" type="number" class="form-control" placeholder="Enter the high threshold for the sensor" min="{{addSensorModal.attributes.low_threshold + 1}}" required />
             <span ng-show="addSensorModal.form.high_threshold.$error.min" class="help-block">The high threshold must be greater than the low threshold.</span>
         </div>
-
         <button ng-disabled="addSensorModal.form.$invalid" type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
-
         <button type="button" ng-click="hideAddSensorModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
     </form>
 </modal>
-
 <modal title="Update Sensor" visible="updateSensorModalVisible">
     <uib-alert ng-repeat="alert in updateSensorModal.alerts" type="{{alert.type}}" close="updateSensorModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
     <form name="updateSensorModal.form" role="form" ng-submit="updateSensor(updateSensorModal.sensor.id, updateSensorModal.attributes)" novalidate>
@@ -116,6 +105,29 @@
         <button type="button" ng-click="hideSensorModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
     </form>
 </modal>
+<modal title="Delete Hub" visible="showDeleteModal">
+    <form role="form">
+        <div class="form-group">
+            <label>Name: {{hub.friendly_id}}</label>
+        </div>
+        <div class="form-group">
+            <label>Description: {{hub.desc}}</label>
+        </div>
+        <div class="form-group">
+            <label>Location: {{hub.location}}</label>
+        </div>
+    </form>
+    <label>Are you sure you want to delete this hub?</label>
+    <button type="submit" ng-click="deleteHub(hub.id)" class="btn btn-danger">Yes</button>
+    <button type="" ng-click="deleteModal()" class="btn btn-warning">No</button>
+</modal>
+<modal title="Delete Sensor" visible="deleteSensorModalVisible">
+    <p class="alert alert-warning">
+        <i class="fa fa-exclamation-triangle"></i> Are you sure that you want to delete this sensor? This action is <strong>irreversible</strong>.
+    </p>
+    <button type="button" class="btn btn-danger" ng-click="deleteSensor(deleteSensorModal.sensorId); hideDeleteSensorModal();"><i class="fa fa-check-circle"></i> Yes, Delete This Sensor</button>
+    <button type="button" class="btn btn-warning" ng-click="hideDeleteSensorModal()"><i class="fa fa-times"></i> Nevermind</button>
+</modal>
 <div id="view-hub" class="resource-page">
     <div class="row">
         <div class="col-lg-12">
@@ -130,7 +142,6 @@
                     </h1>
                     <p class="desc">{{hub.desc}}</p>
                 </div>
-
                 <div class="col-lg-3 flex-wrap flex-valign" vertilize>
                     <p id="add-sensor" class="button-bar" ng-if="user.isAdmin()">
                         <button class="btn btn-success" href="javascript:void" ng-click="showAddSensorModal()"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
@@ -152,7 +163,14 @@
                     <p class="reading reading-default" ng-if="sensor.category==='humidity'">{{sensor.reading | number : 2}} %</p>
                     <p class="reading reading-default" ng-if="sensor.category==='door'">{{sensor.reading | door}}</p>
                     <p class="reading reading-default" ng-if="sensor.category==='temperature'">{{sensor.reading | number : 2}} &#8457;</p>
-                    <button type="button" ng-if="user.isAdmin()" ng-click="updateSensorModal.sensor = sensor; showSensorModal()" class="btn btn-info btn-block" style="margin-top: 10px;"><i class="fa fa-pencil-square"></i> Modify Details</button>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button type="button" ng-if="user.isAdmin()" ng-click="updateSensorModal.sensor = sensor; showSensorModal()" class="btn btn-info btn-block" style="margin-top: 10px;"><i class="fa fa-pencil-square"></i> Modify Details</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" ng-if="user.isAdmin()" ng-click="deleteSensorModal.sensorId = sensor.id; showDeleteSensorModal()" class="btn btn-danger btn-block" style="margin-top: 10px;"><i class="fa fa-times-circle"></i> Delete</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -165,7 +183,6 @@
                 </div>
                 <div class="panel-body">
                     <p ng-show="!printers.length" class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are no printers associated with this hub.</p>
-
                     <div class="well printer" ng-show="printers.length" ng-repeat="printer in printers.slice(((printersCurrentPage-1)*printersItemsPerPage), ((printersCurrentPage)*printersItemsPerPage))">
                         <div class="row flex-wrap flex-valign">
                             <div class="col-lg-4 text-center">
@@ -267,20 +284,4 @@
             </div>
         </div>
     </div>
-    <modal title="Delete Hub" visible="showDeleteModal">
-        <form role="form">
-            <div class="form-group">
-                <label>Name: {{hub.friendly_id}}</label>
-            </div>
-            <div class="form-group">
-                <label>Description: {{hub.desc}}</label>
-            </div>
-            <div class="form-group">
-                <label>Location: {{hub.location}}</label>
-            </div>
-        </form>
-        <label>Are you sure you want to delete this hub?</label>
-        <button type="submit" ng-click="deleteHub(hub.id)" class="btn btn-danger">Yes</button>
-        <button type="" ng-click="deleteModal()" class="btn btn-warning">No</button>
-    </modal>
 </div>

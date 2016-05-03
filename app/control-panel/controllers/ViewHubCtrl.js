@@ -53,6 +53,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
   $scope.hideAddSensorModal = function() {
     $scope.addSensorModalVisible = false;
     $scope.addSensorModal.alerts = [];
+    $scope.addSensorModal.attributes = {};
   };
 
   /**

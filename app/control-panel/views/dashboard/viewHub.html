@@ -38,8 +38,9 @@
 
         <div class="form-group" show-errors>
             <label for="node_id">Node ID</label>
-            <select name="node_id" ng-init="addSensorModal.attributes.node_id = 'Specify the type of sensor'" ng-model="addSensorModal.attributes.node_id" class="form-control" required>
+            <select name="node_id" ng-init="addSensorModal.attributes.node_id = 'Specify the ID of the node that the sensor is connected to'" ng-model="addSensorModal.attributes.node_id" class="form-control" required>
                 <option disabled selected>Specify the ID of the node that the sensor is connected to</option>
+                <option ng-repeat="id in hub.nodes" value="id">{{id}}</option>
             </select>
         </div>
 

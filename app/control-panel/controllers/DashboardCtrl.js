@@ -169,9 +169,10 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
 
         for (var j = 0; j < sensorData.length; j++) {
           $scope.sensors[j].data = sensorData[j];
-          if ($scope.sensors[j].category === 'temperature') {
+          if ($scope.sensors[j].category === 'temperature' && $scope.sensors[j].data.length > 0) {
+            console.log('Pushing');
             tempSensors.push($scope.sensors[j]);
-          } else if ($scope.sensors[j].category === 'humidity') {
+          } else if ($scope.sensors[j].category === 'humidity' && $scope.sensors[j].data.length > 0) {
             humidSensors.push($scope.sensors[j]);
           }
         }
@@ -208,6 +209,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
     for (var i = 0; i < _sensors.length; i++) {
       sensorChartDatum = [];
       for (var j = 0; j < _sensors[i].data.length; j++) {
+        _sensors[i].data[j].value = parseFloat(_sensors[i].data[j].value).toFixed(2);
         var chartData = {};
         chartData.y = _sensors[i].data[j].created_at;
         chartData.a = _sensors[i].data[j].value;
@@ -216,6 +218,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
       chartDatum.push(sensorChartDatum);
     }
     $scope.tempChartData = chartDatum;
+    console.log($scope.tempChartData.length);
   };
 
   var setHumidChartDatum = function(_sensors) {
@@ -225,6 +228,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
     for (var i = 0; i < _sensors.length; i++) {
       sensorChartDatum = [];
       for (var j = 0; j < _sensors[i].data.length; j++) {
+        _sensors[i].data[j].value = parseFloat(_sensors[i].data[j].value).toFixed(2);
         var chartData = {};
         chartData.y = _sensors[i].data[j].created_at;
         chartData.a = _sensors[i].data[j].value;
@@ -239,11 +243,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
    */
   function truncateData(_sensor) {
     for (var i; i < _sensor.data.length; i++) {
-      // _sensor.data[i].value = parseFloat(_sensor.data[i].value.toFixed(2));
-      _sensor.data[i].value = 5;
-      // Console.log('Truncated data ' + _sensor.data[i].value);
+      _sensor.data[i].value = parseFloat(_sensor.data[i].value.toFixed(2));
     }
-    // Console.log('Truncated');
-    // Console.log(_sensor.data);
   }
 }

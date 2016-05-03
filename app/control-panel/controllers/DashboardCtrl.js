@@ -13,7 +13,6 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
   $scope.sensors = {};
 
   $scope.lineChartdata = [
-    { y: '2002', a: 75,  b: 65 },
   ];
   /********************************************************
    * Promise Handling methods
@@ -168,26 +167,16 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
         var tempSensors = [];
         var humidSensors = [];
 
-
         for (var j = 0; j < sensorData.length; j++) {
-          // Bind to a variable in the sensor itself
           $scope.sensors[j].data = sensorData[j];
           if ($scope.sensors[j].category === 'temperature') {
-            // $scope.sensors[j].data = truncateData($scope.sensors[j].data);
-            // $scope.sensors[j] = truncateData($scope.sensors[j]);
-            // truncateData($scope.sensors[j]);
-
-            // Console.log($scope.sensors[j].data);
-            // TempSensor.push($scope.sensors[j]);
-            // PopulateTempGraph($scope.sensors[j]);
-            // Populate temperature data for graph
-
+            tempSensors.push($scope.sensors[j]);
           } else if ($scope.sensors[j].category === 'humidity') {
-            // Populate humidity graph
+            humidSensors.push($scope.sensors[j]);
           }
         }
-
-        setTempData($scope.sensors);
+        setTempChartDatum(tempSensors);
+        setHumidChartDatum(humidSensors);
       });
     });
   };
@@ -212,32 +201,39 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
   /********************************************************
    * Chart Data
    */
-  var setTempData = function(sensors) {
-    // console.log(sensors[1]);
-    // console.log(sensors[2]);
-    var sensor1Data = sensors[1].data;
-    var sensor2Data = sensors[2].data;
-
-    var someData = [
+  var setTempChartDatum = function(_sensors) {
+    var chartDatum = [
     ];
-    console.log(someData[0]);
 
-    var data = {};
-    data.y = sensors[0].data[0].created_at;
-    data.a = sensors[0].data[0].value;
-    data.b = sensors[1].data[0].value;
-    someData.push(data);
-    console.log(data);
-
-    data = {};
-    data.y = sensors[0].data[1].created_at;
-    data.a = sensors[0].data[1].value;
-    data.b = sensors[1].data[1].value;
-    someData.push(data);
-
-    $scope.lineChartData = someData;
+    for (var i = 0; i < _sensors.length; i++) {
+      sensorChartDatum = [];
+      for (var j = 0; j < _sensors[i].data.length; j++) {
+        var chartData = {};
+        chartData.y = _sensors[i].data[j].created_at;
+        chartData.a = _sensors[i].data[j].value;
+        sensorChartDatum.push(chartData);
+      }
+      chartDatum.push(sensorChartDatum);
+    }
+    $scope.tempChartData = chartDatum;
   };
 
+  var setHumidChartDatum = function(_sensors) {
+    var chartDatum = [
+    ];
+
+    for (var i = 0; i < _sensors.length; i++) {
+      sensorChartDatum = [];
+      for (var j = 0; j < _sensors[i].data.length; j++) {
+        var chartData = {};
+        chartData.y = _sensors[i].data[j].created_at;
+        chartData.a = _sensors[i].data[j].value;
+        sensorChartDatum.push(chartData);
+      }
+      chartDatum.push(sensorChartDatum);
+    }
+    $scope.humidChartData = chartDatum;
+  };
   /********************************************************
    * Local functions
    */

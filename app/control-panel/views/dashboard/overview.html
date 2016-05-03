@@ -169,21 +169,19 @@
         <i class="fa fa-bar-chart-o fa-fw"></i> Temperature 
       </div>
       <div class="panel-body">
-
-        <h1 align="center"><font face="Arial">Angular Morris Chart</font></h1>
-        <h2 align="center"><font face="Arial">postUnits Example</font></h2>
-        <div
-          class="line-chart"
-          line-chart
-          line-post-units="'%'"  
-          line-data='lineChartData'
-          line-xkey='y'
-          line-ykeys='["a", "b"]'
-          line-labels='["Serie A", "Serie B"]'
-          line-colors='["#31C0BE", "#c7254e"]'>
+        <div ng-repeat = "data in tempChartData">
+          <div
+            class="line-chart"
+            line-chart
+            line-post-units="'%'"  
+            line-data='data'
+            line-xkey='y'
+            line-ykeys='["a"]'
+            line-labels='["Serie A"]'
+            line-colors='["#31C0BE"]'>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -192,10 +190,20 @@
       <div class="panel-heading">
         <i class="fa fa-bar-chart-o fa-fw"></i> Humidity 
       </div>
-      <div class="panel-body">
-        <h1>angular-morris-chart example This will be a humidity area chart</h1>
-        <div donut-chart="" donut-data="chartData" donut-colors="chartColors" donut-formatter="'currency'"></div>
-      </div>
+        <div class="panel-body">
+          <div ng-repeat = "data in humidChartData">
+            <div
+              class="line-chart"
+              line-chart
+              line-post-units="'%'"  
+              line-data='data'
+              line-xkey='y'
+              line-ykeys='["a"]'
+              line-labels='["Serie A"]'
+              line-colors='["#31C0BE"]'>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>

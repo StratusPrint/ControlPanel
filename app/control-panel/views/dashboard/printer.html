@@ -38,8 +38,8 @@
 <div id="printer" class="resource-page">
     <div class="row">
         <div class="col-lg-12">
-        	<div class="page-header row">
-        		<div class="col-lg-10">
+        	<div class="page-header row" vertilize-container>
+        		<div class="col-lg-9" vertilize>
 	            <h1>
 		          <a 
 		          	ng-if="printer.status === 'ready' || printer.status === 'printing' || printer.status === 'completed'" 
@@ -90,9 +90,9 @@
 	            <p class="desc">{{printer.description}}</p>
 	            </div>
 
-	            <div class="col-lg-2">
-	            	<p id="modify-details" class="text-right" ng-if="user.isAdmin()">
-	            		<button class="btn btn-info" href="javascript:void" ng-click="showPrinterModal()">Modify Details <i class="fa fa-pencil-square"></i></button>
+	            <div class="col-lg-3 flex-wrap flex-valign" vertilize>
+	            	<p id="modify-details" class="button-bar" ng-if="user.isAdmin()">
+	            		<button class="btn btn-info" href="javascript:void" ng-click="showPrinterModal()"><i class="fa fa-pencil-square"></i> Modify Printer Details</button>
 	            	</p>
 	            </div>
             </div>

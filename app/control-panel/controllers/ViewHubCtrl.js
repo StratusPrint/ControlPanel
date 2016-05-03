@@ -14,12 +14,17 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
   $scope.updateSensorModal.form = {};
   $scope.updateSensorModal.attributes = {};
   $scope.updateSensorModalVisible = false;
+  $scope.addSensorModal = {};
+  $scope.addSensorModal.form = {};
+  $scope.addSensorModal.attributes = {};
+  $scope.addSensorModalVisible = false;
   $scope.showDeleteModal = false; // Set to true to show the delete confirmation modal
   $scope.printersCurrentPage = 1;
   $scope.printersItemsPerPage = 2;
 
   $controller('AlertCtrl', { $scope: $scope });
   $controller('AlertCtrl', { $scope: $scope.updateSensorModal});
+  $controller('AlertCtrl', { $scope: $scope.addSensorModal});
 
   /*********************************************************
    *
@@ -39,10 +44,59 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
     $scope.updateSensorModal.alerts = [];
   };
 
+  $scope.showAddSensorModal = function() {
+    $scope.addSensorModalVisible = true;
+  };
+
+  $scope.hideAddSensorModal = function() {
+    $scope.addSensorModalVisible = false;
+    $scope.addSensorModal.alerts = [];
+  };
+
+  /**
+   * Add a sensor
+   */
+  $scope.addSensor = function(attributes) {
+    // Check whether form has not been filled out
+    if ($scope.addSensorModal.form.$pristine) {
+      $scope.addSensorModal.addAlert('warning', 'Please fill out the form below before submitting.');
+      return;
+    }
+
+    // Check whether any validation errors are present on the form
+    if (!$scope.addSensorModal.form.$valid) {
+      $scope.addSensorModal.addAlert('danger', 'Please correct the errors below and try submitting the form again.');
+      return;
+    }
+
+    hub.addSensor($stateParams.hubId, attributes)
+      .success(function(response) {
+        $scope.hideAddSensorModal();
+        $scope.getSensors();
+      })
+      .error(function(response) {
+        $scope.addSensorModal.addAlert('danger', 'Unable to add sensor. Please try again.');
+        console.log('Unable to add sensor to hub.');
+        console.log(response);
+      });
+  };
+
   /**
    * Update a sensor
    */
   $scope.updateSensor = function(sensorId, attributes) {
+    // Check whether form has not been filled out
+    if ($scope.addSensorModal.form.$pristine) {
+      $scope.updateSensorModal.addAlert('warning', 'Please fill out the form below before submitting.');
+      return;
+    }
+    
+    // Check whether any validation errors are present on the form
+    if (!$scope.addSensorModal.form.$valid) {
+      $scope.updateSensorModal.addAlert('danger', 'Please correct the errors below and try submitting the form again.');
+      return;
+    }
+
     hub.updateSensor(sensorId, attributes)
       .success(function(response) {
         $scope.updateSensorModal.addAlert('success', 'The sensor has been updated successfully.');

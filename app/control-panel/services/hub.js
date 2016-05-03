@@ -170,10 +170,31 @@ function HubService($http, $state, user) {
     });
   };
 
+  /**
+   * Update a sensor
+   *
+   * @param  {Integer} sensorId   The ID of the sensor
+   * @param  {Object} attributes   The attributes to update
+   * @return {Promise}            $http promise
+   */
   this.updateSensor = function(sensorId, attributes) {
     return $http({
       method: 'PATCH',
       url: 'https://dev.api.stratusprint.com/v1/sensors/' + sensorId,
+      data: attributes,
+    });
+  };
+
+  /**
+   * Add a sensor
+   *
+   * @param {Integer} hubId      The ID of the hub which the sensor belongs to
+   * @param {Object}  attributes The attributes of the new sensor
+   */
+  this.addSensor = function(hubId, attributes) {
+    return $http({
+      method: 'POST',
+      url: 'https://dev.api.stratusprint.com/v1/hubs/' + hubId + '/sensors',
       data: attributes,
     });
   };

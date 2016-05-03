@@ -1,3 +1,89 @@
+<modal title="Add New Sensor" visible="addSensorModalVisible">
+    <uib-alert ng-repeat="alert in addSensorModal.alerts" type="{{alert.type}}" close="addSensorModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
+    <form name="addSensorModal.form" role="form" ng-submit="addSensor(addSensorModal.attributes)" novalidate>
+        <div class="form-group" show-errors>
+            <label for="friendly_id">Name</label>
+            <input autocomplete="off" name="friendly_id" ng-model="addSensorModal.attributes.friendly_id" type="text" class="form-control" placeholder="Enter a name for the sensor" ng-minlength="4" required />
+            <span ng-show="addSensorModal.form.friendly_id.$error.minlength" class="help-block">Name is too short. Must be at least 4 characters.</span>
+        </div>
+
+        <div class="form-group" show-errors>
+            <label for="desc">Description (optional)</label>
+            <input autocomplete="off" name="desc" ng-model="addSensorModal.attributes.desc" type="text" class="form-control" placeholder="Enter a description for the sensor" ng-maxlength="256" />
+            <span ng-show="addSensorModal.form.desc.$error.minlength" class="help-block">Cannot be longer than 256 characters.</span>
+        </div>
+
+        <div class="form-group" show-errors>
+            <label for="manufacturer">Manufacturer (optional)</label>
+            <input autocomplete="off" name="manufacturer" ng-model="addSensorModal.attributes.manufacturer" type="text" class="form-control" placeholder="Enter the manufacturer of the sensor" ng-minlength="1" />
+            <span ng-show="addSensorModal.form.manufacturer.$error.minlength" class="help-block">Must be at least 1 character long.</span>
+        </div>
+
+        <div class="form-group" show-errors>
+            <label for="model">Model (optional)</label>
+            <input autocomplete="off" name="manufacturer" ng-model="addSensorModal.attributes.model" type="text" class="form-control" placeholder="Enter the model of the sensor" ng-minlength="1" />
+            <span ng-show="addSensorModal.form.model.$error.minlength" class="help-block">Must be at least 1 character long.</span>
+        </div>
+
+        <div class="form-group" show-errors>
+            <label for="category">Type</label>
+            <select name="category" ng-init="addSensorModal.attributes.category = 'Specify the type of sensor'" ng-model="addSensorModal.attributes.category" class="form-control" ng-required="required">
+                <option disabled selected>Specify the type of sensor</option>
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+                <option value="door">Door</option>
+                <option value="kill switch">Kill Switch</option>
+            </select>
+            <span ng-show="addSensorModal.form.category.$error.required" class="help-block">This field is required.</span>
+        </div>
+
+        <div class="form-group" show-errors>
+            <label for="node_id">Node ID</label>
+            <select name="node_id" ng-init="addSensorModal.attributes.node_id = 'Specify the type of sensor'" ng-model="addSensorModal.attributes.node_id" class="form-control" ng-required="required">
+                <option disabled selected>Specify the ID of the node that the sensor is connected to</option>
+            </select>
+            <span ng-show="addSensorModal.form.node_id.$error.required" class="help-block">This field is required.</span>
+        </div>
+
+        <div class="form-group" show-errors>
+            <label for="node_id">PIN</label>
+            <select name="pin" ng-init="addSensorModal.attributes.pin = 'Specify which GPIO pin the sensor is connected to'"ng-model="addSensorModal.attributes.pin" class="form-control" ng-required="required">
+                <option disabled selected>Specify which GPIO pin the sensor is connected to</option>
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+            </select>
+            <span ng-show="addSensorModal.form.pin.$error.required" class="help-block">This field is required.</span>
+        </div>
+
+        <div class="form-group" show-errors>
+            <label for="friendly_id">Low Threshold</label>
+            <input autocomplete="off" name="low_threshold" ng-model="addSensorModal.attributes.low_threshold" type="number" class="form-control" placeholder="Enter the low threshold for the sensor" ng-required="required" />
+            <span ng-show="addSensorModal.form.low_threshold.$error.required" class="help-block">This field is required.</span>
+        </div>
+
+        <div class="form-group" show-errors>
+            <label for="friendly_id">High Threshold</label>
+            <input autocomplete="off" name="high_threshold" ng-model="addSensorModal.attributes.high_threshold" type="number" class="form-control" placeholder="Enter the high threshold for the sensor" ng-required="required" />
+            <span ng-show="addSensorModal.form.high_threshold.$error.required" class="help-block">This field is required.</span>
+        </div>
+
+        <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
+
+        <button type="button" ng-click="hideAddSensorModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
+    </form>
+</modal>
+
 <modal title="Update Sensor" visible="updateSensorModalVisible">
     <uib-alert ng-repeat="alert in updateSensorModal.alerts" type="{{alert.type}}" close="updateSensorModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
     <form name="updateSensorModal.form" role="form" ng-submit="updateSensor(updateSensorModal.sensor.id, updateSensorModal.attributes)" novalidate>
@@ -25,17 +111,26 @@
         <button type="button" ng-click="hideSensorModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
     </form>
 </modal>
-
 <div id="view-hub" class="resource-page">
     <div class="row">
         <div class="col-lg-12">
-            <div class="page-header">
-                <h1>
-          <a ng-if="hub.status === 'online'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This hub is currently {{::hub.status | uppercase}}."><span class="label label-success"><i class="fa fa-check-circle"></i> {{hub.friendly_id}}</span></a>
-          <a ng-if="hub.status === 'offline'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This hub is currently {{::hub.status | uppercase}}."><span class="label label-danger"><i class="fa fa-times-circle"></i> {{hub.friendly_id}}</span></a>
-          <a ng-if="hub.status === 'unknown'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="The status of this hub is currently {{::hub.status | uppercase}}."><span class="label label-default"><i class="fa fa-question-circle"></i> {{hub.friendly_id}}</span></a>
-        </h1>
-                <p class="desc">{{hub.desc}}</p>
+            <div class="page-header row" vertilize-container>
+                <div class="col-lg-9" vertilize>
+                    <h1>
+                        <a ng-if="hub.status === 'online'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This hub is currently {{::hub.status | uppercase}}."><span class="label label-success"><i class="fa fa-check-circle"></i> {{hub.friendly_id}}</span></a>
+
+                         <a ng-if="hub.status === 'offline'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="This hub is currently {{::hub.status | uppercase}}."><span class="label label-danger"><i class="fa fa-times-circle"></i> {{hub.friendly_id}}</span></a>
+
+                         <a ng-if="hub.status === 'unknown'" href="javascript:void" tooltip-placement="bottom" tooltip-close-delay="200" uib-tooltip="The status of this hub is currently {{::hub.status | uppercase}}."><span class="label label-default"><i class="fa fa-question-circle"></i> {{hub.friendly_id}}</span></a>
+                    </h1>
+                    <p class="desc">{{hub.desc}}</p>
+                </div>
+
+                <div class="col-lg-3 flex-wrap flex-valign" vertilize>
+                    <p id="add-sensor" class="button-bar" ng-if="user.isAdmin()">
+                        <button class="btn btn-success" href="javascript:void" ng-click="showAddSensorModal()"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

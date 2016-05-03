@@ -64,12 +64,12 @@
         </div>
 
         <div class="form-group" show-errors>
-            <label for="friendly_id">Low Threshold</label>
+            <label for="low_threshold">Low Threshold</label>
             <input autocomplete="off" name="low_threshold" ng-model="addSensorModal.attributes.low_threshold" type="number" class="form-control" placeholder="Enter the low threshold for the sensor" required />
         </div>
 
         <div class="form-group" show-errors>
-            <label for="friendly_id">High Threshold</label>
+            <label for="high_threshold">High Threshold</label>
             <input autocomplete="off" name="high_threshold" ng-model="addSensorModal.attributes.high_threshold" type="number" class="form-control" placeholder="Enter the high threshold for the sensor" min="{{addSensorModal.attributes.low_threshold + 1}}" required />
             <span ng-show="addSensorModal.form.high_threshold.$error.min" class="help-block">The high threshold must be greater than the low threshold.</span>
         </div>
@@ -102,6 +102,15 @@
             <label for="desc">Description</label>
             <input autocomplete="off" name="desc" ng-model="updateSensorModal.attributes.desc" type="text" class="form-control" placeholder="{{updateSensorModal.sensor.desc}}" ng-maxlength="256" />
             <span ng-show="updateSensorModal.form.desc.$error.minlength" class="help-block">Cannot be longer than 256 characters.</span>
+        </div>
+        <div class="form-group" show-errors>
+            <label for="low_threshold">Low Threshold</label>
+            <input autocomplete="off" name="low_threshold" ng-model="updateSensorModal.attributes.low_threshold" type="number" class="form-control" ng-init="updateSensorModal.attributes.low_threshold = updateSensorModal.sensor.low_threshold" placeholder="{{updateSensorModal.sensor.low_threshold}}" />
+        </div>
+        <div class="form-group" show-errors>
+            <label for="high_threshold">High Threshold</label>
+            <input autocomplete="off" name="high_threshold" ng-model="updateSensorModal.attributes.high_threshold" type="number" class="form-control" ng-init="updateSensorModal.attributes.high_threshold = updateSensorModal.sensor.high_threshold" placeholder="{{updateSensorModal.sensor.high_threshold}}" min="{{updateSensorModal.attributes.low_threshold + 1}}" />
+            <span ng-show="updateSensorModal.form.high_threshold.$error.min" class="help-block">The high threshold must be greater than the low threshold.</span>
         </div>
         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
         <button type="button" ng-click="hideSensorModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>

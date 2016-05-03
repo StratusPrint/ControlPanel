@@ -87,18 +87,6 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
    * Update a sensor
    */
   $scope.updateSensor = function(sensorId, attributes) {
-    // Check whether form has not been filled out
-    if ($scope.addSensorModal.form.$pristine) {
-      $scope.updateSensorModal.addAlert('warning', 'Please fill out the form below before submitting.');
-      return;
-    }
-
-    // Check whether any validation errors are present on the form
-    if (!$scope.addSensorModal.form.$valid) {
-      $scope.updateSensorModal.addAlert('danger', 'Please correct the errors below and try submitting the form again.');
-      return;
-    }
-
     hub.updateSensor(sensorId, attributes)
       .success(function(response) {
         $scope.updateSensorModal.addAlert('success', 'The sensor has been updated successfully.');

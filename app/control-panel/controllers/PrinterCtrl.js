@@ -16,6 +16,9 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, $interval, print
 	$scope.printerModal.printer = {};
 	$scope.printerModalVisible = false;
 
+	$scope.deletePrinterModal = {};
+	$scope.deleteprinterModalVisible = false;
+
 	$scope.cancelJobModal = {};
 	$scope.cancelJobModalVisible = false;
 
@@ -43,6 +46,16 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, $interval, print
 	};
 
 	/**
+	 * Delete printer
+	 */
+	$scope.deletePrinter = function(printerId) {
+		printer.deletePrinter(printerId)
+			.success(function(response) {
+				$state.go('dashboard.viewHub', { hubId: $stateParams.hubId });
+			});
+	};
+
+	/**
 	 * Modal visibility toggling
 	 */
 	$scope.showPrinterModal = function() {
@@ -60,6 +73,14 @@ function PrinterCtrl($scope, $state, $stateParams, $controller, $interval, print
 
 	$scope.hideCancelJobModal = function() {
 		$scope.cancelJobModalVisible = false;
+	};
+
+	$scope.showDeletePrinterModal = function() {
+		$scope.deletePrinterModalVisible = true;
+	};
+
+	$scope.hideDeletePrinterModal = function() {
+		$scope.deletePrinterModalVisible = false;
 	};
 
 	/**

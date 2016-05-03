@@ -46,6 +46,8 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
 
   $scope.showAddSensorModal = function() {
     $scope.addSensorModalVisible = true;
+    $scope.addSensorModal.alerts = [];
+    $scope.addSensorModal.addAlert('warning', 'All fields are required unless otherwise stated.');
   };
 
   $scope.hideAddSensorModal = function() {
@@ -75,7 +77,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
         $scope.getSensors();
       })
       .error(function(response) {
-        $scope.addSensorModal.addAlert('danger', 'Unable to add sensor. Please try again.');
+        $scope.addSensorModal.addAlert('danger', 'Unable to add sensor. Please double check that the specified name is not already in use by another sensor and then try again.');
         console.log('Unable to add sensor to hub.');
         console.log(response);
       });
@@ -90,7 +92,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
       $scope.updateSensorModal.addAlert('warning', 'Please fill out the form below before submitting.');
       return;
     }
-    
+
     // Check whether any validation errors are present on the form
     if (!$scope.addSensorModal.form.$valid) {
       $scope.updateSensorModal.addAlert('danger', 'Please correct the errors below and try submitting the form again.');

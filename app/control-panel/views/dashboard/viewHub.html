@@ -3,7 +3,7 @@
     <form name="addSensorModal.form" role="form" ng-submit="addSensor(addSensorModal.attributes)" novalidate>
         <div class="form-group" show-errors>
             <label for="friendly_id">Name</label>
-            <input autocomplete="off" name="friendly_id" ng-model="addSensorModal.attributes.friendly_id" type="text" class="form-control" placeholder="Enter a name for the sensor" ng-minlength="4" required />
+            <input autocomplete="off" name="friendly_id" ng-model="addSensorModal.attributes.friendly_id" type="text" class="form-control" placeholder="Enter a name for the sensor" ng-minlength="4" ng-required />
             <span ng-show="addSensorModal.form.friendly_id.$error.minlength" class="help-block">Name is too short. Must be at least 4 characters.</span>
         </div>
 
@@ -27,27 +27,25 @@
 
         <div class="form-group" show-errors>
             <label for="category">Type</label>
-            <select name="category" ng-init="addSensorModal.attributes.category = 'Specify the type of sensor'" ng-model="addSensorModal.attributes.category" class="form-control" ng-required="required">
+            <select name="category" ng-init="addSensorModal.attributes.category = 'Specify the type of sensor'" ng-model="addSensorModal.attributes.category" class="form-control" required>
                 <option disabled selected>Specify the type of sensor</option>
                 <option value="temperature">Temperature</option>
                 <option value="humidity">Humidity</option>
                 <option value="door">Door</option>
                 <option value="kill switch">Kill Switch</option>
             </select>
-            <span ng-show="addSensorModal.form.category.$error.required" class="help-block">This field is required.</span>
         </div>
 
         <div class="form-group" show-errors>
             <label for="node_id">Node ID</label>
-            <select name="node_id" ng-init="addSensorModal.attributes.node_id = 'Specify the type of sensor'" ng-model="addSensorModal.attributes.node_id" class="form-control" ng-required="required">
+            <select name="node_id" ng-init="addSensorModal.attributes.node_id = 'Specify the type of sensor'" ng-model="addSensorModal.attributes.node_id" class="form-control" required>
                 <option disabled selected>Specify the ID of the node that the sensor is connected to</option>
             </select>
-            <span ng-show="addSensorModal.form.node_id.$error.required" class="help-block">This field is required.</span>
         </div>
 
         <div class="form-group" show-errors>
             <label for="node_id">PIN</label>
-            <select name="pin" ng-init="addSensorModal.attributes.pin = 'Specify which GPIO pin the sensor is connected to'"ng-model="addSensorModal.attributes.pin" class="form-control" ng-required="required">
+            <select name="pin" ng-init="addSensorModal.attributes.pin = 'Specify which GPIO pin the sensor is connected to'"ng-model="addSensorModal.attributes.pin" class="form-control" required>
                 <option disabled selected>Specify which GPIO pin the sensor is connected to</option>
                 <option>0</option>
                 <option>1</option>
@@ -63,22 +61,20 @@
                 <option>11</option>
                 <option>12</option>
             </select>
-            <span ng-show="addSensorModal.form.pin.$error.required" class="help-block">This field is required.</span>
         </div>
 
         <div class="form-group" show-errors>
             <label for="friendly_id">Low Threshold</label>
-            <input autocomplete="off" name="low_threshold" ng-model="addSensorModal.attributes.low_threshold" type="number" class="form-control" placeholder="Enter the low threshold for the sensor" ng-required="required" />
-            <span ng-show="addSensorModal.form.low_threshold.$error.required" class="help-block">This field is required.</span>
+            <input autocomplete="off" name="low_threshold" ng-model="addSensorModal.attributes.low_threshold" type="number" class="form-control" placeholder="Enter the low threshold for the sensor" required />
         </div>
 
         <div class="form-group" show-errors>
             <label for="friendly_id">High Threshold</label>
-            <input autocomplete="off" name="high_threshold" ng-model="addSensorModal.attributes.high_threshold" type="number" class="form-control" placeholder="Enter the high threshold for the sensor" ng-required="required" />
-            <span ng-show="addSensorModal.form.high_threshold.$error.required" class="help-block">This field is required.</span>
+            <input autocomplete="off" name="high_threshold" ng-model="addSensorModal.attributes.high_threshold" type="number" class="form-control" placeholder="Enter the high threshold for the sensor" min="{{addSensorModal.attributes.low_threshold + 1}}" required />
+            <span ng-show="addSensorModal.form.high_threshold.$error.min" class="help-block">The high threshold must be greater than the low threshold.</span>
         </div>
 
-        <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
+        <button ng-disabled="addSensorModal.form.$invalid" type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
 
         <button type="button" ng-click="hideAddSensorModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
     </form>

@@ -164,7 +164,9 @@
                     <i class="fa fa-list"></i> Printers
                 </div>
                 <div class="panel-body">
-                    <div class="well printer" ng-repeat="printer in printers.slice(((printersCurrentPage-1)*printersItemsPerPage), ((printersCurrentPage)*printersItemsPerPage))">
+                    <p ng-show="!printers.length" class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are no printers associated with this hub.</p>
+
+                    <div class="well printer" ng-show="printers.length" ng-repeat="printer in printers.slice(((printersCurrentPage-1)*printersItemsPerPage), ((printersCurrentPage)*printersItemsPerPage))">
                         <div class="row flex-wrap flex-valign">
                             <div class="col-lg-4 text-center">
                                 <span class="printer-icon glyphicon glyphicon-print"></span>
@@ -187,7 +189,7 @@
                             </div>
                         </div>
                     </div>
-                    <uib-pagination total-items="printersTotalItems" items-per-page="printersItemsPerPage" ng-model="printersCurrentPage" ng-change="pageChanged(printers)" class="pull-right no-margin">
+                    <uib-pagination ng-show="printers.length" total-items="printersTotalItems" items-per-page="printersItemsPerPage" ng-model="printersCurrentPage" ng-change="pageChanged(printers)" class="pull-right no-margin">
                     </uib-pagination>
                 </div>
             </div>

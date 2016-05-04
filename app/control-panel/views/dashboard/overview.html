@@ -117,15 +117,13 @@
               <li class="list-group-item">
                 <label>Friendly ID:</label> {{printer.friendly_id}}</li>
               <li class="list-group-item">
-                <!-- Safe to assume printer location the same as hub location?  I think so, but maybe not -->
-                <label>Location:</label> {{hub.location}}</li>
-              <li class="list-group-item">
                 <label>Model:</label> {{printer.model}}</li>
               <li class="list-group-item">
                 <label>Description:</label> {{printer.description}}</li>
               <li class="list-group-item">
-                <label>Status:</label> {{printer.status}}</li>
-              <li class="list-group-item">
+                <label>Status:</label>                                         
+                <span class="label badge-printer-{{printer.status}}">{{printer.status}}</span></li>
+              <li class="list-group-item" ng-if="printer.currentJob">
                 <label>Current Job:</label> {{printer.currentJob.id}}</li>
             </ul>
             <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" 

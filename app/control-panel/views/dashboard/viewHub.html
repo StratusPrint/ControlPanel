@@ -135,7 +135,7 @@
                 </div>
                 <div class="col-lg-3 flex-wrap flex-valign" vertilize>
                     <p id="add-sensor" class="button-bar" ng-if="user.isAdmin()">
-                        <button class="btn btn-success" href="javascript:void" ng-click="showAddSensorModal()"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
+                        <button ng-disabled="hub.status !== 'online'" class="btn btn-success" href="javascript:void" ng-click="showAddSensorModal()"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
                     </p>
                 </div>
             </div>

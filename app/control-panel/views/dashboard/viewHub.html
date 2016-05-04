@@ -135,7 +135,7 @@
                 </div>
                 <div class="col-lg-3 flex-wrap flex-valign" vertilize>
                     <p id="add-sensor" class="button-bar" ng-if="user.isAdmin()">
-                        <button class="btn btn-success" href="javascript:void" ng-click="showAddSensorModal()"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
+                        <button ng-disabled="hub.status !== 'online'" class="btn btn-success" href="javascript:void" ng-click="showAddSensorModal()"><i class="fa fa-plus-circle"></i> Add New Sensor</button>
                     </p>
                 </div>
             </div>
@@ -186,13 +186,13 @@
                                     <li class="list-group-item">
                                         <label>Name:</label> {{printer.friendly_id}}</li>
                                     <li class="list-group-item">
-                                        <label>Location:</label> {{printer.location}}</li>
-                                    <li class="list-group-item">
                                         <label>Play:</label> {{printer.model}}</li>
                                     <li class="list-group-item">
                                         <label>Description:</label> {{printer.description}}</li>
                                     <li class="list-group-item">
-                                        <label>Status:</label> {{printer.status}}</li>
+                                        <label>Status:</label> 
+                                        <span class="label badge-printer-{{printer.status}}">{{printer.status}}</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

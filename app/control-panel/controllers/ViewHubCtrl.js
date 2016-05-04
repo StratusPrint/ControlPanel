@@ -6,9 +6,6 @@ ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$q', '$c
 function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $interval, hub, printer, sensor) {
   var hubId = Number($stateParams.hubId);
 
-  var hubPromise = hub.getHub(hubId);
-  var printersPromise = hub.getPrinters(hubId);
-
   $scope.sensors = {};
   $scope.updateSensorModal = {};
   $scope.updateSensorModal.form = {};
@@ -177,7 +174,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
       updateHubPromise.then(function(data) {
         if (typeof (data) === 'object') {
           $scope.resetForm();
-          $scope.addAlert('success', 'Hub updated successfully!');
+          $scope.addAlert('success', 'Hub updated successfully.');
           $scope.hub = data;
         } else {
           $scope.addAlert('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable.');
@@ -270,79 +267,32 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
       });
   };
 
+  $scope.getPrinters = function() {
+    hub.getPrinters(hubId)
+      .then(function(_printers) {
+        $scope.printers = _printers;
+        $scope.printersTotalItems = _printers.length;
+      });
+  };
 
-  /*********************************************************
-   *
-   * Promise handling
-   * Setting scope variables
-   *
-   * /
-
-
-  /*
-   * Handling the promise and
-   * Retrieving the proper hub
-   *  $scope.hub
-   */
-  hubPromise.then(function(_hub) {
-    $scope.hub = _hub;
-  });
-
-
-  /*
-   * Retrieving all sensors that are connected to the hub
-   *  $scope.sensors {object}[]
-   * Handling the promise for retrieving the sensor data and assigning that data to the associated sensor
-   *  $scope.sensors.data {object}
-   *  $scope.sensors.newestDatum
-   */
-  /*sensorsPromise.then(function(_sensors) {
-    var sensorDataPromises = [];
-    $scope.sensors = _sensors;
-
-    for (var i = 0; i < $scope.sensors.length; i++) {
-      sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
-    }
-
-    $q.all(sensorDataPromises).then(function(_data) {
-      var sensorData = _data;
-      console.log('Sensor Data Size: ' + sensorData.length);
-
-      for (var j = 0; j < sensorData.length; j++) {
-        $scope.sensors[j].data = sensorData[j];
-        var dataLength = $scope.sensors[j].data.length;
-        $scope.sensors[j].newestDatum = $scope.sensors[j].data[dataLength - 1];
-        if ($scope.sensors[j].data[dataLength - 1].value === '1' || $scope.sensors[j].data[dataLength - 1].value === '0') {
-          if ($scope.sensors[j].data[dataLength - 1].value === '1') {
-            $scope.sensors[j].newestDatum.value = 'True';
-          } else {
-            $scope.sensors[j].newestDatum.value = 'False';
-          }
-        }else {
-          $scope.sensors[j].newestDatum.value = parseFloat($scope.sensors[j].data[dataLength - 1].value).toFixed(2);
-        }
-      }
-
+  $scope.getHub = function() {
+    hub.getHub(hubId)
+    .then(function(_hub) {
+      $scope.hub = _hub;
     });
-  });*/
+  };
 
-  /*
-   * Retrieving all printers connected to the hub
-   *  $scope.printers {object}[]
-   */
-  printersPromise.then(function(_printers) {
-    $scope.printers = _printers;
-    $scope.printersTotalItems = _printers.length;
-  });
+  $scope.refresh = function() {
+    $scope.getPrinters();
+    $scope.getSensors();
+    $scope.getHub();
+  };
 
-  /**
-   * Retrieve list of sensors
-   */
-  $scope.getSensors();
+  $scope.refresh();
 
   var timerPromise;
   $scope.timer = function() {
-    timerPromise = $interval($scope.getSensors, 2000);
+    timerPromise = $interval($scope.refresh, 2000);
   };
 
   $scope.timer();

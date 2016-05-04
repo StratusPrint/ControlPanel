@@ -1,13 +1,14 @@
 app.controller('UsersCtrl', UsersCtrl);
 
-UsersCtrl.$inject = ['$scope', '$state','$stateParams', 'admin','$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder', '$filter'];
+UsersCtrl.$inject = ['$scope', '$state','$stateParams', 'admin','$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder', '$filter','Page'];
 
-function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, $filter) {
+function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, $filter, Page) {
 
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
   var dtCtrl = this;
 
+  Page.setTitle('User Management');
   /******************************************************
    *
    * DataTables funsies
@@ -145,7 +146,7 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
 
   /**
    * ResetForm
-   * clears the $scope.hub and sets the form to pristine(cleared)
+   * clears the $scope._user and sets the form to pristine(cleared)
    *
    * @returns {undefined}
    */

@@ -1,9 +1,9 @@
 /*jshint loopfunc: true */
 app.controller('UploadJobCtrl', UploadJobCtrl);
 
-UploadJobCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', 'Upload'];
+UploadJobCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', 'Upload', 'Page'];
 
-function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
+function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload, Page) {
   var printerId = $stateParams.printerId;
   $scope.files = [];
   $scope.errFiles = [];

@@ -1,9 +1,9 @@
 // jscs:disable
 
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$q', '$controller', '$interval', 'hub', 'printer', 'sensor'];
+ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$q', '$controller', '$interval', 'hub', 'printer', 'sensor', 'Page'];
 
-function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $interval, hub, printer, sensor) {
+function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $interval, hub, printer, sensor, Page) {
   var hubId = Number($stateParams.hubId);
 
   $scope.sensors = {};
@@ -24,6 +24,8 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
   $controller('AlertCtrl', { $scope: $scope });
   $controller('AlertCtrl', { $scope: $scope.updateSensorModal});
   $controller('AlertCtrl', { $scope: $scope.addSensorModal});
+
+  Page.setTitle('View Hub - '+hubId);
 
   /*********************************************************
    *

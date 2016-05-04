@@ -1,8 +1,8 @@
 app.controller('DashboardCtrl', DashboardCtrl);
 
-DashboardCtrl.$inject = ['$scope', '$state', '$q', 'hub', 'printer', 'sensor'];
+DashboardCtrl.$inject = ['$scope', '$state', '$q', 'hub', 'printer', 'sensor','Page'];
 
-function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
+function DashboardCtrl($scope, $state, $q, hub,  printer, sensor, Page) {
   var defaultHubId = $scope.user._user.default_hub_id;
 
   $scope.currentHub = {};
@@ -12,6 +12,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
   $scope.printer = {};
   $scope.sensors = {};
 
+  Page.setTitle('Dashboard');
   $scope.lineChartdata = [
   ];
   /********************************************************

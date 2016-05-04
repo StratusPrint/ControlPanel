@@ -1,10 +1,12 @@
 app.controller('ProfileCtrl', ProfileCtrl);
 
-ProfileCtrl.$inject = ['$scope', '$controller', 'auth','hub'];
+ProfileCtrl.$inject = ['$scope', '$controller', 'auth','hub', 'Page'];
 
-function ProfileCtrl($scope, $controller, auth, hub) {
+function ProfileCtrl($scope, $controller, auth, hub, Page) {
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
+
+  Page.setTitle('User Profile');
 
   var hubsPromise = hub.getAllHubs();
   hubsPromise.then(function(response) {

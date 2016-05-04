@@ -1,8 +1,9 @@
 app.controller('LoginCtrl', LoginCtrl);
 
-LoginCtrl.$inject = ['$scope', '$auth', 'AuthService'];
+LoginCtrl.$inject = ['$scope', '$auth', 'AuthService', 'Page'];
 
-function LoginCtrl($scope, $auth) {
+function LoginCtrl($scope, $auth, Page) {
+  Page.setTitle('Login');
   $scope.login = function() {
     $auth.submitLogin($scope.loginForm)
             .then(function(resp) {

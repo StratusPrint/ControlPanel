@@ -1,12 +1,13 @@
 app.controller('ListHubsCtrl', ListHubsCtrl);
 
-ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder', 'hub'];
+ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder', 'hub', 'Page'];
 
-function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, hub) {
+function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, hub, Page) {
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
   var dtCtrl = this;
 
+  Page.setTitle('All Hubs');
   /******************************************************
    *
    * DataTables funsies

@@ -177,7 +177,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
       updateHubPromise.then(function(data) {
         if (typeof (data) === 'object') {
           $scope.resetForm();
-          $scope.addAlert('success', 'Hub updated successfully!');
+          $scope.addAlert('success', 'Hub updated successfully.');
           $scope.hub = data;
         } else {
           $scope.addAlert('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable.');

@@ -202,7 +202,10 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
   /********************************************************
    * Chart Data
    */
+
+
   var setTempChartDatum = function(_sensors) {
+    calcAverageDatum(_sensors);
     var chartDatum = [
     ];
 
@@ -241,9 +244,55 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
   /********************************************************
    * Local functions
    */
-  function truncateData(_sensor) {
-    for (var i; i < _sensor.data.length; i++) {
-      _sensor.data[i].value = parseFloat(_sensor.data[i].value.toFixed(2));
+
+  /**
+   * calcMaxDataLength
+   *
+   * Calculates the max length of the data contained in an array of sensors
+   *
+   * @param {JSON[]} _sensors
+   * @returns {number}
+   */
+  calcMaxDataLength = function(_sensors) {
+    var lengths = [];
+    for (var i = 0; i < _sensors.length; i++) {
+      lengths.push(_sensors[i].data.length);
     }
-  }
+    return Math.max.apply(Math,lengths);
+  };
+
+  /**
+   * calcAverageDatum
+   *
+   * Calculates the average datum for a set of sensors
+   * Returns a single array that contains the average value
+   *  for each index of the data provided by the set of sensors
+   *
+   * @param {{JSON[]}} _sensors
+   * @returns {number[]}
+   */
+  var calcAverageDatum = function(_sensors) {
+    var start = performance.now();
+    var maxDataLength = calcMaxDataLength(_sensors);
+    console.log('max length: ' + maxDataLength);
+    var avgDatum = [];
+    var numSensors = _sensors.length;
+
+    for (var i = 0; i < maxDataLength; i++) {
+      var avgData = 0;
+
+      for (j = 0; j < _sensors.length; j++) {
+        if (i < _sensors[j].data.length) {
+          avgData += parseFloat(_sensors[j].data[i].value);
+        }
+      }
+      avgData = avgData / _sensors.length;
+      avgData = parseFloat(avgData).toFixed(2);
+      avgDatum.push(avgData);
+    }
+    var end = performance.now();
+    console.log('Total Time Taken: ' + (end - start));
+    return avgDatum;
+  };
+
 }

@@ -193,11 +193,11 @@
                         <li class="list-group-item">
                             <label class="no-margin">File Size:</label> {{currentJob.data.file.size}}</li>
                         <li class="list-group-item">
-                            <label class="no-margin">Estimated Print Time:</label> {{currentJob.data.estimated_print_time}}</li>
+                            <label class="no-margin">Estimated Print Time:</label> {{currentJob.data.estimated_print_time | readableTime}}</li>
                         <li class="list-group-item">
-                            <label class="no-margin">Elapsed Print Time:</label> {{currentJob.data.progress.print_time}}</li>
+                            <label class="no-margin">Elapsed Print Time:</label> {{currentJob.data.progress.print_time | readableTime}}</li>
                         <li class="list-group-item">
-                            <label class="no-margin">Print Time Left:</label> {{currentJob.data.progress.print_time_left}}</li>
+                            <label class="no-margin">Print Time Left:</label> {{currentJob.data.progress.print_time_left | readableTime}}</li>
                         <li class="list-group-item">
                             <label class="no-margin">Progress:</label> {{currentJob.data.progress.completion}}%</li>
                     </ul>

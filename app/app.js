@@ -11,6 +11,7 @@ angular.module('ControlPanel', [
     'angular-table',
     'angular.morris-chart',
     'ngSanitize',
+    'readableTime',
 ]);
 
 var app = angular.module('ControlPanel');

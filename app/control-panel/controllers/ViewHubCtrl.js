@@ -41,6 +41,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
   $scope.hideSensorModal = function() {
     $scope.updateSensorModalVisible = false;
     $scope.updateSensorModal.alerts = [];
+    $scope.updateSensorModal.form.$setPristine();
   };
 
   $scope.showAddSensorModal = function() {
@@ -53,6 +54,9 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
     $scope.addSensorModalVisible = false;
     $scope.addSensorModal.alerts = [];
     $scope.addSensorModal.attributes = {};
+    $scope.addSensorModal.attributes.category = 'Specify the type of sensor';
+    $scope.addSensorModal.attributes.node_id = 'Specify the ID of the node that the sensor is connected to';
+    $scope.addSensorModal.attributes.pin = 'Specify which GPIO pin the sensor is connected to';
   };
   $scope.showDeleteSensorModal = function() {
     $scope.deleteSensorModalVisible = true;

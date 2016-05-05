@@ -118,7 +118,7 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     },
   });
 
-  $urlRouterProvider.otherwise('dashboard.404');
+  $urlRouterProvider.otherwise('dashboard.overview');
 });
 
 app.config(function($authProvider) {

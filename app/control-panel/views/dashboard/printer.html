@@ -45,9 +45,9 @@
 
 <modal title="Start Next Job" visible="issueClearModalVisible">
 	<p class="alert alert-warning">
-		<i class="fa fa-exclamation-triangle"></i> This will issue a clear command to the printer indicating that the print bed has been cleared of any 3D printed objects from the previous job. The printer will enter a ready state allowing any new or queued jobs to be printed. <strong>Make sure that the print bed is clear before carrying out this action.</strong>
+		<i class="fa fa-exclamation-triangle"></i> This will issue a clear command to the printer indicating that the print bed has been cleared of any 3D printed objects from the previous job. The printer will enter a ready state allowing any new or queued jobs to be printed. <br /><strong>Make sure that the print bed is clear before carrying out this action.</strong>
 	</p>
-	<button type="button" class="btn btn-success" ng-click="issueClear()"><i class="fa fa-forward"></i> Start Next Job</button>
+	<button type="button" class="btn btn-success" ng-click="command.name = 'clear'; hideIssueClearModal();"><i class="fa fa-forward"></i> Start Next Job</button>
 	<button type="button" class="btn btn-warning" ng-click="hideIssueClearModal()"><i class="fa fa-times"></i> Cancel</button>
 </modal>
 
@@ -153,7 +153,6 @@
 	            <div class="col-lg-6 flex-wrap flex-valign" vertilize>
 	            	<p class="button-bar" ng-cloak ng-if="user.isAdmin()">
 	            		<button class="btn btn-info " href="javascript:void" ng-click="showPrinterModal()"><i class="fa fa-pencil-square"></i> Modify Printer Details</button>
-	            		<button ng-disabled="printer.status !== 'completed' && printer.status !== 'errored' && printer.status !== 'cancelled'" class="btn btn-success " href="javascript:void" ng-click="showIssueClearModal()"><i class="fa fa-forward"></i> Start Next Job</button>
 	            		<button class="btn btn-danger" href="javascript:void" ng-click="showDeletePrinterModal()"><i class="fa fa-times-circle"></i> Delete Printer</button>
 	            	</p>
 	            </div>
@@ -166,14 +165,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Job</div>
                 <div class="panel-body">
-				<!--No current job Alert-->
-                <p ng-cloak ng-if="currentJob.show === false" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
-
-                <!--Current Job-->
-               	<div ng-cloak ng-if="currentJob.show === true">
                 	<!--Alert-->
                 	<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
-
+				<!--No current job Alert-->
+                <p ng-cloak ng-if="currentJob.show === false" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
+				<button ng-cloak ng-if="(currentJob.show === false) && (printer.status == 'completed' || printer.status !== 'errored' || printer.status !== 'cancelled')" class="margin-top-nudge pull-right btn btn-success " href="javascript:void" ng-click="showIssueClearModal()"><i class="fa fa-forward"></i> Start Next Job</button>
+                <!--Current Job-->
+               	<div ng-cloak ng-if="currentJob.show === true">
                     <!--Job Progress-->
                     <h4><i class="fa fa-tasks"></i> Current Progress</h4>
                     <uib-progressbar ng-cloak ng-if="currentJob.data.status !== 'paused' || currentJob.data.status !== 'slicing'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="info"><i>{{currentJob.data.progress.completion}}% Completed</i></uib-progressbar>
@@ -244,6 +242,9 @@
 					            <td class="text-center" at-attribute="name" at-title="Command">
 					            	<span class="label label-default" ng-cloak ng-if="item.name === 'pause'">
 					            		<i class="fa fa-pause"></i> {{item.name | capitalize}}
+					            	</span>		
+					            	<span class="label label-success" ng-cloak ng-if="item.name === 'clear'">
+					            		<i class="fa fa-eject"></i> {{item.name | capitalize}}
 					            	</span>					            	
 					            	<span class="label label-success" ng-cloak ng-if="item.name === 'start'">
 					            		<i class="fa fa-play"></i> {{item.name | capitalize}}

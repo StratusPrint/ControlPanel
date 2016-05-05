@@ -113,7 +113,6 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
                 $scope.currentJob = response;
                 if(response.id) {
                     $scope.currentJob.show = true;
-                    $scope.clearAlerts();
                 } else {
                     $scope.currentJob.show = false;
                 }
@@ -144,13 +143,6 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
                 console.log(response);
                 $scope.showCommands = false;
             });
-    };
-
-    /**
-     * Issue a clear command to the printer
-     */
-    $scope.issueClear = function() {
-        $scope.command = 'clear';
     };
 
     /**
@@ -192,12 +184,11 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
      * Issue a printer command.
      */
     $scope.issueCommand = function() {
-        if ($scope.command.name === '') {
-            return; }
+        if ($scope.command.name === '') { return; }
 
         printer.issueCommand($stateParams.printerId, $scope.command.name)
             .success(function(response) {
-                $scope.addAlert('info', 'The ' + $scope.command.name + ' command has been sent to the printer. Please wait a minute for the command be executed and the current job status updated.');
+                $scope.addAlert('info', 'The ' + $scope.command.name + ' command has been sent to the printer. Please wait a minute for the command be executed and the current status updated.');
             })
             .error(function(response) {
                 $scope.addAlert('danger', 'Unable to issue command. Please try again.');

@@ -158,7 +158,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
       $scope.sensors = _sensors.data;
 
       for (var i = 0; i < $scope.sensors.length; i++) {
-        sensorDataPromises.push(sensor.getData($scope.sensors[i].id));
+        sensorDataPromises.push(sensor.getData($scope.sensors[i].id, 1));
       }
 
       // Execute all promises

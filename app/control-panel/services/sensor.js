@@ -27,10 +27,10 @@ function SensorService($http) {
    * @param _sensorId
    * @returns {promise}
    */
-  this.getData = function(_sensorId) {
+  this.getData = function(_sensorId, _hoursAgo) {
     return $http({
       method: 'GET',
-      url: 'https://dev.api.stratusprint.com/v1/sensors/' + _sensorId + '/data',
+      url: 'https://dev.api.stratusprint.com/v1/sensors/' + _sensorId + '/data' + '?hours_ago=' + _hoursAgo,
     }).then(function successCallback(response) {
       return response.data;
     }, function errorCallback(response) {

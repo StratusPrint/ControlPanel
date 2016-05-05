@@ -118,7 +118,7 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     },
   });
 
-  $urlRouterProvider.otherwise('dashboard.overview');
+  $urlRouterProvider.otherwise('dashboard');
 });
 
 app.config(function($authProvider) {

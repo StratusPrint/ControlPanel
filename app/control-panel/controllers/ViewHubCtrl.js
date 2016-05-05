@@ -107,7 +107,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
         $scope.getSensors();
       })
       .error(function(response) {
-          $scope.updateSensorModal.addAlert('danger', 'Unable to update sensor. Please double check that the specified name is not already in use by another sensor.');
+          $scope.updateSensorModal.addAlert('danger', 'Unable to update sensor. Please double check that the specified name is not already in use by another sensor, and that the high threshold is greater than the low threshold.');
           console.log(response);
       });
   };

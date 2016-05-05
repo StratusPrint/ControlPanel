@@ -55,6 +55,11 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
     var defaultHubPromise = hub.getHub(_hubId);
     defaultHubPromise.then(function(_hub) {
       $scope.currentHub = _hub;
+      if (_hub.status === 404) {
+        $scope.showNoDefaultHubAlert = true;
+      } else {
+        $scope.showNoDefaultHubAlert = false;
+      }
     });
   };
 

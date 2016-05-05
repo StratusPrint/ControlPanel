@@ -142,7 +142,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3" ng-repeat="sensor in sensors">
+        <div ng-if="sensors.length" class="col-lg-3" ng-repeat="sensor in sensors">
             <div class="sensor panel panel-info">
                 <div class="panel-heading clearfix">
                     <span class="name pull-left"><i class="glyphicon glyphicon-scale"></i> {{sensor.friendly_id}}</span>
@@ -164,6 +164,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div ng-if="!sensors.length" class="col-lg-12">
+            <p class="alert alert-warning">
+                <i class="fa fa-exclamation-triangle"></i> There are no sensors associated with this HUB. 
+            </p>
         </div>
     </div>
     <div class="row" id="printer-list">

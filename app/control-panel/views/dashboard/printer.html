@@ -185,6 +185,8 @@
 							<label class="no-margin">ID:</label> {{currentJob.id}}</li>
                     	</li>
                         <li class="list-group-item">
+                            <label class="no-margin">Created By:</label> {{currentJob.created_by}}</li>
+                        <li class="list-group-item">
                             <label class="no-margin">Created At:</label> {{currentJob.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</li>
                         <li class="list-group-item">
                             <label class="no-margin">Status:</label> {{currentJob.data.status | capitalize}}</li>
@@ -295,6 +297,8 @@
 				<p class="meta">
 					<span class="date"><i class="fa fa-calendar"></i> {{job.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</span>
 					<span class="file"> &middot; <i class="fa fa-file"></i> {{job.model_file_name_full}}
+					</span>
+					<span class="creator"> &middot; <i class="fa fa-user"></i> {{job.created_by}}
 					</span>
 				</p>
 			</div>

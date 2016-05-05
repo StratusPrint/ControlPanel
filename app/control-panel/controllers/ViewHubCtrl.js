@@ -279,6 +279,9 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
     hub.getHub(hubId)
     .then(function(_hub) {
       $scope.hub = _hub;
+      if(!_hub.id) {
+        $state.go('dashboard.404');
+      }
     });
   };
 

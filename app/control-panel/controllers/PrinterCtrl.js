@@ -138,6 +138,7 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
     .error(function(response) {
       console.log('Unable to retrieve printer.');
       console.log(response);
+      $state.go('dashboard.404');
     });
   };
 

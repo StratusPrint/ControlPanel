@@ -102,6 +102,13 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
       requireLogin: true,
     },
   })
+  .state('dashboard.404', {
+    url: '/404',
+    templateUrl: 'control-panel/views/dashboard/404.html',
+    data: {
+      requireLogin: true,
+    },
+  })
   .state('dashboard.users', {
     url: '/users',
     templateUrl: 'control-panel/views/dashboard/users.html',
@@ -111,7 +118,7 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     },
   });
 
-  $urlRouterProvider.otherwise('dashboard');
+  $urlRouterProvider.otherwise('dashboard.404');
 });
 
 app.config(function($authProvider) {

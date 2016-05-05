@@ -50,7 +50,7 @@
         		<div class="col-lg-6" vertilize>
 	            <h1>
 		          <a 
-		          	ng-if="printer.status === 'ready' || printer.status === 'printing' || printer.status === 'completed'" 
+		          	ng-if="printer.status === 'ready'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -61,7 +61,51 @@
 		          </a>
 
 		          <a 
-		          	ng-if="printer.status === 'errored' || printer.status === 'offline'" 
+		          	ng-if="printer.status === 'printing'" 
+		          	href="javascript:void" tooltip-placement="bottom" 
+		          	tooltip-close-delay="200"
+		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
+		          		<span class="label badge-printer-printing">
+		          			<i class="fa fa-check-circle"></i>
+		          			{{printer.friendly_id}}
+		          		</span>
+		          </a>
+
+		          <a 
+		          	ng-if="printer.status === 'cancelled'" 
+		          	href="javascript:void" tooltip-placement="bottom" 
+		          	tooltip-close-delay="200"
+		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
+		          		<span class="label badge-printer-cancelled">
+		          			<i class="fa fa-check-circle"></i>
+		          			{{printer.friendly_id}}
+		          		</span>
+		          </a>
+
+		          <a 
+		          	ng-if="printer.status === 'errored'" 
+		          	href="javascript:void" tooltip-placement="bottom" 
+		          	tooltip-close-delay="200"
+		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
+		          		<span class="label badge-printer-errored">
+		          			<i class="fa fa-check-circle"></i>
+		          			{{printer.friendly_id}}
+		          		</span>
+		          </a>
+
+		          <a 
+		          	ng-if="printer.status === 'completed'" 
+		          	href="javascript:void" tooltip-placement="bottom" 
+		          	tooltip-close-delay="200"
+		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
+		          		<span class="label badge-printer-completed">
+		          			<i class="fa fa-check-circle"></i>
+		          			{{printer.friendly_id}}
+		          		</span>
+		          </a>
+
+		          <a 
+		          	ng-if="printer.status === 'offline'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -72,7 +116,7 @@
 		          </a>
 
 		          <a 
-		          	ng-if="printer.status === 'paused' || printer.status === 'cancelled'"
+		          	ng-if="printer.status === 'paused'"
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">

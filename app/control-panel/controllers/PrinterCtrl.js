@@ -100,6 +100,11 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
         printer.getCurrentJob($stateParams.printerId)
             .success(function(response) {
                 $scope.currentJob = response;
+                if(response.id) {
+                    $scope.currentJob.show = true;
+                } else {
+                    $scope.currentJob.show = false;
+                }
             })
             .error(function(response) {
                 console.log('Unable to retrieve current job.');

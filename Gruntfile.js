@@ -67,6 +67,7 @@ module.exports = function(grunt) {
                 'bower_components/angular-bootstrap/ui-bootstrap.js',
                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
                 'bower_components/angular-bootstrap-show-errors/src/showErrors.js',
+                'bower_components/angular-sanitize/angular-sanitize.js',
                 'bower_components/angular-validation-match/dist/angular-validation-match.js',
                 'bower_components/angular-datatables/dist/angular-datatables.js',
                 'bower_components/ng-file-upload/ng-file-upload.js',

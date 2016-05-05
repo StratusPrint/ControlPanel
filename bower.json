@@ -52,6 +52,7 @@
     "angular-vertilize": "^1.0.1",
     "angular": "^1.5.5",
     "at-table": "^1.0.7",
-    "angular-morris-chart": "^1.2.0"
+    "angular-morris-chart": "^1.2.0",
+    "angular-sanitize": "^1.5.5"
   }
 }

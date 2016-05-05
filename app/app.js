@@ -10,6 +10,7 @@ angular.module('ControlPanel', [
     'angular.vertilize',
     'angular-table',
     'angular.morris-chart',
+    'ngSanitize',
 ]);
 
 var app = angular.module('ControlPanel');

@@ -1,8 +1,8 @@
 app.controller('ListHubsCtrl', ListHubsCtrl);
 
-ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder', 'hub'];
+ListHubsCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller','$compile', '$sanitize', 'DTOptionsBuilder', 'DTColumnBuilder', 'hub'];
 
-function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, hub) {
+function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, $sanitize, DTOptionsBuilder, DTColumnBuilder, hub) {
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
   var dtCtrl = this;
@@ -27,16 +27,40 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, DTOpt
    * Sets columns and fills data based off of that
    */
   dtCtrl.cols = [
-    DTColumnBuilder.newColumn('status').withTitle('Status').withOption('responsivePriority',3),
-    DTColumnBuilder.newColumn('id').withTitle('ID').withOption('responsivePriority',5),
-    DTColumnBuilder.newColumn('friendly_id').withTitle('Hub Name').withOption('responsivePriority',2),
-    DTColumnBuilder.newColumn('location').withTitle('Location').withOption('responsivePriority',7),
-    DTColumnBuilder.newColumn('hostname').withTitle('Hostname').withOption('responsivePriority',6),
-    DTColumnBuilder.newColumn('desc').withTitle('Description').withOption('responsivePriority',4),
+    DTColumnBuilder.newColumn(null).renderWith(status).withTitle('Status').withOption('responsivePriority',3),
+    DTColumnBuilder.newColumn(null).renderWith(id).withTitle('ID').withOption('responsivePriority',5),
+    DTColumnBuilder.newColumn(null).renderWith(friendlyId).withTitle('Hub Name').withOption('responsivePriority',2),
+    DTColumnBuilder.newColumn(null).renderWith(location).withTitle('Location').withOption('responsivePriority',7),
+    DTColumnBuilder.newColumn(null).renderWith(hostname).withTitle('Hostname').withOption('responsivePriority',6),
+    DTColumnBuilder.newColumn(null).renderWith(desc).withTitle('Description').withOption('responsivePriority',4),
     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(detailsButtonHTML).withOption('responsivePriority',1),
   ];
   dtCtrl.reloadData = reloadData;
   dtCtrl.dtInstance = {};
+
+  function friendlyId(data) {
+    return $sanitize(data.friendly_id);
+  }
+
+  function location(data) {
+    return $sanitize(data.location);
+  }
+
+  function hostname(data) {
+    return $sanitize(data.hostname);
+  }
+
+  function desc(data) {
+    return $sanitize(data.desc);
+  }
+
+  function status(data) {
+    return $sanitize(data.status);
+  }
+
+  function id(data) {
+    return $sanitize(data.id);
+  }
 
   /**
    * CreatedRow

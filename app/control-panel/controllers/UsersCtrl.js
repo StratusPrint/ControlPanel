@@ -1,8 +1,8 @@
 app.controller('UsersCtrl', UsersCtrl);
 
-UsersCtrl.$inject = ['$scope', '$state','$stateParams', 'admin','$controller','$compile', 'DTOptionsBuilder', 'DTColumnBuilder', '$filter'];
+UsersCtrl.$inject = ['$scope', '$state','$stateParams', 'admin','$controller','$compile', '$sanitize', 'DTOptionsBuilder', 'DTColumnBuilder', '$filter'];
 
-function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, DTOptionsBuilder, DTColumnBuilder, $filter) {
+function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, $sanitize, DTOptionsBuilder, DTColumnBuilder, $filter) {
 
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
@@ -30,9 +30,9 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
    * Sets columns and fills data based off of that
    */
   dtCtrl.cols = [
-    DTColumnBuilder.newColumn('id').withTitle('ID').withOption('responsivePriority',3),
-    DTColumnBuilder.newColumn('name').withTitle('Name').withOption('responsivePriority',5),
-    DTColumnBuilder.newColumn('email').withTitle('E-mail').withOption('responsivePriority',2),
+    DTColumnBuilder.newColumn(null).withTitle('ID').renderWith(id).withOption('responsivePriority',3),
+    DTColumnBuilder.newColumn(null).withTitle('Name').renderWith(name).withOption('responsivePriority',5),
+    DTColumnBuilder.newColumn(null).withTitle('E-mail').renderWith(email).withOption('responsivePriority',2),
     DTColumnBuilder.newColumn(null).withTitle('Admin').notSortable().renderWith(adminHTML).withOption('responsivePriority',7),
     DTColumnBuilder.newColumn(null).withTitle('Last Sign In').renderWith(lastSignIn).withOption('responsivePriority',6),
     DTColumnBuilder.newColumn(null).withTitle('IP Address').renderWith(ipAddress).withOption('responsivePriority',8),
@@ -43,6 +43,17 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
   dtCtrl.reloadData = reloadData;
   dtCtrl.dtInstance = {};
 
+  function id(data) {
+    return $sanitize(data.id);
+  }
+
+  function name(data) {
+    return $sanitize(data.name);
+  }
+
+  function email(data) {
+    return $sanitize(data.email);
+  }
 
   function adminHTML(data) {
 
@@ -53,7 +64,7 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
   }
 
   function deleteButtonHTML(data) {
-    return '<button class="btn btn-danger" ng-click="deleteModal(' + data.id + ')"><i class="fa fa-trash-o fa-fw"></i>Delete User</button>';
+    return '<button class="btn btn-danger" ng-click="deleteModal(' + $sanitize(data.id) + ')"><i class="fa fa-trash-o fa-fw"></i>Delete User</button>';
   }
 
   function actionButtonHTML(data, type, full, meta) {
@@ -65,19 +76,19 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, D
     if (data.current_sign_in_at === null) {
       return 'Has not yet signed in';
     }
-    return $filter('date')(data.current_sign_in_at, 'EEEE, MMMM dd \'at\' hh:mm a');
+    return $sanitize($filter('date')(data.current_sign_in_at, 'EEEE, MMMM dd \'at\' hh:mm a'));
   }
 
   function createdAt(data) {
     var d = new Date(data.created_at);
-    return $filter('date')(data.created_at, 'EEEE, MMMM dd \'at\' hh:mm a');
+    return $sanitize($filter('date')(data.created_at, 'EEEE, MMMM dd \'at\' hh:mm a'));
   }
 
   function ipAddress(data) {
     if (!data.current_sign_in_ip) {
       return 'Has not yet signed in';
     }
-    return data.current_sign_in_ip;
+    return $sanitize(data.current_sign_in_ip);
   }
 
   /**

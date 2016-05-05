@@ -116,14 +116,16 @@
             <ul class="list-group no-margin">
               <li class="list-group-item">
                 <label>Friendly ID:</label> {{printer.friendly_id}}</li>
-              <li class="list-group-item">
+              <li ng-if="printer.manufacturer" class="list-group-item">
+                <label>Manufacturer:</label> {{printer.manufacturer}}</li>
+              <li ng-if="printer.model" class="list-group-item">
                 <label>Model:</label> {{printer.model}}</li>
-              <li class="list-group-item">
+              <li ng-model="printer.description" class="list-group-item">
                 <label>Description:</label> {{printer.description}}</li>
               <li class="list-group-item">
                 <label>Status:</label>                                         
                 <span class="label badge-printer-{{printer.status}}">{{printer.status}}</span></li>
-              <li class="list-group-item" ng-if="printer.currentJob">
+              <li ng-if="printer.currentJob" class="list-group-item" ng-if="printer.currentJob">
                 <label>Current Job:</label> {{printer.currentJob.id}}</li>
             </ul>
             <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" 

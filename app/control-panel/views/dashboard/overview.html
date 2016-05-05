@@ -106,35 +106,37 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" ng-if="printers.length">
   <div class="col-lg-8">
     <div class="panel panel-default">
       <div class="panel-heading">
         <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}} 
       </div>
-      <div class="well printer">
-        <div class="panel-body row flex-valign">
-          <div class="col-lg-8 col-md-12 col-sm-12">
-            <ul class="list-group no-margin">
-              <li class="list-group-item">
-                <label>Friendly ID:</label> {{printer.friendly_id}}</li>
-              <li ng-if="printer.manufacturer" class="list-group-item">
-                <label>Manufacturer:</label> {{printer.manufacturer}}</li>
-              <li ng-if="printer.model" class="list-group-item">
-                <label>Model:</label> {{printer.model}}</li>
-              <li ng-model="printer.description" class="list-group-item">
-                <label>Description:</label> {{printer.description}}</li>
-              <li class="list-group-item">
-                <label>Status:</label>                                         
-                <span class="label badge-printer-{{printer.status}}">{{printer.status}}</span></li>
-              <li ng-if="printer.currentJob" class="list-group-item" ng-if="printer.currentJob">
-                <label>Current Job:</label> {{printer.currentJob.id}}</li>
-            </ul>
-            <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" 
-              ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
-          </div>
-          <div class="col-lg-4 col-md-12 col-sm-12">
-            <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
+      <div class="panel-body">
+        <div class="well printer" ng-if="printer">
+          <div class="panel-body row flex-valign">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+              <ul class="list-group no-margin">
+                <li class="list-group-item">
+                  <label>Friendly ID:</label> {{printer.friendly_id}}</li>
+                <li ng-if="printer.manufacturer" class="list-group-item">
+                  <label>Manufacturer:</label> {{printer.manufacturer}}</li>
+                <li ng-if="printer.model" class="list-group-item">
+                  <label>Model:</label> {{printer.model}}</li>
+                <li ng-model="printer.description" class="list-group-item">
+                  <label>Description:</label> {{printer.description}}</li>
+                <li class="list-group-item">
+                  <label>Status:</label>                                         
+                  <span class="label badge-printer-{{printer.status}}">{{printer.status}}</span></li>
+                <li ng-if="printer.currentJob" class="list-group-item" ng-if="printer.currentJob">
+                  <label>Current Job:</label> {{printer.currentJob.id}}</li>
+              </ul>
+              <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" 
+                ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12">
+              <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
+            </div>
           </div>
         </div>
       </div>
@@ -147,7 +149,7 @@
         <i class="printer-icon glyphicon glyphicon-print"></i> Printers 
       </div>
       <div class="panel-body">
-        <div class="list-group">
+        <div class="list-group no-margin">
           <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
             <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
             <span ng-if="printer.status === 'ready'" class="pull-right badge badge-printer-ready small">{{printer.status}}</span>
@@ -165,7 +167,7 @@
 </div>
 
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-lg-6" ng-if="tempChartData.length">
     <div class="panel panel-kashmir">
       <div class="panel-heading">
         <i class="fa fa-bar-chart-o fa-fw"></i> Temperature 
@@ -187,7 +189,7 @@
     </div>
   </div>
 
-  <div class="col-lg-6">
+  <div class="col-lg-6" ng-if="humidChartData.length">
     <div class="panel panel-kashmir">
       <div class="panel-heading">
         <i class="fa fa-bar-chart-o fa-fw"></i> Humidity 

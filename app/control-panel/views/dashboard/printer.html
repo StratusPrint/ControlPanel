@@ -191,7 +191,7 @@
                         <li class="list-group-item">
                             <label class="no-margin">File:</label> {{currentJob.model_file_name_full}}</li>
                         <li class="list-group-item">
-                            <label class="no-margin">File Size:</label> {{currentJob.data.file.size}}</li>
+                            <label class="no-margin">File Size:</label> {{currentJob.data.file.size | bytes}}</li>
                         <li class="list-group-item">
                             <label class="no-margin">Estimated Print Time:</label> {{currentJob.data.estimated_print_time | readableTime}}</li>
                         <li class="list-group-item">

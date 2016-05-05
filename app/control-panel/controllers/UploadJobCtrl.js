@@ -17,7 +17,7 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
       $scope.files.unshift(file);
       Upload.base64DataUrl(file).then(function(url) {
 
-        var name = file.name.replace(/\..+$/, '');
+        var name = file.name.substring(0, file.name.lastIndexOf('.'));
         var extension = file.name.split('.').pop();
 
         if (extension === 'stl') {

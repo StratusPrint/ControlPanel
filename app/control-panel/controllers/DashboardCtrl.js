@@ -68,6 +68,11 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
     var hubsPromise = hub.getAllHubs();
     hubsPromise.then(function(_hubs) {
       $scope.hubs = _hubs;
+      if (!_hubs.length) {
+        $scope.showWizard = true;
+      } else {
+        $scope.showWizard = false;
+      }
     });
   };
 

@@ -109,6 +109,7 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
             .error(function(response) {
                 console.log('Unable to retrieve current job.');
                 console.log(response);
+                $scope.currentJob.show = false;
             });
     };
 
@@ -119,10 +120,17 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
         printer.getCommands($stateParams.printerId)
             .success(function(response) {
                 $scope.commands = response;
+                if(response.length) {
+                    $scope.showCommands = true;
+                } else {
+                    $scope.showCommands = false;
+                }
+                
             })
             .error(function(response) {
                 console.log('Unable to retrieve list of commands.');
                 console.log(response);
+                $scope.showCommands = false;
             });
     };
 
@@ -133,10 +141,16 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
         printer.getRecentJobs($stateParams.printerId)
             .success(function(response) {
                 $scope.recentJobs = response;
+                if(response.length) {
+                    $scope.showRecentJobs = true;
+                } else {
+                    $scope.showRecentJobs = false;
+                }
             })
             .error(function(response) {
                 console.log('Unable to retrieve list of recent jobs.');
                 console.log(response);
+                $scope.showRecentJobs = false;
             });
     };
 

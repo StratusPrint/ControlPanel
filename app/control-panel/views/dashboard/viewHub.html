@@ -165,7 +165,7 @@
                 </div>
             </div>
         </div>
-        <div ng-if="!sensors.length" class="col-lg-12">
+        <div ng-cloak ng-if="sensors.length === 0" class="col-lg-12">
             <p class="alert alert-warning">
                 <i class="fa fa-exclamation-triangle"></i> There are no sensors associated with this HUB. 
             </p>
@@ -178,7 +178,7 @@
                     <i class="fa fa-list"></i> Printers
                 </div>
                 <div class="panel-body">
-                    <p ng-show="!printers.length" class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are no printers associated with this HUB.</p>
+                    <p ng-show="printers.length === 0" class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are no printers associated with this HUB.</p>
                     <div class="well printer" ng-show="printers.length" ng-repeat="printer in printers.slice(((printersCurrentPage-1)*printersItemsPerPage), ((printersCurrentPage)*printersItemsPerPage))">
                         <div class="row flex-wrap flex-valign">
                             <div class="col-lg-4 text-center">

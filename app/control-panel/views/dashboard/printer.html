@@ -43,6 +43,14 @@
 	<button type="button" class="btn btn-warning" ng-click="hideCancelJobModal()"><i class="fa fa-times"></i> Nevermind</button>
 </modal>
 
+<modal title="Start Next Job" visible="issueClearModalVisible">
+	<p class="alert alert-warning">
+		<i class="fa fa-exclamation-triangle"></i> This will issue a clear command to the printer indicating that the print bed has been cleared of any 3D printed objects from the previous job. The printer will enter a ready state allowing any new or queued jobs to be printed. <strong>Make sure that the print bed is clear before carrying out this action.</strong>
+	</p>
+	<button type="button" class="btn btn-success" ng-click="issueClear()"><i class="fa fa-forward"></i> Start Next Job</button>
+	<button type="button" class="btn btn-warning" ng-click="hideIssueClearModal()"><i class="fa fa-times"></i> Cancel</button>
+</modal>
+
 <div id="printer" class="resource-page">
     <div class="row">
         <div class="col-lg-12">
@@ -145,6 +153,7 @@
 	            <div class="col-lg-6 flex-wrap flex-valign" vertilize>
 	            	<p class="button-bar" ng-cloak ng-if="user.isAdmin()">
 	            		<button class="btn btn-info " href="javascript:void" ng-click="showPrinterModal()"><i class="fa fa-pencil-square"></i> Modify Printer Details</button>
+	            		<button ng-disabled="printer.status !== 'completed' && printer.status !== 'errored' && printer.status !== 'cancelled'" class="btn btn-success " href="javascript:void" ng-click="showIssueClearModal()"><i class="fa fa-forward"></i> Start Next Job</button>
 	            		<button class="btn btn-danger" href="javascript:void" ng-click="showDeletePrinterModal()"><i class="fa fa-times-circle"></i> Delete Printer</button>
 	            	</p>
 	            </div>

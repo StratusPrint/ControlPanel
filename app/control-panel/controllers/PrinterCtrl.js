@@ -19,6 +19,9 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
     $scope.deletePrinterModal = {};
     $scope.deleteprinterModalVisible = false;
 
+    $scope.issueClearModal = {};
+    $scope.issueClearModalVisible = false;
+
     $scope.cancelJobModal = {};
     $scope.cancelJobModalVisible = false;
 
@@ -93,6 +96,14 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
         $scope.deletePrinterModalVisible = false;
     };
 
+    $scope.showIssueClearModal = function() {
+        $scope.issueClearModalVisible = true;
+    };
+
+    $scope.hideIssueClearModal = function() {
+        $scope.issueClearModalVisible = false;
+    };
+
     /**
      * Retrieve the current job associated with this printer
      */
@@ -102,6 +113,7 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
                 $scope.currentJob = response;
                 if(response.id) {
                     $scope.currentJob.show = true;
+                    $scope.clearAlerts();
                 } else {
                     $scope.currentJob.show = false;
                 }
@@ -132,6 +144,13 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
                 console.log(response);
                 $scope.showCommands = false;
             });
+    };
+
+    /**
+     * Issue a clear command to the printer
+     */
+    $scope.issueClear = function() {
+        $scope.command = 'clear';
     };
 
     /**

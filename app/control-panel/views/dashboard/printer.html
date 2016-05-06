@@ -174,7 +174,7 @@
                	<div ng-cloak ng-if="currentJob.show === true">
                     <!--Job Progress-->
                     <h4><i class="fa fa-tasks"></i> Current Progress</h4>
-                    <uib-progressbar ng-cloak ng-if="currentJob.data.status !== 'paused' || currentJob.data.status !== 'slicing'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="info"><i>{{currentJob.data.progress.completion}}% Completed</i></uib-progressbar>
+                    <uib-progressbar ng-cloak ng-if="currentJob.data.status !== 'paused' && currentJob.data.status !== 'slicing'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="info"><i>{{currentJob.data.progress.completion}}% Completed</i></uib-progressbar>
                     <uib-progressbar ng-cloak ng-if="currentJob.data.status === 'paused'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="warning"><i>Job is currently paused.</i></uib-progressbar>
               	 	<uib-progressbar ng-cloak ng-if="currentJob.data.status === 'slicing'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="warning"><i>Job is currently slicing.</i></uib-progressbar>
                     <h4><i class="fa fa-hand-o-right"></i> Job Actions</h4>

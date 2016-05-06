@@ -25,6 +25,8 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
     $scope.cancelJobModal = {};
     $scope.cancelJobModalVisible = false;
 
+    $scope.cancelledJobs = {};
+
     $scope.issuedCommandsConfig = {
         itemsPerPage: 6,
         maxPages: 5,
@@ -64,7 +66,13 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
      * Cancel a job
      */
     $scope.cancelJob = function(job) {
-      job.isCancelled = true;
+      printer.cancelJob(job.id)
+        .success(function() {
+            $scope.cancelledJobs[job.id] = true;
+            $timeout(function() {
+                $scope.cancelledJobs[job.id] = false;
+            }, 60000);
+        });
       // do some stuff that cancels the job
     };
 

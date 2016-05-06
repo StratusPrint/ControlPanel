@@ -13,6 +13,7 @@ function PrinterService($http) {
     deletePrinter: deletePrinter,
     issueCommand: issueCommand,
     getCommands: getCommands,
+    cancelJob: cancelJob,
     getJobs: getJobs,
     jobs: [],
     currentJob: [],
@@ -145,6 +146,18 @@ function PrinterService($http) {
         url: 'https://dev.api.stratusprint.com/v1/printers/' + printerId + '/current_job',
       }).success(function(data) {
         service.currentJob = data;
+      });
+  }
+
+  /**
+   * Cancel a job
+   * @param  {Integer} jobId The ID of the job to cancel
+   * @return {Promise}       $http promise
+   */
+  function cancelJob(jobId) {
+    return $http({
+        method: 'DELETE',
+        url: 'https://dev.api.stratusprint.com/v1/jobs/' + jobId,
       });
   }
 

@@ -302,7 +302,7 @@
 					<i ng-cloak ng-if="job.data.status === 'printing'" class="fa fa-gear fa-spin"></i>
 					<span class="title">Job #{{job.id}}</span>
 					<span class="label label-{{job.data.status}}">{{job.data.status | capitalize}}</span>
-					<!--<button ng-click="cancelJob(job)" ng-if="job.data.status === 'queued' || job.data.status === 'processing'" style="margin-top: -8px;" class="btn btn-warning pull-right" ng-disabled="job.isCancelled"><i style="color: white;" class="fa fa-ban"></i> Cancel</button>-->
+					<button ng-click="cancelJob(job)" ng-if="job.data.status === 'queued' || job.data.status === 'processing'" style="margin-top: -8px;" class="btn btn-warning pull-right" ng-disabled="cancelledJobs[job.id] === true"><i style="color: white;" class="fa fa-ban"></i> Cancel</button>
 				</h3>
 				<p class="meta">
 					<span class="date"><i class="fa fa-calendar"></i> {{job.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</span>

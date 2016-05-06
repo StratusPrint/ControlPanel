@@ -154,70 +154,104 @@
                                         <label>Status:</label>
                                         <span class="label badge-printer-{{printer.status}}">{{printer.status}}</span></li>
                                     <li ng-if="printer.currentJob" class="list-group-item" ng-if="printer.currentJob">
-                                        <label>Current Job:</label> {{printer.currentJob.id}}</li>
-                                </ul>
-                                <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
+                                      <label>Current Job:</label> {{printer.currentJob.id}} {{printer.currentJob.data.status}}
+                                      <div class="job">
+                                        <h3>
+                                          <span class="job-title">
+                                            <i ng-cloak ng-if="printer.currentJob.data.status === 'queued'" class="fa fa-clock-o"></i>
+                                            <i ng-cloak ng-if="printer.currentJob.data.status === 'completed'" class="fa check-circle-o"></i>
+                                            <i ng-cloak ng-if="printer.currentJob.data.status === 'processing'" class="fa fa-circle-o-notch fa-spin"></i>
+                                            <i ng-cloak ng-if="printer.currentJob.data.status === 'slicing'" class="fa fa-circle-o-notch fa-spin"></i>
+                                            <i ng-cloak ng-if="printer.currentJob.data.status === 'paused'" class="fa fa-pause-circle-o"></i>
+                                            <i ng-cloak ng-if="printer.currentJob.data.status === 'errored'" class="fa fa-times-circle-o"></i>
+                                            <i ng-cloak ng-if="printer.currentJob.data.status === 'cancelled'" class="fa fa-ban"></i>
+                                            <i ng-cloak ng-if="printer.currentJob.data.status === 'printing'" class="fa fa-gear fa-spin"></i>
+                                            <span class="title">Job #{{printer.currentJob.id}}</span>
+                                            <span class="label label-{{printer.currentJob.data.status}}">{{printer.currentJob.data.status | capitalize}}</span>
+                                          </span>
+                                          <button 
+                                            ng-click="cancelJob(job)" 
+                                            ng-if="printer.currentJob.data.status === 'queued' || printer.currentJob.data.status === 'processing'" 
+                                            style="margin-top: -8px;" class="cancel-job btn btn-warning" 
+                                            ng-disabled="cancelledJobs[job.id] === true">
+                                            <i style="color: white;" class="fa fa-ban"></i> Cancel
+                                          </button>
+                                        </h3>
+                                        <p class="meta">
+                                          <span class="date"><i class="fa fa-calendar"></i> 
+                                            {{printer.currentJob.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</span>
+                                          <span class="file"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-file"></i> 
+                                            {{printer.currentJob.model_file_name_full}}
+                                          </span>
+                                          <span class="creator"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-user"></i> 
+                                            {{printer.currentJob.created_by}}
+                                          </span>
+                                        </p>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                  <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
+                                </div>
+                              </div>
                             </div>
-                            <div class="col-lg-4 col-md-12 col-sm-12">
-                                <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="panel panel-kashmir">
+                          <div class="panel-heading">
+                            <i class="printer-icon glyphicon glyphicon-print"></i> Printers
+                          </div>
+                          <div class="panel-body">
+                            <div class="list-group no-margin">
+                              <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
+                                <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
+                                <span ng-if="printer.status === 'ready'" class="pull-right badge badge-printer-ready small">{{printer.status}}</span>
+                                <span ng-if="printer.status === 'paused'" class="pull-right badge badge-printer-paused small">{{printer.status}}</span>
+                                <span ng-if="printer.status === 'printing'" class="pull-right badge badge-printer-printing small">{{printer.status}}</span>
+                                <span ng-if="printer.status === 'errored'" class="pull-right badge badge-printer-errored small">{{printer.status}}</span>
+                                <span ng-if="printer.status === 'offline'" class="pull-right badge badge-printer-offline small">{{printer.status}}</span>
+                                <span ng-if="printer.status === 'cancelled'" class="pull-right badge badge-printer-cancelled small">{{printer.status}}</span>
+                                <span ng-if="printer.status === 'completed'" class="pull-right badge badge-printer-completed">{{printer.status}}</span>
+                              </a>
                             </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="panel panel-kashmir">
-                <div class="panel-heading">
-                    <i class="printer-icon glyphicon glyphicon-print"></i> Printers
-                </div>
-                <div class="panel-body">
-                    <div class="list-group no-margin">
-                        <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
-                            <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
-                            <span ng-if="printer.status === 'ready'" class="pull-right badge badge-printer-ready small">{{printer.status}}</span>
-                            <span ng-if="printer.status === 'paused'" class="pull-right badge badge-printer-paused small">{{printer.status}}</span>
-                            <span ng-if="printer.status === 'printing'" class="pull-right badge badge-printer-printing small">{{printer.status}}</span>
-                            <span ng-if="printer.status === 'errored'" class="pull-right badge badge-printer-errored small">{{printer.status}}</span>
-                            <span ng-if="printer.status === 'offline'" class="pull-right badge badge-printer-offline small">{{printer.status}}</span>
-                            <span ng-if="printer.status === 'cancelled'" class="pull-right badge badge-printer-cancelled small">{{printer.status}}</span>
-                            <span ng-if="printer.status === 'completed'" class="pull-right badge badge-printer-completed">{{printer.status}}</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6" ng-if="tempChartData.length">
-            <div class="panel panel-kashmir">
-                <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
-                </div>
-                <div class="panel-body">
-                    <div ng-repeat="data in tempChartData">
-                        <div class="line-chart" line-chart line-post-units="'&#8457'" line-data="data" line-xkey='y' line-ykeys='["a"]' line-labels='["Serie A"]' line-colors='["#31c0be"]'>
+                    <div class="row">
+                      <div class="col-lg-6" ng-if="tempChartData.length">
+                        <div class="panel panel-kashmir">
+                          <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
+                          </div>
+                          <div class="panel-body">
+                            <div ng-repeat="data in tempChartData">
+                              <div class="line-chart" line-chart line-post-units="'&#8457'" line-data="data" line-xkey='y' line-ykeys='["a"]' line-labels='["Serie A"]' line-colors='["#31c0be"]'>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6" ng-if="humidChartData.length">
-            <div class="panel panel-kashmir">
-                <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
-                </div>
-                <div class="panel-body">
-                    <div ng-repeat="data in humidChartData">
-                        <div class="line-chart" line-chart line-post-units="'%'" line-data='data' line-xkey='y' line-ykeys='["a"]' line-labels='["Serie A"]' line-colors='["#31C0BE"]'>
+                      </div>
+                      <div class="col-lg-6" ng-if="humidChartData.length">
+                        <div class="panel panel-kashmir">
+                          <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
+                          </div>
+                          <div class="panel-body">
+                            <div ng-repeat="data in humidChartData">
+                              <div class="line-chart" line-chart line-post-units="'%'" line-data='data' line-xkey='y' line-ykeys='["a"]' line-labels='["Serie A"]' line-colors='["#31C0BE"]'>
+                              </div>
+                            </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                  </div>
 
-<div ng-cloak ng-if="showWizard === true && showNoDefaultHubAlert === false">
-    <ng-include src="'/control-panel/views/dashboard/gettingStarted.html'"></ng-include>
-</div>
+                  <div ng-cloak ng-if="showWizard === true && showNoDefaultHubAlert === false">
+                    <ng-include src="'/control-panel/views/dashboard/gettingStarted.html'"></ng-include>
+                  </div>

@@ -179,44 +179,47 @@
 		}
 	}
 
-	.label-processing,
-	.label-slicing {
-		background-color: #f6ca6c;
-		text-shadow: 1px 1px 0 darken(#f6ca6c, 20%);
-	}
-
-	.label-queued {
-		background-color: #43A7C3;
-		text-shadow: 1px 1px 0 darken(#43A7C3, 20%);
-	}
-
-	.label-cancelled {
-		background-color: @printer-offline;
-		color: #696464;
-		text-shadow: 1px 1px 0 darken(@printer-offline, 5%);
-	}
-
-	.label-paused {
-		background-color: #707570;
-		text-shadow: 1px 1px 0 darken(#707570, 20%);
-	}
-
-	.label-errored {
-		background-color: @venetionred;
-		text-shadow: 1px 1px 0 darken(@venetionred, 20%);
-	}
-
-	.label-printing {
-		background-color: @kimberly;
-		text-shadow: 1px 1px 0 darken(@kimberly, 20%);
-	}
-
-	.label-completed {
-		background-color: @forestgreen;
-		text-shadow: 1px 1px 0 darken(@forestgreen, 20%);
-	}
 }
 
+//Printer job statuses
+.label-processing,
+.label-slicing {
+  background-color: #f6ca6c;
+  text-shadow: 1px 1px 0 darken(#f6ca6c, 20%);
+}
+
+.label-queued {
+  background-color: #43A7C3;
+  text-shadow: 1px 1px 0 darken(#43A7C3, 20%);
+}
+
+.label-cancelled {
+  background-color: @printer-offline;
+  color: #696464;
+  text-shadow: 1px 1px 0 darken(@printer-offline, 5%);
+}
+
+.label-paused {
+  background-color: #707570;
+  text-shadow: 1px 1px 0 darken(#707570, 20%);
+}
+
+.label-errored {
+  background-color: @venetionred;
+  text-shadow: 1px 1px 0 darken(@venetionred, 20%);
+}
+
+.label-printing {
+  background-color: @kimberly;
+  text-shadow: 1px 1px 0 darken(@kimberly, 20%);
+}
+
+.label-completed {
+  background-color: @forestgreen;
+  text-shadow: 1px 1px 0 darken(@forestgreen, 20%);
+}
+
+//Printer badge statuses
 .badge-printer-ready {
   background-color: @printer-ready;
 }

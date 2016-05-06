@@ -108,7 +108,8 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
     printersPromise .then(function(_printers) {
       var currentJobsPromise = [];
       $scope.printers = _printers;
-      $scope.printer = $scope.printers[0];
+      // $scope.printer = $scope.printers[0];
+      $scope.setPrinter($scope.printers[0].id);
     });
   };
 
@@ -168,7 +169,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
       $scope.sensors = _sensors.data;
 
       for (var i = 0; i < $scope.sensors.length; i++) {
-        sensorDataPromises.push(sensor.getData($scope.sensors[i].id, 1));
+        sensorDataPromises.push(sensor.getDataHrsAgo($scope.sensors[i].id, 1));
       }
 
       // Execute all promises

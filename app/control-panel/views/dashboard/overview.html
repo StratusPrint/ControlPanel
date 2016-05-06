@@ -153,10 +153,9 @@
                                     <li class="list-group-item">
                                         <label>Status:</label>
                                         <span class="label badge-printer-{{printer.status}}">{{printer.status}}</span></li>
-                                    <li ng-if="printer.currentJob" class="list-group-item" ng-if="printer.currentJob">
-                                      <label>Current Job:</label> {{printer.currentJob.id}} {{printer.currentJob.data.status}}
+                                    <li ng-cloak ng-if="printer.currentJob.id" class="list-group-item">
                                       <div class="job">
-                                        <h3>
+                                        <h3 style="margin-top:5px;">
                                           <span class="job-title">
                                             <i ng-cloak ng-if="printer.currentJob.data.status === 'queued'" class="fa fa-clock-o"></i>
                                             <i ng-cloak ng-if="printer.currentJob.data.status === 'completed'" class="fa check-circle-o"></i>

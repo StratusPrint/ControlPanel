@@ -28,6 +28,8 @@
 		color: #353E33;
 	}
 	.button-bar { margin-left: auto; }
+	.button-bar .btn { margin: 0 10px 10px 0; }
+	.button-bar .btn:last-child { margin-right: 0 !important; }
 }
 @media(max-width: 1200px) {
 	.row > div {
@@ -150,16 +152,31 @@
 			border-bottom: 2px solid #F1F1F1;
 			padding: 0 0 10px 0;
 			span { display: inline-block; }
-			.label {
-			}
 		}
 		.meta {
 			margin: 0;
-			padding: 10px 0 0 0;
-			.date {
-			}			
+			padding: 10px 0 0 0;		
 		}
+		.cancel-job {
+			float: right;
+		}
+		@media(max-width: 500px) {
+			.meta span,
+			.job-title { 
+				display: block;
+			}
 
+			.meta span {
+				margin: 5px 0;
+			}
+
+			.cancel-job {
+				float: none !important;
+				margin-top: 10px !important;
+				display: block;
+				width: 100%;
+			}
+		}
 	}
 
 	.label-processing,

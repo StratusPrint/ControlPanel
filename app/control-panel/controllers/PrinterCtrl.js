@@ -221,7 +221,7 @@ function PrinterCtrl($scope, $state, $stateParams, $timeout, $controller, $inter
 
     var timerPromise;
     $scope.timer = function() {
-        timerPromise = $interval($scope.refresh, 2000);
+        //timerPromise = $interval($scope.refresh, 2000);
     };
 
     $scope.timer();

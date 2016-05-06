@@ -235,40 +235,42 @@
                     <!--No issued commands alert-->
                     <p ng-cloak ng-if="showCommands === false" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There have been no commands issued to this printer.</p>
                     <!--List of issued commands-->
-					<table ng-cloak ng-if="showCommands === true" at-table at-paginated at-config="issuedCommandsConfig" at-list="commands" class="table table-striped table-bordered table-hover">
-					    <thead></thead>
-					    <tbody>
-					        <tr>
-					            <td class="text-center" at-attribute="name" at-title="Command">
-					            	<span class="label label-default" ng-cloak ng-if="item.name === 'pause'">
-					            		<i class="fa fa-pause"></i> {{item.name | capitalize}}
-					            	</span>		
-					            	<span class="label label-success" ng-cloak ng-if="item.name === 'clear'">
-					            		<i class="fa fa-eject"></i> {{item.name | capitalize}}
-					            	</span>					            	
-					            	<span class="label label-success" ng-cloak ng-if="item.name === 'start'">
-					            		<i class="fa fa-play"></i> {{item.name | capitalize}}
-					            	</span>					            	
-					            	<span class="label label-danger" ng-cloak ng-if="item.name === 'cancel'">
-					            		<i class="fa fa-ban"></i> {{item.name | capitalize}}
-					            	</span>
-					            </td>
-					            <td class="text-center" at-attribute="status" at-title="Status">
-					            	<span class="label label-info" ng-cloak ng-if="item.status === 'issued'">
-					            		{{item.status | capitalize}}
-					            	</span>					            	
-					            	<span class="label label-success" ng-cloak ng-if="item.status === 'executed'">
-					            		{{item.status | capitalize}}
-					            	</span>					            	
-					            	<span class="label label-danger" ng-cloak ng-if="item.status === 'errored'">
-					            		{{item.status | capitalize}}
-					            	</span>					            	
-					            </td>
-					            <td at-attribute="created_at" at-title="Issued At">{{item.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</td>
-					            <td at-implicit at-attribute="issued_by" at-title="Issued By"></td>
-					        </tr>
-					    </tbody>
-					</table>
+                    <div class="table-responsive">
+						<table ng-cloak ng-if="showCommands === true" at-table at-paginated at-config="issuedCommandsConfig" at-list="commands" class="table table-striped table-bordered table-hover">
+						    <thead></thead>
+						    <tbody>
+						        <tr>
+						            <td class="text-center" at-attribute="name" at-title="Command">
+						            	<span class="label label-default" ng-cloak ng-if="item.name === 'pause'">
+						            		<i class="fa fa-pause"></i> {{item.name | capitalize}}
+						            	</span>		
+						            	<span class="label label-success" ng-cloak ng-if="item.name === 'clear'">
+						            		<i class="fa fa-eject"></i> {{item.name | capitalize}}
+						            	</span>					            	
+						            	<span class="label label-success" ng-cloak ng-if="item.name === 'start'">
+						            		<i class="fa fa-play"></i> {{item.name | capitalize}}
+						            	</span>					            	
+						            	<span class="label label-danger" ng-cloak ng-if="item.name === 'cancel'">
+						            		<i class="fa fa-ban"></i> {{item.name | capitalize}}
+						            	</span>
+						            </td>
+						            <td class="text-center" at-attribute="status" at-title="Status">
+						            	<span class="label label-info" ng-cloak ng-if="item.status === 'issued'">
+						            		{{item.status | capitalize}}
+						            	</span>					            	
+						            	<span class="label label-success" ng-cloak ng-if="item.status === 'executed'">
+						            		{{item.status | capitalize}}
+						            	</span>					            	
+						            	<span class="label label-danger" ng-cloak ng-if="item.status === 'errored'">
+						            		{{item.status | capitalize}}
+						            	</span>					            	
+						            </td>
+						            <td at-attribute="created_at" at-title="Issued At">{{item.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</td>
+						            <td at-implicit at-attribute="issued_by" at-title="Issued By"></td>
+						        </tr>
+						    </tbody>
+						</table>
+					</div>
 					<at-pagination ng-cloak ng-if="commands.length > 0" at-list="commands" at-config="issuedCommandsConfig"></at-pagination>
                 </div>
             </div>        
@@ -292,6 +294,7 @@
     		<!--Recent jobs-->
 			<div class="job" ng-cloak ng-if="showRecentJobs === true" ng-repeat="job in recentJobs">
 				<h3>
+					<span class="job-title">
 					<i ng-cloak ng-if="job.data.status === 'queued'" class="fa fa-clock-o"></i>
 					<i ng-cloak ng-if="job.data.status === 'completed'" class="fa check-circle-o"></i>
 					<i ng-cloak ng-if="job.data.status === 'processing'" class="fa fa-circle-o-notch fa-spin"></i>
@@ -302,13 +305,14 @@
 					<i ng-cloak ng-if="job.data.status === 'printing'" class="fa fa-gear fa-spin"></i>
 					<span class="title">Job #{{job.id}}</span>
 					<span class="label label-{{job.data.status}}">{{job.data.status | capitalize}}</span>
-					<button ng-click="cancelJob(job)" ng-if="job.data.status === 'queued' || job.data.status === 'processing'" style="margin-top: -8px;" class="btn btn-warning pull-right" ng-disabled="cancelledJobs[job.id] === true"><i style="color: white;" class="fa fa-ban"></i> Cancel</button>
+					</span>
+					<button ng-click="cancelJob(job)" ng-if="job.data.status === 'queued' || job.data.status === 'processing'" style="margin-top: -8px;" class="cancel-job btn btn-warning" ng-disabled="cancelledJobs[job.id] === true"><i style="color: white;" class="fa fa-ban"></i> Cancel</button>
 				</h3>
 				<p class="meta">
 					<span class="date"><i class="fa fa-calendar"></i> {{job.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</span>
-					<span class="file"> &middot; <i class="fa fa-file"></i> {{job.model_file_name_full}}
+					<span class="file"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-file"></i> {{job.model_file_name_full}}
 					</span>
-					<span class="creator"> &middot; <i class="fa fa-user"></i> {{job.created_by}}
+					<span class="creator"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-user"></i> {{job.created_by}}
 					</span>
 				</p>
 			</div>

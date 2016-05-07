@@ -201,13 +201,9 @@ function UsersCtrl($scope, $state, $stateParams, $timeout, admin, $controller, $
   };
 
   $scope.editUser = function() {
-    console.log($scope.user._user);
-    // If (!$scope.updateUser.$valid) {
-    //  $scope.addAlert('danger', 'User was not updated');
-    //  return;
-    // }
     if ($scope.modalUser.id !== undefined) {
       var isAdmin = $scope.user.isAdmin();
+      // The updatePromise will consume $scope.modalUser, assigning to temp variable to save it
       var tempUser = $scope.modalUser;
       console.log($scope.modalUser);
 
@@ -217,11 +213,8 @@ function UsersCtrl($scope, $state, $stateParams, $timeout, admin, $controller, $
           $timeout(function() {
             $state.go('login');
           },500);
-          console.log('firing?');
-          auth.signout();
         } else {
           reloadData();
-          $scope.addAlert('success', 'The user was successfully updated.');
         }
       })
       .catch(function(response) {

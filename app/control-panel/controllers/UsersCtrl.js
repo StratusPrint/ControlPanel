@@ -1,8 +1,9 @@
 app.controller('UsersCtrl', UsersCtrl);
 
-UsersCtrl.$inject = ['$scope', '$state','$stateParams', 'admin','$controller','$compile', '$sanitize', 'DTOptionsBuilder', 'DTColumnBuilder', '$filter'];
+UsersCtrl.$inject = ['$scope', '$state','$stateParams', '$timeout', 'admin','$controller','$compile', '$sanitize',
+  'DTOptionsBuilder', 'DTColumnBuilder', '$filter', 'auth',];
 
-function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, $sanitize, DTOptionsBuilder, DTColumnBuilder, $filter) {
+function UsersCtrl($scope, $state, $stateParams, $timeout, admin, $controller, $compile, $sanitize, DTOptionsBuilder, DTColumnBuilder, $filter, auth) {
 
   // Inject alert controller scope
   $controller('AlertCtrl', { $scope: $scope });
@@ -56,7 +57,6 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, $
   }
 
   function adminHTML(data) {
-
     if (data.admin) {
       return '<div class="text-center text-success"><i class="fa fa-check-circle fa-2x"></i></div>';
     }
@@ -201,16 +201,28 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, $
   };
 
   $scope.editUser = function() {
-    console.log($scope.updateUser);
+    console.log($scope.user._user);
     // If (!$scope.updateUser.$valid) {
     //  $scope.addAlert('danger', 'User was not updated');
     //  return;
     // }
     if ($scope.modalUser.id !== undefined) {
+      var isAdmin = $scope.user.isAdmin();
+      var tempUser = $scope.modalUser;
+      console.log($scope.modalUser);
+
       var updatePromise = admin.updateUser($scope.modalUser);
       updatePromise.then(function(response) {
-        reloadData();
-        $scope.addAlert('success', 'The user was successfully updated.');
+        if ($scope.user._user.id === tempUser.id && isAdmin && !tempUser.admin) {
+          $timeout(function() {
+            $state.go('login');
+          },500);
+          console.log('firing?');
+          auth.signout();
+        } else {
+          reloadData();
+          $scope.addAlert('success', 'The user was successfully updated.');
+        }
       })
       .catch(function(response) {
         $scope.addAlert('danger',response.data.error.full_messages[0]);

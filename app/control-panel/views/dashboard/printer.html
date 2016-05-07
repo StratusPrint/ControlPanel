@@ -5,10 +5,9 @@
     <button type="button" class="btn btn-danger" ng-click="hideDeletePrinterModal(); deletePrinter(printer.id);"><i class="fa fa-check-circle"></i> Yes, Delete This Printer</button>
     <button type="button" class="btn btn-warning" ng-click="hideDeletePrinterModal()"><i class="fa fa-times"></i> Nevermind</button>
 </modal>
-
 <modal title="Modify Printer Details" visible="printerModalVisible">
-	<uib-alert ng-repeat="alert in printerModal.alerts" type="{{alert.type}}" close="printerModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
-	<form name="printerModal.form" role="form" ng-submit="updatePrinter(printerModal.printer)" novalidate>
+    <uib-alert ng-repeat="alert in printerModal.alerts" type="{{alert.type}}" close="printerModal.closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
+    <form name="printerModal.form" role="form" ng-submit="updatePrinter(printerModal.printer)" novalidate>
         <div class="form-group" show-errors>
             <label for="friendly_id">Name</label>
             <input autocomplete="off" name="friendly_id" ng-model="printerModal.printer.friendly_id" type="text" class="form-control" placeholder="{{printer.friendly_id}}" ng-minlength="4" />
@@ -30,33 +29,31 @@
             <span ng-show="printerModal.form.description.$error.minlength" class="help-block">Must be at least 1 character long.</span>
             <span ng-show="printerModal.form.description.$error.maxlength" class="help-block">Must not be longer than 256 characters.</span>
         </div>
-    	<button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
-    	<button type="button" ng-click="hidePrinterModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
+        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save Changes</button>
+        <button type="button" ng-click="hidePrinterModal()" class="btn btn-warning"><i class="fa fa-times"></i> Close</button>
     </form>
 </modal>
-
 <modal title="Cancel Current Job" visible="cancelJobModalVisible">
-	<p class="alert alert-warning">
-		<i class="fa fa-exclamation-triangle"></i> Are you sure that you want to cancel the current print job? This action is <strong>irreversible</strong>.
-	</p>
-	<button type="button" class="btn btn-danger" ng-click="command.name = 'cancel'; hideCancelJobModal();"><i class="fa fa-check-circle"></i> Yes, Cancel Job Now</button>
-	<button type="button" class="btn btn-warning" ng-click="hideCancelJobModal()"><i class="fa fa-times"></i> Nevermind</button>
+    <p class="alert alert-warning">
+        <i class="fa fa-exclamation-triangle"></i> Are you sure that you want to cancel the current print job? This action is <strong>irreversible</strong>.
+    </p>
+    <button type="button" class="btn btn-danger" ng-click="command.name = 'cancel'; hideCancelJobModal();"><i class="fa fa-check-circle"></i> Yes, Cancel Job Now</button>
+    <button type="button" class="btn btn-warning" ng-click="hideCancelJobModal()"><i class="fa fa-times"></i> Nevermind</button>
 </modal>
-
 <modal title="Start Next Job" visible="issueClearModalVisible">
-	<p class="alert alert-warning">
-		<i class="fa fa-exclamation-triangle"></i> This will issue a clear command to the printer indicating that the print bed has been cleared of any 3D printed objects from the previous job. The printer will enter a ready state allowing any new or queued jobs to be printed. <br /><strong>Make sure that the print bed is clear before carrying out this action.</strong>
-	</p>
-	<button type="button" class="btn btn-success" ng-click="command.name = 'clear'; hideIssueClearModal();"><i class="fa fa-forward"></i> Start Next Job</button>
-	<button type="button" class="btn btn-warning" ng-click="hideIssueClearModal()"><i class="fa fa-times"></i> Cancel</button>
+    <p class="alert alert-warning">
+        <i class="fa fa-exclamation-triangle"></i> This will issue a clear command to the printer indicating that the print bed has been cleared of any 3D printed objects from the previous job. The printer will enter a ready state allowing any new or queued jobs to be printed.
+        <br /><strong>Make sure that the print bed is clear before carrying out this action.</strong>
+    </p>
+    <button type="button" class="btn btn-success" ng-click="command.name = 'clear'; hideIssueClearModal();"><i class="fa fa-forward"></i> Start Next Job</button>
+    <button type="button" class="btn btn-warning" ng-click="hideIssueClearModal()"><i class="fa fa-times"></i> Cancel</button>
 </modal>
-
 <div id="printer" class="resource-page">
     <div class="row">
         <div class="col-lg-12">
-        	<div class="page-header row" vertilize-container>
-        		<div class="col-lg-6" vertilize>
-	            <h1>
+            <div class="page-header row" vertilize-container>
+                <div class="col-lg-6" vertilize>
+                    <h1>
 		          <a 
 		          	ng-cloak ng-if="printer.status === 'ready'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
@@ -134,28 +131,24 @@
 		          		</span>
 		          </a>
 	            </h1>
-	            
-	            <p>
-		            <a style="text-decoration:none;" href="javascript:void;"><span class="label label-default" tooltip-close-delay="200"
+                    <p>
+                        <a style="text-decoration:none;" href="javascript:void;"><span class="label label-default" tooltip-close-delay="200"
 		          	uib-tooltip="This printer was manufactured by {{printer.manufacturer}}.">
 		            	<i class="fa fa-tag"></i> {{printer.manufacturer}}
-		            </span></a>
-					&nbsp;
-		            <a style="text-decoration:none;" href="javascript:void;"><span class="label label-success" tooltip-close-delay="200"
+		            </span></a> &nbsp;
+                        <a style="text-decoration:none;" href="javascript:void;"><span class="label label-success" tooltip-close-delay="200"
 		          	uib-tooltip="The model of this printer is {{printer.model}}.">
 		            	<i class="fa fa-tag"></i> {{printer.model}}
 		            </span></a>
-	            </p>
-
-	            <p class="desc">{{printer.description}}</p>
-	            </div>
-
-	            <div class="col-lg-6 flex-wrap flex-valign" vertilize>
-	            	<p class="button-bar" ng-cloak ng-if="user.isAdmin()">
-	            		<button class="btn btn-info " href="javascript:void" ng-click="showPrinterModal()"><i class="fa fa-pencil-square"></i> Modify Printer Details</button>
-	            		<button class="btn btn-danger" href="javascript:void" ng-click="showDeletePrinterModal()"><i class="fa fa-times-circle"></i> Delete Printer</button>
-	            	</p>
-	            </div>
+                    </p>
+                    <p class="desc">{{printer.description}}</p>
+                </div>
+                <div class="col-lg-6 flex-wrap flex-valign" vertilize>
+                    <p class="button-bar" ng-cloak ng-if="user.isAdmin()">
+                        <button class="btn btn-info " href="javascript:void" ng-click="showPrinterModal()"><i class="fa fa-pencil-square"></i> Modify Printer Details</button>
+                        <button class="btn btn-danger" href="javascript:void" ng-click="showDeletePrinterModal()"><i class="fa fa-times-circle"></i> Delete Printer</button>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -165,52 +158,64 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-cog fa-spin"></i> Current Job</div>
                 <div class="panel-body">
-                	<!--Alert-->
-                	<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
-				<!--No current job Alert-->
-                <p ng-cloak ng-if="currentJob.show === false" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
-				<button ng-cloak ng-if="(currentJob.show === false) && (printer.status == 'completed' || printer.status !== 'errored' || printer.status !== 'cancelled')" class="margin-top-nudge pull-right btn btn-success " href="javascript:void" ng-click="showIssueClearModal()"><i class="fa fa-forward"></i> Start Next Job</button>
-                <!--Current Job-->
-               	<div ng-cloak ng-if="currentJob.show === true">
-                    <!--Job Progress-->
-                    <h4><i class="fa fa-tasks"></i> Current Progress</h4>
-                    <uib-progressbar ng-cloak ng-if="currentJob.data.status !== 'paused' && currentJob.data.status !== 'slicing'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="info"><i>{{currentJob.data.progress.completion}}% Completed</i></uib-progressbar>
-                    <uib-progressbar ng-cloak ng-if="currentJob.data.status === 'paused'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="warning"><i>Job is currently paused.</i></uib-progressbar>
-              	 	<uib-progressbar ng-cloak ng-if="currentJob.data.status === 'slicing'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="warning"><i>Job is currently slicing.</i></uib-progressbar>
-                    <h4><i class="fa fa-hand-o-right"></i> Job Actions</h4>
-                    <!--Job Actions-->
-                    <div class="btn-group"  role="printer-actions" style="margin-bottom: 10px;">
-                        <label ng-disabled="printer.status !== 'paused'" ng-model="command.name" uib-btn-radio="'start'" type="button" class="btn btn-success"><i class="fa fa-play"></i> Start</label>
-                        <label ng-disabled="printer.status === 'paused'" ng-model="command.name" uib-btn-radio="'pause'" type="button" class="btn btn-info"><i class="fa fa-pause"></i> Pause</label>
-                        <label ng-click="showCancelJobModal()" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Cancel</button></label>
+                    <!--Alert-->
+                    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlertIdx($index)"> {{alert.msg}}</uib-alert>
+                    <!--No current job Alert-->
+                    <p ng-cloak ng-if="currentJob.show === false" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are currently no jobs printing.</p>
+                    <button ng-cloak ng-if="(currentJob.show === false) && (printer.status == 'completed' || printer.status !== 'errored' || printer.status !== 'cancelled')" class="margin-top-nudge pull-right btn btn-success " href="javascript:void" ng-click="showIssueClearModal()"><i class="fa fa-forward"></i> Start Next Job</button>
+                    <!--Current Job-->
+                    <div ng-cloak ng-if="currentJob.show === true">
+                        <!--Job Progress-->
+                        <h4><i class="fa fa-tasks"></i> Current Progress</h4>
+                        <uib-progressbar ng-cloak ng-if="currentJob.data.status !== 'paused' && currentJob.data.status !== 'slicing'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="info"><i>{{currentJob.data.progress.completion}}% Completed</i></uib-progressbar>
+                        <uib-progressbar ng-cloak ng-if="currentJob.data.status === 'paused'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="warning"><i>Job is currently paused.</i></uib-progressbar>
+                        <uib-progressbar ng-cloak ng-if="currentJob.data.status === 'slicing'" class="progress-striped active" max="100" value="currentJob.data.progress.completion" type="warning"><i>Job is currently slicing.</i></uib-progressbar>
+                        <h4><i class="fa fa-hand-o-right"></i> Job Actions</h4>
+                        <!--Job Actions-->
+                        <div class="btn-group" role="printer-actions" style="margin-bottom: 10px;">
+                            <label ng-disabled="printer.status !== 'paused'" ng-model="command.name" uib-btn-radio="'start'" type="button" class="btn btn-success"><i class="fa fa-play"></i> Start</label>
+                            <label ng-disabled="printer.status === 'paused'" ng-model="command.name" uib-btn-radio="'pause'" type="button" class="btn btn-info"><i class="fa fa-pause"></i> Pause</label>
+                            <label ng-click="showCancelJobModal()" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Cancel</button>
+                            </label>
+                        </div>
+                        <!--Job Information-->
+                        <h4><i class="fa fa-info-circle"></i> Job Information</h4>
+                        <ul class="list-group no-margin">
+                            <li class="list-group-item">
+                                <label class="no-margin">ID:</label> {{currentJob.id}}</li>
+                            </li>
+                            <li class="list-group-item">
+                                <label class="no-margin">Created By:</label> {{currentJob.created_by}}</li>
+                            <li class="list-group-item">
+                                <label class="no-margin">Created At:</label> {{currentJob.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</li>
+                            <li class="list-group-item">
+                                <label class="no-margin">Status:</label> {{currentJob.data.status | capitalize}}</li>
+                            <li class="list-group-item">
+                                <label class="no-margin">File:</label> {{currentJob.model_file_name_full}}</li>
+                            <li class="list-group-item">
+                                <label class="no-margin">File Size:</label> {{currentJob.data.file.size | bytes}}</li>
+                            <li class="list-group-item">
+                                <label class="no-margin">Estimated Print Time:</label>
+                                <span ng-cloak ng-if="currentJob.data.status !== 'slicing'">{{currentJob.data.estimated_print_time | readableTime}}</span>
+                                <span ng-cloak ng-if="currentJob.data.status === 'slicing'">TBD</span>
+                            </li>
+                            <li class="list-group-item">
+                                <label class="no-margin">Elapsed Print Time:</label>
+                                <span ng-cloak ng-if="currentJob.data.status !== 'slicing'">{{currentJob.data.progress.print_time | readableTime}}</span>
+                                <span ng-cloak ng-if="currentJob.data.status === 'slicing'">TBD</span>
+                            </li>
+                            <li class="list-group-item">
+                                <label class="no-margin">Print Time Left:</label>
+                                <span ng-cloak ng-if="currentJob.data.status !== 'slicing'">{{currentJob.data.progress.print_time_left | readableTime}}</span>
+                                <span ng-cloak ng-if="currentJob.data.status === 'slicing'">TBD</span>
+                            </li>
+                            <li class="list-group-item">
+                                <label class="no-margin">Progress:</label>
+                                <span ng-cloak ng-if="currentJob.data.status !== 'slicing'">{{currentJob.data.progress.completion}}%</span>
+                                <span ng-cloak ng-if="currentJob.data.status === 'slicing'">0%</span>
+                            </li>
+                        </ul>
                     </div>
-
-                    <!--Job Information-->
-                    <h4><i class="fa fa-info-circle"></i> Job Information</h4>
-                    <ul class="list-group no-margin">
-                    	<li class="list-group-item">
-							<label class="no-margin">ID:</label> {{currentJob.id}}</li>
-                    	</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">Created By:</label> {{currentJob.created_by}}</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">Created At:</label> {{currentJob.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">Status:</label> {{currentJob.data.status | capitalize}}</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">File:</label> {{currentJob.model_file_name_full}}</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">File Size:</label> {{currentJob.data.file.size | bytes}}</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">Estimated Print Time:</label> {{currentJob.data.estimated_print_time | readableTime}}</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">Elapsed Print Time:</label> {{currentJob.data.progress.print_time | readableTime}}</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">Print Time Left:</label> {{currentJob.data.progress.print_time_left | readableTime}}</li>
-                        <li class="list-group-item">
-                            <label class="no-margin">Progress:</label> {{currentJob.data.progress.completion}}%</li>
-                    </ul>
-                </div>
                 </div>
             </div>
         </div>
@@ -228,53 +233,52 @@
         <div class="col-lg-6">
             <div class="panel panel-kashmir">
                 <div class="panel-heading">
-                	<i class="fa fa-terminal"></i> 
-                	Issued Commands
+                    <i class="fa fa-terminal"></i> Issued Commands
                 </div>
                 <div class="panel-body">
                     <!--No issued commands alert-->
                     <p ng-cloak ng-if="showCommands === false" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There have been no commands issued to this printer.</p>
                     <!--List of issued commands-->
                     <div class="table-responsive">
-						<table ng-cloak ng-if="showCommands === true" at-table at-paginated at-config="issuedCommandsConfig" at-list="commands" class="table table-striped table-bordered table-hover">
-						    <thead></thead>
-						    <tbody>
-						        <tr>
-						            <td class="text-center" at-attribute="name" at-title="Command">
-						            	<span class="label label-default" ng-cloak ng-if="item.name === 'pause'">
+                        <table ng-cloak ng-if="showCommands === true" at-table at-paginated at-config="issuedCommandsConfig" at-list="commands" class="table table-striped table-bordered table-hover">
+                            <thead></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center" at-attribute="name" at-title="Command">
+                                        <span class="label label-default" ng-cloak ng-if="item.name === 'pause'">
 						            		<i class="fa fa-pause"></i> {{item.name | capitalize}}
-						            	</span>		
-						            	<span class="label label-success" ng-cloak ng-if="item.name === 'clear'">
+						            	</span>
+                                        <span class="label label-success" ng-cloak ng-if="item.name === 'clear'">
 						            		<i class="fa fa-eject"></i> {{item.name | capitalize}}
-						            	</span>					            	
-						            	<span class="label label-success" ng-cloak ng-if="item.name === 'start'">
+						            	</span>
+                                        <span class="label label-success" ng-cloak ng-if="item.name === 'start'">
 						            		<i class="fa fa-play"></i> {{item.name | capitalize}}
-						            	</span>					            	
-						            	<span class="label label-danger" ng-cloak ng-if="item.name === 'cancel'">
+						            	</span>
+                                        <span class="label label-danger" ng-cloak ng-if="item.name === 'cancel'">
 						            		<i class="fa fa-ban"></i> {{item.name | capitalize}}
 						            	</span>
-						            </td>
-						            <td class="text-center" at-attribute="status" at-title="Status">
-						            	<span class="label label-info" ng-cloak ng-if="item.status === 'issued'">
+                                    </td>
+                                    <td class="text-center" at-attribute="status" at-title="Status">
+                                        <span class="label label-info" ng-cloak ng-if="item.status === 'issued'">
 						            		{{item.status | capitalize}}
-						            	</span>					            	
-						            	<span class="label label-success" ng-cloak ng-if="item.status === 'executed'">
+						            	</span>
+                                        <span class="label label-success" ng-cloak ng-if="item.status === 'executed'">
 						            		{{item.status | capitalize}}
-						            	</span>					            	
-						            	<span class="label label-danger" ng-cloak ng-if="item.status === 'errored'">
+						            	</span>
+                                        <span class="label label-danger" ng-cloak ng-if="item.status === 'errored'">
 						            		{{item.status | capitalize}}
-						            	</span>					            	
-						            </td>
-						            <td at-attribute="created_at" at-title="Issued At">{{item.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</td>
-						            <td at-implicit at-attribute="issued_by" at-title="Issued By"></td>
-						        </tr>
-						    </tbody>
-						</table>
-					</div>
-					<at-pagination ng-cloak ng-if="commands.length > 0" at-list="commands" at-config="issuedCommandsConfig"></at-pagination>
+						            	</span>
+                                    </td>
+                                    <td at-attribute="created_at" at-title="Issued At">{{item.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</td>
+                                    <td at-implicit at-attribute="issued_by" at-title="Issued By"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <at-pagination ng-cloak ng-if="commands.length > 0" at-list="commands" at-config="issuedCommandsConfig"></at-pagination>
                 </div>
-            </div>        
-	        <!--Live Video Panel
+            </div>
+            <!--Live Video Panel
 	            <div class="panel panel-kashmir">
 	                <div class="panel-heading"><i class="fa fa-video-camera"></i> Live Video</div>
 	                <div class="panel-body">
@@ -285,15 +289,14 @@
 	        -->
         </div>
     </div>
-
     <div class="row">
-    	<div class="col-lg-12">
-    		<h2 id="recent-jobs"><i class="fa fa-list-alt"></i> Recent Jobs</h2>
+        <div class="col-lg-12">
+            <h2 id="recent-jobs"><i class="fa fa-list-alt"></i> Recent Jobs</h2>
             <!--No issued commands alert-->
             <p ng-cloak ng-if="showRecentJobs === false" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are no recent jobs associated with this printer.</p>
-    		<!--Recent jobs-->
-			<div class="job" ng-cloak ng-if="showRecentJobs === true" ng-repeat="job in recentJobs">
-				<h3>
+            <!--Recent jobs-->
+            <div class="job" ng-cloak ng-if="showRecentJobs === true" ng-repeat="job in recentJobs">
+                <h3>
 					<span class="job-title">
 					<i ng-cloak ng-if="job.data.status === 'queued'" class="fa fa-clock-o"></i>
 					<i ng-cloak ng-if="job.data.status === 'completed'" class="fa check-circle-o"></i>
@@ -308,14 +311,14 @@
 					</span>
 					<button ng-click="cancelJob(job)" ng-if="job.data.status === 'queued' || job.data.status === 'processing' || job.data.status === 'slicing'" style="margin-top: -8px;" class="cancel-job btn btn-warning" ng-disabled="cancelledJobs[job.id] === true"><i style="color: white;" class="fa fa-ban"></i> Cancel</button>
 				</h3>
-				<p class="meta">
-					<span class="date"><i class="fa fa-calendar"></i> {{job.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</span>
-					<span class="file"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-file"></i> {{job.model_file_name_full}}
-					</span>
-					<span class="creator"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-user"></i> {{job.created_by}}
-					</span>
-				</p>
-			</div>
-		</div>
+                <p class="meta">
+                    <span class="date"><i class="fa fa-calendar"></i> {{job.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</span>
+                    <span class="file"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-file"></i> {{job.model_file_name_full}}
+                    </span>
+                    <span class="creator"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-user"></i> {{job.created_by}}
+                    </span>
+                </p>
+            </div>
+        </div>
     </div>
 </div>

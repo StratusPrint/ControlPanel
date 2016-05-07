@@ -55,7 +55,7 @@
                 <div class="col-lg-6" vertilize>
                     <h1>
 		          <a 
-		          	ng-cloak ng-if="printer.status === 'ready'" 
+		          	class="status-badge" ng-cloak ng-if="printer.status === 'ready'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -66,7 +66,7 @@
 		          </a>
 
 		          <a 
-		          	ng-cloak ng-if="printer.status === 'printing'" 
+		          	class="status-badge" ng-cloak ng-if="printer.status === 'printing'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -77,7 +77,7 @@
 		          </a>
 
 		          <a 
-		          	ng-cloak ng-if="printer.status === 'cancelled'" 
+		          	class="status-badge" ng-cloak ng-if="printer.status === 'cancelled'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -88,7 +88,7 @@
 		          </a>
 
 		          <a 
-		          	ng-cloak ng-if="printer.status === 'errored'" 
+		          	class="status-badge" ng-cloak ng-if="printer.status === 'errored'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -99,7 +99,7 @@
 		          </a>
 
 		          <a 
-		          	ng-cloak ng-if="printer.status === 'completed'" 
+		          	class="status-badge" ng-cloak ng-if="printer.status === 'completed'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -110,7 +110,7 @@
 		          </a>
 
 		          <a 
-		          	ng-cloak ng-if="printer.status === 'offline'" 
+		          	class="status-badge" ng-cloak ng-if="printer.status === 'offline'" 
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -121,7 +121,7 @@
 		          </a>
 
 		          <a 
-		          	ng-cloak ng-if="printer.status === 'paused'"
+		          	class="status-badge" ng-cloak ng-if="printer.status === 'paused'"
 		          	href="javascript:void" tooltip-placement="bottom" 
 		          	tooltip-close-delay="200"
 		          	uib-tooltip="This printer is currently {{printer.status | uppercase}}.">
@@ -130,6 +130,8 @@
 		          			{{printer.friendly_id}}
 		          		</span>
 		          </a>
+
+                  <span class="page-title">Printer Management</span>
 	            </h1>
                     <p>
                         <a style="text-decoration:none;" href="javascript:void;"><span class="label label-default" tooltip-close-delay="200"

@@ -108,7 +108,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       requireLogin: true,
     },
     resolve: {
-      $title: function() { return 'Enviroments'; },
+      $title: function() { return 'Environments'; },
     },
 
   })
@@ -120,7 +120,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       requireLogin: true,
     },
     resolve: {
-      $title: function() { return 'Hub Management'; },
+      $title: function() { return 'HUB Management'; },
     },
 
   })

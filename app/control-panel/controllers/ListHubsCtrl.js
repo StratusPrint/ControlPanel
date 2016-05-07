@@ -29,7 +29,7 @@ function ListHubsCtrl($scope, $state, $stateParams, $controller, $compile, $sani
   dtCtrl.cols = [
     DTColumnBuilder.newColumn(null).renderWith(status).withTitle('Status').withOption('responsivePriority',3),
     DTColumnBuilder.newColumn(null).renderWith(id).withTitle('ID').withOption('responsivePriority',5),
-    DTColumnBuilder.newColumn(null).renderWith(friendlyId).withTitle('Hub Name').withOption('responsivePriority',2),
+    DTColumnBuilder.newColumn(null).renderWith(friendlyId).withTitle('HUB Name').withOption('responsivePriority',2),
     DTColumnBuilder.newColumn(null).renderWith(location).withTitle('Location').withOption('responsivePriority',7),
     DTColumnBuilder.newColumn(null).renderWith(hostname).withTitle('Hostname').withOption('responsivePriority',6),
     DTColumnBuilder.newColumn(null).renderWith(desc).withTitle('Description').withOption('responsivePriority',4),

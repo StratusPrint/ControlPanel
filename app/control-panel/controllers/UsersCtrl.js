@@ -196,6 +196,7 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, $
       return;
     }
     $scope.showEditModal = !$scope.showEditModal;
+    $scope.hideDeleteModal();
     $scope.modalUser = user;
   };
 
@@ -215,10 +216,17 @@ function UsersCtrl($scope, $state, $stateParams, admin, $controller, $compile, $
         $scope.addAlert('danger',response.data.error.full_messages[0]);
       });
     }
-    $scope.showEditModal = false;
+    $scope.hideEditModal();
     $scope.modalUser = {};
   };
 
+  $scope.hideEditModal = function() {
+    $scope.showEditModal = false;
+  };
+
+  $scope.hideDeleteModal = function() {
+    $scope.showDeleteModal = false;
+  };
 
 
   alerts = [];

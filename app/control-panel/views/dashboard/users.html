@@ -1,4 +1,4 @@
-<div ng-controller=" UsersCtrl as ctrl">
+<div ng-controller="UsersCtrl as ctrl">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">User Management</h1>
@@ -13,7 +13,6 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <table width="100%" datatable="" dt-options="ctrl.dtOptions" dt-columns="ctrl.cols" dt-instance="ctrl.dtInstance" class="dt-responsive table table-striped table-bordered table-hover"></table>
-                    
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -37,13 +36,15 @@
                             <input autocomplete="off" name="email" ng-model="_user.email" type="email" class="form-control" placeholder="Enter the user's e-mail address" />
                             <span ng-show="registerUser.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
                         </div>
-                        <div class="form-group" >
-                            <label >Admin Priveleges</a></label>
+                        <div class="form-group">
+                            <label>Admin Privileges</a>
+                            </label>
                             <p class="alert alert-info" style="margin-top: 5px;">
-                                Setting this user as an administrator will grant them <strong>full access</strong> to the system, which includes the ability to: (1)  <strong>add and remove users</strong>, and (2) <strong>update and manage the configuration for each hub, printer, and sensor</strong>. Admin privileges are <strong>NOT</strong> required to view the status of an environment and submit new print jobs, and <strong>should be granted sparingly</strong>.
+                                Setting this user as an administrator will grant them <strong>full access</strong> to the system, which includes the ability to: (1) <strong>add and remove users</strong>, and (2) <strong>update and manage the configuration for each hub, printer, and sensor</strong>. Admin privileges are <strong>NOT</strong> required to view the status of an environment and submit new print jobs, and <strong>should be granted sparingly</strong>.
                             </p>
                             <div class="checkbox">
-                             <label><input autocomplete="off" name="admin" ng-model="_user.admin" type="checkbox" />Grant Admin Priveleges</label>
+                                <label>
+                                    <input autocomplete="off" name="admin" ng-model="_user.admin" type="checkbox" />Grant Admin Privileges</label>
                             </div>
                         </div>
                     </div>
@@ -51,58 +52,36 @@
                 <button class="btn btn-success pull-right" type="submit" ng-click="ctrl.reloadData()"><i class="fa fa-user-plus"></i> Create New User</button>
             </form>
         </div>
-
     </div>
-
-
-
     <modal title="Delete User" visible="showDeleteModal">
-        <form role="form">
-          <div class="form-group">
-            <label >Name: {{modalUser.name}}</label>
-            
-          </div>
-          <div class="form-group">
-            <label >Email: {{modalUser.email}}</label>
-           
-          </div>
-          
-        </form>
-        <label for="email">Are you sure you want to delete user?</label>
-        <button type="submit" ng-click="deleteUser()" class="btn btn-warning">Yes</button>
-    
+        <p class="alert alert-warning">
+            <i class="fa fa-exclamation-triangle"></i> Are you sure that you want to delete this user? This action is <strong>irreversible</strong>.
+        </p>
+        <button type="button" class="btn btn-danger" ng-click="deleteUser()"><i class="fa fa-check-circle"></i> Yes, Delete This User</button>
+        <button type="button" class="btn btn-warning" ng-click="hideDeleteModal()"><i class="fa fa-times"></i> Nevermind</button>
     </modal>
-
-   <modal  title="Edit User" visible="showEditModal">
-    <form name="$scope.updateUser" class="clearfix" role="form" novalidate>
-    
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" class="form-control" ng-model="modalUser.name"  placeholder="{{modalUser.name}}" ng-minlength="5" />
-        <span ng-show="$scope.updateUser.name.$error.minlength" class="help-block">Name is too short. Must be at least 5 characters.</span>
-      </div>
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" name="email" class="form-control" ng-model="modalUser.email" placeholder="{{modalUser.email}}" />
-        <span ng-show="$scope.updateUser.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
-      </div>
-        <div class="form-group">
-            <label >Admin Priviledges</label>
-                <div  class="checkbox">
+    <modal title="Edit User" visible="showEditModal">
+        <form name="$scope.updateUser" class="clearfix" role="form" novalidate>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control" ng-model="modalUser.name" placeholder="{{modalUser.name}}" ng-minlength="5" />
+                <span ng-show="$scope.updateUser.name.$error.minlength" class="help-block">Name is too short. Must be at least 5 characters.</span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" class="form-control" ng-model="modalUser.email" placeholder="{{modalUser.email}}" />
+                <span ng-show="$scope.updateUser.email.$error.email" class="help-block">That does not appear to be a valid e-mail address.</span>
+            </div>
+            <div class="form-group">
+                <label>Admin Privileges</label>
+                <div class="checkbox">
                     <label>
-                    <input autocomplete="off" name="admin" ng-model="modalUser.admin" type="checkbox" />
-                    Set as Admin
+                        <input autocomplete="off" name="admin" ng-model="modalUser.admin" type="checkbox" /> Grant Admin Privileges
                     </label>
                 </div>
-        </div>
-       
-      <button  class="btn btn-success" ng-click="editUser()">Edit User</button>
-    </form>
-  </modal>
+            </div>
+            <button class="btn btn-success" ng-click="editUser()"><i class="fa fa-save"></i> Save User</button>
+            <button class="btn btn-warning" ng-click="hideEditModal()"><i class="fa fa-times"></i> Cancel</button>
+        </form>
+    </modal>
 </div>
-
-
-
-
-
-

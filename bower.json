@@ -54,6 +54,7 @@
     "at-table": "^1.0.7",
     "angular-morris-chart": "^1.2.0",
     "angular-sanitize": "^1.5.5",
-    "angular-readable-time": "^0.1.1"
+    "angular-readable-time": "^0.1.1",
+    "angular-ui-router-title": "^0.0.4"
   }
 }

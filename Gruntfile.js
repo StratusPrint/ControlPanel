@@ -75,6 +75,7 @@ module.exports = function(grunt) {
                 'bower_components/angular-vertilize/angular-vertilize.js',
                 'bower_components/at-table/dist/angular-table.js',
                 'bower_components/angular-morris-chart/src/angular-morris-chart.js',
+                'bower_components/angular-ui-router-title/angular-ui-router-title.js',
                 'app/app.js',
                 'app/control-panel/**/*.js'
               ]

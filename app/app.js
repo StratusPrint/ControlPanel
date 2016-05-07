@@ -11,6 +11,7 @@ angular.module('ControlPanel', [
     'angular-table',
     'angular.morris-chart',
     'ngSanitize',
+    'ui.router.title',
     'readableTime',
 ]);
 
@@ -34,6 +35,9 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     data: {
       requireLogin: false,
     },
+    resolve: {
+      $title: function() { return 'Please login'; },
+    },
   })
   .state('reset-password', {
     url: '/reset-password',
@@ -42,6 +46,9 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     data: {
       requireLogin: false,
     },
+    resolve: {
+      $title: function() { return 'Reset Password'; },
+    },
   })
   .state('change-password', {
     url: '/change-password',
@@ -49,6 +56,9 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     controller: 'AuthCtrl',
     data: {
       requireLogin: false,
+    },
+    resolve: {
+      $title: function() { return 'Change Password'; },
     },
   })
   .state('dashboard', {
@@ -62,6 +72,10 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     data: {
       requireLogin: true,
     },
+    resolve: {
+      $title: function() { return 'Dashboard'; },
+    },
+
   })
   .state('dashboard.register', {
     url: '/register',
@@ -70,6 +84,10 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     data: {
       requireLogin: true,
     },
+    resolve: {
+      $title: function() { return 'Please Register a user'; },
+    },
+
   })
   .state('dashboard.profile', {
     url: '/profile',
@@ -77,6 +95,9 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     controller: 'ProfileCtrl',
     data: {
       requireLogin: true,
+    },
+    resolve: {
+      $title: function() { return 'Profile'; },
     },
   })
   .state('dashboard.listHubs', {
@@ -86,6 +107,10 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     data: {
       requireLogin: true,
     },
+    resolve: {
+      $title: function() { return 'Enviroments'; },
+    },
+
   })
   .state('dashboard.viewHub', {
     url: '/hubs/:hubId',
@@ -94,7 +119,12 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     data: {
       requireLogin: true,
     },
+    resolve: {
+      $title: function() { return 'Hub Management'; },
+    },
+
   })
+
   .state('dashboard.printer', {
     url: '/hubs/:hubId/printers/:printerId',
     templateUrl: 'control-panel/views/dashboard/printer.html',
@@ -102,12 +132,19 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     data: {
       requireLogin: true,
     },
+    resolve: {
+      $title: function() { return 'Printer Management'; },
+    },
   })
+
   .state('dashboard.404', {
     url: '/404',
     templateUrl: 'control-panel/views/dashboard/404.html',
     data: {
       requireLogin: true,
+    },
+    resolve: {
+      $title: function() { return 'Oops! Page Not Found'; },
     },
   })
   .state('dashboard.users', {
@@ -116,6 +153,9 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     controller: 'UsersCtrl',
     data: {
       requireLogin: true,
+    },
+    resolve: {
+      $title: function() { return 'User Management'; },
     },
   });
 

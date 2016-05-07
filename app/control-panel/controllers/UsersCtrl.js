@@ -205,7 +205,6 @@ function UsersCtrl($scope, $state, $stateParams, $timeout, admin, $controller, $
       var isAdmin = $scope.user.isAdmin();
       // The updatePromise will consume $scope.modalUser, assigning to temp variable to save it
       var tempUser = $scope.modalUser;
-      console.log($scope.modalUser);
 
       var updatePromise = admin.updateUser($scope.modalUser);
       updatePromise.then(function(response) {

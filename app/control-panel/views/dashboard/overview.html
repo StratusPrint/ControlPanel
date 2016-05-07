@@ -27,7 +27,7 @@
 <div ng-cloak ng-if="showWizard === false && showNoDefaultHubAlert === false">
     <div class="row page-header">
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <h1>Dashboard {{currentHub.friendly_id}}</h1>
+            <h1>Dashboard <span class="text-muted">({{currentHub.friendly_id}})</span></h1>
         </div>
         <div ng-if="hubs.length > 1" class="col-lg-6 col-md-6 col-sm-6 flex-wrap flex-valign">
             <div class="button-bar">

@@ -17,7 +17,7 @@ angular.module('ControlPanel', [
 
 var app = angular.module('ControlPanel');
 
-app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
   .state('login', {
     url: '/login?accountConfirmed',
@@ -162,12 +162,13 @@ app.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
   $urlRouterProvider.otherwise('dashboard');
 });
 
-app.config(function($authProvider) {
+app.config(function($authProvider, $httpProvider) {
   $authProvider.configure({
     apiUrl: 'https://dev.api.stratusprint.com/v1',
     passwordResetSuccessUrl: 'https://dev.stratusprint.com/#/change-password',
     confirmationSuccessUrl: 'https://dev.stratusprint.com/#/login?accountConfirmed=true',
   });
+  $httpProvider.interceptors.push('authInterceptor');
 });
 
 app.run(function($rootScope, $state, $stateParams, user, auth) {

@@ -49,7 +49,19 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-if="!printers.length">
+        <div class="col-lg-12">
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="printer-icon glyphicon glyphicon-print"></i> Printers
+                </div>
+                <div class="panel-body">
+            <p class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are no printers associated with this HUB.</p>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="printers.length">
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-blue metric">
                 <div class="panel-heading">
@@ -230,26 +242,28 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-lg-6" ng-if="tempChartData.length">
+                      <div class="col-lg-6">
                         <div class="panel panel-kashmir">
                           <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
                           </div>
                           <div class="panel-body">
-                            <div ng-repeat="data in tempChartData">
+                            <p ng-if="!tempChartData.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are is no recent temperature data to show.</p>
+                            <div ng-repeat="data in tempChartData" ng-if="tempChartData.length">
                               <div class="line-chart" line-chart line-point-size="0" line-post-units="'&#8457'" line-data="data" line-xkey='y' line-ykeys='["a"]' line-labels='["Temperature"]' line-colors='["#31c0be"]'>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="col-lg-6" ng-if="humidChartData.length">
+                      <div class="col-lg-6">
                         <div class="panel panel-kashmir">
                           <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
                           </div>
                           <div class="panel-body">
-                            <div ng-repeat="data in humidChartData">
+                            <p ng-if="!humidChartData.length"class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are is no recent humidity data to show.</p>
+                            <div ng-if="humidChartData.length" ng-repeat="data in humidChartData">
                               <div class="line-chart" line-chart line-point-size="0" line-post-units="'%'" line-data='data' line-xkey='y' line-ykeys='["a"]' line-labels='["Humidity"]' line-colors='["#31C0BE"]'>
                               </div>
                             </div>

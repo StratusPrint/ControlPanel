@@ -1,9 +1,9 @@
 // jscs:disable
 
 app.controller('ViewHubCtrl', ViewHubCtrl);
-ViewHubCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', '$q', '$controller', '$interval', 'hub', 'printer', 'sensor'];
+ViewHubCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$timeout', '$q', '$controller', '$interval', 'hub', 'printer', 'sensor'];
 
-function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $interval, hub, printer, sensor) {
+function ViewHubCtrl($rootScope, $scope, $state, $stateParams, $timeout, $q, $controller, $interval, hub, printer, sensor) {
   var hubId = Number($stateParams.hubId);
 
   $scope.sensors = {};
@@ -192,6 +192,7 @@ function ViewHubCtrl($scope, $state, $stateParams, $timeout, $q, $controller, $i
           $scope.resetForm();
           $scope.addAlert('success', 'Hub updated successfully.');
           $scope.hub = data;
+          $rootScope.$broadcast('hub:updated');
         } else {
           $scope.addAlert('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable.');
         }

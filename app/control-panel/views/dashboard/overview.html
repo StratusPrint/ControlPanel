@@ -1,25 +1,13 @@
-<div ng-cloak ng-if="showNoDefaultHubAlert === true">
+<div ng-cloak ng-if="showWizard == false && showNoDefaultHubAlert === true">
     <div class="row page-header">
         <div class="col-lg-12">
             <h1>Dashboard</h1>
-        </div>
-        <div ng-if="hubs.length > 1" class="col-lg-6 col-md-6 col-sm-6 flex-wrap flex-valign">
-            <div class="button-bar">
-                <div class="dropdown pull-right">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{currentHub.friendly_id}}
-                        <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="hub in hubs" ng-if="hub.id != currentHub.id"><a href="#" ng-click="setAllData(hub.id)">{{hub.friendly_id}}</a></li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
             <p class="alert alert-warning">
-                <i class="fa fa-exclamation-triangle"></i>
-                You do not have a default hub set. You can set one <a ui-sref="dashboard.profile">here</a>. Once set, an overview of the environment and printers will be shown on this page.
+                <i class="fa fa-exclamation-triangle"></i> You do not have a default hub set. You can set one <a ui-sref="dashboard.profile">here</a>. Once set, an overview of the environment and printers will be shown on this page.
             </p>
         </div>
     </div>
@@ -51,13 +39,13 @@
     </div>
     <div class="row" ng-if="!printers.length">
         <div class="col-lg-12">
-        <div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="printer-icon glyphicon glyphicon-print"></i> Printers
                 </div>
                 <div class="panel-body">
-            <p class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are no printers associated with this HUB.</p>
-            </div>
+                    <p class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are no printers associated with this HUB.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -174,8 +162,8 @@
                                         <label>Status:</label>
                                         <span class="label badge-printer-{{printer.status}}">{{printer.status}}</span></li>
                                     <li ng-cloak ng-if="printer.currentJob.id" class="list-group-item">
-                                      <div class="job">
-                                        <h3 style="margin-top:5px;">
+                                        <div class="job">
+                                            <h3 style="margin-top:5px;">
                                           <span class="job-title">
                                             <i ng-cloak ng-if="printer.currentJob.data.status === 'queued'" class="fa fa-clock-o"></i>
                                             <i ng-cloak ng-if="printer.currentJob.data.status === 'completed'" class="fa check-circle-o"></i>
@@ -196,83 +184,81 @@
                                             <i style="color: white;" class="fa fa-ban"></i> Cancel
                                           </button>
                                         </h3>
-                                        <p class="meta">
-                                          <span class="date"><i class="fa fa-calendar"></i> 
+                                            <p class="meta">
+                                                <span class="date"><i class="fa fa-calendar"></i> 
                                             {{printer.currentJob.created_at | date :'EEEE, MMMM dd \'at\' hh:mm a'}}</span>
-                                          <span class="file"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-file"></i> 
-                                            {{printer.currentJob.model_file_name_full}}
-                                          </span>
-                                          <span class="creator"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-user"></i> 
-                                            {{printer.currentJob.created_by}}
-                                          </span>
-                                        </p>
-                                      </div>
+                                                <span class="file"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-file"></i> {{printer.currentJob.model_file_name_full}}
+                                                </span>
+                                                <span class="creator"> <span class="hide-on-mobile">&middot;</span> <i class="fa fa-user"></i> {{printer.currentJob.created_by}}
+                                                </span>
+                                            </p>
+                                        </div>
                                     </li>
-                                  </ul>
-                                  <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
-                                </div>
-                                <div class="col-lg-4 col-md-12 col-sm-12">
-                                  <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
-                                </div>
-                              </div>
+                                </ul>
+                                <button class="btn btn-primary btn-block margin-top-nudge margin-bottom-nudge" ng-click="viewPrinter(printer.id)"><i class="fa fa-gears"></i> Manage Printer</button>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-4">
-                        <div class="panel panel-kashmir">
-                          <div class="panel-heading">
-                            <i class="printer-icon glyphicon glyphicon-print"></i> Printers
-                          </div>
-                          <div class="panel-body">
-                            <div class="list-group no-margin">
-                              <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
-                                <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
-                                <span ng-if="printer.status === 'ready'" class="pull-right badge badge-printer-ready small">{{printer.status}}</span>
-                                <span ng-if="printer.status === 'paused'" class="pull-right badge badge-printer-paused small">{{printer.status}}</span>
-                                <span ng-if="printer.status === 'printing'" class="pull-right badge badge-printer-printing small">{{printer.status}}</span>
-                                <span ng-if="printer.status === 'errored'" class="pull-right badge badge-printer-errored small">{{printer.status}}</span>
-                                <span ng-if="printer.status === 'offline'" class="pull-right badge badge-printer-offline small">{{printer.status}}</span>
-                                <span ng-if="printer.status === 'cancelled'" class="pull-right badge badge-printer-cancelled small">{{printer.status}}</span>
-                                <span ng-if="printer.status === 'completed'" class="pull-right badge badge-printer-completed">{{printer.status}}</span>
-                              </a>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ng-include src="'/control-panel/views/dashboard/upload.html'"></ng-include>
                             </div>
-                          </div>
                         </div>
-                      </div>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="panel panel-kashmir">
-                          <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
-                          </div>
-                          <div class="panel-body">
-                            <p ng-if="!tempChartData.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There is no recent temperature data to show.</p>
-                            <div ng-repeat="data in tempChartData" ng-if="tempChartData.length">
-                              <div class="line-chart" line-chart line-point-size="0" line-post-units="'&#8457'" line-data="data" line-xkey='y' line-ykeys='["a"]' line-labels='["Temperature"]' line-colors='["#31c0be"]'>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="panel panel-kashmir">
-                          <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
-                          </div>
-                          <div class="panel-body">
-                            <p ng-if="!humidChartData.length"class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There is no recent humidity data to show.</p>
-                            <div ng-if="humidChartData.length" ng-repeat="data in humidChartData">
-                              <div class="line-chart" line-chart line-point-size="0" line-post-units="'%'" line-data='data' line-xkey='y' line-ykeys='["a"]' line-labels='["Humidity"]' line-colors='["#31C0BE"]'>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-kashmir">
+                <div class="panel-heading">
+                    <i class="printer-icon glyphicon glyphicon-print"></i> Printers
+                </div>
+                <div class="panel-body">
+                    <p><strong>Select a printer below to view more information.</strong></p>
+                    <div class="list-group no-margin">
+                        <a href="" ng-repeat="printer in printers" ng-click="setPrinter(printer.id)" class="list-group-item">
+                            <i class="printer-icon glyphicon glyphicon-print"></i> {{printer.friendly_id}}
+                            <span ng-if="printer.status === 'ready'" class="pull-right badge badge-printer-ready small">{{printer.status}}</span>
+                            <span ng-if="printer.status === 'paused'" class="pull-right badge badge-printer-paused small">{{printer.status}}</span>
+                            <span ng-if="printer.status === 'printing'" class="pull-right badge badge-printer-printing small">{{printer.status}}</span>
+                            <span ng-if="printer.status === 'errored'" class="pull-right badge badge-printer-errored small">{{printer.status}}</span>
+                            <span ng-if="printer.status === 'offline'" class="pull-right badge badge-printer-offline small">{{printer.status}}</span>
+                            <span ng-if="printer.status === 'cancelled'" class="pull-right badge badge-printer-cancelled small">{{printer.status}}</span>
+                            <span ng-if="printer.status === 'completed'" class="pull-right badge badge-printer-completed">{{printer.status}}</span>
+                        </a>
                     </div>
-                  </div>
-
-                  <div ng-cloak ng-if="showWizard === true && showNoDefaultHubAlert === false">
-                    <ng-include src="'/control-panel/views/dashboard/gettingStarted.html'"></ng-include>
-                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-kashmir">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
+                </div>
+                <div class="panel-body">
+                    <p ng-if="!tempChartData.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There is no recent temperature data to show.</p>
+                    <div ng-repeat="data in tempChartData" ng-if="tempChartData.length">
+                        <div class="line-chart" line-chart line-point-size="0" line-post-units="'&#8457'" line-data="data" line-xkey='y' line-ykeys='["a"]' line-labels='["Temperature"]' line-colors='["#31c0be"]'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-kashmir">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
+                </div>
+                <div class="panel-body">
+                    <p ng-if="!humidChartData.length" class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There is no recent humidity data to show.</p>
+                    <div ng-if="humidChartData.length" ng-repeat="data in humidChartData">
+                        <div class="line-chart" line-chart line-point-size="0" line-post-units="'%'" line-data='data' line-xkey='y' line-ykeys='["a"]' line-labels='["Humidity"]' line-colors='["#31C0BE"]'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-cloak ng-if="showWizard === true">
+    <ng-include src="'/control-panel/views/dashboard/gettingStarted.html'"></ng-include>
+</div>

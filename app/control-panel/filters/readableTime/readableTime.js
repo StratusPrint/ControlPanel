@@ -3,7 +3,8 @@
 
 app.filter('readableTime', function() {
 	return function(seconds) {
-	  if(!seconds.isInteger()) { return 'TBD'; }
+	  console.log(seconds);
+	  if(seconds === null) { return 'TBD'; }
 	  var day, format, hour, minute, month, week, year;
 	  seconds = parseInt(seconds, 10);
 	  minute = 60;
@@ -37,7 +38,8 @@ app.filter('readableTime', function() {
 
 app.filter('readableTimeAbv', function() {
 	return function(seconds) {
-	  if(!seconds.isInteger()) { return 'TBD'; }
+	  console.log(seconds);
+	  if(seconds === null) { return 'TBD'; }
 	  var day, format, hour, minute, month, week, year;
 	  seconds = parseInt(seconds, 10);
 	  minute = 60;

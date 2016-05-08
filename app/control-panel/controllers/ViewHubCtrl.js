@@ -194,7 +194,7 @@ function ViewHubCtrl($rootScope, $scope, $state, $stateParams, $timeout, $q, $co
           $scope.hub = data;
           $rootScope.$broadcast('hub:updated');
         } else {
-          $scope.addAlert('danger', 'Sorry but this hub could not be modified.  Some values are unprocessable.');
+          $scope.addAlert('danger', 'Unable to modify HUB. Please double check that the specified name is not already taken and then try again.');
         }
       });
       return;

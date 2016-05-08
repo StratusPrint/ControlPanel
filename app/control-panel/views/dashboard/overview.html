@@ -248,7 +248,7 @@
                             <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
                           </div>
                           <div class="panel-body">
-                            <p ng-if="!tempChartData.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There are is no recent temperature data to show.</p>
+                            <p ng-if="!tempChartData.length" class="alert alert-warning no-margin"><i class="fa fa-exclamation-triangle"></i> There is no recent temperature data to show.</p>
                             <div ng-repeat="data in tempChartData" ng-if="tempChartData.length">
                               <div class="line-chart" line-chart line-point-size="0" line-post-units="'&#8457'" line-data="data" line-xkey='y' line-ykeys='["a"]' line-labels='["Temperature"]' line-colors='["#31c0be"]'>
                               </div>
@@ -262,7 +262,7 @@
                             <i class="fa fa-bar-chart-o fa-fw"></i> Humidity
                           </div>
                           <div class="panel-body">
-                            <p ng-if="!humidChartData.length"class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There are is no recent humidity data to show.</p>
+                            <p ng-if="!humidChartData.length"class="no-margin alert alert-warning"><i class="fa fa-exclamation-triangle"></i> There is no recent humidity data to show.</p>
                             <div ng-if="humidChartData.length" ng-repeat="data in humidChartData">
                               <div class="line-chart" line-chart line-point-size="0" line-post-units="'%'" line-data='data' line-xkey='y' line-ykeys='["a"]' line-labels='["Humidity"]' line-colors='["#31C0BE"]'>
                               </div>

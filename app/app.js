@@ -12,7 +12,6 @@ angular.module('ControlPanel', [
     'angular.morris-chart',
     'ngSanitize',
     'ui.router.title',
-    'readableTime',
 ]);
 
 var app = angular.module('ControlPanel');

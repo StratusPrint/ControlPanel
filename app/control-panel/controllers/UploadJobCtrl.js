@@ -18,12 +18,16 @@ function UploadJobCtrl($scope, $state, $stateParams, $timeout, Upload) {
       Upload.base64DataUrl(file).then(function(url) {
 
         var name = file.name.substring(0, file.name.lastIndexOf('.'));
-        var extension = file.name.split('.').pop();
+        var extension = file.name.split('.').pop().toLowerCase();
 
         if (extension === 'stl') {
           url = url.substr(0, 5) + 'application/stl' + url.substr(5);
         } else if (extension === 'gcode') {
           url = url.substr(0, 5) + 'application/gcode' + url.substr(5);
+        } else if (extension === 'gco') {
+          url = url.substr(0, 5) + 'application/gco' + url.substr(5);
+        } else if (extension === 'g') {
+          url = url.substr(0, 5) + 'application/g' + url.substr(5);
         }
 
         file.upload = Upload.http({

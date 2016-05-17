@@ -72,6 +72,9 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
     hubsPromise.success(function(_hubs) {
       $scope.hubs = _hubs;
       $scope.showWizard = false;
+      if(_hubs.length === 0) {
+        $scope.showWizard = true;
+      }
     })
     .error(function(response) {
       $scope.showWizard = true;

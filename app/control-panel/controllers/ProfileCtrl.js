@@ -7,7 +7,7 @@ function ProfileCtrl($scope, $controller, auth, hub) {
   $controller('AlertCtrl', { $scope: $scope });
 
   var hubsPromise = hub.getAllHubs();
-  hubsPromise.then(function(response) {
+  hubsPromise.success(function(response) {
     $scope.hubs = response;
   });
 
@@ -22,7 +22,7 @@ function ProfileCtrl($scope, $controller, auth, hub) {
    */
   $scope.setCurrentHub = function(hubId) {
     var hubPromise = hub.getHub(hubId);
-    hubPromise.then(function(response) {
+    hubPromise.success(function(response) {
       $scope.currentHub = response;
     });
   };

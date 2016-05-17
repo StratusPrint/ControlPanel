@@ -105,7 +105,7 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
    */
   $scope.setPrinters = function(_hubId) {
     var printersPromise = hub.getPrinters(_hubId);
-    printersPromise .then(function(_printers) {
+    printersPromise .success(function(_printers) {
       var currentJobsPromise = [];
       $scope.printers = _printers;
       // $scope.printer = $scope.printers[0];

@@ -172,13 +172,6 @@ function HubService($http, $state, user) {
     return $http({
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + hubId + '/printers',
-    }).then(function successCallback(response) {
-      return response.data;
-
-    }, function errorCallback(response) {
-      console.log('Failed to retrieve the sensor with id of: ' + hubId);
-      console.log(JSON.stringify(response));
-      return response.data;
     });
   };
 

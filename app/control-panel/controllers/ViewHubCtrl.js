@@ -286,7 +286,7 @@ function ViewHubCtrl($rootScope, $scope, $state, $stateParams, $timeout, $q, $co
 
   $scope.getPrinters = function() {
     hub.getPrinters(hubId)
-      .then(function(_printers) {
+      .success(function(_printers) {
         $scope.printers = _printers;
         $scope.printersTotalItems = _printers.length;
       });

@@ -7,7 +7,7 @@ NavCtrl.$inject = ['$scope', '$state', '$stateParams', '$controller', 'hub'];
 function NavCtrl($scope, $state, $stateParams, $controller, hub) {
   $scope.getHubs = function() {
   	hub.getAllHubs()
-  		.then(function(data) {
+  		.success(function(data) {
   			$scope.hubs = data;
   		});
   };

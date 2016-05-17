@@ -53,13 +53,11 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
    */
   $scope.setCurrentHub = function(_hubId) {
     var defaultHubPromise = hub.getHub(_hubId);
-    defaultHubPromise.then(function(_hub) {
+    defaultHubPromise.success(function(_hub) {
       $scope.currentHub = _hub;
-      if (_hub.status === 404) {
-        $scope.showNoDefaultHubAlert = true;
-      } else {
-        $scope.showNoDefaultHubAlert = false;
-      }
+      $scope.showNoDefaultHubAlert = false;
+    }).error(function(response) {
+      $scope.showNoDefaultHubAlert = true;
     });
   };
 
@@ -71,13 +69,12 @@ function DashboardCtrl($scope, $state, $q, hub,  printer, sensor) {
    */
   $scope.setAllHubs = function() {
     var hubsPromise = hub.getAllHubs();
-    hubsPromise.then(function(_hubs) {
+    hubsPromise.success(function(_hubs) {
       $scope.hubs = _hubs;
-      if (!_hubs.length) {
-        $scope.showWizard = true;
-      } else {
-        $scope.showWizard = false;
-      }
+      $scope.showWizard = false;
+    })
+    .error(function(response) {
+      $scope.showWizard = true;
     });
   };
 

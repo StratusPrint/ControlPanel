@@ -13,12 +13,6 @@ function HubService($http, $state, user) {
     return $http({
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/hubs',
-    }).then(function successCallback(response) {
-      return response.data;
-    }, function errorCallback(response) {
-
-
-      // Error response right here
     });
   };
 
@@ -100,13 +94,6 @@ function HubService($http, $state, user) {
     return $http({
       method: 'GET',
       url: 'https://dev.api.stratusprint.com/v1/hubs/' + id,
-    }).then(function successCallback(response) {
-      return response.data;
-
-    }, function errorCallback(response) {
-      console.log('Failed to retreive the hub with id of: ' + id);
-      console.log(JSON.stringify(response));
-      return response.data;
     });
   };
 

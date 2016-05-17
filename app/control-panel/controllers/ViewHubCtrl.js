@@ -294,7 +294,7 @@ function ViewHubCtrl($rootScope, $scope, $state, $stateParams, $timeout, $q, $co
 
   $scope.getHub = function() {
     hub.getHub(hubId)
-    .then(function(_hub) {
+    .success(function(_hub) {
       $scope.hub = _hub;
     });
   };
